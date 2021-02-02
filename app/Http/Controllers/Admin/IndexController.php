@@ -29,7 +29,8 @@ class IndexController extends BaseController
 
     public function settings()
     {
-        $settings = DB::table('settings')->get();
+        $settings = DB::table('settings')->first();
+
         return view('admin.settings', [
             'settings' => $settings,
         ]);
@@ -37,16 +38,28 @@ class IndexController extends BaseController
 
     public function settingssave(Request $request)
     {
-        $settings = DB::table('settings')->get();
+        if($request->input('type') == "general") {
+            $file = $request->file('companylogo');
 
-        foreach($settings as $setting) {
-            $x = strtolower($setting->key);
-            DB::table('settings')->where('key', $setting->key)->update([
-                'value' => $request->input($x),
+            if (isset($file)) {
+                $new_name = "logo" . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images/companylogo'), $new_name);
+            }
+
+            DB::table('settings')->update([
+                'CompanyName' => $request->input('companyname'),
+                'CompanyLogoStatus' => $request->input('logostatus'),
+                'CompanyLogo' => '/images/companylogo/' . $new_name,
             ]);
+        } else if($request->input('type') == "nav") {
+
+        } else if($request->input('type') == "text") {
+
+        } else {
+            return redirect()->route('admin.settings')->with('error', "No type set!");
         }
 
-        return redirect()->route('admin.settings')->with('success',"You're seller request is submit!");
+        return redirect()->route('admin.settings')->with('success', "You successful updated the settings!");
     }
 
     public function products()

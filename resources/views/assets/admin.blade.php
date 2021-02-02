@@ -23,7 +23,7 @@
             </button>
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand" href="{{ route('admin.index') }}">
-                    <h4>{{ $companyname }}</h4>
+                    @if(isset($companylogo)) <img src="{{ $companylogo }}" height="50" alt="logo" /> @else <h4>{{ $companyname }}</h4> @endif
                 </a>
                 <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;" class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">

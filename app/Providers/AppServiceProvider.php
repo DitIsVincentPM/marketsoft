@@ -24,7 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $companyname = DB::table('settings')->where('key', 'CompanyName')->first();
-        view()->share('companyname', $companyname->value);
+        $companyname = DB::table('settings')->first();
+        view()->share('companyname', $companyname->CompanyName);
+        view()->share('companylogo', $companyname->CompanyLogo);
     }
 }
