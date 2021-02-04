@@ -84,7 +84,7 @@ Settings
                                     <div class="input-group-btn">
                                         <span class="fileUpload btn btn-primary">
                                             <span type="button" class="upl" id="upload">Upload</span>
-                                            <input id="image" type="file" name="companyfavicon" class="upload up" accept='image/*' id="up" onchange="readURL(this);" />
+                                            <input id="image" type="file" name="faviconlogo" class="upload up" accept='image/*' id="up" onchange="readURL(this);" />
                                         </span>
                                     </div>
                                 </div>

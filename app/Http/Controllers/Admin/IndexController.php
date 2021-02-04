@@ -51,8 +51,8 @@ class IndexController extends BaseController
             }
 
             if (isset($favicon)) {
-                $namefavicon = "favicon" . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('images/companyfavicon'), $namefavicon);
+                $namefavicon = "favicon" . '.' . $favicon->getClientOriginalExtension();
+                $favicon->move(public_path('images/companyfavicon'), $namefavicon);
                 DB::table('settings')->update([
                     'CompanyFavicon' => '/images/companyfavicon/' . $namefavicon,
                 ]);
