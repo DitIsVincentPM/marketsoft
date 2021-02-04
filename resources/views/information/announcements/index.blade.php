@@ -1,5 +1,5 @@
-{{-- Market Software --}}
-{{-- Copyright (c) 2021 Market Software <support@marketsoftware.com> --}}
+{{-- MarketSoft --}}
+{{-- Copyright (c) 2021 MarketSoft <support@MarketSoft.io> --}}
 @extends('assets.main')
 
 @section('title')
@@ -24,27 +24,30 @@ Announcements
         <div class="col-12">
             @if(count($announcements) == 0)
                 <div class="alert alert-primary text-center" role="alert">
-                    There are currently zero announcements to display. 
+                    There are currently zero announcements to display
                     @if(Auth::user()->is_admin)
-                        <a href="{{-- route('admin.announcements') --}}">Get Started</a>
+                    <a class="ml-1" href="{{ route('admin.announcements') }}">(Get Started)</a>
                     @endif
                 </div>
             @else
                 @foreach($announcements as $announcement)
-                <div class="card shadow">
+                <div class="card shadow mb-3">
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-1 text-center" style="width: 5%;">
+                                <p class="market-text-break announcement-title mb-0">{{ $announcement->id }}</p>
+                            </div>
                             <div class="col-4">
                                 <h5 class="market-text-break announcement-title">{{ $announcement->name }}</h5>
                             </div>
-                            <div class="col-5">
-                                <p class="market-text-break announcement-description">{{ $announcement->description }}</p>
+                            <div class="col-4 market-text-break">
+                                <p class="announcement-description">{!! $announcement->description !!}</p>
                             </div>
                             <div class="col-2">
-                                <p class="market-text-break announcement-date">2 Years Ago</p>
+                                <p class="market-text-break announcement-date">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $announcement->created_at)->format('m/d/Y') }}</p>
                             </div>
                             <div class="col-1 text-center">
-                                <a href="" title="Read More"><i data-feather="eye"></i></a>
+                                <a href="{{ route('announcements.view', $announcement->id) }}" title="Read More"><i data-feather="eye"></i></a>
                             </div>
                         </div>
                     </div>

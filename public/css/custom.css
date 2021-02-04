@@ -223,3 +223,95 @@ body {
     margin-bottom: 0px;
     text-align: center !important;
 }
+
+@font-face {
+    font-family: bebasneue;
+    src: url(/fonts/BebasNeue-Regular.ttf);
+}
+
+.background-gradient-primary {
+    background: linear-gradient(337deg, rgba(21, 0, 255, 1) 0%, rgba(0, 189, 255, 1) 100%);
+}
+
+body {
+    font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.color-white {
+    color: white;
+}
+
+.mt-20 {
+    margin-top: 5% !important;
+}
+
+.header-home-height {
+    height: 600px !important;
+}
+
+.header-height {
+    height: 450px !important;
+}
+
+.center-content {
+    text-align: center;
+    height: 0px !important;
+    line-height: 0px !important;
+    text-align: center;
+}
+
+.rotate-text-header {
+    transform: rotate(-2deg);
+}
+
+.breadcrumb-item a {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.breadcrumb-item.active {
+    color: rgb(202, 202, 202) !important;
+    text-decoration: none !important;
+}
+
+.cube-header-line {
+    margin-top: -4%;
+    width: 110% !important;
+    height: 15% !important;
+    background-color: white;
+    position: absolute;
+}
+
+@media (max-width: 1366px) {
+    .col-max-mobile {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+    }
+    .col-remove-mobile {
+        display: none;
+    }
+    .center-content-home {
+        text-align: center;
+        height: 0px !important;
+        line-height: 0px !important;
+        text-align: center;
+    }
+    .mt-20 {
+        margin-top: 2% !important;
+    }
+
+    .header-home-height {
+        height: 400px !important;
+    }
+
+    .header-height {
+        height: 300px !important;
+    }
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    float: left;
+    padding-right: .5rem;
+    color: #b0b0b0 !important;    
+    content: var(--bs-breadcrumb-divider, "/");
+}

@@ -7,34 +7,25 @@ Announcements
 @endsection
 
 @section('header-title')
-Announcements & Updates
+{{ $announcement->name }}
 @endsection
 
 @section('header-breadcrumb')
 <ol class="justify-content-center market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item">Announcements</li>
-    <li class="breadcrumb-item">{{ $announcement->id }}</li>
+    <li class="breadcrumb-item">#{{ $announcement->id }}</li>
 </ol>
 @endsection
 
 @section('content')
-<div class="primary-section">
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h5 class="pull-left mt-1">{{ $announcement->name }}</h4>
-                    <h5 class="pull-right mt-1">Views: 12</h4>
-                </div>
-                <div class="card-body text-center">
-                    {{ $announcement->description }}
-                </div>
-                <div class="card-footer">
-                    Created At: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $announcement->created_at)->format('Y-m-d') }}
-                </div>
-            </div>
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="text-center mb-5" style="font-size: 24px;">
+            {!! $announcement->description !!}
         </div>
+        <div class="pull-left">Created On: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $announcement->created_at)->format('m/d/Y') }}</div>
+        <div class="pull-right">Total Views: {{ $announcement->views }}</div>
     </div>
 </div>
 @endsection

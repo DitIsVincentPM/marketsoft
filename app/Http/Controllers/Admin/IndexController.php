@@ -40,16 +40,27 @@ class IndexController extends BaseController
     {
         if($request->input('type') == "general") {
             $file = $request->file('companylogo');
+            $favicon = $request->file('faviconlogo');
 
             if (isset($file)) {
                 $new_name = "logo" . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('images/companylogo'), $new_name);
+                DB::table('settings')->update([
+                    'CompanyLogo' => '/images/companylogo/' . $new_name,
+                ]);
+            }
+
+            if (isset($favicon)) {
+                $namefavicon = "favicon" . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images/companyfavicon'), $namefavicon);
+                DB::table('settings')->update([
+                    'CompanyFavicon' => '/images/companyfavicon/' . $namefavicon,
+                ]);
             }
 
             DB::table('settings')->update([
                 'CompanyName' => $request->input('companyname'),
-                'CompanyLogoStatus' => $request->input('logostatus'),
-                'CompanyLogo' => '/images/companylogo/' . $new_name,
+                'NavbarIcon' => $request->input('navbaricon'),
             ]);
         } else if($request->input('type') == "nav") {
 

@@ -13,9 +13,9 @@ User Settings
 
 @section('header-breadcrumb')
 <ol class="justify-content-center market-breadcrumb breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a>Account</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Settings</li>
+    <li class="custom-breadcrumb breadcrumb-item"><a href="#">Home</a></li>
+    <li class="custom-breadcrumb breadcrumb-item"><a>Account</a></li>
+    <li class="custom-breadcrumb breadcrumb-item active" aria-current="page">Settings</li>
 </ol>
 @endsection
 
@@ -46,7 +46,6 @@ User Settings
             </div>
         </div>
         <div class="col-4">
-            <div class="vertical"></div>
             <div class="box">
                 <div class="box-body">
                     <img class="account-settings-users-profile" src="{{ Auth::user()->profile_picture }}">

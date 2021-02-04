@@ -21,8 +21,21 @@ class InfoController
     {
         $announcement = DB::table('announcements')->where('id', $id)->first();
 
+        DB::table('announcements')->where('id', $id)->update([
+            'views' => $announcement->views + 1,
+        ]);
+
         return view('information.announcements.view', [
             'announcement' => $announcement,
+        ]);
+    }
+
+    public function Knowledgebase()
+    {
+        $knowledgebase = DB::table('knowledgebase')->get();
+
+        return view('information.knowledgebase.index', [
+            'knowledgebases' => $knowledgebase,
         ]);
     }
 }

@@ -20,11 +20,18 @@ Settings
 @section('content')
 <div class="row mt-3">
     <div class="list-group col-3">
-        <a onClick="change(0)" id="general-button" class="list-group-item list-group-item-action active" aria-current="true">
-            General Settings
+        <a onClick="change(0)" style="cursor: pointer;" id="general-button" class="list-group-item list-group-item-action active" aria-current="true">
+            <i style="width: 16px;" data-feather="settings" class="mr-1"></i>
+            <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">General Settings</span>
         </a>
-        <a onClick="change(1)" id="nav-button" class="list-group-item list-group-item-action">Navigation Settings</a>
-        <a onClick="change(2)" id="text-button" class="list-group-item list-group-item-action">Text Settings</a>
+        <a onClick="change(1)" style="cursor: pointer;" id="nav-button" class="list-group-item list-group-item-action">
+            <i style="width: 16px;" data-feather="mail" class="mr-1"></i>
+            <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Mail Settings</span>
+        </a>
+        <a onClick="change(2)" style="cursor: pointer;" id="text-button" class="list-group-item list-group-item-action">
+            <i style="width: 16px;" data-feather="bookmark" class="mr-1"></i>
+            <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Other Settings</span>
+        </a>
     </div>
     {{-- General Settings --}}
     <div style="display: block;" class="col-9" id="general">
@@ -52,13 +59,33 @@ Settings
                                             <span type="button" class="upl" id="upload">Upload</span>
                                             <input id="image" type="file" name="companylogo" class="upload up" accept='image/*' id="up" onchange="readURL(this);" />
                                         </span>
-                                        <span id="off" onClick="statuschange(1)" style="display: inline-block;" class="fileUpload btn btn-danger">
-                                            <span type="button" class="upl">Turn Off</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-text">This will be your logo that will be used in the navbar.</div>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-12"><br>
+                            <label class="form-label">Navbar Icon</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select name="navbaricon" class="form-control">
+                                        <option @if($settings->NavbarIcon == 0) selected @endif value="0">Company Name</option>
+                                        <option @if($settings->NavbarIcon == 1) selected @endif value="1">Company Logo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-text">For turning on company logo or text.</div>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-12"><br>
+                            <label class="form-label">Company Favicon</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" value="{{ $settings->CompanyFavicon }}" class="form-control" readonly>
+                                    <div class="input-group-btn">
+                                        <span class="fileUpload btn btn-primary">
+                                            <span type="button" class="upl" id="upload">Upload</span>
+                                            <input id="image" type="file" name="companyfavicon" class="upload up" accept='image/*' id="up" onchange="readURL(this);" />
                                         </span>
-                                        <span id="on" onClick="statuschange(0)" style="display: none;" class="fileUpload btn btn-success">
-                                            <span type="button" class="upl">Turn On</span>
-                                        </span>
-                                        <input hidden id="statussss" name="logostatus" value="1"></input>
                                     </div>
                                 </div>
                             </div>
@@ -124,18 +151,6 @@ Settings
             document.getElementById('general-button').classList.remove('active');
             document.getElementById('nav-button').classList.remove('active');
             document.getElementById('text-button').classList.add('active');
-        }
-    }
-
-    function statuschange(number) {
-        if(number == 1) {
-            document.getElementById('on').style.display = "inline-block";
-            document.getElementById('off').style.display = "none";
-            document.getElementById('statussss').value = 1;
-        } else if(number == 0) {
-            document.getElementById('on').style.display = "none";
-            document.getElementById('off').style.display = "inline-block";
-            document.getElementById('statussss').value = 0;
         }
     }
 </script>

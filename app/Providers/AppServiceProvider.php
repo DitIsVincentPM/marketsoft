@@ -27,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
         $companyname = DB::table('settings')->first();
         view()->share('companyname', $companyname->CompanyName);
         view()->share('companylogo', $companyname->CompanyLogo);
+        view()->share('navbaricon', $companyname->NavbarIcon);
     }
 }
