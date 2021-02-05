@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use App\Models\InputCheck as InputCheck;
 use DB;
 use Illuminate\Http\Request;
 
@@ -39,6 +40,11 @@ class IndexController extends BaseController
     public function settingssave(Request $request)
     {
         if($request->input('type') == "general") {
+            $error = InputCheck::check([$request->input('companyname'), $request->input('navbaricon')]);
+            if($error != false) {
+                return redirect()->route('admin.settings')->with('error', $error);
+            }
+
             $file = $request->file('companylogo');
             $favicon = $request->file('faviconlogo');
 

@@ -51,12 +51,12 @@ Knowledgebase
                                 <h5 class="market-text-break mb-0">{{ $knowledgebase->name }}</h4>
                             </div>
                             <div class="col-1 pull-right">
-                                <a href="" title="Read More"><i data-feather="eye"></i></a>
+                                <a href="{{ route('knowledgebase.view', $knowledgebase->id) }}" title="Read More"><i data-feather="eye"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="text-center mb-0">{{ $description_sized }}</p>
+                        <p class="text-center mb-0">{!! $description_sized !!}</p>
                     </div>
                     <div class="card-footer">
                         <h6 class="pull-left mb-0">Created On: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $knowledgebase->created_at)->format('m/d/Y') }}</h4>

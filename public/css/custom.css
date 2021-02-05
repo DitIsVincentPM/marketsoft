@@ -1,5 +1,7 @@
 body {
     background-color: #fff !important;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .vertical {
@@ -72,6 +74,16 @@ body {
     display: block;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     margin-bottom: 5px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+}
+
+.profile-picture-users {
+    width: 100px;
+    height: 100px;
 }
 
 .team-users-name {
@@ -299,11 +311,9 @@ body {
     .mt-20 {
         margin-top: 2% !important;
     }
-
     .header-home-height {
         height: 400px !important;
     }
-
     .header-height {
         height: 300px !important;
     }
@@ -312,6 +322,6 @@ body {
 .breadcrumb-item+.breadcrumb-item::before {
     float: left;
     padding-right: .5rem;
-    color: #b0b0b0 !important;    
+    color: #b0b0b0 !important;
     content: var(--bs-breadcrumb-divider, "/");
 }

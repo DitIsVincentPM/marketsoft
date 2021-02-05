@@ -38,4 +38,17 @@ class InfoController
             'knowledgebases' => $knowledgebase,
         ]);
     }
+
+    public function KnowledgeView(Request $request, $id)
+    {
+        $knowledgebase = DB::table('knowledgebase')->where('id', $id)->first();
+
+        DB::table('knowledgebase')->where('id', $id)->update([
+            'views' => $knowledgebase->views + 1,
+        ]);
+
+        return view('information.knowledgebase.view', [
+            'knowledgebase' => $knowledgebase,
+        ]);
+    }
 }

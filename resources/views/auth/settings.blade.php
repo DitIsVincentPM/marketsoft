@@ -48,7 +48,7 @@ User Settings
         <div class="col-4">
             <div class="box">
                 <div class="box-body">
-                    <img class="account-settings-users-profile" src="{{ Auth::user()->profile_picture }}">
+                    <img class="account-settings-users-profile profile-picture" src="{{ Auth::user()->profile_picture }}">
                 </div>
             </div>
             @csrf

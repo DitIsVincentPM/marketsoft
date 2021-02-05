@@ -25,7 +25,7 @@ Browse Members
         <div class="col-3">
             <div class="card mb-3">
                 <div class="card-body">
-                    <img class="team-users-profile" src="{{ $user->profile_picture }}">
+                    <img class="team-users-profile profile-picture-users" src="{{ $user->profile_picture }}">
                     <h5 class="team-users-name text-center">{{ $user->name }}</h5>
                     <h6 class="team-users-role text-center"><i style="width: 16px;" data-feather="user"></i>@if($user->is_admin == 1) Admin @else Member @endif</h6>
                 </div>

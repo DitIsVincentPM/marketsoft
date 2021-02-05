@@ -45,6 +45,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ route('admin.announcements') }}">Announcements</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.knowledgebase') }}">Knowledgebase</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -82,32 +83,33 @@
     @if (trim($__env->yieldContent('header-title')))
     <div class="header-section">
         <h2 class="text-center">@yield('header-title')</h2>
-        <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb mb-0">
             @yield('header-breadcrumb')
         </nav>
     </div>
     @endif
     <div class="container">
         @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show mb-0 mt-4" role="alert">
             <strong>Success:</strong> {{ $message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
+
         @if ($message = Session::get('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show mb-0 mt-4" role="alert">
             <strong>Error:</strong> {{ $message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
         @if ($message = Session::get('warning'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-warning alert-dismissible fade show mb-0 mt-4" role="alert">
             <strong>Warning:</strong> {{ $message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
         @if ($message = Session::get('info'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show mb-0 mt-4" role="alert">
             <strong>Info:</strong> {{ $message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -119,8 +121,8 @@
     feather.replace()
 
     $(document).ready(function() {
-  $('.summernote').summernote();
-});
+        $('.summernote').summernote();
+    });
 </script>
 <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
 

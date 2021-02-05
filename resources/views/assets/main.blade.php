@@ -20,16 +20,17 @@
 </head>
 
 <body class="antialiased">
-    <nav class="market-navbar navbar navbar-expand-lg" style="position:absolute; padding-bottom: 0px; padding-top: 0px; background-color: transparent !important;">
+    <nav style="position:absolute; top:0; background-color:transparent !important;" class="btn-block navbar navbar-expand-lg">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
-                <i style="color: black;" data-feather="align-justify"></i>
+            <a class="market-navbar-large-header market-navbar-header navbar-brand pull-left" href="{{ route('index.home') }}" style="margin-right: 80px;">
+                @if($navbaricon == 1) <img src="{{ $companylogo }}" height="50" alt="logo" /> @else <h4>{{ $companyname }}</h4> @endif
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="container collapse navbar-collapse" style="color: white;" id="navbarTogglerDemo01">
-                <a class="market-navbar-large-header market-navbar-header navbar-brand" href="{{ route('index.home') }}" style="margin-right: 80px;">
-                    @if($navbaricon == 1) <img src="{{ $companylogo }}" height="50" alt="logo" /> @else <h4>{{ $companyname }}</h4> @endif
-                </a>
-                <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;" class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <div class="container collapse navbar-collapse pull-right mr-0" style="color: white;" id="navbarTogglerDemo01">
+                <ul style="margin-right: 0px !important; margin-left: auto !important;" class="navbar-nav">
                     <li class="nav-item">
                         <a class="color-white market-navbar-small-header market-navbar-header nav-link market-navbar-link active" aria-current="page" href="{{ route('index.home') }}">Home</a>
                     </li>
@@ -38,6 +39,7 @@
                             Shop
                         </a>
                         <ul class="color-white dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <h6 class="dropdown-header">Shop Pages</h6>
                             <li><a class="color-white dropdown-item" href="{{-- route('products.digital') --}}">Digital Products</a></li>
                             <li><a class="color-white dropdown-item" href="{{-- route('products.physical') --}}">Physical Products</a></li>
                             <li><a class="color-white dropdown-item" href="{{ route('products.index') }}">View All Products</a></li>
@@ -48,6 +50,7 @@
                             Our Team
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <h6 class="dropdown-header">Team Pages</h6>
                             <li><a class="color-white dropdown-item" href="{{-- route('team.sellers') --}}">Sellers & Teams</a></li>
                             <li><a class="color-white dropdown-item" href="{{ route('team.users') }}">User Accounts</a></li>
                             <li><a class="color-white dropdown-item" href="{{-- route('team.management') --}}">Management</a></li>
@@ -58,6 +61,7 @@
                             Information
                         </a>
                         <ul class="color-white dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <h6 class="dropdown-header">Information Pages</h6>
                             <li><a class="color-white dropdown-item" href="{{ route('announcements.index') }}">Announcements</a></li>
                             <li><a class="color-white dropdown-item" href="{{ route('knowledgebase.index') }}">Knowledgebase</a></li>
                             <li><a class="color-white dropdown-item" href="{{-- route('information.legal') --}}">Legal Documents</a></li>
@@ -68,6 +72,7 @@
                             Support
                         </a>
                         <ul class="color-white dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <h6 class="dropdown-header">Support Pages</h6>
                             <li><a class="color-white dropdown-item" href="{{-- route('support.contact') --}}">Contact Us</a></li>
                             <li><a class="color-white dropdown-item" href="{{-- route('support.ticket') --}}">Submit a Ticket</a></li>
                         </ul>
@@ -79,11 +84,12 @@
                         <a class="color-white market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             @if(Auth::check()) {{ Auth::user()->name }} @else Account @endif
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
                             @if(Auth::check())
                             <li><a class="color-white dropdown-item" href="{{ route('auth.settings') }}"><i style="width: 16px;" data-feather="user" class="mr-1"></i><span class="nav-text">Account Settings</span></a></li>
                             <li><a class="color-white dropdown-item" href="{{ route('auth.register') }}"><i style="width: 16px;" data-feather="sliders" class="mr-1"></i><span class="nav-text">Seller Dashboard</span></a></li>
                             @if(Auth::user()->is_admin)
+                            <div class="dropdown-divider"></div>
                             <li><a class="color-white dropdown-item" href="{{ route('admin.index') }}"><i style="width: 16px;" data-feather="settings" class="mr-1"></i><span class="nav-text">Admin Side</span></a></li>
                             @endif
                             @else
@@ -143,6 +149,9 @@
     </div>
     @endif
 </body>
+
+@yield('footer')
+
 @if(Route::currentRouteName() === 'index.home')
 <script src="/owl/js/owl.carousel.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

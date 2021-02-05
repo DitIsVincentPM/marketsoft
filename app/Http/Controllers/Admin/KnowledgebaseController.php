@@ -10,19 +10,19 @@ use Illuminate\Http\Request;
 use App\Models\InputCheck as InputCheck;
 use DB;
 
-class AnnouncementsController extends BaseController
+class KnowledgebaseController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index()
     {
-        $announcements = DB::table('announcements')->get();
+        $knowledgebase = DB::table('knowledgebase')->get();
 
-        return view('admin.announcements', [
-            'announcements' => $announcements,
+        return view('admin.knowledgebase', [
+            'knowledgebases' => $knowledgebase,
         ]);
     }
 
-    public function createnew(Request $request)
+    public function new(Request $request)
     {
         $name = $request->input('name');
         $description = $request->input('description');
@@ -32,19 +32,19 @@ class AnnouncementsController extends BaseController
             return redirect()->route('admin.announcements')->with('error', $error);
         }
 
-        DB::table('announcements')->insert([
+        DB::table('knowledgebase')->insert([
             'name' => $name,
             'description' => $description,
         ]);
 
-        return redirect()->route('admin.announcements')->with('success', "You have successfully created a new announcement!");
+        return redirect()->route('admin.knowledgebase')->with('success', "You have successfully created a new knowledgebase article!");
     }
 
     public function delete(Request $request, $id)
     {
-        DB::table('announcements')->where('id', $id)->delete();
+        DB::table('knowledgebase')->where('id', $id)->delete();
 
-        return redirect()->route('admin.announcements')->with('success', "You have successfully deleted the announcement #$id!");
+        return redirect()->route('admin.knowledgebase')->with('success', "You have successfully deleted the announcement #$id!");
     }
 
     public function update(Request $request, $id)
@@ -54,14 +54,14 @@ class AnnouncementsController extends BaseController
 
         $error = InputCheck::check([$name, $description]);
         if($error != false) {
-            return redirect()->route('admin.announcements')->with('error', $error);
+            return redirect()->route('admin.knowledgebase')->with('error', $error);
         }
 
-        DB::table('announcements')->where('id', $id)->update([
+        DB::table('knowledgebase')->where('id', $id)->update([
             'name' => $name,
             'description' => $description,
         ]);
 
-        return redirect()->route('admin.announcements')->with('success', "You have successfully edited announcement #$id!");
+        return redirect()->route('admin.knowledgebase')->with('success', "You have successfully edited announcement #$id!");
     }
 }
