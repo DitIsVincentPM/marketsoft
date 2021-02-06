@@ -51,7 +51,7 @@ Knowledgebase
                                 <h5 class="market-text-break mb-0">{{ $knowledgebase->name }}</h4>
                             </div>
                             <div class="col-1 pull-right">
-                                <a href="{{ route('knowledgebase.view', $knowledgebase->id) }}" title="Read More"><i data-feather="eye"></i></a>
+                                <a class="market-text-primary" href="{{ route('knowledgebase.view', $knowledgebase->id) }}" title="Read More"><i data-feather="eye"></i></a>
                             </div>
                         </div>
                     </div>

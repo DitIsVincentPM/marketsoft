@@ -26,23 +26,38 @@ User Settings
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="firstname">First Name:</label>
-                        <input type="text" class="form-control" name="firstname" value="{{ Auth::user()->firstname }}">
+                        <label class="market-form-label" for="firstname">First Name:</label>
+                        <input type="text" class="market-form-input form-control" name="firstname" value="{{ Auth::user()->firstname }}">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="lastname">Last Name:</label>
-                        <input type="text" class="form-control" name="lastname" value="{{ Auth::user()->lastname }}">
+                        <label class="market-form-label" for="lastname">Last Name:</label>
+                        <input type="text" class="market-form-input form-control" name="lastname" value="{{ Auth::user()->lastname }}">
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input readonly type="email" class="form-control" id="email" value="{{ Auth::user()->email }}" name="email">
+                <label class="market-form-label" for="email">Email:</label>
+                <input readonly type="email" class="market-form-input-disabled form-control" id="email" value="{{ Auth::user()->email }}" name="email">
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="market-form-label" for="email">Username:</label>
+                        <input type="username" class="market-form-input form-control" id="username" value="{{ Auth::user()->name }}" name="username">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label class="market-form-label" for="email">Light/Dark Mode:</label>
+                    <select name="theme" class="market-form-input form-select">
+                        <option @if(Auth::user()->user_theme == 0) selected @endif id="light" value="0">Light</option>
+                        <option @if(Auth::user()->user_theme == 1) selected @endif id="dark" value="1">Dark</option>
+                    </select>
+                </div>
             </div>
             <div class="form-group">
-                <button style="cursor:pointer" type="submit" class="btn btn-primary w-100">Submit</button>
+                <button style="cursor:pointer" onClick="window.location.href=window.location.href" type="submit" class="btn btn-primary w-100">Submit</button>
             </div>
         </div>
         <div class="col-4">
@@ -57,7 +72,7 @@ User Settings
                     <div class="col-sm-offset-2 col-sm-12"><br>
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="text" class="form-control" readonly>
+                                <input type="text" class="market-form-input form-control" readonly>
                                 <div class="input-group-btn">
                                     <span class="fileUpload btn btn-primary">
                                         <span class="upl" id="upload">Upload</span>

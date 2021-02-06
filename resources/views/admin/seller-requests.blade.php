@@ -67,17 +67,6 @@ Seller Requests
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div id="summernote"><p>Hello Summernote</p></div>
-        <script>
-            $(document).ready(function() {
-                $('#summernote').summernote();
-            });
-        </script>
-    </div>
-</div>
-
 @foreach($requests as $request)
 {{-- View More Modal --}}
 <div class="modal fade" id="viewmore-{{ $request->id }}" tabindex="-1" aria-labelledby="viewmoreLabel" aria-hidden="true">

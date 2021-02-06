@@ -19,8 +19,8 @@ User Login
 @endsection
 
 @section('content')
-<div class="row mt-5">
-    <div class="col-6">
+<div class="row mt-5 justify-content-center">
+    <div class="col-8">
         <form method="POST" action="{{ route('auth.login.new') }}">
             <div class="form-group">
                 <label for="email">Email:</label>
@@ -35,10 +35,6 @@ User Login
                 <button style="cursor:pointer" type="submit" class="btn btn-primary w-100">Submit</button>
             </div>
         </form>
-    </div>
-    <div class="col-6">
-        <div class="vertical"></div>
-        <h5>Comming soon...</h5>
     </div>
 </div>
 @endsection

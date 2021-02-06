@@ -25,7 +25,7 @@ Knowledgebase
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="text-center mb-5" style="font-size: 24px;">
+                <div class="text-center" style="font-size: 24px;">
                     {!! $knowledgebase->description !!}
                 </div>
             </div>

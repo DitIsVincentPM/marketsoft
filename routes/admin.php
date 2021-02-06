@@ -13,8 +13,8 @@ Route::group(['middleware' => ['web', 'admin']], function () {
     Route::post('/seller-requests/save', 'App\Http\Controllers\Admin\SellerController@sellerupdate')->name('admin.sellerrequests.store');
 
     // Admin System Settings
-    Route::get('/settings', 'App\Http\Controllers\Admin\IndexController@settings')->name('admin.settings');
-    Route::post('/settings/save', 'App\Http\Controllers\Admin\IndexController@settingssave')->name('admin.settings.save');
+    Route::get('/settings', 'App\Http\Controllers\Admin\SettingsController@settings')->name('admin.settings');
+    Route::post('/settings/save', 'App\Http\Controllers\Admin\SettingsController@settingssave')->name('admin.settings.save');
     
     // Admin System Announcements
     Route::get('/announcements', 'App\Http\Controllers\Admin\AnnouncementsController@index')->name('admin.announcements');

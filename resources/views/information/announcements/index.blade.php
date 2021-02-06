@@ -47,7 +47,7 @@ Announcements
                                 <p class="market-text-break announcement-date">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $announcement->created_at)->format('m/d/Y') }}</p>
                             </div>
                             <div class="col-1 text-center">
-                                <a href="{{ route('announcements.view', $announcement->id) }}" title="Read More"><i data-feather="eye"></i></a>
+                                <a class="market-text-primary" href="{{ route('announcements.view', $announcement->id) }}" title="Read More"><i data-feather="eye"></i></a>
                             </div>
                         </div>
                     </div>
