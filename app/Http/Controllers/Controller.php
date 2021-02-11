@@ -14,8 +14,11 @@ class Controller extends BaseController
 
     public function home()
     {
-        
-        return view('index.home');
+        $products = DB::table('products')->latest()->paginate(6);
+
+        return view('index.home', [
+            'products' => $products,
+        ]);
     }
     
 }

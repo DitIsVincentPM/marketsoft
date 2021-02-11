@@ -4,7 +4,7 @@
 @extends('assets.main')
 
 @section('title')
-Register
+Settings
 @endsection
 
 @section('header-title')
@@ -50,7 +50,7 @@ User Settings
                 </div>
                 <div class="col-6">
                     <label class="market-form-label" for="email">Light/Dark Mode:</label>
-                    <select name="theme" class="market-form-input form-select">
+                    <select name="theme" class="market-form-input form-control">
                         <option @if(Auth::user()->user_theme == 0) selected @endif id="light" value="0">Light</option>
                         <option @if(Auth::user()->user_theme == 1) selected @endif id="dark" value="1">Dark</option>
                     </select>

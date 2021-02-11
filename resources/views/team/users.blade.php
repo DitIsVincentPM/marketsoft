@@ -20,26 +20,30 @@ Browse Members
 
 @section('content')
 <div class="primary-section">
-    <div class="row team-users-row">
+    <div class="row team-users-row justify-content-center">
         @foreach($users as $user)
         <div class="col-3">
             <div class="card mb-3">
                 <div class="card-body">
-                    <img class="team-users-profile profile-picture-users" src="{{ $user->profile_picture }}">
-                    <h5 class="team-users-name text-center">{{ $user->name }}</h5>
-                    <h6 class="team-users-role text-center"><i style="width: 16px;" data-feather="user"></i>
+                    <img class="team-users-profile profile-picture-users mb-2" src="{{ $user->profile_picture }}">
+                    <h5 class="team-users-name text-center" data-toggle="tooltip" data-placement="bottom" @if($user->is_admin == 1) title="Administrator" @elseif($user->is_seller == 1) title="Seller" @else title="Member" @endif>
                     @if($user->is_admin == 1) 
-                        Admin
+                        <i style="width: 18px;" data-feather="tool"></i> {{ $user->name }}
                     @elseif($user->is_seller == 1)
-                        Seller
-                    @else 
-                        Member 
+                        <i style="width: 18px;" data-feather="shopping-bag"></i> {{ $user->name }}
+                    @else
+                        <i style="width: 18px;" data-feather="user"></i> {{ $user->name }}
                     @endif
-                    </h6>
+                    </h5>
                 </div>
             </div>
         </div>
         @endforeach
     </div>
 </div>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 @endsection

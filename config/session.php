@@ -155,7 +155,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', '.pocsison.com'),
+    'domain' => env('SESSION_DOMAIN', '.marketsoft.com'),
 
     /*
     |--------------------------------------------------------------------------

@@ -18,9 +18,10 @@ class SettingsController extends BaseController
     public function settings()
     {
         $themes = [];
+        $addons = [];
 
-        // Get filles
-        $files = File::allFiles(storage_path('theme/'));
+        // Get Addons & Themes
+        $files = File::allFiles(storage_path('themes/'));
         foreach ($files as $file) {
             if (str_contains($file->getFilename(), 'config.json')) {
                 $content = file_get_contents($file->getPathname());
@@ -29,12 +30,22 @@ class SettingsController extends BaseController
                 array_push($themes, $json);
             }
         }
+        $files = File::allFiles(storage_path('addons/'));
+        foreach ($files as $file) {
+            if (str_contains($file->getFilename(), 'config.json')) {
+                $content = file_get_contents($file->getPathname());
+                $content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
+                $json = json_decode($content, true);
+                array_push($addons, $json);
+            }
+        }
 
         $settings = DB::table('settings')->first();
 
         return view('admin.settings', [
             'settings' => $settings,
             'themes' => $themes,
+            'addons' => $addons,
         ]);
     }
 

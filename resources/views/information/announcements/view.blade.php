@@ -21,11 +21,11 @@ Announcements
 @section('content')
 <div class="row mt-5">
     <div class="col-12">
-        <div class="text-center mb-5" style="font-size: 24px;">
+        <div class="text-center mb-5" style="font-size: 24px; color: #fff;">
             {!! $announcement->description !!}
         </div>
-        <div class="pull-left">Created On: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $announcement->created_at)->format('m/d/Y') }}</div>
-        <div class="pull-right">Total Views: {{ $announcement->views }}</div>
+        <div class="pull-left" style="color: #ccc;">Created On: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $announcement->created_at)->format('m/d/Y') }}</div>
+        <div class="pull-right" style="color: #ccc;">Total Views: {{ $announcement->views }}</div>
     </div>
 </div>
 @endsection

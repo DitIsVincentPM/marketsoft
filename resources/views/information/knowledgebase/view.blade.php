@@ -24,12 +24,12 @@ Knowledgebase
 <div class="row mt-5 mb-5">
     <div class="col-12">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body br-0">
                 <div class="text-center" style="font-size: 24px;">
                     {!! $knowledgebase->description !!}
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer br-0">
                 <div class="pull-left">Created On: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $knowledgebase->created_at)->format('m/d/Y') }}</div>
                 <div class="pull-right">Total Views: {{ $knowledgebase->views }}</div>
             </div>
@@ -42,7 +42,7 @@ Knowledgebase
 <div class="text-center mt-3 mb-3">
     <p>This Website is Powered by <a href="https://marketsoft.io">MarketSoft.io</a></p>
 </div>
-<footer class="bg-light text-center text-lg-start">
+<footer class="footer-bg text-center text-lg-start">
   <div class="container p-4">
     <div class="row">
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
@@ -92,7 +92,7 @@ Knowledgebase
       </div>
     </div>
   </div>
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+  <div class="footer-bg text-center p-3">
     Copyright © {{ date("Y") }}:
     <a class="text-dark" href="{{ route('index.home') }}">{{ $companyname }}</a>
   </div>

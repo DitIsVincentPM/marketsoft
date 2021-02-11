@@ -32,10 +32,23 @@ class InfoController
 
     public function Knowledgebase()
     {
+        $category = DB::table('knowledgebase_categorys')->get();
         $knowledgebase = DB::table('knowledgebase')->get();
 
         return view('information.knowledgebase.index', [
             'knowledgebases' => $knowledgebase,
+            'categorys' => $category,
+        ]);
+    }
+
+    public function KnowledgebaseCategory(Request $request, $id)
+    {
+        $category = DB::table('knowledgebase_categorys')->get();
+        $knowledgebase = DB::table('knowledgebase')->where('category_id', $id)->get();
+
+        return view('information.knowledgebase.category', [
+            'knowledgebases' => $knowledgebase,
+            'categorys' => $category,
         ]);
     }
 

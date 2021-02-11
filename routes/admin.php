@@ -24,8 +24,26 @@ Route::group(['middleware' => ['web', 'admin']], function () {
 
     // Admin System Knowledgebase
     Route::get('/knowledgebase', 'App\Http\Controllers\Admin\KnowledgebaseController@index')->name('admin.knowledgebase');
-    Route::post('/knowledgebase/new', 'App\Http\Controllers\Admin\KnowledgebaseController@new')->name('admin.knowledgebase.new');
-    Route::post('/knowledgebase/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@delete')->name('admin.knowledgebase.delete');
-    Route::post('/knowledgebase/update/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@update')->name('admin.knowledgebase.update');
+
+    // Categorys
+    Route::post('/knowledgebase/category/new', 'App\Http\Controllers\Admin\KnowledgebaseController@categorynew')->name('admin.knowledgebase.category.new');
+    Route::post('/knowledgebase/category/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@categorydelete')->name('admin.knowledgebase.category.delete');
+    Route::post('/knowledgebase/category/update/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@categoryupdate')->name('admin.knowledgebase.category.update');
+
+    // Articles
+    Route::post('/knowledgebase/article/new', 'App\Http\Controllers\Admin\KnowledgebaseController@new')->name('admin.knowledgebase.new');
+    Route::post('/knowledgebase/article/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@delete')->name('admin.knowledgebase.delete');
+    Route::post('/knowledgebase/article/update/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@update')->name('admin.knowledgebase.update');
+
+    // Tickets
+    Route::get('/tickets', 'App\Http\Controllers\Admin\TicketsController@Index')->name('admin.tickets');
+    Route::post('/tickets/category/create', 'App\Http\Controllers\Admin\TicketsController@CategoryCreate')->name('admin.category.create');
+    Route::post('/tickets/category/update/{id}', 'App\Http\Controllers\Admin\TicketsController@CategoryUpdate')->name('admin.category.update');
+    Route::post('/tickets/{id}/delete', 'App\Http\Controllers\Admin\TicketsController@TicketDelete')->name('admin.tickets.delete');
+    Route::get('/tickets/{id}', 'App\Http\Controllers\Admin\TicketsController@ViewTicket')->name('admin.tickets.view');
+    Route::post('/tickets/{id}/close', 'App\Http\Controllers\Admin\TicketsController@CloseTicket')->name('admin.tickets.close');
+    Route::post('/tickets/{id}/open', 'App\Http\Controllers\Admin\TicketsController@OpenTicket')->name('admin.tickets.open');
+    Route::post('/tickets/{id}/whisper', 'App\Http\Controllers\Admin\TicketsController@TicketWhisper')->name('admin.tickets.whisper');
+    Route::post('/tickets/{id}/reply', 'App\Http\Controllers\Admin\TicketsController@TicketReply')->name('admin.tickets.reply');
 });
 

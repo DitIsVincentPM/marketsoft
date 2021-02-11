@@ -16,12 +16,18 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="/js/imageupload.js"></script>
+    <script src="/js/common.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 </head>
 
 <body class="antialiased">
-    <nav class="market-navbar navbar navbar-expand-lg" style="padding-bottom: 0px; padding-top: 0px; background-color: #eef1f3;">
+<nav class="market-navbar navbar navbar-expand-lg btn-block" style="position:absolute; padding-bottom: 0px; width: 100%; padding-top: 0px; background-color: #eef1f3;">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                 <i style="color: black;" data-feather="align-justify"></i>
@@ -39,6 +45,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link" href="{{-- route('admin.products') --}}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.tickets') }}">Tickets</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,41 +91,51 @@
         </div>
     </nav>
     @if (trim($__env->yieldContent('header-title')))
-    <div class="header-section">
-        <h2 class="text-center">@yield('header-title')</h2>
-        <nav aria-label="breadcrumb mb-0">
-            @yield('header-breadcrumb')
-        </nav>
+    <div class="header-height header-section background-gradient-primary">
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-10 mt-20 col-max-mobile">
+                <h1 class="color-white" style="text-align: center;">@yield('header-title')</h1>
+                <div class="color-white">
+                    @yield('header-breadcrumb')
+                </div>
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
     </div>
-    @endif
+    <span class="cube-header-line"></span>
     <div class="container">
         @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-dismissible fade show mb-0 mt-4" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Success:</strong> {{ $message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-
         @if ($message = Session::get('error'))
-        <div class="alert alert-danger alert-dismissible fade show mb-0 mt-4" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Error:</strong> {{ $message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
         @if ($message = Session::get('warning'))
-        <div class="alert alert-warning alert-dismissible fade show mb-0 mt-4" role="alert">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>Warning:</strong> {{ $message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
         @if ($message = Session::get('info'))
-        <div class="alert alert-success alert-dismissible fade show mb-0 mt-4" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Info:</strong> {{ $message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
+        @endif
         @yield('content')
+        @if (trim($__env->yieldContent('header-title')))
     </div>
+    @endif
 </body>
 <script>
     feather.replace()

@@ -92,4 +92,40 @@ Home
     </div>
   </div>
 </div>
+
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+    @foreach($products as $product)
+    @php
+        if (strlen($product->description) >= 80) {
+        $description_sized = substr($product->description, 0, 80). " ... ";
+        }
+        else {
+        $description_sized = $product->description;
+        }
+    @endphp
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+      <div class="card shadow">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-9 pull-left" style="text-align: left;">
+              <h5 class="mb-0 mt-1 market-text-break">{{ $product->name }}</h5>
+            </div>
+            <div class="col-3 pull-right" style="text-align: right;">
+              <span class="badge rounded-pill bg-secondary" style="font-size:13px;">${{ $product->price }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>{{ $description_sized }}</p>
+        </div>
+      </div>
+    </div>
+    @endforeach
+  </div>
+</div>
+
 @endsection
