@@ -477,3 +477,32 @@ p {
 .dropdown .dropdown-menu .dropdown-header {
     color: #5b5c66 !important;
 }
+
+.home-announcement {
+    color: #fff !important;
+}
+
+.home-announcement:hover {
+    color: #ccc !important;
+}
+
+.home-products {
+    color: #fff !important;
+}
+
+.home-products:hover {
+    color: #ccc !important;
+}
+
+.dot {
+    height: 20px;
+    width: 20px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.big-checkbox {
+    width: 30px;
+    height: 30px;
+}

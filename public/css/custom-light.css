@@ -247,7 +247,6 @@ body {
 
 body {
     font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    z-index: 50;
 }
 
 .color-white {
@@ -291,10 +290,10 @@ body {
     transform: rotate(-3deg);
     margin-top: -4%;
     width: 110% !important;
-    height: 20% !important;
-    z-index: 0 !important;
+    height: 15% !important;
     background-color: white;
     position: absolute;
+    z-index: 0 !important;
 }
 
 @media (max-width: 1366px) {
@@ -368,4 +367,25 @@ body {
 
 .dropdown .dropdown-menu .dropdown-header {
     color: #b7b9cc !important;
+}
+
+.home-announcement {
+    color: #fff !important;
+}
+
+.home-announcement:hover {
+    color: #ccc !important;
+}
+
+.dot {
+    height: 20px;
+    width: 20px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.big-checkbox {
+    width: 30px;
+    height: 30px;
 }

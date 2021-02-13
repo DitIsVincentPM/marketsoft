@@ -6,9 +6,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use App\Models\PermissionCheck as Permission;
 use App\Models\InputCheck as InputCheck;
+use App\Models\GetExternals as GetExternals;
 use DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class SettingsController extends BaseController
@@ -17,74 +18,65 @@ class SettingsController extends BaseController
 
     public function settings()
     {
-        $themes = [];
-        $addons = [];
+        $check = Permission::checkmultiple([
+            ['Settings', 'general'],
+            ['Settings', 'mail'],
+            ['Settings', 'modules'],
+            ['Settings', 'addon'],
+            ['Settings', 'theme'],
+            ['Settings', 'roles']
+        ]);
 
-        // Get Addons & Themes
-        $files = File::allFiles(storage_path('themes/'));
-        foreach ($files as $file) {
-            if (str_contains($file->getFilename(), 'config.json')) {
-                $content = file_get_contents($file->getPathname());
-                $content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
-                $json = json_decode($content, true);
-                array_push($themes, $json);
-            }
-        }
-        $files = File::allFiles(storage_path('addons/'));
-        foreach ($files as $file) {
-            if (str_contains($file->getFilename(), 'config.json')) {
-                $content = file_get_contents($file->getPathname());
-                $content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
-                $json = json_decode($content, true);
-                array_push($addons, $json);
-            }
-        }
-
+        $addons = GetExternals::getaddons();
+        $themes = GetExternals::getthemes();
+        $icons = GetExternals::geticons();
+        $version = GetExternals::getversion();
         $settings = DB::table('settings')->first();
+        $modules = DB::table('modules')->get();
+        $permissions = DB::table('permissions')->get();
 
         return view('admin.settings', [
             'settings' => $settings,
             'themes' => $themes,
             'addons' => $addons,
+            'modules' => $modules,
+            'version' => $version,
+            'check' => $check,
+            'permissions' => $permissions,
+            'icons' => $icons,
         ]);
     }
 
     public function settingssave(Request $request)
     {
-        if ($request->input('type') == "general") {
-            $error = InputCheck::check([$request->input('companyname'), $request->input('navbaricon')]);
-            if ($error != false) {
-                return redirect()->route('admin.settings')->with('error', $error);
-            }
-
-            $file = $request->file('companylogo');
-            $favicon = $request->file('faviconlogo');
-
-            if (isset($file)) {
-                $new_name = "logo" . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('images/companylogo'), $new_name);
-                DB::table('settings')->update([
-                    'CompanyLogo' => '/images/companylogo/' . $new_name,
-                ]);
-            }
-
-            if (isset($favicon)) {
-                $namefavicon = "favicon" . '.' . $favicon->getClientOriginalExtension();
-                $favicon->move(public_path('images/companyfavicon'), $namefavicon);
-                DB::table('settings')->update([
-                    'CompanyFavicon' => '/images/companyfavicon/' . $namefavicon,
-                ]);
-            }
-
-            DB::table('settings')->update([
-                'CompanyName' => $request->input('companyname'),
-                'NavbarIcon' => $request->input('navbaricon'),
-            ]);
-        } else if ($request->input('type') == "nav") {
-        } else if ($request->input('type') == "text") {
-        } else {
-            return redirect()->route('admin.settings')->with('error', "No type set!");
+        $error = InputCheck::check([$request->input('companyname'), $request->input('navbaricon')]);
+        if ($error != false) {
+            return redirect()->route('admin.settings')->with('error', $error);
         }
+
+        $file = $request->file('companylogo');
+        $favicon = $request->file('faviconlogo');
+
+        if (isset($file)) {
+            $new_name = "logo" . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/companylogo'), $new_name);
+            DB::table('settings')->update([
+                'CompanyLogo' => '/images/companylogo/' . $new_name,
+            ]);
+        }
+        
+        if (isset($favicon)) {
+            $namefavicon = "favicon" . '.' . $favicon->getClientOriginalExtension();
+            $favicon->move(public_path('images/companyfavicon'), $namefavicon);
+            DB::table('settings')->update([
+                'CompanyFavicon' => '/images/companyfavicon/' . $namefavicon,
+            ]);
+        }
+
+        DB::table('settings')->update([
+            'CompanyName' => $request->input('companyname'),
+            'NavbarIcon' => $request->input('navbaricon'),
+        ]);
 
         return redirect()->route('admin.settings')->with('success', "You successful updated the settings!");
     }

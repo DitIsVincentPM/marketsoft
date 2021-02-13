@@ -7,6 +7,7 @@
     <link rel="icon" href="{{ $companyfavicon }}" type="image/png">
     <title>@yield('title') - {{ $companyname }}</title>
     <link href="/css/custom-light.css" rel="stylesheet">
+    <link href="/css/asColorPicker.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="/javascript/jquery.js"></script>
     <script src="/feather-icons/dist/feather.min.js"></script>
@@ -17,13 +18,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="/js/imageupload.js"></script>
     <script src="/js/common.min.js"></script>
+    <script src="/js/jquery-clockpicker.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css" />
 </head>
 
 <body class="antialiased">
@@ -91,7 +94,7 @@
         </div>
     </nav>
     @if (trim($__env->yieldContent('header-title')))
-    <div class="header-height header-section background-gradient-primary">
+    <div class="header-section background-gradient-primary">
         <div class="row">
             <div class="col-1">
             </div>
@@ -99,14 +102,15 @@
                 <h1 class="color-white" style="text-align: center;">@yield('header-title')</h1>
                 <div class="color-white">
                     @yield('header-breadcrumb')
+                    <br><br>
                 </div>
             </div>
             <div class="col-1">
             </div>
         </div>
     </div>
-    <span class="cube-header-line"></span>
     <div class="container">
+    <div class="mb-3"></div>
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Success:</strong> {{ $message }}

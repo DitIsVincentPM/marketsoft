@@ -18,35 +18,42 @@ Settings
 @endsection
 
 @section('content')
+<div class="pl-0 alert alert-primary" role="alert">
+    Your running on version V{{ $version }} of MarketSoft.
+</div>
 <div class="row mt-3">
-    <div class="list-group col-3">
-        <a onClick="change(0)" style="cursor: pointer;" id="general-button" class="list-group-item list-group-item-action active" aria-current="true">
-            <i style="width: 16px;" data-feather="settings" class="mr-1"></i>
-            <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">General Settings</span>
-        </a>
-        <a onClick="change(1)" style="cursor: pointer;" id="mail-button" class="list-group-item list-group-item-action">
-            <i style="width: 16px;" data-feather="mail" class="mr-1"></i>
-            <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Mail Settings</span>
-        </a>
-        <a onClick="change(2)" style="cursor: pointer;" id="module-button" class="list-group-item list-group-item-action">
-            <i style="width: 16px;" data-feather="box" class="mr-1"></i>
-            <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Module Settings</span>
-        </a>
-        <a onClick="change(4)" style="cursor: pointer;" id="addon-button" class="list-group-item list-group-item-action">
-            <i style="width: 16px;" data-feather="upload" class="mr-1"></i>
-            <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Addon Settings</span>
-        </a>
-        <a onClick="change(5)" style="cursor: pointer;" id="theme-button" class="list-group-item list-group-item-action">
-            <i style="width: 16px;" data-feather="layout" class="mr-1"></i>
-            <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Theme Settings</span>
-        </a>
-        <a onClick="change(3)" style="cursor: pointer;" id="other-button" class="list-group-item list-group-item-action">
-            <i style="width: 16px;" data-feather="bookmark" class="mr-1"></i>
-            <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Other Settings</span>
-        </a>
+    <div class="col-3">
+        <div class="list-group">
+            <a onClick="change(0)" style="@if($check[0] != true) display: none; @endif cursor: pointer;" id="general-button" class="list-group-item list-group-item-action active" aria-current="true">
+                <i style="width: 16px;" data-feather="settings" class="mr-1"></i>
+                <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">General Settings</span>
+            </a>
+            <a onClick="change(1)" style="@if($check[1] != true) display: none; @endif cursor: pointer;" id="mail-button" class="list-group-item list-group-item-action">
+                <i style="width: 16px;" data-feather="mail" class="mr-1"></i>
+                <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Mail Settings</span>
+            </a>
+            <a onClick="change(2)" style="@if($check[2] != true) display: none; @endif cursor: pointer;" id="module-button" class="list-group-item list-group-item-action">
+                <i style="width: 16px;" data-feather="box" class="mr-1"></i>
+                <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Module Settings</span>
+            </a>
+            <a onClick="change(4)" style="@if($check[3] != true) display: none; @endif cursor: pointer;" id="addon-button" class="list-group-item list-group-item-action">
+                <i style="width: 16px;" data-feather="upload" class="mr-1"></i>
+                <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Addon Settings</span>
+            </a>
+            <a onClick="change(5)" style="@if($check[4] != true) display: none; @endif cursor: pointer;" id="theme-button" class="list-group-item list-group-item-action">
+                <i style="width: 16px;" data-feather="layout" class="mr-1"></i>
+                <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Theme Settings</span>
+            </a>
+            <a onClick="change(3)" style="@if($check[5] != true) display: none; @endif cursor: pointer;" id="other-button" class="list-group-item list-group-item-action">
+                <i style="width: 16px;" data-feather="bookmark" class="mr-1"></i>
+                <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Roles Settings</span>
+            </a>
+        </div>
     </div>
+
     {{-- General Settings --}}
     <div style="display: block;" class="col-9" id="general">
+    @if($check[0] == true)
         <form enctype="multipart/form-data" method="POST" action="{{ route('admin.settings.save') }}">
             <input hidden name="type" value="general"></input>
             @csrf
@@ -110,10 +117,12 @@ Settings
                 </div>
             </div>
         </form>
+    @endif
     </div>
 
     {{-- Mail Settings --}}
     <div style="display: none;" class="col-9" id="mail">
+    @if($check[1] == true)
         <div class="card">
             <div class="card-header">
                 Mail Settings
@@ -128,19 +137,38 @@ Settings
                 </div>
             </div>
         </div>
+    @endif
     </div>
 
     {{-- Navigation Settings --}}
     <div style="display: none;" class="col-9" id="module">
-        <div class="card">
+    @if($check[2] == true)
+        <div class="card mb-3">
             <div class="card-header">
                 Module Settings
             </div>
         </div>
+        @foreach($modules as $module)
+        <div class="card mt-3 mb-3">
+            <div class="card-header">
+                <p class="mb-0 mt-1 pull-left">{{ $module->name }}</p>
+                @if($module->is_enabled == 1)
+                <button class="pull-right md-0 mt-0 btn-sm btn btn-success">Enable</button>
+                @else
+                <button class="pull-right md-0 mt-0 btn-sm btn btn-danger">Disable</button>
+                @endif
+            </div>
+            <div class="card-body">
+                {{ $module->description }}
+            </div>
+        </div>
+        @endforeach
+    @endif
     </div>
 
     {{-- Addon Settings --}}
     <div style="display: none;" class="col-9" id="addon">
+    @if($check[3] == true)
         <div class="card mb-3">
             <div class="card-header">
                 Addon Settings
@@ -153,61 +181,241 @@ Settings
         <div class="card mt-3 mb-3">
             <div class="card-header">
                 <p class="mb-0 mt-1 pull-left">{{ $addons[$i]["name"] }} <small>(V{{ $addons[$i]["version"] }})</small></p>
-                @if($addons[$i]["enabled"] == true)
-                <button class="pull-right md-0 mt-0 btn-sm btn btn-success">Enable</button>
-                @else
-                <button class="pull-right md-0 mt-0 btn-sm btn btn-danger">Disable</button>
-                @endif
+                <button class="pull-right md-0 mt-0 btn-sm btn btn-danger">Remove</button>
             </div>
             <div class="card-body">
                 {{ $addons[$i]["description"] }}
             </div>
-    </div>
-    @endfor
-    </div>
-
-    {{-- Theme Settings --}}
-    <div style="display: none;" class="col-9" id="theme">
-        <div class="card mb-3">
-            <div class="card-header">
-                Theme Settings
-            </div>
         </div>
-        <div class="alert alert-primary" role="alert">
-            This feature has not been released yet. Please stay tuned for updates.
-        </div>
-        @for($i=0; $i < count($themes); $i++) 
-        <div class="card mt-3 mb-3">
-            <div class="card-header">
-                <p class="mb-0 mt-1 pull-left">{{ $themes[$i]["name"] }} <small>(V{{ $themes[$i]["version"] }})</small></p>
-                @if($themes[$i]["enabled"] == true)
-                <button class="pull-right md-0 mt-0 btn-sm btn btn-success">Enable</button>
-                @else
-                <button class="pull-right md-0 mt-0 btn-sm btn btn-danger">Disable</button>
-                @endif
-            </div>
-            <div class="card-body">
-                {{ $themes[$i]["description"] }}
-            </div>
-    </div>
-    @endfor
+        @endfor
+    @endif
 </div>
 
-{{-- Other Settings --}}
-<div style="display: none;" class="col-9" id="other">
-    <div class="card">
+{{-- Theme Settings --}}
+<div style="display: none;" class="col-9" id="theme">
+@if($check[4] == true)
+    <div class="card mb-3">
         <div class="card-header">
-            Other Settings
+            Theme Settings
+        </div>
+    </div>
+    <div class="alert alert-primary" role="alert">
+        This feature has not been released yet. Please stay tuned for updates.
+    </div>
+    @for($i=0; $i < count($themes); $i++) <div class="card mt-3 mb-3">
+        <div class="card-header">
+            <p class="mb-0 mt-1 pull-left">{{ $themes[$i]["name"] }} <small>(V{{ $themes[$i]["version"] }})</small></p>
+            @if($themes[$i]["enabled"] == true)
+            <button class="pull-right md-0 mt-0 btn-sm btn btn-success">Enable</button>
+            @else
+            <button class="pull-right md-0 mt-0 btn-sm btn btn-danger">Disable</button>
+            @endif
         </div>
         <div class="card-body">
+            {{ $themes[$i]["description"] }}
+        </div>
+</div>
+@endfor
+@endif
+</div>
 
+{{-- Roles Settings --}}
+<div style="display: none;" class="col-9" id="other">
+@if($check[5] == true)
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0 mt-2 pull-left">Roles Settings</h5>
+            <button class="btn btn-secondary btn-sm pull-right" data-bs-toggle="modal" data-bs-target="#createrole">Create New</button>
+        </div>
+        <table class="table table-striped mb-0 text-center">
+            <thead>
+                <tr>
+                    <th>Icon</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Color</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><i style="width: 20px;" data-feather="tool"></i></td> 
+                    <td>Administrator</td>
+                    <td>Has all permissions to management dashboard.</td>
+                    <td><span style="color: #eb4034 !important;">#eb4034</span></td>
+                    <td><a href="" data-bs-toggle="modal" data-bs-target="#editrole"><i style="width: 20px;" data-feather="edit"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {{-- Create new Role Modal --}}
+    <div class="modal fade" id="createrole" tabindex="-1" aria-labelledby="createroleLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createroleLabel">Create new System Role</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Role Name:</label>
+                        <input type="text" class="form-control" placeholder="Administrator">
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Role Icon:</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i id="msgbox" data-feather="search"></i></span>
+                                    <select class="form-select" id="icons">
+                                        <option selected>Select an Icon</option>
+                                        @for ($x = 0; $x <= count($icons) - 1; $x++) 
+                                        <option value="{{ $icons[$x] }}">{{ $icons[$x] }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="form-text">This software is using <a href="https://feathericons.com/">feather icons</a>. Learn more on their site.</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Role Color:</label>
+                                <input type="color" class="form-control colorpicker br-3" style="border: none;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    @php 
+                    $group = NULL;
+                    @endphp
+
+                    <div class="row">
+                    @foreach($permissions as $permission)
+                    @if($group == NULL)
+                    @php
+                    $group = $permission->group;
+                    @endphp
+                    <div class="col-12">
+                        <hr class="mb-2">
+                        <div class="form-check" style="font-size: 16px;">
+                            <input class="form-check-input check" type="checkbox" value="" id="{{ $permission->group }}_checkall">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{ $permission->group }}:
+                            </label>
+                        </div>
+                        <hr class="mt-2">
+                    </div>
+                    <div class="col-4 mb-1">
+                        <div class="form-check form-switch big-checkbox">
+                            <input class="form-check-input check" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault" style="text-transform: capitalize;">{{ $permission->key }}</label>
+                        </div>
+                    </div>
+                    @elseif($group == $permission->group)
+                    <div class="col-4 mb-1">
+                        <div class="form-check form-switch big-checkbox">
+                            <input class="form-check-input check" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault" style="text-transform: capitalize;">{{ $permission->key }}</label>
+                        </div>
+                    </div>
+                    @elseif($group != $permission->group)
+                    @php
+                    $group = $permission->group;
+                    @endphp
+                    <div class="col-12">
+                        <hr class="mb-2 mt-2">
+                        <div class="form-check" style="font-size: 16px;">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault" id="{{ $permission->group }}_checkall">
+                                {{ $permission->group }}:
+                            </label>
+                        </div>
+                        <hr class="mt-2">
+                    </div>
+                    <div class="col-4 mb-2">
+                        <div class="form-check form-switch big-checkbox">
+                            <input class="form-check-input check" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault" style="text-transform: capitalize;">{{ $permission->key }}</label>
+                        </div>
+                    </div>
+                    @endif
+                    @endforeach
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary">Create Role</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
+    {{-- Edit Administrator Role Modal --}}
+    <div class="modal fade" id="editrole" tabindex="-1" aria-labelledby="editroleLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editroleLabel">Edit Administrator Role</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Edit Role</button>
+            </div>
+            </div>
+        </div>
+    </div>
+@endif
 </div>
+
 </div>
 
 <script>
+$('#icons').change(function() {
+    opt = $(this).val();
+    $('#msgbox').attr("data-feather", opt);
+    feather.replace();
+})
+</script>
+
+<script>
+@php 
+$group = NULL;
+@endphp
+
+@foreach($permissions as $permission)
+@if($group == NULL)
+@php
+$group = $permission->group;
+@endphp
+
+$("#{{ $permission->group }}_checkall").click(function () {
+    $(".check").prop('checked', $(this).prop('checked'));
+});
+
+@elseif($group == $permission->group)
+@elseif($group != $permission->group)
+@php
+$group = $permission->group;
+@endphp
+
+$("#{{ $permission->group }}_checkall").click(function () {
+    $(".check").prop('checked', $(this).prop('checked'));
+});
+
+@endif
+@endforeach
+</script>
+
+<script>
     document.onload = check;
+
     function check() {
         var url = window.location.href;
         console.log(url.lastIndexOf('#'));

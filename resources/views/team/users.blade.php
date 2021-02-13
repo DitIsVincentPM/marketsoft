@@ -26,14 +26,8 @@ Browse Members
             <div class="card mb-3">
                 <div class="card-body">
                     <img class="team-users-profile profile-picture-users mb-2" src="{{ $user->profile_picture }}">
-                    <h5 class="team-users-name text-center" data-toggle="tooltip" data-placement="bottom" @if($user->is_admin == 1) title="Administrator" @elseif($user->is_seller == 1) title="Seller" @else title="Member" @endif>
-                    @if($user->is_admin == 1) 
-                        <i style="width: 18px;" data-feather="tool"></i> {{ $user->name }}
-                    @elseif($user->is_seller == 1)
-                        <i style="width: 18px;" data-feather="shopping-bag"></i> {{ $user->name }}
-                    @else
+                    <h5 class="team-users-name text-center" data-toggle="tooltip" data-placement="bottom" title="Member">
                         <i style="width: 18px;" data-feather="user"></i> {{ $user->name }}
-                    @endif
                     </h5>
                 </div>
             </div>
@@ -42,8 +36,8 @@ Browse Members
     </div>
 </div>
 <script>
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
 @endsection
