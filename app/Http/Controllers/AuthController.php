@@ -16,7 +16,7 @@ class AuthController
             return redirect()->route('auth.settings')->with('error',"You are already logged into an account!");
         }
 
-        return view('auth.login');
+        return view('Authentication.login');
     }
 
     public function loginuser(Request $request)
@@ -37,7 +37,7 @@ class AuthController
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route('index.home')->with('success',"You're logged in!");
+            return redirect()->route('index')->with('success',"You're logged in!");
         } else {
             return redirect()->route('auth.login')->with('error',"Your login credentials are incorrect! Please try again.");
         }
@@ -82,7 +82,7 @@ class AuthController
         if(!Auth::check()) {
             return redirect()->route('auth.login')->with('error',"The user settings page can only be viewed if you are logged in!");
         }
-        return view('auth.settings');
+        return view('Authentication.settings');
     }
 
     public function accountsettingssave(Request $request)
@@ -119,7 +119,7 @@ class AuthController
 
     public function Seller()
     {
-        return view('auth.seller');
+        return view('Authentication.seller');
     }
 
     public function newseller(Request $request)

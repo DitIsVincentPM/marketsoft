@@ -35,7 +35,7 @@ class SettingsController extends BaseController
         $modules = DB::table('modules')->get();
         $permissions = DB::table('permissions')->get();
 
-        return view('admin.settings', [
+        return view('Admin.settings', [
             'settings' => $settings,
             'themes' => $themes,
             'addons' => $addons,

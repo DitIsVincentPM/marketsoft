@@ -26,30 +26,24 @@
         <div class="col-7">
             <div class="row product-gallery mx-1">
                 <div class="col-12 mb-0">
-                    <figure class="view overlay rounded z-depth-1 main-img">
-                        <a data-fancybox="galleryTwo"><img src="<?php echo e($product->logo); ?>" alt="gallery-item" class="gallery-h-img popular-gallery"></a>
-
-                    </figure>
-                </div>
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="view overlay rounded z-depth-1 gallery-item">
-                                <a class="gallery-square-img-wrapper" data-fancybox="galleryTwo"><img src="<?php echo e($product->logo); ?>" width="150" alt="gallery-item" class="gallery-h-img popular-gallery"></a>
-                                <div class="mask rgba-white-slight"></div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="view overlay rounded z-depth-1 gallery-item">
-                                <a class="gallery-square-img-wrapper" data-fancybox="galleryTwo"><img src="<?php echo e($product->logo); ?>" width="150" alt="gallery-item" class="gallery-h-img popular-gallery"></a>
-                                <div class="mask rgba-white-slight"></div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="view overlay rounded z-depth-1 gallery-item">
-                                <a class="gallery-square-img-wrapper" data-fancybox="galleryTwo"><img src="<?php echo e($product->logo); ?>" width="150" alt="gallery-item" class="gallery-h-img popular-gallery"></a>
-                                <div class="mask rgba-white-slight"></div>
-                            </div>
+                    <div class="bootstrap-carousel">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="https://cdn.discordapp.com/attachments/692058346626351205/734503900198994111/IMG-1.png" alt="First slide">
+                                </div>
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="https://cdn.discordapp.com/attachments/692058346626351205/734503901193044028/img-2.png" alt="Second slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="https://cdn.discordapp.com/attachments/692058346626351205/734503904670122095/IMG-4.png" alt="Third slide">
+                                </div>
+                            </div><a class="carousel-control-prev" href="#carouselExampleIndicators" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span> </a><a class="carousel-control-next" href="#carouselExampleIndicators" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
                         </div>
                     </div>
                 </div>

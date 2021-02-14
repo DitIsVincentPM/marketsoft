@@ -238,7 +238,7 @@ body {
 
 @font-face {
     font-family: bebasneue;
-    src: url(/fonts/BebasNeue-Regular.ttf);
+    src: url(/css/fonts/BebasNeue-Regular.ttf);
 }
 
 .background-gradient-primary {
@@ -505,4 +505,28 @@ p {
 .big-checkbox {
     width: 30px;
     height: 30px;
+}
+
+.products-logo {
+    padding-right: 0px !important;
+}
+
+.product-name {
+    color: #fff !important;
+}
+
+.product-name:hover {
+    color: #ccc !important;
+}
+
+.products-star {
+    color: gold !important;
+    width: 14px !important;
+}
+
+.products-description {
+    padding-top: 0.8rem !important;
+    padding-left: 1rem !important;
+    padding-bottom: .25rem !important;
+    padding-right: 3rem!important;
 }

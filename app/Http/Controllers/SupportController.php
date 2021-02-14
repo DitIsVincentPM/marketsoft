@@ -15,18 +15,9 @@ class SupportController
         $tickets = DB::table('tickets')->where('user_id', '=', Auth::user()->id)->latest()->get();
         $categories = DB::table('ticket_categories')->latest()->get();
 
-        return view('support.ticket', [
+        return view('Modules.TicketSystem.ticket', [
             'tickets' => $tickets,
             'categories' => $categories,
-        ]);
-    }
-
-    public function Contact()
-    {
-        $contact = DB::table('contact_requests')->get();
-
-        return view('support.contact', [
-            'contact' => $contact,
         ]);
     }
 
@@ -38,7 +29,7 @@ class SupportController
             return redirect()->route('auth.login')->with('error',"You need to be logged in to create a ticket!");
         }
 
-        return view('support.ticket.new', [
+        return view('Modules.TicketSystem.new', [
             'ticket_categories' => $categories,
         ]);
     }
@@ -84,7 +75,7 @@ class SupportController
             return redirect()->route('support.ticket')->with('error', "This is not your ticket, you cannot view it!");
         }
 
-        return view('support.ticket.view', [
+        return view('Modules.TicketSystem.view', [
             'tickets' => $tickets,
             'users' => $users,
             'ticket_replies' => $ticketreply,

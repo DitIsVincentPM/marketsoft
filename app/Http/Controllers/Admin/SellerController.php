@@ -18,7 +18,7 @@ class SellerController extends BaseController
     {
         $requests = DB::table('seller_requests')->get();
 
-        return view('admin.seller-requests', [
+        return view('Admin.seller-requests', [
             'requests' => $requests,
         ]);
     }

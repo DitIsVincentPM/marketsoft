@@ -17,7 +17,7 @@ class AnnouncementsController extends BaseController
     {
         $announcements = DB::table('announcements')->get();
 
-        return view('admin.announcements', [
+        return view('Admin.announcements', [
             'announcements' => $announcements,
         ]);
     }

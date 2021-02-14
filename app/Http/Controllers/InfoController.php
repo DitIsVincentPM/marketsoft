@@ -12,7 +12,7 @@ class InfoController
     {
         $announcements = DB::table('announcements')->get();
 
-        return view('information.announcements.index', [
+        return view('Announcements.index', [
             'announcements' => $announcements,
         ]);
     }
@@ -25,7 +25,7 @@ class InfoController
             'views' => $announcement->views + 1,
         ]);
 
-        return view('information.announcements.view', [
+        return view('Announcements.view', [
             'announcement' => $announcement,
         ]);
     }
@@ -35,7 +35,7 @@ class InfoController
         $category = DB::table('knowledgebase_categorys')->get();
         $knowledgebase = DB::table('knowledgebase')->get();
 
-        return view('information.knowledgebase.index', [
+        return view('Knowledgebase.index', [
             'knowledgebases' => $knowledgebase,
             'categorys' => $category,
         ]);
@@ -46,7 +46,7 @@ class InfoController
         $category = DB::table('knowledgebase_categorys')->get();
         $knowledgebase = DB::table('knowledgebase')->where('category_id', $id)->get();
 
-        return view('information.knowledgebase.category', [
+        return view('Knowledgebase.category', [
             'knowledgebases' => $knowledgebase,
             'categorys' => $category,
         ]);
@@ -60,7 +60,7 @@ class InfoController
             'views' => $knowledgebase->views + 1,
         ]);
 
-        return view('information.knowledgebase.view', [
+        return view('Knowledgebase.view', [
             'knowledgebase' => $knowledgebase,
         ]);
     }

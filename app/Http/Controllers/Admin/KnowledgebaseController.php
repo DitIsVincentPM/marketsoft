@@ -20,7 +20,7 @@ class KnowledgebaseController extends BaseController
         $knowledgebase = DB::table('knowledgebase')->get();
         $categorys = DB::table('knowledgebase_categorys')->get();
 
-        return view('admin.knowledgebase', [
+        return view('Admin.knowledgebase', [
             'knowledgebases' => $knowledgebase,
             'categorys' => $categorys
         ]);

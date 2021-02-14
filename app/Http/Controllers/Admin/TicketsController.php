@@ -20,7 +20,7 @@ class TicketsController extends BaseController
         $tickets = DB::table('tickets')->latest()->get();
         $categories = DB::table('ticket_categories')->latest()->get();
 
-        return view('admin.tickets', [
+        return view('Admin.Modules.TicketSystem.index', [
             'tickets' => $tickets,
             'ticket_categories' => $categories,
         ]);
@@ -59,7 +59,7 @@ class TicketsController extends BaseController
         $ticketreply = DB::table('ticket_replies')->where('ticket_id', $id)->latest()->get();
         $categories = DB::table('ticket_categories')->latest()->get();
 
-        return view('admin.tickets.view', [
+        return view('Admin.Modules.TicketSystem.view', [
             'tickets' => $tickets,
             'users' => $users,
             'ticket_replies' => $ticketreply,

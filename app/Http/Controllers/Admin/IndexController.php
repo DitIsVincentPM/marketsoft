@@ -22,7 +22,7 @@ class IndexController extends BaseController
         $products = DB::table('products')->get();
         $products = count($products);
 
-        return view('admin.dashboard', [
+        return view('Admin.dashboard', [
             'users' => $users,
             'products' => $products,
         ]);
@@ -32,7 +32,7 @@ class IndexController extends BaseController
     {
         $settings = DB::table('settings')->first();
 
-        return view('admin.settings', [
+        return view('Admin.settings', [
             'settings' => $settings,
         ]);
     }
@@ -84,7 +84,7 @@ class IndexController extends BaseController
         $users = DB::table('users')->get();
         $products = DB::table('products')->get();
 
-        return view('admin.products', [
+        return view('Admin.products', [
             'users' => $users,
             'products' => $products,
         ]);

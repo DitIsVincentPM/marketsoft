@@ -15,7 +15,7 @@ class ProductsController
         $users = DB::table('users')->get();
         $category = DB::table('category')->get();
 
-        return view('products.index', [
+        return view('Products.index', [
             'products' => $products,
             'users' => $users,
             'categorys' => $category,
@@ -27,7 +27,7 @@ class ProductsController
         $product = DB::table('products')->where('id', $id)->first();
         $user = DB::table('users')->where('id', $product->seller_id)->first();
 
-        return view('products.view', [
+        return view('Products.view', [
             'product' => $product,
             'user' => $user,
         ]);
