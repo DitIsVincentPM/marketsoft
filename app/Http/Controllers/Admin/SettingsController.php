@@ -30,10 +30,12 @@ class SettingsController extends BaseController
         $addons = GetExternals::getaddons();
         $themes = GetExternals::getthemes();
         $icons = GetExternals::geticons();
-        $version = GetExternals::getversion();
+        $version = GetExternals::getversionstring();
         $settings = DB::table('settings')->first();
         $modules = DB::table('modules')->get();
         $permissions = DB::table('permissions')->get();
+        $roles = DB::table('roles')->get();
+        $role_perms = DB::table('role_permissions')->get();
 
         return view('Admin.settings', [
             'settings' => $settings,
@@ -44,6 +46,8 @@ class SettingsController extends BaseController
             'check' => $check,
             'permissions' => $permissions,
             'icons' => $icons,
+            'roles' => $roles,
+            'role_perms' => $role_perms,
         ]);
     }
 
@@ -79,5 +83,40 @@ class SettingsController extends BaseController
         ]);
 
         return redirect()->route('admin.settings')->with('success', "You successful updated the settings!");
+    }
+
+    public function CreateRole(Request $request)
+    {
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $icon = $request->input('icon');
+        $color = $request->input('color');
+
+        $error = InputCheck::check([$name, $description, $icon, $color]);
+        if ($error != false) {
+            return redirect()->route('admin.settings')->with('error', $error);
+        }
+
+        DB::table('roles')->insert([
+            'name' => $name,
+            'description' => $description,
+            'icon' => $icon,
+            'color' => $color,
+        ]);
+        
+        $role = DB::table('roles')->latest()->first();
+        $permissions = DB::table('permissions')->get();
+
+        foreach($permissions as $permission) {
+            $perm = $request->input($permission->key);
+            if($perm == true) {
+                DB::table('role_permissions')->insert([
+                    'role_id' => $role->id,
+                    'permission_id' => $permission->id,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.settings')->with('success', "You successfully created the new role $name!");
     }
 }

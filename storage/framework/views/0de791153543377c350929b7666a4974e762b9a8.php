@@ -2,8 +2,7 @@
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<?php echo e($companyfavicon); ?>" type="image/png">
     <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e($companyname); ?></title>
     <?php if(Auth::check()): ?>
@@ -16,17 +15,9 @@
     <link href="/css/custom-light.css" rel="stylesheet">
     <?php endif; ?>
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-    <link href="/boostrap/css/theme.min.css" rel="stylesheet">
     <link href="/boostrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/boostrap/css/theme.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
-    <script src="/vendor/feather-icons/dist/feather.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/imageupload.js"></script>
-    <script src="/js/jquery.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/bootstrap-editable.js"></script>
-    <script src="/js/bootstrap-editable-init.js"></script>
     <link rel="stylesheet" href="/css/font-awesome.min.css">
 </head>
 
@@ -58,17 +49,6 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="color-white market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Our Team
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <h6 class="dropdown-header">Team Pages</h6>
-                            <li><a class="color-white dropdown-item" href="">Sellers & Teams</a></li>
-                            <li><a class="color-white dropdown-item" href="<?php echo e(route('users')); ?>">User Accounts</a></li>
-                            <li><a class="color-white dropdown-item" href="">Management</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="color-white market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Information
                         </a>
                         <ul class="color-white dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -89,6 +69,11 @@
                         </ul>
                     </li>
                     <li class="nav-item">
+                        <a class="color-white market-navbar-small-header market-navbar-header nav-link market-navbar-link" href="<?php echo e(route('users')); ?>" role="button">
+                            Our Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="color-white market-navbar-small-header market-navbar-header nav-link market-navbar-link text-font-bebasneue" href="<?php echo e(route('auth.seller')); ?>">Become a Seller</a>
                     </li>
                     <li class="pull-right nav-item dropdown">
@@ -98,13 +83,8 @@
                         <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
                             <?php if(Auth::check()): ?>
                             <li><a class="color-white dropdown-item" href="<?php echo e(route('auth.settings')); ?>"><i style="width: 16px;" data-feather="user" class="mr-1"></i><span class="nav-text">Account Settings</span></a></li>
-                            <?php if(Auth::user()->is_seller): ?>
-                            <li><a class="color-white dropdown-item" href=""><i style="width: 16px;" data-feather="sliders" class="mr-1"></i><span class="nav-text">Seller Dashboard</span></a></li>
-                            <?php elseif(Auth::user()->is_admin): ?>
-                            <li><a class="color-white dropdown-item" href=""><i style="width: 16px;" data-feather="sliders" class="mr-1"></i><span class="nav-text">Seller Dashboard</span></a></li>
-                            <?php endif; ?>
                             <li><a class="color-white dropdown-item" href="<?php echo e(route('auth.logout')); ?>"><i style="width: 16px;" data-feather="log-out" class="mr-1"></i><span class="nav-text">Account Logout</span></a></li>
-                            <?php if(Auth::user()->is_admin): ?>
+                            <?php if(Permission::check(['Admin', 'view']) == true): ?>
                             <div class="dropdown-divider"></div>
                             <li><a class="color-white dropdown-item" href="<?php echo e(route('admin.index')); ?>"><i style="width: 16px;" data-feather="settings" class="mr-1"></i><span class="nav-text">Admin Side</span></a></li>
                             <?php endif; ?>
@@ -171,16 +151,12 @@
 </body>
 
 <?php echo $__env->yieldContent('footer'); ?>
-
-<?php if(Route::currentRouteName() === 'index.home'): ?>
-<script src="/owl/js/owl.carousel.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.summernote').summernote();
-    });
-</script>
-<?php endif; ?>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/imageupload.js"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/vendor/feather-icons/dist/feather.min.js"></script>
 <script>
     feather.replace()
 </script>

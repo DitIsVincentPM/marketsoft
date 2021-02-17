@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use DB;
+use Auth;
+use App\Models\PermissionCheck as Permission;
 
 class AppServiceProvider extends ServiceProvider
 {

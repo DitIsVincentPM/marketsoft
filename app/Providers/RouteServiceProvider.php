@@ -41,18 +41,18 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')->prefix('/')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/base.php'));
-            Route::middleware('web')->prefix('/member')
+            Route::middleware('web', 'isbanned')->prefix('/')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/auth.php'));
-            Route::middleware('admin', 'web')->prefix('/admin')
+            Route::middleware('web', 'isbanned')->prefix('/')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/modules.php'));
+            Route::middleware('admin', 'web', 'isbanned')->prefix('/admin')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admin.php'));
-            Route::middleware('web')->prefix('/information')
+            Route::middleware('web')->prefix('/api')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/information.php'));
-            Route::middleware('web')->prefix('/support')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/support.php'));
+                ->group(base_path('routes/api.php'));
         });
     }
 

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use DB;
+use Auth;
 
 class IndexController extends BaseController
 {
@@ -29,6 +30,19 @@ class IndexController extends BaseController
 
         return view('users', [
             'users' => $users,
+        ]);
+    }
+
+    public function Banned()
+    {
+        if(Auth::user()->is_banned == "0") {
+            return redirect()->route('index')->with('error', "Only banned members can view the banned page!");
+        }
+
+        $settings = DB::table('settings')->first();
+
+        return view('banned', [
+            'settings' => $settings,
         ]);
     }
     

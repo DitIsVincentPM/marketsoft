@@ -18,161 +18,144 @@ Tickets
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="container">
-    <div class="primary-section">
-        <div class="card shadow">
-            <div class="card-header">
-                <div class="pull-left">
-                    <h3 class="mb-0 mt-2">Tickets</h3>
+<div class="row mt-3">
+    <div class="col-3">
+        <div class="list-group">
+            <a onclick="change(0)" id="ticket-button" class="list-group-item list-group-item-action active" aria-current="true">
+                <i style="width: 16px;" data-feather="circle" class="mr-1"></i>
+                <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Tickets</span>
+            </a>
+            <a onclick="change(1)" id="category-button" class="list-group-item list-group-item-action">
+                <i style="width: 16px;" data-feather="folder" class="mr-1"></i>
+                <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Categorys</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-9">
+        <div id="ticket" style="display: block;">
+            <div class="row">
+                <div class="col-10">
+                    <div class="input-group">
+                        <div class="form-outline">
+                            <input type="search" placeholder="Search..." id="search" class="admin-search-input form-control" />
+                        </div>
+                        <button onclick="some()" type="button" class="btn btn-primary">
+                            <i style="width: 16px;" data-feather="search" class="mr-1"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="pull-right">
-                    <select class="market-form-input form-control">
-                        <option>Waiting Reply</option>
-                        <option>Replied</option>
-                        <option>Closed</option>
-                    </select>
+                <div class="col-2">
+                    <button onclick="refresh()" style="font-size: 18px !important;" class="btn-lg btn btn-primary w-100">Reload</button>
                 </div>
             </div>
-            <table class="table table-striped mb-0 text-center">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Priority</th>
-                        <th>Status</th>
-                        <th>Created At</th>
-                        <th>View</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $__currentLoopData = $tickets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ticket): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="pull-left">
+                        <h3 class="mb-0 mt-2">Tickets</h3>
+                    </div>
+                </div>
+                <table class="table table-striped mb-0 text-center">
+                    <thead>
                         <tr>
-                            <td><b><?php echo e($ticket->id); ?></b></td>
-                            <td><?php echo e($ticket->name); ?></td>
-                            <td>
-                                <?php if($ticket->priority == 0): ?>
-                                    Low Priority
-                                <?php elseif($ticket->priority == 1): ?>
-                                    Medium Priority
-                                <?php elseif($ticket->priority == 2): ?>
-                                    High Priority
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <?php if($ticket->status == 0): ?>
-                                    <span class="text-primary">Waiting Reply</span>
-                                <?php elseif($ticket->status == 1): ?>
-                                    <span class="text-info">Replied</span>
-                                <?php elseif($ticket->status == 2): ?>
-                                    <span class="text-success">Complete</span>
-                                <?php elseif($ticket->status == 3): ?>
-                                    <span class="text-danger">Closed</span>
-                                <?php endif; ?>
-                            </td>
-                            <td><?php echo e(Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ticket->created_at)->format('m/d/Y')); ?></td>
-                            <td><a href="<?php echo e(route('admin.tickets.view', $ticket->id)); ?>"><i data-feather="eye"></i></a></td>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th><span class="pull-right">View</span></th>
                         </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody id="table">
+                        <tr style="height: 200px;">
+                            <th></th>
+                            <th></th>
+                            <th>
+                                <div style="margin: 0; position: absolute; top: 55%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="card shadow">
-            <div class="card-header">
-                <div class="pull-left">
-                    <h3 class="mb-0 mt-1">Ticket Categories</h3>
+        <div id="category" style="display: none;">
+            <div class="row">
+                <div class="col-10">
+                    <div class="input-group">
+                        <div class="form-outline">
+                            <input type="search" placeholder="Search..." id="category-search" class="admin-search-input form-control" />
+                        </div>
+                        <button onclick="categorysome()" type="button" class="btn btn-primary">
+                            <i style="width: 16px;" data-feather="search" class="mr-1"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="pull-right">
-                    <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#createcategory">Create New</button>
+                <div class="col-2">
+                    <button onclick="categoryrefresh()" style="font-size: 18px !important;" class="btn-lg btn btn-primary w-100">Reload</button>
                 </div>
             </div>
-            <table class="table table-striped mb-0 text-center">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $__currentLoopData = $ticket_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="card mt-3">
+                <div class="card-header">
+                    <div class="pull-left">
+                        <h3 class="mb-0 mt-1">Ticket Categories</h3>
+                    </div>
+                </div>
+                <table class="table table-striped mb-0 text-center">
+                    <thead>
                         <tr>
-                            <td><b><?php echo e($category->id); ?></b></td>
-                            <td><?php echo e($category->name); ?></td>
-                            <td>
-                            <?php echo e($category->description); ?>
-
-                            </td>
-                            <td><a class="text-primary" href="" data-bs-toggle="modal" data-bs-target="#editcategory<?php echo e($category->id); ?>"><i data-feather="edit"></i></a></td>
-                            <td><a class="text-danger" href=""><i data-feather="trash"></i></a></td>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody id="category-table">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Create New Category Modal -->
 <div class="modal fade" id="createcategory" tabindex="-1" aria-labelledby="createcategoryLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="createcategoryLabel">Create new Category</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="<?php echo e(route('admin.category.create')); ?>">
-            <?php echo csrf_field(); ?>
-            <div class="mb-3">
-                <label class="form-label">Category Name</label>
-                <input name="name" type="text" class="form-control" placeholder="General Support">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createcategoryLabel">Create new Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Category Description</label>
-                <textarea placeholder="Support for just about anything on the website/software." name="description" class="form-control"></textarea>
+            <div class="modal-body">
+                <form method="POST" action="<?php echo e(route('admin.category.create')); ?>">
+                    <?php echo csrf_field(); ?>
+                    <div class="mb-3">
+                        <label class="form-label">Category Name</label>
+                        <input name="name" type="text" class="form-control" placeholder="General Support">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Category Description</label>
+                        <textarea placeholder="Support for just about anything on the website/software." name="description" class="form-control"></textarea>
+                    </div>
             </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-secondary">Create Category</button>
-        </form>
-      </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-secondary">Create Category</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+<?php $__env->stopSection(); ?>
 
-<?php $__currentLoopData = $ticket_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-<!-- Edit Category <?php echo e($category->id); ?> Modal -->
-<div class="modal fade" id="editcategory<?php echo e($category->id); ?>" tabindex="-1" aria-labelledby="editcategoryLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editcategoryLabel">Edit Category #<?php echo e($category->id); ?></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="<?php echo e(route('admin.category.update', $category->id)); ?>">
-            <?php echo csrf_field(); ?>
-            <div class="mb-3">
-                <label class="form-label">Category Name</label>
-                <input name="name" type="text" class="form-control" value="<?php echo e($category->name); ?>">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Category Description</label>
-                <textarea name="description" class="form-control"><?php echo e($category->description); ?></textarea>
-            </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-secondary">Edit Category</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php $__env->startSection('scripts'); ?>
+<script src="/js/API/tickets.js"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('Vendor.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Admin/Modules/TicketSystem/index.blade.php ENDPATH**/ ?>

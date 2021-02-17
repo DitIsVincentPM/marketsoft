@@ -66,6 +66,7 @@ class SupportController
         $users = DB::table('users')->get();
         $ticketreply = DB::table('ticket_replies')->where('ticket_id', $id)->latest()->get();
         $categories = DB::table('ticket_categories')->latest()->get();
+        $roles = DB::table('roles')->get();
 
         if($tickets == null) {
             return redirect()->route('support.ticket')->with('error', "This ticket does not exist."); 
@@ -80,6 +81,7 @@ class SupportController
             'users' => $users,
             'ticket_replies' => $ticketreply,
             'categories' => $categories,
+            'roles' => $roles,
         ]);
     }
 

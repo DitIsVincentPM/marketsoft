@@ -272,6 +272,13 @@ body {
     text-align: center;
 }
 
+.center-image {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    text-align: center !important;
+}
+
 .rotate-text-header {
     transform: rotate(-2deg);
 }
@@ -412,4 +419,8 @@ body {
     padding-left: 1rem !important;
     padding-bottom: .25rem !important;
     padding-right: 3rem!important;
+}
+
+.input-group-text {
+    padding: .595rem .75rem !important;
 }

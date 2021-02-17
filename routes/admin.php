@@ -8,6 +8,10 @@ Route::group(['middleware' => ['web', 'admin']], function () {
     // Admin Product/s Management
     Route::get('/products', 'App\Http\Controllers\Admin\IndexController@products')->name('admin.products');
 
+    // Admin Users Management
+    Route::get('/users', 'App\Http\Controllers\Admin\UsersController@index')->name('admin.users');
+    Route::post('/users/update', 'App\Http\Controllers\Admin\UsersController@UserUpdate')->name('admin.users.update');
+
     // Admin Seller Requests
     Route::get('/seller-requests', 'App\Http\Controllers\Admin\SellerController@sellerrequests')->name('admin.sellerrequests');
     Route::post('/seller-requests/save', 'App\Http\Controllers\Admin\SellerController@sellerupdate')->name('admin.sellerrequests.store');
@@ -15,7 +19,7 @@ Route::group(['middleware' => ['web', 'admin']], function () {
     // Admin System Settings
     Route::get('/settings', 'App\Http\Controllers\Admin\SettingsController@settings')->name('admin.settings');
     Route::post('/settings/save', 'App\Http\Controllers\Admin\SettingsController@settingssave')->name('admin.settings.save');
-    
+
     // Admin System Announcements
     Route::get('/announcements', 'App\Http\Controllers\Admin\AnnouncementsController@index')->name('admin.announcements');
     Route::post('/announcements/new', 'App\Http\Controllers\Admin\AnnouncementsController@createnew')->name('admin.announcements.new');
@@ -24,13 +28,9 @@ Route::group(['middleware' => ['web', 'admin']], function () {
 
     // Admin System Knowledgebase
     Route::get('/knowledgebase', 'App\Http\Controllers\Admin\KnowledgebaseController@index')->name('admin.knowledgebase');
-
-    // Categorys
     Route::post('/knowledgebase/category/new', 'App\Http\Controllers\Admin\KnowledgebaseController@categorynew')->name('admin.knowledgebase.category.new');
     Route::post('/knowledgebase/category/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@categorydelete')->name('admin.knowledgebase.category.delete');
     Route::post('/knowledgebase/category/update/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@categoryupdate')->name('admin.knowledgebase.category.update');
-
-    // Articles
     Route::post('/knowledgebase/article/new', 'App\Http\Controllers\Admin\KnowledgebaseController@new')->name('admin.knowledgebase.new');
     Route::post('/knowledgebase/article/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@delete')->name('admin.knowledgebase.delete');
     Route::post('/knowledgebase/article/update/{id}', 'App\Http\Controllers\Admin\KnowledgebaseController@update')->name('admin.knowledgebase.update');
@@ -45,5 +45,7 @@ Route::group(['middleware' => ['web', 'admin']], function () {
     Route::post('/tickets/{id}/open', 'App\Http\Controllers\Admin\TicketsController@OpenTicket')->name('admin.tickets.open');
     Route::post('/tickets/{id}/whisper', 'App\Http\Controllers\Admin\TicketsController@TicketWhisper')->name('admin.tickets.whisper');
     Route::post('/tickets/{id}/reply', 'App\Http\Controllers\Admin\TicketsController@TicketReply')->name('admin.tickets.reply');
-});
 
+    // Roles
+    Route::post('/role/create', 'App\Http\Controllers\Admin\SettingsController@CreateRole')->name('admin.role.create');
+});

@@ -2,28 +2,33 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="description" content="A Market, Business, Hosting Company Software for a small price!">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Vincent Van Hoof, Pierce Gearhart">
+    <meta property="og:title" content="Site Title" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ route('index') }}" />
+    <meta property="og:image" content="{{ $companylogo }}" />
+    <meta property="og:description" content="Site description" />
+    <meta name="theme-color" content="#165ef7">
+
     <link rel="icon" href="{{ $companyfavicon }}" type="image/png">
     <title>@yield('title') - {{ $companyname }}</title>
     <link href="/css/custom-light.css" rel="stylesheet">
     <link href="/css/asColorPicker.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="/js/jquery.js"></script>
-    <script src="/vendor/feather-icons/dist/feather.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/imageupload.js"></script>
-    <script src="/js/jquery-clockpicker.min.js"></script>
-    <script src="/js/morris.min.js"></script>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/morris.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.js"></script>
+    @yield('scripts')
 </head>
 
 <body class="antialiased">
-<nav class="market-navbar navbar navbar-expand-lg btn-block" style="position:absolute; padding-bottom: 0px; width: 100%; padding-top: 0px; background-color: #eef1f3;">
+    <nav class="market-navbar navbar navbar-expand-lg btn-block" style="position:absolute; padding-bottom: 0px; width: 100%; padding-top: 0px; background-color: #eef1f3;">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                 <i style="color: black;" data-feather="align-justify"></i>
@@ -40,7 +45,7 @@
                         <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.settings') }}">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link" href="{{-- route('admin.products') --}}">Products</a>
+                        <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.users') }}">Users</a>
                     </li>
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.tickets') }}">Tickets</a>
@@ -103,7 +108,7 @@
         </div>
     </div>
     <div class="container">
-    <div class="mb-3"></div>
+        <div class="mb-3"></div>
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Success:</strong> {{ $message }}
@@ -134,13 +139,15 @@
     </div>
     @endif
 </body>
+
+<script src="/vendor/feather-icons/dist/feather.min.js"></script>
 <script>
     feather.replace()
-
-    $(document).ready(function() {
-        $('.summernote').summernote();
-    });
 </script>
-<script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/imageupload.js"></script>
+<script src="/js/jquery-clockpicker.min.js"></script>
+<script src="/js/morris.min.js"></script>
 
 </html>

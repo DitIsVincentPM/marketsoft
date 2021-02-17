@@ -34,4 +34,4 @@ User Login
     </div>
 </div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('assets.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/auth/login.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('Vendor.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Authentication/login.blade.php ENDPATH**/ ?>

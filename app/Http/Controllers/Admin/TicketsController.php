@@ -58,12 +58,14 @@ class TicketsController extends BaseController
         $users = DB::table('users')->get();
         $ticketreply = DB::table('ticket_replies')->where('ticket_id', $id)->latest()->get();
         $categories = DB::table('ticket_categories')->latest()->get();
+        $roles = DB::table('roles')->get();
 
         return view('Admin.Modules.TicketSystem.view', [
             'tickets' => $tickets,
             'users' => $users,
             'ticket_replies' => $ticketreply,
             'categories' => $categories,
+            'roles' => $roles,
         ]);
     }
 
