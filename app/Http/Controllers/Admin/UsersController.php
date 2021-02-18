@@ -16,12 +16,6 @@ class UsersController extends BaseController
 
     public function index()
     {
-        $users = DB::table('users')->get();
-        $roles = DB::table('roles')->get();
-
-        return view('Admin.users', [
-            'users' => $users,
-            'roles' => $roles,
-        ]);
+        return view('Admin.users');
     }
 }

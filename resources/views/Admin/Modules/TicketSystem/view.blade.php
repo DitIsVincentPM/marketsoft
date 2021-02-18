@@ -88,7 +88,7 @@ Tickets
                             </div>
                     </div>
                     <div class="card-body" style="1.00rem">
-                        <textarea style="border-radius: 5px;" placeholder="Hello! I purchased an item on the website today and haven't recieved it in my account purchases for download. Can I recieve some assistance?" class="ticket-reply-textbox form-control" name="message"></textarea>
+                        <textarea rows="5" style="border-radius: 5px;" placeholder="Hello! I purchased an item on the website today and haven't recieved it in my account purchases for download. Can I recieve some assistance?" class="ticket-reply-textbox form-control" name="message"></textarea>
                     </div>
                     </form>
                 </div>
@@ -107,27 +107,33 @@ Tickets
                     </div>
                     <div class="card-body" style="1.00rem">
                         @if($tickets->status == 3)
-                        <textarea disabled style="border-radius: 5px;" placeholder="Hello! I purchased an item on the website today and haven't recieved it in my account purchases for download. Can I recieve some assistance?" class="ticket-reply-textbox form-control" name="message"></textarea>
+                        <textarea rows="3" disabled style="border-radius: 5px;" placeholder="Hello! I purchased an item on the website today and haven't recieved it in my account purchases for download. Can I recieve some assistance?" class="ticket-reply-textbox form-control" name="message"></textarea>
                         @else
-                        <textarea style="border-radius: 5px;" placeholder="Hello! I purchased an item on the website today and haven't recieved it in my account purchases for download. Can I recieve some assistance?" class="ticket-reply-textbox form-control" name="message"></textarea>
+                        <textarea rows="3" style="border-radius: 5px;" placeholder="Hello! I purchased an item on the website today and haven't recieved it in my account purchases for download. Can I recieve some assistance?" class="ticket-reply-textbox form-control" name="message"></textarea>
                         @endif
                     </div>
                     </form>
                 </div>
 
                 <div id="comments">
+                    <div class="card">
+                        <div class="card-body" style="height: 200px;">
+                            <div style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" class="d-flex justify-content-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            
+
                 <div class="card shadow">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-4">
-                                Reply: #1
-                            </div>
-                            <div class="col-4">
+                            <div class="col-6 text-left">
                                 Sent By: {{ $tickets->name }}
                             </div>
-                            <div class="col-4 text-right">
+                            <div class="col-6 text-right">
                                 Sent: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tickets->created_at)->format('m/d/Y') }}
                             </div>
                         </div>

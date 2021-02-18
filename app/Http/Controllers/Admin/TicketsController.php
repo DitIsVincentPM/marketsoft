@@ -17,13 +17,7 @@ class TicketsController extends BaseController
 
     public function index()
     {
-        $tickets = DB::table('tickets')->latest()->get();
-        $categories = DB::table('ticket_categories')->latest()->get();
-
-        return view('Admin.Modules.TicketSystem.index', [
-            'tickets' => $tickets,
-            'ticket_categories' => $categories,
-        ]);
+        return view('Admin.Modules.TicketSystem.index');
     }
 
     public function CategoryCreate(Request $request)

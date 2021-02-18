@@ -14,6 +14,13 @@ Route::group(['prefix'=>'ticket'], function () {
     Route::post('/', 'App\Http\Controllers\Api\Controller@tickets')->name('api.tickets');
     Route::post('/search', 'App\Http\Controllers\Api\Controller@ticketssearch')->name('api.tickets.search');
 
+    Route::post('/categorys/get', 'App\Http\Controllers\Api\Controller@ticketcategoryget')->name('api.tickets.categorys.get');
+    Route::post('/categorys/update', 'App\Http\Controllers\Api\Controller@ticketcategoryupdate')->name('api.tickets.categorys.update');
+
     Route::post('/categorys', 'App\Http\Controllers\Api\Controller@ticketcategorys')->name('api.tickets.categorys');
     Route::post('/categorys/search', 'App\Http\Controllers\Api\Controller@ticketcategoryssearch')->name('api.tickets.categorys.search');
+});
+
+Route::group(['prefix'=>'roles'], function () {
+    Route::post('/', 'App\Http\Controllers\Api\Controller@roles')->name('api.roles');
 });

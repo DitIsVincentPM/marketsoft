@@ -67,52 +67,7 @@ Users
 
 <div class="modal fade" id="viewmore" tabindex="-1" aria-labelledby="viewmoreLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="user_id"></h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <img class="center-image rounded-circle mb-3" id="profile" src="" alt="ProfilePicture" width="150" height="150" />
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2">First Name:</span>
-                    </div>
-                    <input type="text" id="firstname" class="form-control" disabled>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2">Last Name:</span>
-                    </div>
-                    <input type="text" id="lastname" class="form-control" disabled>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2">Name:</span>
-                    </div>
-                    <input type="text" id="name" class="form-control" disabled>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2">Email:</span>
-                    </div>
-                    <input type="text" id="email" class="form-control" disabled>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2">Banned?</span>
-                    </div>
-                    <select name="ban" class="form-select">
-                        <option selected value="0">No</option>
-                        <option value="1">Yes</option>
-                    </select>
-                </div>
-                <hr>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
+        <div class="modal-content" id="content">
         </div>
     </div>
 </div>

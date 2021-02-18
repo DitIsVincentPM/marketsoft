@@ -51,10 +51,10 @@ function refresh() {
                 }
 
                 $('#table').append(
-                    '<tr> <td class="text-center">' + item['id'] + '</td> <td class="text-center">' + item['name'] + 
-                    '</td> <td class="text-center">' + priority + '</td> <td class="text-center">' + status + 
-                    '</td> <td class="text-center">' + item['created_at'] + 
-                    '</td> <td><div class="pull-right"><a class="btn btn-sm btn-primary" href="/admin/tickets/' + item['id'] + 
+                    '<tr> <td class="text-center">' + item['id'] + '</td> <td class="text-center">' + item['name'] +
+                    '</td> <td class="text-center">' + priority + '</td> <td class="text-center">' + status +
+                    '</td> <td class="text-center">' + item['created_at'] +
+                    '</td> <td><div class="pull-right"><a class="btn btn-sm btn-primary" href="/admin/tickets/' + item['id'] +
                     '">View More</a></div></td> </tr>'
                 );
             });
@@ -97,10 +97,10 @@ function some() {
                 }
 
                 $('#table').append(
-                    '<tr> <td class="text-center">' + item['id'] + 
-                    '</td> <td class="text-center">' + item['name'] + '</td> <td class="text-center">' + priority + 
-                    '</td> <td class="text-center">' + status + '</td> <td class="text-center">' + item['created_at'] + 
-                    '</td> <td><div class="pull-right"><a class="btn btn-sm btn-primary" href="/admin/tickets/' + item['id'] + 
+                    '<tr> <td class="text-center">' + item['id'] +
+                    '</td> <td class="text-center">' + item['name'] + '</td> <td class="text-center">' + priority +
+                    '</td> <td class="text-center">' + status + '</td> <td class="text-center">' + item['created_at'] +
+                    '</td> <td><div class="pull-right"><a class="btn btn-sm btn-primary" href="/admin/tickets/' + item['id'] +
                     '">View More</a></div></td> </tr>'
                 );
             });
@@ -121,7 +121,7 @@ window.onload = function () {
         if (e.keyCode === 13) {
             categorysome();
         }
-    });  
+    });
 }
 
 function categoryrefresh() {
@@ -138,12 +138,13 @@ function categoryrefresh() {
 
             $.each(result, function (key, item) {
                 $('#category-table').append(
-                    '<tr> <td class="text-center">' + item['id'] + '</td> <td class="text-center">' + item['name'] +
-                    '</td> <td class="text-center">' + item['description'] + '</td>' +
-                    '<td class="text-center">' + item['created_at'] + '</td> <td><div class="pull-right"><a class="btn btn-sm btn-primary" href="/admin/tickets/' +
-                    item['id'] + '">View More</a></div></td> </tr>'
+                    '<tr> <td class="text-center">' + item['id'] +
+                    '</td> <td class="text-center">' + item['name'] + '</td> <td class="text-center">' + item["description"] +
+                    '<td><button onclick="categoryget(' + item['id'] + ')" class="btn btn-sm pull-right text-success" data-bs-toggle="modal" data-bs-target="#editcategory">' +
+                    '<i data-feather="edit-3"></i></button></td> </tr>'
                 );
             });
+            feather.replace();
         }
     });
 }
@@ -165,12 +166,55 @@ function categorysome() {
 
             $.each(result, function (key, item) {
                 $('#category-table').append(
-                    '<tr> <td class="text-center">' + item['id'] + '</td> <td class="text-center">' + item['name'] +
-                    '</td> <td class="text-center">' + item['description'] + '</td>' +
-                    '<td class="text-center">' + item['created_at'] + '</td> <td><div class="pull-right"><a class="btn btn-sm btn-primary" href="/admin/tickets/' +
-                    item['id'] + '">View More</a></div></td> </tr>'
+                    '<tr> <td class="text-center">' + item['id'] +
+                    '</td> <td class="text-center">' + item['name'] + '</td> <td class="text-center">' + item["description"] +
+                    '<td><button onclick="categoryget(' + item['id'] + ')" class="btn btn-sm pull-right text-success" data-bs-toggle="modal" data-bs-target="#editcategory">' +
+                    '<i data-feather="edit-3"></i></button></td> </tr>'
                 );
             });
+            feather.replace();
+        }
+    });
+}
+
+function categoryget(id) {
+    $.ajax({
+        type: "POST",
+        url: "/api/ticket/categorys/get",
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            id: id,
+        },
+        dataType: "json",
+        success: function (result) {
+            document.getElementById('name').value = result["name"];
+            document.getElementById('description').value = result["description"];
+            document.getElementById('id').value = result["id"];
+        }
+    });
+}
+
+function categoryupdate() {
+    var name = document.getElementById('name').value;
+    var description = document.getElementById('description').value;
+
+    $.ajax({
+        type: "POST",
+        url: "/api/ticket/categorys/update",
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            id: id,
+            name: name,
+            description: description
+        },
+        dataType: "json",
+        success: function (result) {
         }
     });
 }

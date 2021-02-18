@@ -15,10 +15,12 @@
     <link href="/css/custom-light.css" rel="stylesheet">
     <?php endif; ?>
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-    <link href="/boostrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/boostrap/css/theme.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/morris.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.js"></script>
+    <?php echo $__env->yieldContent('scripts'); ?>
 </head>
 
 <body class="antialiased">
@@ -153,7 +155,6 @@
 <?php echo $__env->yieldContent('footer'); ?>
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/imageupload.js"></script>
-<script src="/js/jquery.js"></script>
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>

@@ -113,8 +113,7 @@ Tickets
                             <th>#</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th>More</th>
                         </tr>
                     </thead>
                     <tbody id="category-table">
@@ -149,6 +148,34 @@ Tickets
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-secondary">Create Category</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Category Modal -->
+<div class="modal fade" id="editcategory" tabindex="-1" aria-labelledby="createcategoryLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createcategoryLabel">Create new Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label">Category Name</label>
+                    <input id="name" type="text" class="form-control" placeholder="General Support">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Category Description</label>
+                    <textarea placeholder="Support for just about anything on the website/software." id="description" class="form-control"></textarea>
+                </div>
+                <input id="id" hidden value=""></input>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" onclick="categoryupdate()" class="btn btn-secondary">Update Category</button>
             </div>
         </div>
     </div>

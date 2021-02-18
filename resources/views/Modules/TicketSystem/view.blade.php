@@ -84,63 +84,24 @@ Ticket #{{ $tickets->id }}
                     </form>
                 </div>
                 @endif
-                @php
-                $x = count($ticket_replies) +2;
-                @endphp
-                @foreach($ticket_replies as $ticket_reply)
-                @php
-                $x--
-                @endphp
-                @foreach($users as $user)
-                @if($user->id == $ticket_reply->user_id)
-                @if($ticket_reply->is_whisper == 1)
-                @else
-                <div class="card shadow">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-4">
-                                Reply: #{{ $x }}
-                            </div>
-                            <div class="col-4">
-                                Sent By: {{ $user->firstname }} {{ $user->lastname }}
-                            </div>
-                            <div class="col-4 text-right">
-                                Sent: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ticket_reply->created_at)->format('m/d/Y') }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-2 text-center">
-                                <img class="center-image rounded-circle" width="55px" src="{{ $user->profile_picture }}">
-                                <p class="pt-1">
-                                    @foreach($roles as $role)
-                                    @if($role->id == $user->role_id)
-                                    <span style="color: {{ $role->color }} !important;"><i style="width: 15px;" data-feather="{{ $role->icon }}"></i> {{ $role->name }}</span>
-                                    @endif
-                                    @endforeach
-                                </p>
-                            </div>
-                            <div class="col-10">
-                                <p class="text-left" style="width: 87%;">{{ $ticket_reply->message }}</p>
+                <div id="comments">
+                    <div class="card">
+                        <div class="card-body" style="height: 200px;">
+                            <div style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" class="d-flex justify-content-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                @endif
-                @endif
-                @endforeach
-                @endforeach
                 <div class="card shadow">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-4">
-                                Reply: #1
-                            </div>
-                            <div class="col-4">
+                            <div class="col-6 text-left">
                                 Sent By: {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
                             </div>
-                            <div class="col-4 text-right">
+                            <div class="col-6 text-right">
                                 Sent: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tickets->created_at)->format('m/d/Y') }}
                             </div>
                         </div>
@@ -162,7 +123,7 @@ Ticket #{{ $tickets->id }}
                                 </p>
                             </div>
                             <div class="col-10">
-                                <a href="#" id="inline-comments" data-type="textarea" data-pk="1" data-placeholder="Your comments here..." data-title="Enter comments" class="editable editable-pre-wrapped editable-click" style="">{{ $tickets->message }}</a></td>
+                                {{ $tickets->message }}
                             </div>
                         </div>
                     </div>
@@ -171,4 +132,9 @@ Ticket #{{ $tickets->id }}
         </div>
     </div>
 </div>
+<input id="ticket_id" value="{{ $tickets->id }}" hidden></input>
+@endsection
+
+@section('scripts')
+<script src="/js/API/ticket.js"></script>
 @endsection
