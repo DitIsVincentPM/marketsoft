@@ -1,24 +1,26 @@
-{{-- Market Software --}}
-{{-- Copyright (c) 2021 Market Software <support@marketsoftware.com> --}}
-@extends('Vendor.main')
 
-@section('title')
-    {{ $product->name }}
-@endsection
 
-@section('header-title')
-    {{ $product->name }}
-@endsection
 
-@section('header-breadcrumb')
+
+<?php $__env->startSection('title'); ?>
+    <?php echo e($product->name); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('header-title'); ?>
+    <?php echo e($product->name); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('header-breadcrumb'); ?>
     <ol class="justify-content-center market-breadcrumb breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></li>
-        <li class="breadcrumb-item active"><a>{{ $product->name }}</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo e(route('index')); ?>">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo e(route('products.index')); ?>">Products</a></li>
+        <li class="breadcrumb-item active"><a><?php echo e($product->name); ?></a></li>
     </ol>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="primary-section">
         <div class="row">
             <div class="col-7">
@@ -58,11 +60,12 @@
                 </div>
             </div>
             <div class="col-5">
-                <h1>{{ $product->name }}</h1>
-                <h4 class="mb-0 mt-3">${{ $product->price }}</h4>
+                <h1><?php echo e($product->name); ?></h1>
+                <h4 class="mb-0 mt-3">$<?php echo e($product->price); ?></h4>
                 <br>
-                {!! $product->description !!}
-                <form method="POST" action="{{ route('products.view.add', $product->id) }}">@csrf
+                <?php echo $product->description; ?>
+
+                <form method="POST" action="<?php echo e(route('products.view.add', $product->id)); ?>"><?php echo csrf_field(); ?>
                     <button class="mt-4 btn btn-primary btn-block">Add to shoppingcart</button>
                 </form>
 
@@ -102,8 +105,10 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
     <script src="/js/API/shoppingcart.js"></script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Vendor.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Products/view.blade.php ENDPATH**/ ?>

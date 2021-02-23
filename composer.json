@@ -15,6 +15,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "srmklive/paypal": "~1.0",
         "twbs/bootstrap": "^4.6"
     },
     "require-dev": {

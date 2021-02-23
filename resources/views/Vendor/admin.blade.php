@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap-wysihtml5.js"></script>
     @yield('scripts')
 </head>
 

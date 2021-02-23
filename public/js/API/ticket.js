@@ -51,7 +51,7 @@ window.onload = function () {
                                             if (user["id"] == item["user_id"]) {
                                                 if (user["role_id"] == role["id"]) {
                                                     $('#comments').append(
-                                                        '<div class="card shadow">' +
+                                                        '<div class="card">' +
                                                         '<div class="card-header">' +
                                                         '<div class="row">' +
                                                         '<div class="col-6 text-left">' +

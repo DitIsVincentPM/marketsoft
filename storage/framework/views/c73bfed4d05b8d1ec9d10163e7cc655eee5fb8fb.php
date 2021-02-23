@@ -25,7 +25,7 @@ Ticket #<?php echo e($tickets->id); ?>
     <div class="primary-section">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                <div class="card shadow">
+                <div class="card">
                     <div class="card-header">
                         <h4 class="mb-0">Ticket Information</h4>
                     </div>
@@ -69,7 +69,7 @@ Ticket #<?php echo e($tickets->id); ?>
             <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
                 <?php if($tickets->status == 3): ?>
                 <?php else: ?>
-                <div class="card shadow">
+                <div class="card">
                     <div class="card-header">
                         <div class="pull-left mt-1">
                             Reply to the Ticket
@@ -97,17 +97,14 @@ Ticket #<?php echo e($tickets->id); ?>
                         </div>
                     </div>
                 </div>
-                <div class="card shadow">
+                <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-4">
-                                Reply: #1
-                            </div>
-                            <div class="col-4">
+                            <div class="col-6 text-left">
                                 Sent By: <?php echo e(Auth::user()->firstname); ?> <?php echo e(Auth::user()->lastname); ?>
 
                             </div>
-                            <div class="col-4 text-right">
+                            <div class="col-6 text-right">
                                 Sent: <?php echo e(Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tickets->created_at)->format('m/d/Y')); ?>
 
                             </div>

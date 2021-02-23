@@ -24,7 +24,10 @@
 </head>
 
 <body class="antialiased">
-    <div class="nav">
+    <div class="" style="background-color: #1E2840 !important; height: 50px !important;">
+        <span class="pull-left"><strong>ANNOUNCEMENT TITLE:</strong></span> <p class="pull-right">Lorel Impus the is the is the is the is the is the</p>
+    </div>
+    <div class="nav mr-5 ">
         <div class="ml-5 mt-4 navigation-branding">
             @if ($navbaricon == 1)
                 <img style="margin-left: 3%;" src="{{ $companylogo }}" width="200" />
@@ -95,7 +98,8 @@
                 <div class="col-1">
                 </div>
                 <div style="margin-top: 10%;" class="col-10 col-max-mobile">
-                    <h1 class="color-white" style="text-transform:uppercase; text-align: center;">@yield('header-title')
+                    <h1 class="color-white" style="text-transform:uppercase; text-align: center;">
+                        @yield('header-title')
                     </h1>
                     <div class="color-white">
                         @yield('header-breadcrumb')
@@ -106,64 +110,12 @@
             </div>
         @endif
     </div>
-
-    <div class="container">
-        @yield('content')
-        <div style="width: 400px; padding: 0% !important; padding-right: 1rem !important;"
-            class="accordion position-fixed bottom-0 end-0 p-3">
-            <div class="accordion-item">
-                <h2 class="accordion-header" style="background-color: white;" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#shoppingcart" aria-expanded="false" aria-controls="shoppingcart">
-                        Shoppingcart
-                    </button>
-                </h2>
-                <div id="shoppingcart" class="accordion-collapse collapse" style="background-color: white;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col">Quantity</th>
-                                <th scope="col">Item</th>
-                                <th scope="col">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $total = 0;
-                            @endphp
-                            @foreach (ShoppingCart::GetShoppingCart() as $item)
-                                @foreach (Products::GetAll() as $product)
-                                    @if ($item->product_id == $product->id)
-                                        <tr>
-                                            <td class="text-center">{{ $item->qty }}</td>
-                                            <td>{{ $product->name }}</td>
-                                            <td>{{ $product->price * $item->qty }}</td>
-                                        </tr>
-                                        @php
-                                            $total = $total + $product->price * $item->qty;
-                                        @endphp
-                                    @endif
-                                @endforeach
-                            @endforeach
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Shipping:</td>
-                                <td>$0.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Tax:</td>
-                                <td>${{ ($total / 100) * 6 }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Total:</td>
-                                <td>${{ $total + ($total / 100) * 6 }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <div class="row" style="--bs-gutter-x: 0rem;">
+        <div class="col-12">
+            <div class="container">
+                @yield('content')
             </div>
+            
         </div>
     </div>
 </body>

@@ -58,7 +58,7 @@ class AuthController
             return redirect()->route('auth.settings')->with('error',"You are already logged into an account! If you need to create another, please logout first.");
         }
 
-        return view('auth.register');
+        return view('Authentication.register');
     }
 
     public function newuser(Request $request)

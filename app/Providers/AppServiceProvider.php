@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use DB;
 use Auth;
+use Request;
 use App\Models\PermissionCheck as Permission;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $companyname = DB::table('settings')->first();
+
         view()->share('companyname', $companyname->CompanyName);
         view()->share('companylogo', $companyname->CompanyLogo);
         view()->share('companyfavicon', $companyname->CompanyFavicon);

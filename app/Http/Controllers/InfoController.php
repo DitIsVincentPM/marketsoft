@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Team;
+use App\Models\ShoppingCart;
 
 class InfoController
 {
@@ -19,6 +20,9 @@ class InfoController
 
     public function AnnounceView(Request $request, $id)
     {
+        $paypal_link = ShoppingCart::GeneratePaypalLink();
+        return $paypal_link;
+
         $announcement = DB::table('announcements')->where('id', $id)->first();
 
         DB::table('announcements')->where('id', $id)->update([
@@ -62,6 +66,36 @@ class InfoController
 
         return view('Knowledgebase.view', [
             'knowledgebase' => $knowledgebase,
+        ]);
+    }
+
+    public function tos()
+    {
+        $settings = DB::table('settings')->first();
+        $sections = DB::table('tos_sections')->latest()->get();
+
+        if($settings->tos_status == 0)
+        {
+            return redirect()->route('index');
+        }
+
+        return view('Legal.tos', [
+            'sections' => $sections,
+        ]);
+    }
+
+    public function privacy()
+    {
+        $settings = DB::table('settings')->first();
+        $sections = DB::table('privacy_sections')->latest()->get();
+
+        if($settings->privacy_status == 0)
+        {
+            return redirect()->route('index');
+        }
+
+        return view('Legal.privacy', [
+            'sections' => $sections,
         ]);
     }
 }

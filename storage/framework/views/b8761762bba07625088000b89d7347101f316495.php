@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.js">
     <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap-wysihtml5.js"></script>
     <?php echo $__env->yieldContent('scripts'); ?>
 </head>
 

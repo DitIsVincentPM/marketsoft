@@ -24,7 +24,7 @@
 </head>
 
 <body class="antialiased">
-    <div class="nav">
+    <div class="nav mr-5 ">
         <div class="ml-5 mt-4 navigation-branding">
             <?php if($navbaricon == 1): ?>
                 <img style="margin-left: 3%;" src="<?php echo e($companylogo); ?>" width="200" />
@@ -95,7 +95,8 @@
                 <div class="col-1">
                 </div>
                 <div style="margin-top: 10%;" class="col-10 col-max-mobile">
-                    <h1 class="color-white" style="text-transform:uppercase; text-align: center;"><?php echo $__env->yieldContent('header-title'); ?>
+                    <h1 class="color-white" style="text-transform:uppercase; text-align: center;">
+                        <?php echo $__env->yieldContent('header-title'); ?>
                     </h1>
                     <div class="color-white">
                         <?php echo $__env->yieldContent('header-breadcrumb'); ?>
@@ -106,64 +107,12 @@
             </div>
         <?php endif; ?>
     </div>
-
-    <div class="container">
-        <?php echo $__env->yieldContent('content'); ?>
-        <div style="width: 400px; padding: 0% !important; padding-right: 1rem !important;"
-            class="accordion position-fixed bottom-0 end-0 p-3">
-            <div class="accordion-item">
-                <h2 class="accordion-header" style="background-color: white;" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#shoppingcart" aria-expanded="false" aria-controls="shoppingcart">
-                        Shoppingcart
-                    </button>
-                </h2>
-                <div id="shoppingcart" class="accordion-collapse collapse" style="background-color: white;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col">Quantity</th>
-                                <th scope="col">Item</th>
-                                <th scope="col">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                $total = 0;
-                            ?>
-                            <?php $__currentLoopData = ShoppingCart::GetShoppingCart(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php $__currentLoopData = Products::GetAll(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if($item->product_id == $product->id): ?>
-                                        <tr>
-                                            <td class="text-center"><?php echo e($item->qty); ?></td>
-                                            <td><?php echo e($product->name); ?></td>
-                                            <td><?php echo e($product->price * $item->qty); ?></td>
-                                        </tr>
-                                        <?php
-                                            $total = $total + $product->price * $item->qty;
-                                        ?>
-                                    <?php endif; ?>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Shipping:</td>
-                                <td>$0.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Tax:</td>
-                                <td>$<?php echo e(($total / 100) * 6); ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Total:</td>
-                                <td>$<?php echo e($total + ($total / 100) * 6); ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <div class="row" style="--bs-gutter-x: 0rem;">
+        <div class="col-12">
+            <div class="container">
+                <?php echo $__env->yieldContent('content'); ?>
             </div>
+            
         </div>
     </div>
 </body>
@@ -180,4 +129,4 @@
 </script>
 
 </html>
-<?php /**PATH /var/www/softwarelol/resources/views/Vendor/main.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/softwarelol/resources/views/Vendor/products.blade.php ENDPATH**/ ?>

@@ -48,4 +48,15 @@ Route::group(['middleware' => ['web', 'admin']], function () {
 
     // Roles
     Route::post('/role/create', 'App\Http\Controllers\Admin\SettingsController@CreateRole')->name('admin.role.create');
+
+    // Admin Legal Documents
+    Route::post('/tos/status', 'App\Http\Controllers\Admin\SettingsController@tosstatus')->name('admin.tos.status');
+    Route::post('/tos/create', 'App\Http\Controllers\Admin\SettingsController@tossection')->name('admin.tos.create');
+    Route::post('/tos/section/delete/{id}', 'App\Http\Controllers\Admin\SettingsController@tossectiondelete')->name('admin.tos.section.delete');
+    Route::post('/tos/section/update/{id}', 'App\Http\Controllers\Admin\SettingsController@tossectionedit')->name('admin.tos.section.update');
+
+    Route::post('/privacy/status', 'App\Http\Controllers\Admin\SettingsController@privacystatus')->name('admin.privacy.status');
+    Route::post('/privacy/create', 'App\Http\Controllers\Admin\SettingsController@privacysection')->name('admin.privacy.create');
+    Route::post('/privacy/section/delete/{id}', 'App\Http\Controllers\Admin\SettingsController@privacysectiondelete')->name('admin.privacy.section.delete');
+    Route::post('/privacy/section/update/{id}', 'App\Http\Controllers\Admin\SettingsController@privacysectionedit')->name('admin.privacy.section.update');
 });

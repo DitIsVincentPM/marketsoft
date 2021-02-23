@@ -139,6 +139,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -189,7 +190,11 @@ return [
     */
 
     'aliases' => [
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Permission' => App\Models\PermissionCheck::class,
+        'Shorten' => App\Models\Shorten::class,
+        'ShoppingCart' => App\Models\ShoppingCart::class,
+        'Products' => App\Models\Products::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

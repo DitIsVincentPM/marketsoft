@@ -24,7 +24,8 @@ class SettingsController extends BaseController
             ['Settings', 'modules'],
             ['Settings', 'addon'],
             ['Settings', 'theme'],
-            ['Settings', 'roles']
+            ['Settings', 'roles'],
+            ['Settings', 'legal']
         ]);
 
         $addons = GetExternals::getaddons();
@@ -36,6 +37,8 @@ class SettingsController extends BaseController
         $permissions = DB::table('permissions')->get();
         $roles = DB::table('roles')->get();
         $role_perms = DB::table('role_permissions')->get();
+        $tos_sections = DB::table('tos_sections')->latest()->get();
+        $privacy_sections = DB::table('privacy_sections')->latest()->get();
 
         return view('Admin.settings', [
             'settings' => $settings,
@@ -48,6 +51,8 @@ class SettingsController extends BaseController
             'icons' => $icons,
             'roles' => $roles,
             'role_perms' => $role_perms,
+            'tos_sections' => $tos_sections,
+            'privacy_sections' => $privacy_sections,
         ]);
     }
 
@@ -118,5 +123,95 @@ class SettingsController extends BaseController
         }
 
         return redirect()->route('admin.settings')->with('success', "You successfully created the new role $name!");
+    }
+
+    public function tosstatus(Request $request)
+    {
+        $setting = DB::table('settings')->first();
+        
+        if($setting->tos_status == 0)
+        {
+            DB::table('settings')->update([
+                'tos_status' => 1,
+            ]);
+        } elseif($setting->tos_status == 1) {
+            DB::table('settings')->update([
+                'tos_status' => 0,
+            ]);
+        }
+
+        return redirect()->route('admin.settings')->with('success', "You successfully updated the status of Terms of Service!");
+    }
+
+    public function tossection(Request $request)
+    {
+        DB::table('tos_sections')->insert([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
+
+        return redirect()->route('admin.settings')->with('success', "You successfully added a new Terms of Service section!");
+    }
+
+    public function tossectiondelete($id)
+    {
+        DB::table('tos_sections')->where('id', $id)->delete();
+
+        return redirect()->route('admin.settings')->with('success', "You successfully deleted a Terms of Service section!");
+    }
+
+    public function tossectionedit($id)
+    {
+        DB::table('tos_sections')->where('id', $id)->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
+
+        return redirect()->route('admin.settings')->with('success', "You successfully updated a Terms of Service section!");
+    }
+
+    public function privacystatus(Request $request)
+    {
+        $setting = DB::table('settings')->first();
+        
+        if($setting->privacy_status == 0)
+        {
+            DB::table('settings')->update([
+                'privacy_status' => 1,
+            ]);
+        } elseif($setting->privacy_status == 1) {
+            DB::table('settings')->update([
+                'privacy_status' => 0,
+            ]);
+        }
+
+        return redirect()->route('admin.settings')->with('success', "You successfully updated the status of the Privacy Policy!");
+    }
+
+    public function privacysection(Request $request)
+    {
+        DB::table('privacy_sections')->insert([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
+
+        return redirect()->route('admin.settings')->with('success', "You successfully added a new Privacy Policy section!");
+    }
+
+    public function privacysectiondelete($id)
+    {
+        DB::table('privacy_sections')->where('id', $id)->delete();
+
+        return redirect()->route('admin.settings')->with('success', "You successfully deleted a Privacy Policy section!");
+    }
+
+    public function privacysectionedit($id)
+    {
+        DB::table('privacy_sections')->where('id', $id)->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
+
+        return redirect()->route('admin.settings')->with('success', "You successfully updated a Privacy Policy section!");
     }
 }
