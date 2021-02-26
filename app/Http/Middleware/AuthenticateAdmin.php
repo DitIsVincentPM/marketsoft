@@ -11,6 +11,10 @@ class AuthenticateAdmin
 {
     public function handle(Request $request, Closure $next)
     {
+        if(!Auth::check()) {
+            throw new AccessDeniedHttpException;
+        }
+
         $permission = DB::table('permissions')->where('group', 'Admin')->where('key', 'view')->first();
         if($permission == null) {  
             throw new AccessDeniedHttpException;

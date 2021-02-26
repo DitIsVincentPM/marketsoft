@@ -60,7 +60,7 @@ class SettingsController extends BaseController
     {
         $error = InputCheck::check([$request->input('companyname'), $request->input('navbaricon')]);
         if ($error != false) {
-            return redirect()->route('admin.settings')->with('error', $error);
+            return redirect('/admin/settings#general')->with('error', $error);
         }
 
         $file = $request->file('companylogo');
@@ -87,7 +87,7 @@ class SettingsController extends BaseController
             'NavbarIcon' => $request->input('navbaricon'),
         ]);
 
-        return redirect()->route('admin.settings')->with('success', "You successful updated the settings!");
+        return redirect('/admin/settings#general')->with('success', "You successful updated the settings!");
     }
 
     public function CreateRole(Request $request)
@@ -99,7 +99,7 @@ class SettingsController extends BaseController
 
         $error = InputCheck::check([$name, $description, $icon, $color]);
         if ($error != false) {
-            return redirect()->route('admin.settings')->with('error', $error);
+            return redirect('/admin/settings#roles')->with('error', $error);
         }
 
         DB::table('roles')->insert([
@@ -122,7 +122,7 @@ class SettingsController extends BaseController
             }
         }
 
-        return redirect()->route('admin.settings')->with('success', "You successfully created the new role $name!");
+        return redirect('/admin/settings#roles')->with('success', "You successfully created the new role $name!");
     }
 
     public function tosstatus(Request $request)
@@ -140,7 +140,7 @@ class SettingsController extends BaseController
             ]);
         }
 
-        return redirect()->route('admin.settings')->with('success', "You successfully updated the status of Terms of Service!");
+        return redirect('/admin/settings#legal')->with('success', "You successfully updated the status of Terms of Service!");
     }
 
     public function tossection(Request $request)
@@ -150,14 +150,14 @@ class SettingsController extends BaseController
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('admin.settings')->with('success', "You successfully added a new Terms of Service section!");
+        return redirect('/admin/settings#legal')->with('success', "You successfully added a new Terms of Service section!");
     }
 
     public function tossectiondelete($id)
     {
         DB::table('tos_sections')->where('id', $id)->delete();
 
-        return redirect()->route('admin.settings')->with('success', "You successfully deleted a Terms of Service section!");
+        return redirect('/admin/settings#legal')->with('success', "You successfully deleted a Terms of Service section!");
     }
 
     public function tossectionedit($id)
@@ -167,7 +167,7 @@ class SettingsController extends BaseController
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('admin.settings')->with('success', "You successfully updated a Terms of Service section!");
+        return redirect('/admin/settings#legal')->with('success', "You successfully updated a Terms of Service section!");
     }
 
     public function privacystatus(Request $request)
@@ -185,7 +185,7 @@ class SettingsController extends BaseController
             ]);
         }
 
-        return redirect()->route('admin.settings')->with('success', "You successfully updated the status of the Privacy Policy!");
+        return redirect('/admin/settings#legal')->with('success', "You successfully updated the status of the Privacy Policy!");
     }
 
     public function privacysection(Request $request)
@@ -195,14 +195,14 @@ class SettingsController extends BaseController
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('admin.settings')->with('success', "You successfully added a new Privacy Policy section!");
+        return redirect('/admin/settings#legal')->with('success', "You successfully added a new Privacy Policy section!");
     }
 
     public function privacysectiondelete($id)
     {
         DB::table('privacy_sections')->where('id', $id)->delete();
 
-        return redirect()->route('admin.settings')->with('success', "You successfully deleted a Privacy Policy section!");
+        return redirect('/admin/settings#legal')->with('success', "You successfully deleted a Privacy Policy section!");
     }
 
     public function privacysectionedit($id)
@@ -212,6 +212,6 @@ class SettingsController extends BaseController
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('admin.settings')->with('success', "You successfully updated a Privacy Policy section!");
+        return redirect('/admin/settings#legal')->with('success', "You successfully updated a Privacy Policy section!");
     }
 }

@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ $companyfavicon }}" type="image/png">
     <title>@yield('title') - {{ $companyname }}</title>
-    @if (Auth::check())
-        @if (Auth::user()->user_theme == 1)
-            <link href="/css/custom-dark.css" rel="stylesheet">
-        @elseif(Auth::user()->user_theme == 0)
-            <link href="/css/custom-light.css" rel="stylesheet">
-        @endif
-    @else
-        <link href="/css/custom-light.css" rel="stylesheet">
-    @endif
+    <link href="/css/custom-dark.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/css/morris.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -24,68 +16,99 @@
 </head>
 
 <body class="antialiased">
-    <div class="nav">
+    <div class="sub-header">
+        <div class="container">
+            <div>
+                <span>
+                    <strong
+                        class="text-gray-bold">{{ Shorten::string(Announcements::GetLatest()->name, 25) }}:</strong>
+                    <span class="text-gray">{{ Shorten::string(Announcements::GetLatest()->description, 56) }}</span>
+                    @if (Auth::check())
+                        <span class="text-gray-bold pull-right">
+                            <strong>WELCOME, <span class="text-uppercase">{{ Auth::user()->name }}</span></strong>
+                        </span>
+                    @endif
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="nav container">
         <div class="ml-5 mt-4 navigation-branding">
             @if ($navbaricon == 1)
-                <img style="margin-left: 3%;" src="{{ $companylogo }}" width="200" />
+                <img src="{{ $companylogo }}" width="200" />
             @else
                 @if ($companyname == 'MarketSoft')
                     <a href="/">
-                        <p style="margin-left: 3%;">
+                        <p>
                             <span class="nav-market">Market</span><span class="nav-soft">Soft</span>
                         </p>
                     </a>
                 @else
-                    <p style="margin-left: 3%;">{{ $companyname }}</p>
+                    <p>{{ $companyname }}</p>
                 @endif
             @endif
+        </div>
+        <div class="nav-mobile container">
+            <ul class="ul">
+                <li><span data-feather="menu"></span></li>
+            </ul>
         </div>
         <div class="mr-5 navigation">
             <ul class="ul">
                 <li><a href="/">Home</a></li>
-                <li><a data-bs-toggle="dropdown">Products</a>
+                <li><a data-bs-toggle="dropdown">Products<span class="dropdown-icon"
+                            data-feather="chevron-down"></span></a>
                     <ul class="mt-2 dropdown-menu">
                         <a class="dropdown-item" href="{{-- route('products.digital') --}}">Digital Products</a>
                         <a class="dropdown-item" href="{{-- route('products.physical') --}}">Physical Products</a>
                         <a class="dropdown-item" href="{{ route('products.index') }}">View All Products</a>
                     </ul>
                 </li>
-                <li class="dropdown"><a data-bs-toggle="dropdown">Information</a>
+                <li class="dropdown"><a data-bs-toggle="dropdown">Information<span class="dropdown-icon"
+                            data-feather="chevron-down"></span></a>
                     <ul class="mt-2 dropdown-menu">
                         <a class="dropdown-item" href="{{ route('announcements.index') }}">Announcements</a>
                         <a class="dropdown-item" href="{{ route('knowledgebase.index') }}">Knowledgebase</a>
                     </ul>
                 </li>
-                <li><a data-bs-toggle="dropdown">Support</a>
+                <li><a data-bs-toggle="dropdown">Support<span class="dropdown-icon"
+                            data-feather="chevron-down"></span></a>
                     <ul class="mt-2 dropdown-menu">
                         <a class="dropdown-item" href="{{-- route('support.contact') --}}">Contact Us</a>
                         <a class="dropdown-item" href="{{ route('support.ticket') }}">Submit a Ticket</a>
                     </ul>
                 </li>
-                @if (Auth::check())
-                    <li class="li-profile"><a data-bs-toggle="dropdown">{{ Auth::user()->name }} </a>
-                        <ul class="mt-2 dropdown-menu dropdown-menu-left">
-                            @if (Auth::check())
-                                <a class="dropdown-item" href="{{ route('auth.settings') }}"><i style="width: 16px;"
-                                        data-feather="user" class="mr-1"></i><span class="nav-text">Account
-                                        Settings</span></a>
-                                <a class="dropdown-item" href="{{ route('auth.logout') }}"><i style="width: 16px;"
-                                        data-feather="log-out" class="mr-1"></i><span class="nav-text">Account
-                                        Logout</span></a>
-                                @if (Permission::check(['Admin', 'view']) == true)
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('admin.index') }}">
-                                        <i style="width: 16px;" data-feather="settings" class="mr-1"></i>
-                                        <span class="nav-text">Admin Side</span>
-                                    </a>
-                                @endif
-                            @else
-                                <a class="dropdown-item" href="{{ route('auth.login') }}">Login</a>
-                                <a class="dropdown-item" href="{{ route('auth.register') }}">Register</a>
+                <li class="li-profile">
+                    @if (Auth::check())
+                        <a data-bs-toggle="dropdown">
+                            My Account
+                        </a>
+                    @else
+                        <a href="{{ route('auth.login') }}">
+                            Login
+                        </a>
+                    @endif
+                    <ul class="mt-2 dropdown-menu dropdown-menu-left">
+                        @if (Auth::check())
+                            <a class="dropdown-item" href="{{ route('auth.settings') }}"><i style="width: 16px;"
+                                    data-feather="user" class="mr-1"></i><span class="nav-text">Account
+                                    Settings</span></a>
+                            <a class="dropdown-item" href="{{ route('auth.logout') }}"><i style="width: 16px;"
+                                    data-feather="log-out" class="mr-1"></i><span class="nav-text">Account
+                                    Logout</span></a>
+                            @if (Permission::check(['Admin', 'view']) == true)
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('admin.index') }}">
+                                    <i style="width: 16px;" data-feather="settings" class="mr-1"></i>
+                                    <span class="nav-text">Admin Side</span>
+                                </a>
                             @endif
-                        </ul>
-                    </li>
-                @endif
+                        @else
+                            <a class="dropdown-item" href="{{ route('auth.login') }}">Login</a>
+                            <a class="dropdown-item" href="{{ route('auth.register') }}">Register</a>
+                        @endif
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -94,7 +117,7 @@
             <div style="z-index: 500;" class="row">
                 <div class="col-1">
                 </div>
-                <div style="margin-top: 10%;" class="col-10 col-max-mobile">
+                <div style="margin-top: 10rem;" class="col-10 col-max-mobile">
                     <h1 class="color-white" style="text-transform:uppercase; text-align: center;">@yield('header-title')
                     </h1>
                     <div class="color-white">
@@ -112,13 +135,13 @@
         <div style="width: 400px; padding: 0% !important; padding-right: 1rem !important;"
             class="accordion position-fixed bottom-0 end-0 p-3">
             <div class="accordion-item">
-                <h2 class="accordion-header" style="background-color: white;" id="headingOne">
+                <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#shoppingcart" aria-expanded="false" aria-controls="shoppingcart">
                         Shoppingcart
                     </button>
                 </h2>
-                <div id="shoppingcart" class="accordion-collapse collapse" style="background-color: white;">
+                <div id="shoppingcart" class="accordion-collapse collapse">
                     <table class="table">
                         <thead>
                             <tr>
@@ -145,20 +168,10 @@
                                     @endif
                                 @endforeach
                             @endforeach
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Shipping:</td>
-                                <td>$0.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Tax:</td>
-                                <td>${{ ($total / 100) * 6 }}</td>
-                            </tr>
-                            <tr>
+                            <tr class="remove-line">
                                 <th scope="row"></th>
                                 <td>Total:</td>
-                                <td>${{ $total + ($total / 100) * 6 }}</td>
+                                <td>${{ $total }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -168,14 +181,14 @@
     </div>
 </body>
 
-@yield('footer')
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/imageupload.js"></script>
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>
+</script>
 <script>
-    feather.replace()
+    feather.replace();
 
 </script>
 

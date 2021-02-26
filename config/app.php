@@ -191,6 +191,7 @@ return [
 
     'aliases' => [
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
+        'Announcements' => App\Models\Announcements::class,
         'Permission' => App\Models\PermissionCheck::class,
         'Shorten' => App\Models\Shorten::class,
         'ShoppingCart' => App\Models\ShoppingCart::class,

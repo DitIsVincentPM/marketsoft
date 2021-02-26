@@ -30,4 +30,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'discord' => [
+        'client_id' => "524914419541737473",
+        'client_secret' => "2PObapUDAiaigq0ROTfghyoVhqASrKJU",
+        'redirect' => "https://discord.com/api/oauth2/authorize?client_id=524914419541737473&redirect_uri=https%3A%2F%2Fdev.marketsoft.io%2Fdiscord%2Fconnect&response_type=code&scope=identify%20email%20connections",
+
+        // optional
+        'allow_gif_avatars' => (bool)env('DISCORD_AVATAR_GIF', true),
+        'avatar_default_extension' => env('DISCORD_EXTENSION_DEFAULT', 'jpg'), // only pick from jpg, png, webp
+    ],
 ];

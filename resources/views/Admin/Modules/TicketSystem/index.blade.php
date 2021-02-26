@@ -54,7 +54,7 @@ Tickets
                         <h3 class="mb-0 mt-2">Tickets</h3>
                     </div>
                 </div>
-                <table class="table table-striped mb-0 text-center">
+                <table class="table mb-0 text-center">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -107,7 +107,7 @@ Tickets
                         <h3 class="mb-0 mt-1">Ticket Categories</h3>
                     </div>
                 </div>
-                <table class="table table-striped mb-0 text-center">
+                <table class="table mb-0 text-center">
                     <thead>
                         <tr>
                             <th>#</th>

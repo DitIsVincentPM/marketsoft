@@ -18,8 +18,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // ... other providers
+            'SocialiteProviders\\Discord\\DiscordExtendSocialite@handle',
+        ],
     ];
-
+    
     /**
      * Register any events for your application.
      *

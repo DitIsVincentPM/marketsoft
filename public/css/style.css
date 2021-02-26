@@ -1820,10 +1820,6 @@ svg.pulse-svg .third-circle {
   }
 }
 @media (max-width: 767px) {
-  .header {
-    position: fixed;
-  }
-
   .nav-header {
     width: 60px;
   }
