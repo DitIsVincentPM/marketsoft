@@ -443,7 +443,8 @@ h6 {
 
 .color-dark,
 .text-dark {
-  color: #173e43 !important;
+  color: white !important;
+  text-decoration: none;
 }
 
 .color-muted,
@@ -490,9 +491,9 @@ h6 {
 }
 
 .bg-dark {
-  background-color: #173e43 !important;
+  background-color: #2e3145 !important;
   color: #fff !important;
-  fill: #173e43 !important;
+  fill: #2e3145 !important;
 }
 
 .bg-light {

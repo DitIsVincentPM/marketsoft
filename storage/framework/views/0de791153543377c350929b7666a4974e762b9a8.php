@@ -34,18 +34,18 @@
     </div>
     <div class="nav container">
         <div class="ml-5 mt-4 navigation-branding">
-            <?php if($navbaricon == 1): ?>
-                <img src="<?php echo e($companylogo); ?>" width="200" />
+            <?php if($companyname == 'MarketSoft'): ?>
+                <a href="/">
+                    <p>
+                        <span class="nav-market">Market</span><span class="nav-soft">Soft</span>
+                    </p>
+                </a>
             <?php else: ?>
-                <?php if($companyname == 'MarketSoft'): ?>
-                    <a href="/">
-                        <p>
-                            <span class="nav-market">Market</span><span class="nav-soft">Soft</span>
-                        </p>
-                    </a>
-                <?php else: ?>
-                    <p><?php echo e($companyname); ?></p>
-                <?php endif; ?>
+                <a href="/">
+                    <p>
+                        <span class="nav-market"><?php echo e($companyname); ?></span>
+                    </p>
+                </a>
             <?php endif; ?>
         </div>
         <div class="nav-mobile container">
@@ -117,7 +117,7 @@
             <div style="z-index: 500;" class="row">
                 <div class="col-1">
                 </div>
-                <div style="margin-top: 10rem;" class="col-10 col-max-mobile">
+                <div style="margin-top: 10rem;" class="col-10 col-max-mobile header-breadcrumb">
                     <h1 class="color-white" style="text-transform:uppercase; text-align: center;"><?php echo $__env->yieldContent('header-title'); ?>
                     </h1>
                     <div class="color-white">
@@ -131,51 +131,134 @@
     </div>
 
     <div class="container">
+        <?php if($message = Session::get('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                <strong>Success:</strong> <?php echo e($message); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php elseif($message = Session::get('error')): ?>
+            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                <strong>Error:</strong> <?php echo e($message); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php elseif($message = Session::get('warning')): ?>
+            <div class="alert alert-warning alert-dismissible fade show mt-3 " role="alert">
+                <strong>Warning:</strong> <?php echo e($message); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php elseif($message = Session::get('info')): ?>
+            <div class="alert alert-success alert-dismissible fade show mt-3 " role="alert">
+                <strong>Info:</strong> <?php echo e($message); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
         <?php echo $__env->yieldContent('content'); ?>
-        <div style="width: 400px; padding: 0% !important; padding-right: 1rem !important;"
-            class="accordion position-fixed bottom-0 end-0 p-3">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#shoppingcart" aria-expanded="false" aria-controls="shoppingcart">
-                        Shoppingcart
-                    </button>
-                </h2>
-                <div id="shoppingcart" class="accordion-collapse collapse">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col">Quantity</th>
-                                <th scope="col">Item</th>
-                                <th scope="col">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                $total = 0;
-                            ?>
-                            <?php $__currentLoopData = ShoppingCart::GetShoppingCart(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php $__currentLoopData = Products::GetAll(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if($item->product_id == $product->id): ?>
-                                        <tr>
-                                            <td class="text-center"><?php echo e($item->qty); ?></td>
-                                            <td><?php echo e($product->name); ?></td>
-                                            <td><?php echo e($product->price * $item->qty); ?></td>
-                                        </tr>
-                                        <?php
-                                            $total = $total + $product->price * $item->qty;
-                                        ?>
-                                    <?php endif; ?>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <tr class="remove-line">
-                                <th scope="row"></th>
-                                <td>Total:</td>
-                                <td>$<?php echo e($total); ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+    </div>
+
+    <footer class="mt-5 bg-dark text-center text-white">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Footer Content</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+                        voluptatem veniam, est atque cumque eum delectus sint!
+                    </p>
                 </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Links</h5>
+
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="#!" class="text-dark">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-0">Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!" class="text-dark">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2020 Copyright:
+            <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+    </footer>
+
+    <div style="width: 400px; padding: 0% !important; padding-right: 1rem !important;"
+        class="accordion position-fixed bottom-0 end-0 p-3">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#shoppingcart" aria-expanded="false" aria-controls="shoppingcart">
+                    Shopping Cart
+                </button>
+            </h2>
+            <div id="shoppingcart" class="accordion-collapse collapse">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">Quantity</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $total = 0;
+                        ?>
+                        <?php $__currentLoopData = ShoppingCart::GetShoppingCart(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = Products::GetAll(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($item->product_id == $product->id): ?>
+                                    <tr>
+                                        <td class="text-center"><?php echo e($item->qty); ?></td>
+                                        <td><?php echo e($product->name); ?></td>
+                                        <td><?php echo e($product->price * $item->qty); ?></td>
+                                    </tr>
+                                    <?php
+                                        $total = $total + $product->price * $item->qty;
+                                    ?>
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <tr class="remove-line">
+                            <th scope="row"></th>
+                            <td>Total:</td>
+                            <td>$<?php echo e($total); ?></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

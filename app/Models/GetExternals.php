@@ -85,7 +85,7 @@ class GetExternals extends Model
 
         if ($json_content["version"] > $version) {
             $type = "alert-danger";
-            $string = "Your using version v" . $version . " of MarketSoft. There is a new version out v" . $json_content["version"];
+            $string = "Oh no! Your using an older version (v" . $version . ") of MarketSoft. There is a new version out update to " . $json_content["version"];
         } elseif ($json_content["version"] <= $version) {
             $type = "alert-info";
             $string = "Your using version v" . $version . " of MarketSoft.";

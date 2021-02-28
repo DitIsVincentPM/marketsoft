@@ -6,9 +6,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use App\Models\InputCheck as InputCheck;
-use DB;
 use Illuminate\Http\Request;
+use App\Models\InputCheck as InputCheck;
+use App\Models\GetExternals as GetExternals;
+use App\Models\Charts as Charts;
+use Rainwater\Active\Active as Active;
+use DB;
 
 class IndexController extends BaseController
 {
@@ -17,14 +20,29 @@ class IndexController extends BaseController
     public function index()
     {
         $users = DB::table('users')->get();
-        $users = count($users);
 
-        $products = DB::table('products')->get();
-        $products = count($products);
+        $chart_users = Charts::generate('users');
+        $chart_sales = Charts::generate('ca_ownedProducts');
+
+        $version = GetExternals::getversionstring();
+
+        $active_admins = Active::users(3)->get();
+        $active_users = Active::users(3)->paginate(3);
+
+        $roles = DB::table('roles')->get();
+        $role_permissions = DB::table('role_permissions')->get();
+        $users_online = count($active_users) + count(Active::guests(3)->get());
 
         return view('Admin.dashboard', [
             'users' => $users,
-            'products' => $products,
+            'active_users' => $active_users,
+            'admins_online' => $active_admins,
+            'roles' => $roles,
+            'role_permissions' => $role_permissions,
+            'newusers' => $chart_users,
+            'sales' => $chart_sales,
+            'users_online' => $users_online,
+            'version' => $version,
         ]);
     }
 
@@ -39,9 +57,9 @@ class IndexController extends BaseController
 
     public function settingssave(Request $request)
     {
-        if($request->input('type') == "general") {
+        if ($request->input('type') == "general") {
             $error = InputCheck::check([$request->input('companyname'), $request->input('navbaricon')]);
-            if($error != false) {
+            if ($error != false) {
                 return redirect()->route('admin.settings')->with('error', $error);
             }
 
@@ -68,10 +86,8 @@ class IndexController extends BaseController
                 'CompanyName' => $request->input('companyname'),
                 'NavbarIcon' => $request->input('navbaricon'),
             ]);
-        } else if($request->input('type') == "nav") {
-
-        } else if($request->input('type') == "text") {
-
+        } else if ($request->input('type') == "nav") {
+        } else if ($request->input('type') == "text") {
         } else {
             return redirect()->route('admin.settings')->with('error', "No type set!");
         }

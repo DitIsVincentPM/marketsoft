@@ -3,50 +3,216 @@
 @extends('Vendor.admin')
 
 @section('title')
-Admin
+    Admin
 @endsection
 
 @section('header-title')
-Dashboard
+    Dashboard
 @endsection
 
 @section('header-breadcrumb')
-<ol class="justify-content-center market-breadcrumb breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Admin</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-</ol>
+    <ol class="justify-content-center market-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
 @endsection
 
 @section('content')
-<div class="primary-section">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Area Chart</h4>
-            <div id="extra-area-chart" style="position: relative; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
+    <div class="primary-section ">
+        @if ($version[1] == 'alert-danger')
+            <div class="mb-3 alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                Oh no! It seems like your running an old version of marketsoft please update to the newest version!
+                <button type="button" hidden class="btn btn-danger btn-sm right v-center">Update</button>
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p>Currently there @choice('is|are',$users_online) <strong>{{ $users_online }}
+                                @choice('User|Users',$users_online)</strong> on the site!</p>
+                        <span class="right v-center icon-admin" data-feather="@choice('user|users',$users_online)"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4><strong>TOTAL SALES</strong></h4>
+                        <p>{{ DB::table('ca_ownedProducts')->count() }}</p>
+                        <span class="right v-center icon-admin" data-feather="shopping-bag"></span>
+                    </div>
+                </div>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h4><strong>TOTAL USERS</strong></h4>
+                        <p>{{ DB::table('users')->count() }}</p>
+                        <span class="right v-center icon-admin" data-feather="users"></span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4><strong>MONTLY REVENUE</strong></h4>
+                        <p>$0</p>
+                        <span class="right v-center icon-admin" data-feather="credit-card"></span>
+                    </div>
+                </div>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h4><strong>OPEN TICKETS</strong></h4>
+                        <p>{{ DB::table('tickets')->where('status', '!=', 3)->count() }}</p>
+                        <span class="right v-center icon-admin" data-feather="file"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="card">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        Users Online
+                    </div>
+                    <div class="card-body">
+                        @php $s = 0; @endphp
+                        @forelse ($active_users as $a_user)
+                            @foreach ($users as $user)
+                                @if ($a_user->user_id == $user->id)
+                                    @if (Permission::is_admin($user->role_id) == false)
+                                        <div class="col-4 justift-content-center text-center">
+                                            <img src="{{ $user->profile_picture }}" width="100px" height="100px"
+                                                class="rounded-circle" />
+                                            <br>
+                                            <div>
+                                                <p>
+                                                <div class="demo-up">
+                                                    <span class="server-status" type="up"></span>
+                                                    <span>{{ $user->name }}</span>
+                                                    <br>
+                                                    <small>{{ Permission::getRole($user->role_id)->name }}</small>
+                                                </div>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        @php $s = $s + 1; @endphp
+                                    @endif
+                                @endif
+                            @endforeach
+                            @endforeach
+                            @if ($s == 0)
+                                <div class="col-12">
+                                    <div class="mb-1 alert alert-info alert-dismissible text-center fade show mt-1" role="alert">
+                                        Currently there are <strong>0 members</strong> online!
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Staff Online
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                @php $x = 0; @endphp
+                                @foreach ($admins_online as $a_user)
+                                    @foreach ($users as $user)
+                                        @if ($a_user->user_id == $user->id)
+                                            @if (Permission::is_admin($user->role_id) == true)
+                                                <div class="col-4 justift-content-center text-center">
+                                                    <img src="{{ $user->profile_picture }}" width="100px" height="100px"
+                                                        class="rounded-circle" />
+                                                    <br>
+                                                    <div>
+                                                        <p>
+                                                        <div class="demo-up">
+                                                            <span class="server-status" type="up"></span>
+                                                            <span>{{ $user->name }}</span>
+                                                            <br>
+                                                            <small>{{ Permission::getRole($user->role_id)->name }}</small>
+                                                        </div>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                @php $x = $x + 1; @endphp
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                                @if ($x == 0)
+                                    <div class="col-12">
+                                        <div class="mb-1 alert alert-info alert-dismissible text-center fade show mt-1" role="alert">
+                                            Currently there are <strong>0 staff members</strong> online!
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<script>
-     Morris.Area({
-        element: 'extra-area-chart',
-        data: [{
-            month: '2021 01',
-            users: 1,
-            windows: 0,
-            mac: 0
-        }],
-        lineColors: ['#6ed3cf', '#173e43', '#9068be'],
-        xkey: 'month',
-        ykeys: ['users', 'windows', 'mac'],
-        labels: ['Phone', 'Windows', 'Mac'],
-        pointSize: 0,
-        lineWidth: 0,
-        resize: true,
-        fillOpacity: 0.8,
-        behaveLikeLine: true,
-        gridLineColor: 'transparent',
-        hideHover: 'auto'
 
-    });
-</script>
-@endsection
+        <script>
+            new Chart(document.getElementById("chart"), {
+                type: 'line',
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                        "October", "November", "December"
+                    ],
+                    datasets: [{
+                        data: [{{ $newusers[0] }}, {{ $newusers[1] }}, {{ $newusers[2] }},
+                            {{ $newusers[3] }}, {{ $newusers[4] }}, {{ $newusers[5] }},
+                            {{ $newusers[6] }}, {{ $newusers[7] }}, {{ $newusers[8] }},
+                            {{ $newusers[9] }}, {{ $newusers[10] }}, {{ $newusers[11] }}
+                        ],
+                        label: "New Users",
+                        fill: true,
+                        backgroundColor: 'rgba(62, 149, 205, 0.7)',
+                        pointRadius: 0,
+                        borderWidth: 1,
+                        pointHitRadius: 20,
+                        borderColor: 'rgba(0, 0, 0, 0.2)',
+                    }, {
+                        data: [{{ $sales[0] }}, {{ $sales[1] }}, {{ $sales[2] }},
+                            {{ $sales[3] }}, {{ $sales[4] }}, {{ $sales[5] }},
+                            {{ $sales[6] }}, {{ $sales[7] }}, {{ $sales[8] }},
+                            {{ $sales[9] }}, {{ $sales[10] }}, {{ $sales[11] }}
+                        ],
+                        label: "Sales",
+                        fill: true,
+                        backgroundColor: 'rgba(36, 123, 255, 0.7)',
+                        pointRadius: 0,
+                        pointHitRadius: 20,
+                        borderWidth: 1,
+                        borderColor: 'rgba(0, 0, 0, 0.2)',
+                    }]
+                },
+                options: {
+                    legend: {
+                        labels: {
+                            fontColor: 'white'
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                fontColor: 'white'
+                            },
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                fontColor: 'white'
+                            },
+                        }]
+                    }
+                }
+            });
+
+        </script>
+    @endsection

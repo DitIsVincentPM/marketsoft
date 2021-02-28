@@ -4,6 +4,21 @@ body {
     overflow-x: hidden;
 }
 
+.v-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.right {
+    right: 0%;
+}
+
+.icon-admin {
+    margin-right: 10px;
+}
+
 .sub-header {
     background-color: #272b3a;
     padding-top: 5px;
@@ -26,8 +41,11 @@ body {
     background: -moz-linear-gradient(149deg, #0683ff 0%, #0d44ff 100%);
     background: -webkit-linear-gradient(149deg, #0683ff 0%, #0d44ff 100%);
     background: linear-gradient(149deg, #0683ff 0%, #0d44ff 100%);
-    height: 450px;
     z-index: 0;
+}
+
+.header-breadcrumb {
+    padding-bottom: 8rem;
 }
 
 .nav {
@@ -117,9 +135,7 @@ body {
 
 .nav .navigation-branding {}
 
-.nav .navigation {
-    float: right;
-}
+.nav .navigation {}
 
 .nav-market {
     font-weight: 500;
@@ -605,6 +621,105 @@ p {
     color: #ccc !important;
 }
 
+.demos {
+    display: block;
+}
+
+.demos div span:nth-child(2) {
+    margin-left: 30px;
+    line-height: 35px;
+}
+
+.demo-up {
+    display: block;
+    height: 32px;
+    position: relative;
+}
+
+.demo-slow {
+    display: block;
+    height: 35px;
+    position: relative;
+}
+
+.demo-down {
+    display: block;
+    height: 35px;
+    position: relative;
+}
+
+.server-status {
+    left: 10px;
+    top: 50%;
+    margin-left: 0px;
+    margin-top: 0px;
+    position: absolute;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.server-status::before, .server-status::after {
+    left: 0;
+    top: 50%;
+    margin-left: -1px;
+    margin-top: -6px;
+    position: absolute;
+    vertical-align: middle;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.server-status[type="up"], .server-status[type="up"]::before, .server-status[type="up"]::after {
+    background: #2ECC71;
+}
+
+.server-status[type="down"], .server-status[type="down"]::before, .server-status[type="down"]::after {
+    background: #E74C3C;
+}
+
+.server-status[type="slow"], .server-status[type="slow"]::before, .server-status[type="slow"]::after {
+    background: #F1C40F;
+}
+
+.server-status::before {
+    content: "";
+    animation: bounce 1.5s infinite;
+}
+
+.server-status::after {
+    content: "";
+    animation: bounce 1.5s -0.4s infinite;
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        -webkit-transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes bounce {
+    0% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        -webkit-transform: scale(2);
+        opacity: 0;
+    }
+}
+
 .dot {
     height: 20px;
     width: 20px;
@@ -701,15 +816,12 @@ p {
     .navigation {
         display: none !important;
     }
-
     .nav-mobile {
         display: block !important;
     }
-
     .mobile-remove {
         display: none !important;
     }
-
     .mobile-text-center {
         text-align: center;
     }
@@ -719,7 +831,6 @@ p {
     .navigation {
         display: block !important;
     }
-    
     .nav-mobile {
         display: none !important;
     }
@@ -767,4 +878,8 @@ p {
     color: #ffffff !important;
     background-color: #303347 !important;
     border: 1px solid #303347 !important;
+}
+
+.bg-dark {
+    background-color: #2e3145 !important;
 }

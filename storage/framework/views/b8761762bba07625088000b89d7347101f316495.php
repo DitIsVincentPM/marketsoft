@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap-wysihtml5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
     <?php echo $__env->yieldContent('scripts'); ?>
 </head>
 
