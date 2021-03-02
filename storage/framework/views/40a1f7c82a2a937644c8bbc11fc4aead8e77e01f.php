@@ -121,10 +121,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body">
                                     <div id="sections">
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -132,7 +130,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button id="save" type="submit" class="btn btn-primary">Save changes</button>
                     </div>
-                </div>
+                </div>   
             </div>
         </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

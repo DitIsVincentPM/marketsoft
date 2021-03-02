@@ -7,9 +7,8 @@ function remove(id) {
 
 $("#create-section").click(function(e) {
     $("#sections").append(
-        '<div id="section_' + append +
-        '" class="mb-3 p-3" style="background-color: #2e3145 !important;">' +
-        '<div class="row" style="display: flex;" id="edit_section_' + append + '">' +
+        '<div id="section_' + append + '" style="box-shadow: 0px 0px 19px -8px rgba(0,0,0,0.3);" class="card mt-3 p-3">' +
+        '<div class="row card-body" style="display: flex;" id="edit_section_' + append + '">' +
         '<div class="col-8">' +
         '<label class="form-label">Name</label>' +
         '<input id="name_' + append +
@@ -17,10 +16,9 @@ $("#create-section").click(function(e) {
         '</div>' +
         '<div class="col-4">' +
         '<label class="form-label">Type</label>' +
-        '<select id="type_' + append + '" class="section_type form-select">' +
+        '<select id="type_' + append + '" class="pt-3 pb-3 section_type form-select">' +
         '<option value="1">Text</option>' +
         '<option value="2">Accordion</option>' +
-        '<option value="3">List</option>' +
         '</select>' +
         '</div>' +
         '<div class="col-12 mt-2">' +
@@ -45,7 +43,6 @@ function preview(id) {
     var type = "#type_" + id;
     var name = "#name_" + id;
     var content = "#content_" + id;
-    var preview = "#preview-" + id;
     var edit = "edit_section_" + id;
     var second_preview = "preview-" + id;
 
@@ -78,14 +75,6 @@ function preview(id) {
             '</div>' +
             '</div>' +
             '</div>' 
-        );
-    } else if ($(type).val() == 2) {
-        document.getElementById(second_preview).style.display = "block";
-        document.getElementById(edit).style.display = "none";
-
-        $("#preview-" + id).html(
-            '<strong>' + $(name).val() + '</strong>' +
-            '<p>' + $(content).val() + '</p>'
         );
     }
 }
