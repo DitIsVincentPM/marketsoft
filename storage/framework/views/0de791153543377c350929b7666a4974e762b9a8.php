@@ -16,102 +16,83 @@
 </head>
 
 <body class="antialiased">
-    <div class="sub-header">
-        <div class="container">
-            <div>
-                <span>
-                    <strong
-                        class="text-gray-bold"><?php echo e(Shorten::string(Announcements::GetLatest()->name, 25)); ?>:</strong>
-                    <span class="text-gray"><?php echo e(Shorten::string(Announcements::GetLatest()->description, 56)); ?></span>
-                    <?php if(Auth::check()): ?>
-                        <span class="text-gray-bold pull-right">
-                            <strong>WELCOME, <span class="text-uppercase"><?php echo e(Auth::user()->name); ?></span></strong>
-                        </span>
+    
+    <nav class="market-navbar navbar navbar-expand-lg btn-block">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
+                aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+                <i style="color: black;" data-feather="align-justify"></i>
+            </button>
+            <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="market-navbar-large-header market-navbar-header navbar-brand"
+                    href="<?php echo e(route('admin.index')); ?>">
+                    <?php if($navbaricon == 1): ?> <img src="<?php echo e($companylogo); ?>" height="35"
+                        alt="logo" /> <?php else: ?> <h3 class="mb-0 v-center"><?php echo e($companyname); ?></h3>
                     <?php endif; ?>
-                </span>
+                </a>
+                <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
+                    class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link market-navbar-link active"
+                            aria-current="page" href="<?php echo e(route('index')); ?>">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link"
+                            href="<?php echo e(route('products.index')); ?>">Online Store</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
+                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Information
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="<?php echo e(route('announcements.index')); ?>">Announcements</a>
+                            </li>
+                            <li><a class="dropdown-item" href="<?php echo e(route('knowledgebase.index')); ?>">Knowledgebase</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link"
+                            href="<?php echo e(route('users')); ?>">All Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link"
+                            href="<?php echo e(route('support.ticket')); ?>">Support Tickets</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
+                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <?php if(Auth::check()): ?> <?php echo e(Auth::user()->name); ?> <?php else: ?>
+                                Account <?php endif; ?>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <?php if(Auth::check()): ?>
+                                <li><a class="dropdown-item" href="<?php echo e(route('auth.settings')); ?>"><i
+                                            style="width: 15px;margin-right: 5px!important;" data-feather="user"></i><span
+                                            class="nav-text">Account Settings</span></a></li>
+                                <?php if(Permission::is_admin(Auth::user()->role_id)): ?>
+                                    <li><a class="dropdown-item" href="<?php echo e(route('admin.index')); ?>"><i
+                                                style="width: 16px;margin-right: 5px!important;" data-feather="sliders"></i><span
+                                                class="nav-text">Administration</span></a></li>
+                                <?php endif; ?>
+                                <li><a class="dropdown-item" href="<?php echo e(route('auth.logout')); ?>"><i
+                                            style="width: 16px;margin-right: 5px!important;" data-feather="log-out"></i><span
+                                            class="nav-text">Account Logout</span></a></li>
+                            <?php else: ?>
+                                <li><a class="dropdown-item" href="<?php echo e(route('auth.login')); ?>">Login</a></li>
+                                <li><a class="dropdown-item" href="<?php echo e(route('auth.register')); ?>">Register</a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="nav container">
-        <div class="ml-5 mt-4 navigation-branding">
-            <?php if($companyname == 'MarketSoft'): ?>
-                <a href="/">
-                    <p>
-                        <span class="nav-market">Market</span><span class="nav-soft">Soft</span>
-                    </p>
-                </a>
-            <?php else: ?>
-                <a href="/">
-                    <p>
-                        <span class="nav-market"><?php echo e($companyname); ?></span>
-                    </p>
-                </a>
-            <?php endif; ?>
-        </div>
-        <div class="nav-mobile container">
-            <ul class="ul">
-                <li><span data-feather="menu"></span></li>
-            </ul>
-        </div>
-        <div class="mr-5 navigation">
-            <ul class="ul">
-                <li><a href="/">Home</a></li>
-                <li><a data-bs-toggle="dropdown">Products<span class="dropdown-icon"
-                            data-feather="chevron-down"></span></a>
-                    <ul class="mt-2 dropdown-menu">
-                        <a class="dropdown-item" href="">Digital Products</a>
-                        <a class="dropdown-item" href="">Physical Products</a>
-                        <a class="dropdown-item" href="<?php echo e(route('products.index')); ?>">View All Products</a>
-                    </ul>
-                </li>
-                <li class="dropdown"><a data-bs-toggle="dropdown">Information<span class="dropdown-icon"
-                            data-feather="chevron-down"></span></a>
-                    <ul class="mt-2 dropdown-menu">
-                        <a class="dropdown-item" href="<?php echo e(route('announcements.index')); ?>">Announcements</a>
-                        <a class="dropdown-item" href="<?php echo e(route('knowledgebase.index')); ?>">Knowledgebase</a>
-                    </ul>
-                </li>
-                <li><a data-bs-toggle="dropdown">Support<span class="dropdown-icon"
-                            data-feather="chevron-down"></span></a>
-                    <ul class="mt-2 dropdown-menu">
-                        <a class="dropdown-item" href="">Contact Us</a>
-                        <a class="dropdown-item" href="<?php echo e(route('support.ticket')); ?>">Submit a Ticket</a>
-                    </ul>
-                </li>
-                <li class="li-profile">
-                    <?php if(Auth::check()): ?>
-                        <a data-bs-toggle="dropdown">
-                            My Account
-                        </a>
-                    <?php else: ?>
-                        <a href="<?php echo e(route('auth.login')); ?>">
-                            Login
-                        </a>
-                    <?php endif; ?>
-                    <ul class="mt-2 dropdown-menu dropdown-menu-left">
-                        <?php if(Auth::check()): ?>
-                            <a class="dropdown-item" href="<?php echo e(route('auth.settings')); ?>"><i style="width: 16px;"
-                                    data-feather="user" class="mr-1"></i><span class="nav-text">Account
-                                    Settings</span></a>
-                            <a class="dropdown-item" href="<?php echo e(route('auth.logout')); ?>"><i style="width: 16px;"
-                                    data-feather="log-out" class="mr-1"></i><span class="nav-text">Account
-                                    Logout</span></a>
-                            <?php if(Permission::check(['Admin', 'view']) == true): ?>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?php echo e(route('admin.index')); ?>">
-                                    <i style="width: 16px;" data-feather="settings" class="mr-1"></i>
-                                    <span class="nav-text">Admin Side</span>
-                                </a>
-                            <?php endif; ?>
-                        <?php else: ?>
-                            <a class="dropdown-item" href="<?php echo e(route('auth.login')); ?>">Login</a>
-                            <a class="dropdown-item" href="<?php echo e(route('auth.register')); ?>">Register</a>
-                        <?php endif; ?>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+    </nav>
     <div class="header">
         <?php if($__env->yieldContent('header-title')): ?>
             <div style="z-index: 500;" class="row">
@@ -211,8 +192,8 @@
         </div>
 
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2020 Copyright:
-            <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            Copyright © 2020:
+            <a class="text-dark" href="<?php echo e(route('index')); ?>"><?php echo e($companyname); ?></a>
         </div>
     </footer>
 

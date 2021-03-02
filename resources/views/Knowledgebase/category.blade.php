@@ -13,7 +13,6 @@ Knowledgebase
 @section('header-breadcrumb')
 <ol class="justify-content-center market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Info</a></li>
     <li class="breadcrumb-item active" aria-current="page">Knowledgebase</li>
 </ol>
 @endsection

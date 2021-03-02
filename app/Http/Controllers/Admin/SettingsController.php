@@ -125,6 +125,50 @@ class SettingsController extends BaseController
         return redirect('/admin/settings#roles')->with('success', "You successfully created the new role $name!");
     }
 
+    public function UpdateRole(Request $request, $id)
+    {
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $icon = $request->input('icon');
+        $color = $request->input('color');
+
+        $error = InputCheck::check([$name, $description, $icon, $color]);
+        if ($error != false) {
+            return redirect('/admin/settings#roles')->with('error', $error);
+        }
+
+        DB::table('roles')->where('id', $id)->update([
+            'name' => $name,
+            'description' => $description,
+            'icon' => $icon,
+            'color' => $color,
+        ]);
+        
+        $role = DB::table('roles')->latest()->first();
+        $permissions = DB::table('permissions')->get();
+
+        foreach($permissions as $permission) {
+            $perm = $request->input($permission->key);
+            if($perm == true) {
+                DB::table('role_permissions')->insert([
+                    'role_id' => $role->id,
+                    'permission_id' => $permission->id,
+                ]);
+            }
+        }
+
+        return redirect('/admin/settings#roles')->with('success', "You successfully created the new role $name!");
+    }
+
+    public function DeleteRole($id)
+    {
+        DB::table('role_permissions')->where('role_id', $id)->delete();
+
+        DB::table('roles')->where('id', $id)->delete();
+
+        return redirect('/admin/settings#roles')->with('success', "You successfully deleted the role!");
+    }
+
     public function tosstatus(Request $request)
     {
         $setting = DB::table('settings')->first();
@@ -160,7 +204,7 @@ class SettingsController extends BaseController
         return redirect('/admin/settings#legal')->with('success', "You successfully deleted a Terms of Service section!");
     }
 
-    public function tossectionedit($id)
+    public function tossectionedit(Request $request, $id)
     {
         DB::table('tos_sections')->where('id', $id)->update([
             'title' => $request->input('title'),
@@ -205,7 +249,7 @@ class SettingsController extends BaseController
         return redirect('/admin/settings#legal')->with('success', "You successfully deleted a Privacy Policy section!");
     }
 
-    public function privacysectionedit($id)
+    public function privacysectionedit(Request $request, $id)
     {
         DB::table('privacy_sections')->where('id', $id)->update([
             'title' => $request->input('title'),

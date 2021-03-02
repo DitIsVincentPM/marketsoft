@@ -1,19 +1,3 @@
-function change(number) {
-    if (number == 0) {
-        document.getElementById('ticket').style.display = "block";
-        document.getElementById('category').style.display = "none";
-
-        document.getElementById('ticket-button').classList.add('active');
-        document.getElementById('category-button').classList.remove('active');
-    } else if (number == 1) {
-        document.getElementById('ticket').style.display = "none";
-        document.getElementById('category').style.display = "block";
-
-        document.getElementById('ticket-button').classList.remove('active');
-        document.getElementById('category-button').classList.add('active');
-    }
-}
-
 $(document).ready(function () {
     refresh();
     categoryrefresh();

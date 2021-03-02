@@ -19,7 +19,7 @@ Banned User
 
 <?php $__env->startSection('content'); ?>
 <div class="alert alert-primary text-center" role="alert">
-  Oh no! Administration has banned your account! Reach out to us at <?php echo e($settings->Email); ?> if you have questions or concerns about your ban.
+  Oh no! Administration has banned your account! Reach out to us at our email if you have questions or concerns about your ban.
 </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('Vendor.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/banned.blade.php ENDPATH**/ ?>

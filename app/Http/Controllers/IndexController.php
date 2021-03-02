@@ -35,15 +35,15 @@ class IndexController extends BaseController
 
     public function Banned()
     {
+        if(!Auth::check()) {
+           return redirect()->route('auth.login'); 
+        }
+
         if(Auth::user()->is_banned == "0") {
             return redirect()->route('index')->with('error', "Only banned members can view the banned page!");
         }
 
-        $settings = DB::table('settings')->first();
-
-        return view('banned', [
-            'settings' => $settings,
-        ]);
+        return view('banned');
     }
     
 }

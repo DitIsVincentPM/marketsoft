@@ -16,7 +16,7 @@
 </head>
 
 <body class="antialiased">
-    <div class="sub-header">
+    {{-- <div class="sub-header">
         <div class="container">
             <div>
                 <span>
@@ -31,87 +31,83 @@
                 </span>
             </div>
         </div>
-    </div>
-    <div class="nav container">
-        <div class="ml-5 mt-4 navigation-branding">
-            @if ($companyname == 'MarketSoft')
-                <a href="/">
-                    <p>
-                        <span class="nav-market">Market</span><span class="nav-soft">Soft</span>
-                    </p>
-                </a>
-            @else
-                <a href="/">
-                    <p>
-                        <span class="nav-market">{{ $companyname }}</span>
-                    </p>
-                </a>
-            @endif
-        </div>
-        <div class="nav-mobile container">
-            <ul class="ul">
-                <li><span data-feather="menu"></span></li>
-            </ul>
-        </div>
-        <div class="mr-5 navigation">
-            <ul class="ul">
-                <li><a href="/">Home</a></li>
-                <li><a data-bs-toggle="dropdown">Products<span class="dropdown-icon"
-                            data-feather="chevron-down"></span></a>
-                    <ul class="mt-2 dropdown-menu">
-                        <a class="dropdown-item" href="{{-- route('products.digital') --}}">Digital Products</a>
-                        <a class="dropdown-item" href="{{-- route('products.physical') --}}">Physical Products</a>
-                        <a class="dropdown-item" href="{{ route('products.index') }}">View All Products</a>
-                    </ul>
-                </li>
-                <li class="dropdown"><a data-bs-toggle="dropdown">Information<span class="dropdown-icon"
-                            data-feather="chevron-down"></span></a>
-                    <ul class="mt-2 dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('announcements.index') }}">Announcements</a>
-                        <a class="dropdown-item" href="{{ route('knowledgebase.index') }}">Knowledgebase</a>
-                    </ul>
-                </li>
-                <li><a data-bs-toggle="dropdown">Support<span class="dropdown-icon"
-                            data-feather="chevron-down"></span></a>
-                    <ul class="mt-2 dropdown-menu">
-                        <a class="dropdown-item" href="{{-- route('support.contact') --}}">Contact Us</a>
-                        <a class="dropdown-item" href="{{ route('support.ticket') }}">Submit a Ticket</a>
-                    </ul>
-                </li>
-                <li class="li-profile">
-                    @if (Auth::check())
-                        <a data-bs-toggle="dropdown">
-                            My Account
-                        </a>
-                    @else
-                        <a href="{{ route('auth.login') }}">
-                            Login
-                        </a>
+    </div> --}}
+    <nav class="market-navbar navbar navbar-expand-lg btn-block">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
+                aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+                <i style="color: black;" data-feather="align-justify"></i>
+            </button>
+            <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="market-navbar-large-header market-navbar-header navbar-brand"
+                    href="{{ route('admin.index') }}">
+                    @if ($navbaricon == 1) <img src="{{ $companylogo }}" height="35"
+                        alt="logo" /> @else <h3 class="mb-0 v-center">{{ $companyname }}</h3>
                     @endif
-                    <ul class="mt-2 dropdown-menu dropdown-menu-left">
-                        @if (Auth::check())
-                            <a class="dropdown-item" href="{{ route('auth.settings') }}"><i style="width: 16px;"
-                                    data-feather="user" class="mr-1"></i><span class="nav-text">Account
-                                    Settings</span></a>
-                            <a class="dropdown-item" href="{{ route('auth.logout') }}"><i style="width: 16px;"
-                                    data-feather="log-out" class="mr-1"></i><span class="nav-text">Account
-                                    Logout</span></a>
-                            @if (Permission::check(['Admin', 'view']) == true)
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('admin.index') }}">
-                                    <i style="width: 16px;" data-feather="settings" class="mr-1"></i>
-                                    <span class="nav-text">Admin Side</span>
-                                </a>
+                </a>
+                <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
+                    class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link market-navbar-link active"
+                            aria-current="page" href="{{ route('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link"
+                            href="{{ route('products.index') }}">Online Store</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
+                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Information
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{ route('announcements.index') }}">Announcements</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('knowledgebase.index') }}">Knowledgebase</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link"
+                            href="{{ route('users') }}">All Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link"
+                            href="{{ route('support.ticket') }}">Support Tickets</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
+                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        @if (Auth::check()) {{ Auth::user()->name }} @else
+                                Account @endif
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            @if(Auth::check())
+                                <li><a class="dropdown-item" href="{{ route('auth.settings') }}"><i
+                                            style="width: 15px;margin-right: 5px!important;" data-feather="user"></i><span
+                                            class="nav-text">Account Settings</span></a></li>
+                                @if(Permission::is_admin(Auth::user()->role_id))
+                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}"><i
+                                                style="width: 16px;margin-right: 5px!important;" data-feather="sliders"></i><span
+                                                class="nav-text">Administration</span></a></li>
+                                @endif
+                                <li><a class="dropdown-item" href="{{ route('auth.logout') }}"><i
+                                            style="width: 16px;margin-right: 5px!important;" data-feather="log-out"></i><span
+                                            class="nav-text">Account Logout</span></a></li>
+                            @else
+                                <li><a class="dropdown-item" href="{{ route('auth.login') }}">Login</a></li>
+                                <li><a class="dropdown-item" href="{{ route('auth.register') }}">Register</a></li>
                             @endif
-                        @else
-                            <a class="dropdown-item" href="{{ route('auth.login') }}">Login</a>
-                            <a class="dropdown-item" href="{{ route('auth.register') }}">Register</a>
-                        @endif
-                    </ul>
-                </li>
-            </ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </nav>
     <div class="header">
         @if ($__env->yieldContent('header-title'))
             <div style="z-index: 500;" class="row">
@@ -207,8 +203,8 @@
         </div>
 
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2020 Copyright:
-            <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            Copyright © 2020:
+            <a class="text-dark" href="{{ route('index') }}">{{ $companyname }}</a>
         </div>
     </footer>
 

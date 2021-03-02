@@ -40,8 +40,8 @@
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
                     href="<?php echo e(route('admin.index')); ?>">
-                    <?php if($navbaricon == 1): ?> <img src="<?php echo e($companylogo); ?>" height="50"
-                        alt="logo" /> <?php else: ?> <h4><?php echo e($companyname); ?></h4>
+                    <?php if($navbaricon == 1): ?> <img src="<?php echo e($companylogo); ?>" height="35"
+                        alt="logo" /> <?php else: ?> <h4 class="mb-0 v-center"><?php echo e($companyname); ?></h4>
                     <?php endif; ?>
                 </a>
                 <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
@@ -118,55 +118,55 @@
             </div>
         </div>
     </nav>
-    <?php if(trim($__env->yieldContent('header-title'))): ?>
-        <div class="header-section background-gradient-primary">
-            <div class="row">
+    <?php if (! empty(trim($__env->yieldContent('header-title')))): ?>
+        <div class="header">
+            <div style="z-index: 500;" class="row">
                 <div class="col-1">
                 </div>
-                <div class="col-10 mt-5 col-max-mobile">
-                    <h1 class="color-white" style="text-align: center;"><?php echo $__env->yieldContent('header-title'); ?></h1>
+                <div style="margin-top: 10rem;" class="col-10 col-max-mobile header-breadcrumb">
+                    <h1 class="color-white" style="text-transform:uppercase; text-align: center;"><?php echo $__env->yieldContent('header-title'); ?>
+                    </h1>
                     <div class="color-white">
                         <?php echo $__env->yieldContent('header-breadcrumb'); ?>
-                        <br><br>
                     </div>
                 </div>
                 <div class="col-1">
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="mb-3"></div>
-            <?php if($message = Session::get('success')): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Success:</strong> <?php echo e($message); ?>
-
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
-            <?php if($message = Session::get('error')): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error:</strong> <?php echo e($message); ?>
-
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
-            <?php if($message = Session::get('warning')): ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Warning:</strong> <?php echo e($message); ?>
-
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
-            <?php if($message = Session::get('info')): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Info:</strong> <?php echo e($message); ?>
-
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
     <?php endif; ?>
-    <?php echo $__env->yieldContent('content'); ?>
-    <?php if(trim($__env->yieldContent('header-title'))): ?>
+    <div class="container">
+        <div class="mb-3"></div>
+        <?php if($message = Session::get('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success:</strong> <?php echo e($message); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+        <?php if($message = Session::get('error')): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error:</strong> <?php echo e($message); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+        <?php if($message = Session::get('warning')): ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Warning:</strong> <?php echo e($message); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+        <?php if($message = Session::get('info')): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Info:</strong> <?php echo e($message); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+        <?php echo $__env->yieldContent('content'); ?>
+        <?php if (! empty(trim($__env->yieldContent('header-title')))): ?>
         </div>
     <?php endif; ?>
 </body>

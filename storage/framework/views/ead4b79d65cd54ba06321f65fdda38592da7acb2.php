@@ -11,7 +11,7 @@
 <?php else: ?>
 <div class="card">
     <div class="card-header">
-        <h5 class="mb-0 mt-2 pull-left">Terms of Service</h5>
+        <h5 class="mb-0 mt-2 pull-left">Terms of Service <a href="<?php echo e(route('legal.tos')); ?>" target="_blank"><i style="width: 18px;" data-feather="arrow-up-right"></i></a></h5>
         <form action="<?php echo e(route('admin.tos.status')); ?>" method="POST">
             <?php echo csrf_field(); ?>
             <button type="submit" class="btn btn-danger btn-sm pull-right">Disable</button>
@@ -50,7 +50,7 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                        <form action="<?php echo e(route('admin.tos.create')); ?>" method="POST">
+                        <form action="<?php echo e(route('admin.tos.section.update', $tos_section->id)); ?>" method="POST">
                             <?php echo csrf_field(); ?>
                             <div class="mb-3">
                                 <label class="form-label">Section Title</label>
@@ -116,7 +116,7 @@
 <?php else: ?>
 <div class="card">
     <div class="card-header">
-        <h5 class="mb-0 mt-2 pull-left">Privacy Policy</h5>
+        <h5 class="mb-0 mt-2 pull-left">Privacy Policy <a href="<?php echo e(route('legal.privacy')); ?>" target="_blank"><i style="width: 18px;" data-feather="arrow-up-right"></i></a></h5>
         <form action="<?php echo e(route('admin.privacy.status')); ?>" method="POST">
             <?php echo csrf_field(); ?>
             <button type="submit" class="btn btn-danger btn-sm pull-right">Disable</button>
@@ -155,7 +155,7 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                        <form action="<?php echo e(route('admin.privacy.create')); ?>" method="POST">
+                        <form action="<?php echo e(route('admin.privacy.section.update', $privacy_section->id)); ?>" method="POST">
                             <?php echo csrf_field(); ?>
                             <div class="mb-3">
                                 <label class="form-label">Section Title</label>

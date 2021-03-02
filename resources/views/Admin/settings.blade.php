@@ -76,10 +76,6 @@ Settings
         @endif
     </div>
 </div>
-@endsection
-
-@section('scripts')
-
 <script>
     $('#icons').change(function() {
         opt = $(this).val();
@@ -87,6 +83,9 @@ Settings
         feather.replace();
     })
 </script>
+@endsection
+
+@section('scripts')
 
 <script>
     @php

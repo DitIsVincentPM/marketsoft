@@ -21,18 +21,18 @@ Tickets
 <div class="row mt-3">
     <div class="col-3">
         <div class="list-group">
-            <a onclick="change(0)" id="ticket-button" class="list-group-item list-group-item-action active" aria-current="true">
+            <a onclick="change('ticket')" id="tab-button" data-name="ticket" class="list-group-item list-group-item-action active" aria-current="true">
                 <i style="width: 16px;" data-feather="circle" class="mr-1"></i>
                 <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Tickets</span>
             </a>
-            <a onclick="change(1)" id="category-button" class="list-group-item list-group-item-action">
+            <a onclick="change('category')" id="tab-button" data-name="category" class="list-group-item list-group-item-action">
                 <i style="width: 16px;" data-feather="folder" class="mr-1"></i>
                 <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Categorys</span>
             </a>
         </div>
     </div>
     <div class="col-9">
-        <div id="ticket" style="display: block;">
+        <div id="tab-content" data-name="ticket" style="display: block;">
             <div class="row">
                 <div class="col-10">
                     <div class="input-group">
@@ -48,7 +48,7 @@ Tickets
                     <button onclick="refresh()" style="font-size: 18px !important;" class="btn-lg btn btn-primary w-100">Reload</button>
                 </div>
             </div>
-            <div class="card mt-3">
+            <div class="card mt-3" >
                 <div class="card-header">
                     <div class="pull-left">
                         <h3 class="mb-0 mt-2">Tickets</h3>
@@ -85,7 +85,7 @@ Tickets
             </div>
         </div>
 
-        <div id="category" style="display: none;">
+        <div id="tab-content" data-name="category" style="display: none;">
             <div class="row">
                 <div class="col-10">
                     <div class="input-group">
@@ -184,5 +184,6 @@ Tickets
 
 <?php $__env->startSection('scripts'); ?>
 <script src="/js/API/tickets.js"></script>
+<script src="/js/custom-tabs.js"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('Vendor.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Admin/Modules/TicketSystem/index.blade.php ENDPATH**/ ?>

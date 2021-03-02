@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::post('/activeusers', 'App\Http\Controllers\Api\Controller@activeusers')->name('api.activeusers');
+
 Route::group(['prefix' => 'user'], function () {
     Route::post('/', 'App\Http\Controllers\Api\Controller@user')->name('api.user');
     Route::post('/all', 'App\Http\Controllers\Api\Controller@users')->name('api.users');
-    Route::post('/search', 'App\Http\Controllers\Api\Controller@userssearch')->name('api.users.search');
+    Route::post('/edit', 'App\Http\Controllers\Api\Controller@usersedit')->name('api.users.edit');
 });
 
 Route::group(['prefix' => 'ticket'], function () {
@@ -23,4 +25,5 @@ Route::group(['prefix' => 'ticket'], function () {
 
 Route::group(['prefix' => 'roles'], function () {
     Route::post('/', 'App\Http\Controllers\Api\Controller@roles')->name('api.roles');
+    Route::post('/get', 'App\Http\Controllers\Api\Controller@role')->name('api.role');
 });

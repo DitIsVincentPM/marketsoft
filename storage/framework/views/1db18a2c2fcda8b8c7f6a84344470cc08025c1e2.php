@@ -178,5 +178,7 @@ Announcements
     <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
   </div>
 </footer>
+
+<script src="/js/custom-tabs.js"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('Vendor.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Admin/announcements.blade.php ENDPATH**/ ?>

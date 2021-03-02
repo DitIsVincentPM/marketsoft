@@ -1,23 +1,23 @@
-{{-- Market Software --}}
-{{-- Copyright (c) 2021 Market Software <support@marketsoftware.com> --}}
-@extends('Vendor.admin')
 
-@section('title')
+
+
+
+<?php $__env->startSection('title'); ?>
     Admin
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('header-title')
+<?php $__env->startSection('header-title'); ?>
     Seller Requests
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('header-breadcrumb')
+<?php $__env->startSection('header-breadcrumb'); ?>
     <ol class="justify-content-center market-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><a href="#">Admin</a></li>
         <li class="breadcrumb-item active" aria-current="page">Products</li>
     </ol>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="primary-section">
         <div class="row">
             <div class="col-10">
@@ -49,28 +49,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($products as $product)
+                    <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <th scope="row">{{ $product->id }}</th>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->category }}</td>
-                            <td>{{ $product->price }}</td>
+                            <th scope="row"><?php echo e($product->id); ?></th>
+                            <td><?php echo e($product->name); ?></td>
+                            <td><?php echo e($product->category); ?></td>
+                            <td><?php echo e($product->price); ?></td>
                             <td class="text-right"><button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#viewmore-{{ $product->id }}">View More</button></td>
+                                    data-bs-target="#viewmore-<?php echo e($product->id); ?>">View More</button></td>
                         </tr>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
         </div>
     </div>
 
-    @foreach ($products as $product)
-        <div class="modal fade" id="viewmore-{{ $product->id }}" tabindex="-1" aria-labelledby="viewmoreLabel"
+    <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="modal fade" id="viewmore-<?php echo e($product->id); ?>" tabindex="-1" aria-labelledby="viewmoreLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="viewmoreLabel">Product #{{ $product->id }}</h4>
+                        <h4 class="modal-title" id="viewmoreLabel">Product #<?php echo e($product->id); ?></h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -80,7 +80,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">Name:</span>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $product->name }}">
+                                    <input type="text" class="form-control" value="<?php echo e($product->name); ?>">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -88,7 +88,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">Price:</span>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $product->price }}">
+                                    <input type="text" class="form-control" value="<?php echo e($product->price); ?>">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -96,7 +96,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">Description (Short):</span>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $product->description }}">
+                                    <input type="text" class="form-control" value="<?php echo e($product->description); ?>">
                                 </div>
                             </div>
                             <div class="input-group mb-3">
@@ -104,9 +104,9 @@
                                     <span class="input-group-text" id="basic-addon2">Category:</span>
                                 </div>
                                 <select class="form-select" name="category">
-                                    @foreach ($categorys as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $categorys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                             <hr>
@@ -135,6 +135,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <script src="/js/API/products.js"></script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('Vendor.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Admin/products.blade.php ENDPATH**/ ?>

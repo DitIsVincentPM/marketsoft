@@ -182,4 +182,6 @@ Announcements
     <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
   </div>
 </footer>
+
+<script src="/js/custom-tabs.js"></script>
 @endsection

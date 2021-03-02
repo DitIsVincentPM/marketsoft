@@ -77,10 +77,6 @@ Settings
         <?php endif; ?>
     </div>
 </div>
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('scripts'); ?>
-
 <script>
     $('#icons').change(function() {
         opt = $(this).val();
@@ -88,6 +84,9 @@ Settings
         feather.replace();
     })
 </script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('scripts'); ?>
 
 <script>
     <?php

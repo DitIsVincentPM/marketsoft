@@ -648,27 +648,41 @@ p {
     position: relative;
 }
 
-.server-status {
-    left: 10px;
-    top: 50%;
-    margin-left: 0px;
-    margin-top: 0px;
-    position: absolute;
-    vertical-align: middle;
-    width: 10px;
-    height: 10px;
+.admin-profile {
+    border-radius: 30px;
+}
+
+.icon-container {
+    flex: 0 0 auto;
+    width: 50%;
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.admin-img {
+    height: 100%;
+    width: 100%;
     border-radius: 50%;
 }
 
-.server-status::before, .server-status::after {
-    left: 0;
-    top: 50%;
-    margin-left: -1px;
-    margin-top: -6px;
+.status-circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #2ECC71;
+    bottom: 0.2rem;
+    right: 0.2rem;
     position: absolute;
-    vertical-align: middle;
-    width: 12px;
-    height: 12px;
+}
+
+.server-status::before, .server-status::after {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
 }
 

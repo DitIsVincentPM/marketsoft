@@ -40,8 +40,8 @@
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
                     href="{{ route('admin.index') }}">
-                    @if ($navbaricon == 1) <img src="{{ $companylogo }}" height="50"
-                        alt="logo" /> @else <h4>{{ $companyname }}</h4>
+                    @if ($navbaricon == 1) <img src="{{ $companylogo }}" height="35"
+                        alt="logo" /> @else <h4 class="mb-0 v-center">{{ $companyname }}</h4>
                     @endif
                 </a>
                 <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
@@ -118,51 +118,51 @@
             </div>
         </div>
     </nav>
-    @if (trim($__env->yieldContent('header-title')))
-        <div class="header-section background-gradient-primary">
-            <div class="row">
+    @hasSection('header-title')
+        <div class="header">
+            <div style="z-index: 500;" class="row">
                 <div class="col-1">
                 </div>
-                <div class="col-10 mt-5 col-max-mobile">
-                    <h1 class="color-white" style="text-align: center;">@yield('header-title')</h1>
+                <div style="margin-top: 10rem;" class="col-10 col-max-mobile header-breadcrumb">
+                    <h1 class="color-white" style="text-transform:uppercase; text-align: center;">@yield('header-title')
+                    </h1>
                     <div class="color-white">
                         @yield('header-breadcrumb')
-                        <br><br>
                     </div>
                 </div>
                 <div class="col-1">
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="mb-3"></div>
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Success:</strong> {{ $message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if ($message = Session::get('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error:</strong> {{ $message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if ($message = Session::get('warning'))
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Warning:</strong> {{ $message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if ($message = Session::get('info'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Info:</strong> {{ $message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
     @endif
-    @yield('content')
-    @if (trim($__env->yieldContent('header-title')))
+    <div class="container">
+        <div class="mb-3"></div>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success:</strong> {{ $message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error:</strong> {{ $message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($message = Session::get('warning'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Warning:</strong> {{ $message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($message = Session::get('info'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Info:</strong> {{ $message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @yield('content')
+        @hasSection('header-title')
         </div>
     @endif
 </body>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Log;
 use Auth;
+use Rainwater\Active\Active as Active;
 
 class Controller extends BaseController
 {
@@ -19,15 +20,25 @@ class Controller extends BaseController
     }
     public function users(Request $request)
     {
-        $DB = DB::table('users')->get();
-        return json_encode($DB);
-    }
-    public function userssearch(Request $request)
-    {
         $id = $request->get('query');
         $DB = DB::table('users')->orWhere('id', 'like', "%{$id}%")->orWhere('name', 'like', "%{$id}%")->orWhere('firstname', 'like', "%{$id}%")->orWhere('lastname', 'like', "%{$id}%")->orWhere('email', 'like', "%{$id}%")->get();
         return json_encode($DB);
     }
+    public function usersedit(Request $request)
+    {
+        $id = $request->get('id');
+        DB::table('users')->where('id', $id)->update([
+            'firstname' => $request->get('firstname'),
+            'lastname' => $request->get('lastname'),
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'is_banned' => $request->get('ban'),
+            'role_id' => $request->get('role'),
+        ]);
+
+        return true;
+    }
+
 
     // Tickets API
     public function ticketcomments(Request $request)
@@ -72,7 +83,6 @@ class Controller extends BaseController
             'name' => $name,
             'description' => $description,
         ]);
-
     }
 
     public function ticketcategoryget(Request $request)
@@ -100,5 +110,18 @@ class Controller extends BaseController
     {
         $DB = DB::table('roles')->get();
         return json_encode($DB);
+    }
+    public function role(Request $request)
+    {
+        $DB = DB::table('roles')->where('id', $request->get('id'))->first();
+        return json_encode($DB);
+    }
+
+    public function activeusers(Request $request)
+    {
+        $active_users = Active::users(3)->get();
+        $users_online = count($active_users) + count(Active::guests(3)->get());
+
+        return $users_online;
     }
 }

@@ -10,7 +10,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Color</th>
-                <th>Edit</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -20,7 +20,17 @@
                 <td><?php echo e($role->name); ?></td>
                 <td><?php echo e($role->description); ?></td>
                 <td><span style="color: <?php echo e($role->color); ?> !important;"><?php echo e($role->color); ?></span></td>
-                <td><a href="" data-bs-toggle="modal" data-bs-target="#editrole-<?php echo e($role->id); ?>"><i style="width: 20px;" data-feather="edit"></i></a></td>
+                <td>
+                    <form action="<?php echo e(route('admin.role.delete', $role->id)); ?>" method="post">
+                        <?php echo csrf_field(); ?>
+                        <button type="submit" class="btn btn-sm btn-danger pull-right">
+                            Delete
+                        </button>
+                    </form>
+                    <button type="button" class="btn btn-sm btn-primary pull-left" data-bs-toggle="modal" data-bs-target="#editrole-<?php echo e($role->id); ?>">
+                        Edit
+                    </button>
+                </td>
             </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
@@ -145,7 +155,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="<?php echo e(route('admin.role.create')); ?>">
+                <form method="POST" action="<?php echo e(route('admin.role.update', $role->id)); ?>">
                     <?php echo csrf_field(); ?>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Role Name:</label>
@@ -256,7 +266,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Edit Role</button>
+                <button type="submit" class="btn btn-primary">Edit Role</button>
             </div>
         </form>
         </div>
