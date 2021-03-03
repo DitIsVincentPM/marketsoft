@@ -9,14 +9,14 @@
             <div class="row">
                 <div class="col-12">
                     <label for="exampleInputEmail1" class="form-label">Company Name</label>
-                    <input type="text" class="form-control" name="companyname" value="<?php echo e($settings->CompanyName); ?>">
+                    <input type="text" class="form-control" name="companyname" value="<?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?>">
                     <div class="form-text">Putt the name here the name that will show everywhere as you company name.</div>
                 </div>
                 <div class="col-sm-offset-2 col-sm-12"><br>
                     <label for="exampleInputEmail1" class="form-label">Company Logo</label>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" value="<?php echo e($settings->CompanyLogo); ?>" class="form-control" readonly>
+                            <input type="text" value="<?php echo e(Settings::where('key', 'CompanyLogo')->first()->value); ?>" class="form-control" readonly>
                             <div class="input-group-btn">
                                 <span class="fileUpload btn btn-primary">
                                     <span type="button" class="upl" id="upload">Upload</span>
@@ -32,8 +32,8 @@
                     <div class="form-group">
                         <div class="input-group">
                             <select name="navbaricon" class="form-control">
-                                <option <?php if($settings->NavbarIcon == 0): ?> selected <?php endif; ?> value="0">Company Name</option>
-                                <option <?php if($settings->NavbarIcon == 1): ?> selected <?php endif; ?> value="1">Company Logo</option>
+                                <option <?php if(Settings::where('key', 'NavbarIconStatus')->first()->value == 0): ?> selected <?php endif; ?> value="0">Company Name</option>
+                                <option <?php if(Settings::where('key', 'NavbarIconStatus')->first()->value == 1): ?> selected <?php endif; ?> value="1">Company Logo</option>
                             </select>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                     <label class="form-label">Company Favicon</label>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" value="<?php echo e($settings->CompanyFavicon); ?>" class="form-control" readonly>
+                            <input type="text" value="<?php echo e(Settings::where('key', 'CompanyFavicon')->first()->value); ?>" class="form-control" readonly>
                             <div class="input-group-btn">
                                 <span class="fileUpload btn btn-primary">
                                     <span type="button" class="upl" id="upload">Upload</span>

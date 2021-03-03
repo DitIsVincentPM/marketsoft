@@ -1,4 +1,4 @@
-<?php if($settings->tos_status == 0): ?>
+<?php if(Settings::where('key', 'TosStatus')->first()->value == 0): ?>
 <div class="card">
     <div class="card-header">
         <h5 class="mb-0 mt-2 pull-left">Terms of Service</h5>
@@ -103,7 +103,7 @@
   </div>
 <?php endif; ?>
 
-<?php if($settings->privacy_status == 0): ?>
+<?php if(Settings::where('key', 'PrivacyStatus')->first()->value == 0): ?>
 <div class="card">
     <div class="card-header">
         <h5 class="mb-0 mt-2 pull-left">Privacy Policy</h5>

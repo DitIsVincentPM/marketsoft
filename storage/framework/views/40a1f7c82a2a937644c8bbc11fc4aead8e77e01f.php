@@ -18,7 +18,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <div class="primary-section">
+<div id="alert"></div>
         <div class="row">
             <div class="col-10">
                 <form>
@@ -33,7 +33,7 @@
                 </form>
             </div>
             <div class="col-2">
-                <button class="btn btn-primary w-100">All Requests</button>
+                <button onclick="create()" data-bs-toggle="modal" data-bs-target="#viewmore" class="right btn btn-primary w-100">Create</button>
             </div>
         </div>
         <br>
@@ -43,97 +43,33 @@
                     <tr class="admin-table-header">
                         <th class="admin-table" scope="col">#</th>
                         <th class="admin-table" scope="col">Name</th>
-                        <th class="admin-table" scope="col">Category</th>
+                        <th class="admin-table" scope="col">Description</th>
                         <th class="admin-table" scope="col">Price</th>
                         <th class="text-right admin-table" scope="col">More</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <tr>
-                            <th scope="row"><?php echo e($product->id); ?></th>
-                            <td><?php echo e($product->name); ?></td>
-                            <td><?php echo e($product->category); ?></td>
-                            <td><?php echo e($product->price); ?></td>
-                            <td class="text-right"><button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#viewmore-<?php echo e($product->id); ?>">View More</button></td>
-                        </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <tbody id="products_table">
+                <tr style="height: 200px;">
+                <th></th>
+                <th>
+                    <div style="margin: 0; position: absolute; top: 55%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </th>
+                <th></th>
+            </tr>
                 </tbody>
             </table>
         </div>
-    </div>
 
-    <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="modal fade" id="viewmore-<?php echo e($product->id); ?>" tabindex="-1" aria-labelledby="viewmoreLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="viewmoreLabel">Product #<?php echo e($product->id); ?></h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Name:</span>
-                                    </div>
-                                    <input type="text" class="form-control" value="<?php echo e($product->name); ?>">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Price:</span>
-                                    </div>
-                                    <input type="text" class="form-control" value="<?php echo e($product->price); ?>">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Description (Short):</span>
-                                    </div>
-                                    <input type="text" class="form-control" value="<?php echo e($product->description); ?>">
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2">Category:</span>
-                                </div>
-                                <select class="form-select" name="category">
-                                    <?php $__currentLoopData = $categorys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
-                            </div>
-                            <hr>
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-8">
-                                            Sections
-                                        </div>
-                                        <div class="text-right col-4">
-                                            <button id="create-section" class="btn btn-sm btn-primary">Create</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                    <div id="sections">
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="save" type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>   
+    <div class="modal fade" id="viewmore" tabindex="-1" aria-labelledby="viewmoreLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" id="product_model">
             </div>
         </div>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
     <script src="/js/API/products.js"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('Vendor.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Admin/products.blade.php ENDPATH**/ ?>

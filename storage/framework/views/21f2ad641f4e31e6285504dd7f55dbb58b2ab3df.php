@@ -91,7 +91,7 @@
                                             <p>
                                                 <span><?php echo e($user->name); ?></span>
                                                 <br>
-                                                <small><?php echo e(Permission::getRole($user->role_id)->name); ?></small>
+                                                <small><?php echo e($user->Role->name); ?></small>
                                             </p>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
                                                     <p>
                                                         <span><?php echo e($user->name); ?></span>
                                                         <br>
-                                                        <small><?php echo e(Permission::getRole($user->role_id)->name); ?></small>
+                                                        <small><?php echo e($user->Role->name); ?></small>
                                                     </p>
                                                 </div>
                                             </div>

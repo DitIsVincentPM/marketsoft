@@ -69,22 +69,25 @@ class SettingsController extends BaseController
         if (isset($file)) {
             $new_name = "logo" . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images/companylogo'), $new_name);
-            DB::table('settings')->update([
-                'CompanyLogo' => '/images/companylogo/' . $new_name,
+            DB::table('settings')->where('key', 'CompanyLogo')->update([
+                'value' => '/images/companylogo/' . $new_name,
             ]);
         }
         
         if (isset($favicon)) {
             $namefavicon = "favicon" . '.' . $favicon->getClientOriginalExtension();
             $favicon->move(public_path('images/companyfavicon'), $namefavicon);
-            DB::table('settings')->update([
-                'CompanyFavicon' => '/images/companyfavicon/' . $namefavicon,
+            DB::table('settings')->where('key', 'CompanyFavicon')->update([
+                'value' => '/images/companyfavicon/' . $namefavicon,
             ]);
         }
 
-        DB::table('settings')->update([
-            'CompanyName' => $request->input('companyname'),
-            'NavbarIcon' => $request->input('navbaricon'),
+        DB::table('settings')->where('key', 'CompanyName')->update([
+            'value' => $request->input('companyname'),
+        ]);
+
+        DB::table('settings')->where('key', 'NavbarIconStatus')->update([
+            'value' => $request->input('navbaricon'),
         ]);
 
         return redirect('/admin/settings#general')->with('success', "You successful updated the settings!");
@@ -173,14 +176,14 @@ class SettingsController extends BaseController
     {
         $setting = DB::table('settings')->first();
         
-        if($setting->tos_status == 0)
+        if(DB::table('settings')->where('key', 'TosStatus')->first()->value == 0)
         {
-            DB::table('settings')->update([
-                'tos_status' => 1,
+            DB::table('settings')->where('key', 'TosStatus')->update([
+                'value' => 1,
             ]);
         } elseif($setting->tos_status == 1) {
-            DB::table('settings')->update([
-                'tos_status' => 0,
+            DB::table('settings')->where('key', 'TosStatus')->update([
+                'value' => 0,
             ]);
         }
 
@@ -218,14 +221,14 @@ class SettingsController extends BaseController
     {
         $setting = DB::table('settings')->first();
         
-        if($setting->privacy_status == 0)
+        if(DB::table('settings')->where('key', 'PrivacyStatus')->first()->value == 0)
         {
-            DB::table('settings')->update([
-                'privacy_status' => 1,
+            DB::table('settings')->where('key', 'PrivacyStatus')->update([
+                'value' => 1,
             ]);
         } elseif($setting->privacy_status == 1) {
-            DB::table('settings')->update([
-                'privacy_status' => 0,
+            DB::table('settings')->where('key', 'PrivacyStatus')->update([
+                'value' => 0,
             ]);
         }
 

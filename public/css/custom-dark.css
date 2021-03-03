@@ -331,7 +331,9 @@ body {
     font-size: 1.5rem;
 }
 
-.alert-icon .alert-icon-aside svg.feather, .alert-icon .alert-icon-aside svg, .alert-icon .alert-icon-aside i {
+.alert-icon .alert-icon-aside svg.feather,
+.alert-icon .alert-icon-aside svg,
+.alert-icon .alert-icon-aside i {
     height: 1.5rem;
     width: 1.5rem;
 }
@@ -491,7 +493,12 @@ body {
     background-color: #323649 !important;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #fff !important;
 }
 
@@ -499,7 +506,12 @@ p {
     color: #ccc !important;
 }
 
-.card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
+.card h1,
+.card h2,
+.card h3,
+.card h4,
+.card h5,
+.card h6 {
     color: #fff !important;
 }
 
@@ -519,21 +531,13 @@ p {
     background-color: #2e3145 !important;
 }
 
-.btn-primary {
-    background-color: #482ac9 !important;
-    border-color: #482ac9 !important;
-}
-
-.btn-primary:hover, .btn-primary:active {
-    background-color: #3b21ad !important;
-    border-color: #3b21ad !important;
-}
-
 .market-text-primary {
     color: #6949f5 !important;
 }
 
-.market-text-primary:hover, .market-text-primary:active, .market-text-primary:focus {
+.market-text-primary:hover,
+.market-text-primary:active,
+.market-text-primary:focus {
     color: #5739db !important;
 }
 
@@ -597,7 +601,8 @@ p {
     border-bottom: 2px solid #3f4357 !important;
 }
 
-.table td, .table th {
+.table td,
+.table th {
     border-top: 2px solid #3f4357 !important;
 }
 
@@ -677,7 +682,8 @@ p {
     position: absolute;
 }
 
-.server-status::before, .server-status::after {
+.server-status::before,
+.server-status::after {
     top: 0;
     left: 0;
     position: absolute;
@@ -686,15 +692,21 @@ p {
     border-radius: 50%;
 }
 
-.server-status[type="up"], .server-status[type="up"]::before, .server-status[type="up"]::after {
+.server-status[type="up"],
+.server-status[type="up"]::before,
+.server-status[type="up"]::after {
     background: #2ECC71;
 }
 
-.server-status[type="down"], .server-status[type="down"]::before, .server-status[type="down"]::after {
+.server-status[type="down"],
+.server-status[type="down"]::before,
+.server-status[type="down"]::after {
     background: #E74C3C;
 }
 
-.server-status[type="slow"], .server-status[type="slow"]::before, .server-status[type="slow"]::after {
+.server-status[type="slow"],
+.server-status[type="slow"]::before,
+.server-status[type="slow"]::after {
     background: #F1C40F;
 }
 
@@ -896,4 +908,68 @@ p {
 
 .bg-dark {
     background-color: #2e3145 !important;
+}
+
+.input-group-text {
+    height: 55px!important;
+}
+
+label {
+    color: #ccc!important;
+}
+
+code {
+    background-color: #1f2933!important;
+}
+
+.btn-discord {
+    background-color: #7289da!important;
+    color: #fff!important;
+    transition: 0.5s!important;
+}
+
+.btn-discord:hover {
+    background-color: #5668a6!important;
+}
+
+.btn-discord-success {
+    background-color: #7289da!important;
+    color: #fff!important;
+    transition: 0.5s!important;
+}
+
+.btn-google {
+    background-color: #4285F4!important;
+    color: #fff!important;
+    transition: 0.5s!important;
+}
+
+.btn-google:hover {
+    background-color: #3a75d6!important;
+}
+
+.btn-google-success {
+    background-color: #4285F4!important;
+    color: #fff!important;
+    transition: 0.5s!important;
+}
+
+.btn-github {
+    background-color: #0d1117!important;
+    color: #fff!important;
+    transition: 0.5s!important;
+}
+
+.btn-github:hover {
+    background-color: #07090d!important;
+}
+
+.btn-github-success {
+    background-color: #0d1117!important;
+    color: #fff!important;
+    transition: 0.5s!important;
+}
+
+hr {
+    color: #ccc!important;
 }

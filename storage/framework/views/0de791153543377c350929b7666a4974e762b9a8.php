@@ -3,8 +3,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="<?php echo e($companyfavicon); ?>" type="image/png">
-    <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e($companyname); ?></title>
+    <link rel="icon" href="<?php echo e(Settings::where('key', 'CompanyFavicon')->first()->value); ?>" type="image/png">
+    <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?></title>
     <link href="/css/custom-dark.css" rel="stylesheet">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <link rel="stylesheet" href="/css/morris.css">
@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <script src="/js/jquery.js"></script>
     <?php echo $__env->yieldContent('scripts'); ?>
+    <script src="https://kit.fontawesome.com/59ac7ac104.js" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="/css/alertdark.css">
 </head>
 
 <body class="antialiased">
@@ -25,9 +28,9 @@
             </button>
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
-                    href="<?php echo e(route('admin.index')); ?>">
-                    <?php if($navbaricon == 1): ?> <img src="<?php echo e($companylogo); ?>" height="35"
-                        alt="logo" /> <?php else: ?> <h3 class="mb-0 v-center"><?php echo e($companyname); ?></h3>
+                    href="<?php echo e(route('index')); ?>">
+                    <?php if(Settings::where('key', 'NavbarIconStatus')->first()->value == 1): ?> <img src="<?php echo e(Settings::where('key', 'CompanyLogo')->first()->value); ?>" height="35"
+                        alt="logo" /> <?php else: ?> <h3 class="mb-0 v-center"><?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?></h3>
                     <?php endif; ?>
                 </a>
                 <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
@@ -80,7 +83,7 @@
                                                 style="width: 16px;margin-right: 5px!important;" data-feather="sliders"></i><span
                                                 class="nav-text">Administration</span></a></li>
                                 <?php endif; ?>
-                                <li><a class="dropdown-item" href="<?php echo e(route('auth.logout')); ?>"><i
+                                <li><a id="logout" class="dropdown-item" href="<?php echo e(route('auth.logout')); ?>"><i
                                             style="width: 16px;margin-right: 5px!important;" data-feather="log-out"></i><span
                                             class="nav-text">Account Logout</span></a></li>
                             <?php else: ?>
@@ -112,31 +115,6 @@
     </div>
 
     <div class="container">
-        <?php if($message = Session::get('success')): ?>
-            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                <strong>Success:</strong> <?php echo e($message); ?>
-
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php elseif($message = Session::get('error')): ?>
-            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-                <strong>Error:</strong> <?php echo e($message); ?>
-
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php elseif($message = Session::get('warning')): ?>
-            <div class="alert alert-warning alert-dismissible fade show mt-3 " role="alert">
-                <strong>Warning:</strong> <?php echo e($message); ?>
-
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php elseif($message = Session::get('info')): ?>
-            <div class="alert alert-success alert-dismissible fade show mt-3 " role="alert">
-                <strong>Info:</strong> <?php echo e($message); ?>
-
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
         <?php echo $__env->yieldContent('content'); ?>
 
     </div>
@@ -193,7 +171,7 @@
 
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             Copyright © 2020:
-            <a class="text-dark" href="<?php echo e(route('index')); ?>"><?php echo e($companyname); ?></a>
+            <a class="text-dark" href="<?php echo e(route('index')); ?>"><?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?></a>
         </div>
     </footer>
 
@@ -250,6 +228,55 @@
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>
+<script>
+    $('#logout').on('click', function(event) {
+        event.preventDefault();
+
+        var that = this;
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You are about to logout of your account",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, logout!'
+            }).then((result) => {
+            if (result.isConfirmed) {      
+                location.href = '<?php echo e(route('auth.logout')); ?>'
+            }
+        })
+    });
+</script>
+
+<script>
+    <?php if(Session::get('success') or Session::get('error') or Session::get('warning') or Session::get('info')): ?>
+    window.onload=()=>{
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-start',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: "x",
+        cancelButtonColor: "#dd6b55",
+        timer: 4000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        <?php 
+        $message = Session::get('success') . "|success" or Session::get('error') . "|error" or Session::get('warning') . "|warning" or Session::get('info') . "|info";
+        $message = explode("|", $message);
+        ?>
+        Toast.fire({
+            icon: '<?php echo e($message[1]); ?>',
+            title: '<?php echo e($message[0]); ?>'
+        })
+    };
+    <?php endif; ?>
 </script>
 <script>
     feather.replace();

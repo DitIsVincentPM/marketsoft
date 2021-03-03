@@ -7,19 +7,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Hash;
 use Auth;
+use App\Models\Database\Products;
 
 class ProductsController
 {
     public function Home()
     {
-        $products = DB::table('products')->get();
+        $products = Products::get();
         $users = DB::table('users')->get();
-        $category = DB::table('category')->get();
 
         return view('Products.index', [
             'products' => $products,
             'users' => $users,
-            'categorys' => $category,
         ]);
     }
 

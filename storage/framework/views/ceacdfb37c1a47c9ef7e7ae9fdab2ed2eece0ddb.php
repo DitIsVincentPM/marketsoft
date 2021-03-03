@@ -20,10 +20,23 @@ User Register
 
 <?php $__env->startSection('content'); ?>
 <div class="row mt-5">
-    <div class="col-6">
+    <div class="col-12">
         <form method="POST" action="<?php echo e(route('auth.register.new')); ?>">
         <?php echo csrf_field(); ?>
-
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="firstname">First Name:</label>
+                        <input type="text" class="form-control" id="firstname" name="firstname">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="lastname">Last Name:</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname">
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
                 <label for="name">Username:</label>
                 <input type="text" class="form-control" id="name" name="name">
@@ -47,27 +60,9 @@ User Register
                 </div>
             </div>
             <div class="form-group">
-                <button style="cursor:pointer; float: right;" type="submit" class="btn btn-primary w-25">Submit</button>
+                <button type="submit" class="btn btn-primary w-25 pull-right">Submit</button>
             </div>
         </form>
-    </div>
-    <div class="col-6">
-        <div class="vertical"></div>
-        <h5>Comming soon...</h5>
-        <a class="btn market-login-btn" style="text-transform:none">
-            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="/images/login/google.png" />
-            Register with Google
-        </a>
-        <br>
-        <a class="btn market-login-btn" style="text-transform:none">
-            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="/images/login/github.png" />
-            Register with Github
-        </a>
-        <br>
-        <a class="btn market-login-btn" style="text-transform:none">
-            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="/images/login/discord.png" />
-            Register with Discord
-        </a>
     </div>
 </div>
 <?php $__env->stopSection(); ?>

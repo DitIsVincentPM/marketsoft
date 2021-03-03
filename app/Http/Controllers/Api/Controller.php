@@ -11,19 +11,20 @@ use Rainwater\Active\Active as Active;
 
 class Controller extends BaseController
 {
+
     // Users API
     public function user(Request $request)
     {
         $id = $request->get('id');
-        $DB = DB::table('users')->where('id', $id)->first();
-        return json_encode($DB);
+        return json_encode(DB::table('users')->where('id', $id)->first());
     }
+
     public function users(Request $request)
     {
         $id = $request->get('query');
-        $DB = DB::table('users')->orWhere('id', 'like', "%{$id}%")->orWhere('name', 'like', "%{$id}%")->orWhere('firstname', 'like', "%{$id}%")->orWhere('lastname', 'like', "%{$id}%")->orWhere('email', 'like', "%{$id}%")->get();
-        return json_encode($DB);
+        return json_encode(DB::table('users')->orWhere('id', 'like', "%{$id}%")->orWhere('name', 'like', "%{$id}%")->orWhere('firstname', 'like', "%{$id}%")->orWhere('lastname', 'like', "%{$id}%")->orWhere('email', 'like', "%{$id}%")->get());
     }
+
     public function usersedit(Request $request)
     {
         $id = $request->get('id');
@@ -44,34 +45,29 @@ class Controller extends BaseController
     public function ticketcomments(Request $request)
     {
         $id = $request->get('id');
-        $DB = DB::table('ticket_replies')->where('ticket_id', $id)->latest()->get();
-        return json_encode($DB);
+        return json_encode(DB::table('ticket_replies')->where('ticket_id', $id)->latest()->get());
     }
 
     public function tickets(Request $request)
     {
-        $DB = DB::table('tickets')->get();
-        return json_encode($DB);
+        return json_encode(DB::table('tickets')->get());
     }
 
     public function ticketssearch(Request $request)
     {
         $id = $request->get('query');
-        $DB = DB::table('tickets')->orWhere('name', 'like', "%{$id}%")->orWhere('email', 'like', "%{$id}%")->get();
-        return json_encode($DB);
+        return json_encode(DB::table('tickets')->orWhere('name', 'like', "%{$id}%")->orWhere('email', 'like', "%{$id}%")->get());
     }
 
     public function ticketcategorys(Request $request)
     {
-        $DB = DB::table('ticket_categories')->get();
-        return json_encode($DB);
+        return json_encode(DB::table('ticket_categories')->get());
     }
 
     public function ticketcategoryssearch(Request $request)
     {
         $id = $request->get('query');
-        $DB = DB::table('ticket_categories')->orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get();
-        return json_encode($DB);
+        return json_encode(DB::table('ticket_categories')->orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get());
     }
 
     public function ticketcategorycreate(Request $request)
@@ -87,8 +83,7 @@ class Controller extends BaseController
 
     public function ticketcategoryget(Request $request)
     {
-        $DB = DB::table('ticket_categories')->where('id', $request->get('id'))->first();
-        return json_encode($DB);
+        return json_encode(DB::table('ticket_categories')->where('id', $request->get('id'))->first());
     }
 
     public function ticketcategoryupdate(Request $request)
@@ -108,13 +103,11 @@ class Controller extends BaseController
     // Roles API
     public function roles(Request $request)
     {
-        $DB = DB::table('roles')->get();
-        return json_encode($DB);
+        return json_encode(DB::table('roles')->get());
     }
     public function role(Request $request)
     {
-        $DB = DB::table('roles')->where('id', $request->get('id'))->first();
-        return json_encode($DB);
+        return json_encode(DB::table('roles')->where('id', $request->get('id'))->first());
     }
 
     public function activeusers(Request $request)
@@ -123,5 +116,70 @@ class Controller extends BaseController
         $users_online = count($active_users) + count(Active::guests(3)->get());
 
         return $users_online;
+    }
+
+    // Products API
+    public function products()
+    {
+        return json_encode(DB::table('products')->get());
+    }
+
+    public function products_categorys()
+    {
+        return json_encode(DB::table('product_categorys')->get());
+    }
+
+    public function products_images()
+    {
+        return json_encode(DB::table('product_images')->get());
+    }
+
+    public function products_sections()
+    {
+        return json_encode(DB::table('product_sections')->get());
+    }
+
+    public function products_edit(Request $request)
+    {
+        if($request->get('id') == "create") {
+            DB::table('products')->insert([
+                'name' => $request->get('name'),
+                'price' => $request->get('price'),
+                'description' => $request->get('description'),
+                'category' => $request->get('category'),
+            ]);
+            $id = DB::table('products')->latest()->first()->id;    
+        } else {
+            DB::table('products')->where('id', $request->get('id'))->update([
+                'name' => $request->get('name'),
+                'price' => $request->get('price'),
+                'description' => $request->get('description'),
+                'category' => $request->get('category'),
+            ]);
+            $id = $request->get('id');    
+        }
+
+        for ($i = 0; $i < count($request->get('sections')); $i++) {
+            $array = $request->get('sections');
+            if ($array[$i]["name"] == "del") {
+                DB::table('product_sections')->where('id', $array[$i]["id"])->delete();
+            } elseif($array[$i]["id"] == "null"){
+                DB::table('product_sections')->insert([
+                    'product_id' => $id,
+                    'name' => $array[$i]["name"],
+                    'content' => $array[$i]["content"],
+                    'type' => $array[$i]["type"],
+                ]);
+            } else {
+                DB::table('product_sections')->where('id', $array[$i]["id"])->update([
+                    'product_id' => $id,
+                    'name' => $array[$i]["name"],
+                    'content' => $array[$i]["content"],
+                    'type' => $array[$i]["type"],
+                ]);
+            }
+        }
+
+        return "Working!!!!!!";
     }
 }

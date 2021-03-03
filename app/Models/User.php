@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use DB;
+use App\Models\Database\Roles;
 
 class User extends Authenticatable
 {
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function getAuthPassword()
     {
         return $this->password;
+    }
+
+    public function Role()
+    {
+        return $this->belongsTo(Roles::class, 'role_id');
     }
 }

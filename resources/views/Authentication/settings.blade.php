@@ -20,9 +20,56 @@ User Settings
 @endsection
 
 @section('content')
-<form method="POST" action="{{ route('auth.settings.save') }}" enctype='multipart/form-data'>
     <div class="row mt-5">
-        <div class="col-8">
+        <div class="col-12 col-lg-9">
+            <div class="row justify-content-center mb-5 mt-5">
+                <div class="col-12 col-lg-4">
+                    @if(Auth::user()->discord_id == NULL)
+                        <a href="{{ route('discord.redirect') }}">
+                            <button class="btn btn-discord justify-content-center w-100">
+                                <i class="fab fa-discord" style="margin-right: 5px!important;"></i> Connect to Discord
+                            </button>
+                        </a>
+                    @else
+                    <a href="{{ route('discord.remove') }}">
+                        <button class="btn btn-discord justify-content-center w-100">
+                            <i class="fab fa-discord" style="margin-right: 5px!important;"></i> Remove Discord
+                        </button>
+                    </a>
+                    @endif
+                </div>
+                <div class="col-12 col-lg-4">
+                    @if(Auth::user()->google_id == NULL)
+                        <a href="{{ route('google.redirect') }}">
+                            <button class="btn btn-google justify-content-center w-100">
+                                <i class="fab fa-google" style="margin-right: 5px!important;"></i> Connect to Google
+                            </button>
+                        </a>
+                    @else
+                        <a href="{{ route('google.remove') }}">
+                            <button class="btn btn-google justify-content-center w-100">
+                                <i class="fab fa-google" style="margin-right: 5px!important;"></i> Remove Google
+                            </button>
+                        </a>
+                    @endif
+                </div>
+                <div class="col-12 col-lg-4">
+                    @if(Auth::user()->github_id == NULL)
+                        <a href="{{ route('github.redirect') }}">
+                            <button class="btn btn-github justify-content-center w-100">
+                                <i class="fab fa-github" style="margin-right: 5px!important;"></i> Connect to GitHub
+                            </button>
+                        </a>
+                    @else
+                        <a href="{{ route('github.remove') }}">
+                            <button class="btn btn-github justify-content-center w-100">
+                                <i class="fab fa-github" style="margin-right: 5px!important;"></i> Remove GitHub
+                            </button>
+                        </a>
+                    @endif
+                </div>
+            </div>
+            <form method="POST" action="{{ route('auth.settings.save') }}" enctype='multipart/form-data'>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -38,29 +85,18 @@ User Settings
                 </div>
             </div>
             <div class="form-group">
+                <label class="market-form-label" for="email">Username:</label>
+                <input type="username" class="market-form-input form-control" id="username" value="{{ Auth::user()->name }}" name="username">
+            </div>
+            <div class="form-group">
                 <label class="market-form-label" for="email">Email:</label>
                 <input readonly type="email" class="market-form-input-disabled form-control" id="email" value="{{ Auth::user()->email }}" name="email">
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label class="market-form-label" for="email">Username:</label>
-                        <input type="username" class="market-form-input form-control" id="username" value="{{ Auth::user()->name }}" name="username">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <label class="market-form-label" for="email">Light/Dark Mode:</label>
-                    <select name="theme" class="market-form-input form-control">
-                        <option @if(Auth::user()->user_theme == 0) selected @endif id="light" value="0">Light</option>
-                        <option @if(Auth::user()->user_theme == 1) selected @endif id="dark" value="1">Dark</option>
-                    </select>
-                </div>
-            </div>
             <div class="form-group">
-                <button style="cursor:pointer" onClick="window.location.href=window.location.href" type="submit" class="btn btn-primary w-100">Submit</button>
+                <button onClick="window.location.href=window.location.href" type="submit" class="btn btn-primary w-100">Submit</button>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-12 col-lg-3">
             <div class="box">
                 <div class="box-body">
                     <img class="account-settings-users-profile profile-picture" src="{{ Auth::user()->profile_picture }}">
@@ -72,7 +108,7 @@ User Settings
                     <div class="col-sm-offset-2 col-sm-12"><br>
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="text" class="market-form-input form-control" readonly>
+                                <input type="text" style="height: 40px!important;" class="market-form-input form-control" readonly>
                                 <div class="input-group-btn">
                                     <span class="fileUpload btn btn-primary">
                                         <span class="upl" id="upload">Upload</span>

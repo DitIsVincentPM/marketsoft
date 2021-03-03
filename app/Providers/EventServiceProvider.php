@@ -21,6 +21,8 @@ class EventServiceProvider extends ServiceProvider
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             // ... other providers
             'SocialiteProviders\\Discord\\DiscordExtendSocialite@handle',
+            'SocialiteProviders\\Google\\GoogleExtendSocialite@handle',
+            'SocialiteProviders\\GitHub\\GitHubExtendSocialite@handle',
         ],
     ];
     

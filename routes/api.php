@@ -27,3 +27,11 @@ Route::group(['prefix' => 'roles'], function () {
     Route::post('/', 'App\Http\Controllers\Api\Controller@roles')->name('api.roles');
     Route::post('/get', 'App\Http\Controllers\Api\Controller@role')->name('api.role');
 });
+
+Route::group(['prefix' => 'products'], function () {
+    Route::post('/', 'App\Http\Controllers\Api\Controller@products')->name('api.products');
+    Route::post('/categorys', 'App\Http\Controllers\Api\Controller@products_categorys')->name('api.products.categorys');
+    Route::post('/images', 'App\Http\Controllers\Api\Controller@products_images')->name('api.products.images');
+    Route::post('/sections', 'App\Http\Controllers\Api\Controller@products_sections')->name('api.products.sections');
+    Route::post('/edit', 'App\Http\Controllers\Api\Controller@products_edit')->name('api.products.edit');
+});

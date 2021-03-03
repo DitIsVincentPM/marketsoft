@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12">
                 <label for="exampleInputEmail1" class="form-label">Mail:</label>
-                <input type="text" class="form-control" name="mail" value="<?php echo e($settings->Email); ?>">
+                <input type="text" class="form-control" name="mail" value="<?php echo e(Settings::where('key', 'SupportMail')->first()->value); ?>">
                 <div class="form-text">Enter your website support email here.</div>
             </div>
         </div>

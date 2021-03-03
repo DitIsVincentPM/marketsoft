@@ -10,12 +10,12 @@
     <meta property="og:title" content="Site Title" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('index') }}" />
-    <meta property="og:image" content="{{ $companylogo }}" />
+    <meta property="og:image" content="{{ Settings::where('key', 'CompanyLogo')->first()->value }}" />
     <meta property="og:description" content="Site description" />
     <meta name="theme-color" content="#165ef7">
 
-    <link rel="icon" href="{{ $companyfavicon }}" type="image/png">
-    <title>@yield('title') - {{ $companyname }}</title>
+    <link rel="icon" href="{{ Settings::where('key', 'CompanyFavicon')->first()->value }}" type="image/png">
+    <title>@yield('title') - {{ Settings::where('key', 'CompanyName')->first()->value }}</title>
     <link href="/css/custom-dark.css" rel="stylesheet">
     <link href="/css/asColorPicker.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -26,7 +26,8 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap-wysihtml5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="/css/alertdark.css">
     @yield('scripts')
 </head>
 
@@ -40,8 +41,8 @@
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
                     href="{{ route('admin.index') }}">
-                    @if ($navbaricon == 1) <img src="{{ $companylogo }}" height="35"
-                        alt="logo" /> @else <h4 class="mb-0 v-center">{{ $companyname }}</h4>
+                    @if (Settings::where('key', 'NavbarIconStatus')->first()->value == 1) <img src="{{ Settings::where('key', 'CompanyLogo')->first()->value }}" height="35"
+                        alt="logo" /> @else <h4 class="mb-0 v-center">{{ Settings::where('key', 'CompanyName')->first()->value }}</h4>
                     @endif
                 </a>
                 <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
@@ -53,6 +54,10 @@
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link"
                             href="{{ route('admin.settings') }}">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link"
+                            href="{{ route('admin.products') }}">Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link"
@@ -137,30 +142,6 @@
     @endif
     <div class="container">
         <div class="mb-3"></div>
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success:</strong> {{ $message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @if ($message = Session::get('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error:</strong> {{ $message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @if ($message = Session::get('warning'))
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Warning:</strong> {{ $message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @if ($message = Session::get('info'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Info:</strong> {{ $message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
         @yield('content')
         @hasSection('header-title')
         </div>
@@ -170,8 +151,37 @@
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>
 <script>
     feather.replace()
-
 </script>
+<script>
+    @if(Session::get('success') or Session::get('error') or Session::get('warning') or Session::get('info'))
+    window.onload=()=>{
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-start',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: "x",
+        cancelButtonColor: "#dd6b55",
+        timer:4000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        @php 
+        $message = Session::get('success') . "|success" or Session::get('error') . "|error" or Session::get('warning') . "|warning" or Session::get('info') . "|info";
+        $message = explode("|", $message);
+        @endphp
+        Toast.fire({
+            icon: '{{ $message[1] }}',
+            title: '{{ $message[0] }}'
+        })
+    };
+    @endif
+</script>
+
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/imageupload.js"></script>

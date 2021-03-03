@@ -12,6 +12,7 @@ use App\Models\GetExternals as GetExternals;
 use App\Models\Charts as Charts;
 use Rainwater\Active\Active as Active;
 use DB;
+use App\Models\User;
 
 class IndexController extends BaseController
 {
@@ -19,7 +20,7 @@ class IndexController extends BaseController
 
     public function index()
     {
-        $users = DB::table('users')->get();
+        $users = User::get();
 
         $chart_users = Charts::generate('users');
         $chart_sales = Charts::generate('ca_ownedProducts');

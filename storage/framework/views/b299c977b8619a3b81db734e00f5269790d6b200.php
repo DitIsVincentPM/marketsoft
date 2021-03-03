@@ -71,8 +71,6 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-6">
-                                        <img src="<?php echo e($product->logo); ?>" width="100%" height="162px"
-                                            style="border-radius: 2%!important;">
                                     </div>
                                     <div class="col-6">
                                         <div>
@@ -98,7 +96,7 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <p class="text-center mb-0 mt-4">Category: <span
-                                                    style="font-weight: 700;"><?php echo e($product->category); ?></span></p>
+                                                    style="font-weight: 700;"><?php echo e($product->Category->name); ?></span></p>
                                         </div>
                                         <div class="col-6">
                                             <a href="<?php echo e(route('products.view', $product->id)); ?>"><button

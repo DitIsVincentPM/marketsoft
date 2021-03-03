@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-    <div class="primary-section">
+<div id="alert"></div>
         <div class="row">
             <div class="col-10">
                 <form>
@@ -33,7 +33,7 @@
                 </form>
             </div>
             <div class="col-2">
-                <button class="btn btn-primary w-100">All Requests</button>
+                <button onclick="create()" data-bs-toggle="modal" data-bs-target="#viewmore" class="right btn btn-primary w-100">Create</button>
             </div>
         </div>
         <br>
@@ -43,96 +43,32 @@
                     <tr class="admin-table-header">
                         <th class="admin-table" scope="col">#</th>
                         <th class="admin-table" scope="col">Name</th>
-                        <th class="admin-table" scope="col">Category</th>
+                        <th class="admin-table" scope="col">Description</th>
                         <th class="admin-table" scope="col">Price</th>
                         <th class="text-right admin-table" scope="col">More</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($products as $product)
-                        <tr>
-                            <th scope="row">{{ $product->id }}</th>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->category }}</td>
-                            <td>{{ $product->price }}</td>
-                            <td class="text-right"><button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#viewmore-{{ $product->id }}">View More</button></td>
-                        </tr>
-                    @endforeach
+                <tbody id="products_table">
+                <tr style="height: 200px;">
+                <th></th>
+                <th>
+                    <div style="margin: 0; position: absolute; top: 55%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </th>
+                <th></th>
+            </tr>
                 </tbody>
             </table>
         </div>
-    </div>
 
-    @foreach ($products as $product)
-        <div class="modal fade" id="viewmore-{{ $product->id }}" tabindex="-1" aria-labelledby="viewmoreLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="viewmoreLabel">Product #{{ $product->id }}</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Name:</span>
-                                    </div>
-                                    <input type="text" class="form-control" value="{{ $product->name }}">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Price:</span>
-                                    </div>
-                                    <input type="text" class="form-control" value="{{ $product->price }}">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="basic-addon2">Description (Short):</span>
-                                    </div>
-                                    <input type="text" class="form-control" value="{{ $product->description }}">
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2">Category:</span>
-                                </div>
-                                <select class="form-select" name="category">
-                                    @foreach ($categorys as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <hr>
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-8">
-                                            Sections
-                                        </div>
-                                        <div class="text-right col-4">
-                                            <button id="create-section" class="btn btn-sm btn-primary">Create</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                    <div id="sections">
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="save" type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>   
+    <div class="modal fade" id="viewmore" tabindex="-1" aria-labelledby="viewmoreLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" id="product_model">
             </div>
         </div>
-    @endforeach
+    </div>
     <script src="/js/API/products.js"></script>
 @endsection

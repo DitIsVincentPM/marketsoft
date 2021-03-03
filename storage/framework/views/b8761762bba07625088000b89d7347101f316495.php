@@ -10,12 +10,12 @@
     <meta property="og:title" content="Site Title" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="<?php echo e(route('index')); ?>" />
-    <meta property="og:image" content="<?php echo e($companylogo); ?>" />
+    <meta property="og:image" content="<?php echo e(Settings::where('key', 'CompanyLogo')->first()->value); ?>" />
     <meta property="og:description" content="Site description" />
     <meta name="theme-color" content="#165ef7">
 
-    <link rel="icon" href="<?php echo e($companyfavicon); ?>" type="image/png">
-    <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e($companyname); ?></title>
+    <link rel="icon" href="<?php echo e(Settings::where('key', 'CompanyFavicon')->first()->value); ?>" type="image/png">
+    <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?></title>
     <link href="/css/custom-dark.css" rel="stylesheet">
     <link href="/css/asColorPicker.css" rel="stylesheet">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
@@ -26,7 +26,8 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap-wysihtml5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="/css/alertdark.css">
     <?php echo $__env->yieldContent('scripts'); ?>
 </head>
 
@@ -40,8 +41,8 @@
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
                     href="<?php echo e(route('admin.index')); ?>">
-                    <?php if($navbaricon == 1): ?> <img src="<?php echo e($companylogo); ?>" height="35"
-                        alt="logo" /> <?php else: ?> <h4 class="mb-0 v-center"><?php echo e($companyname); ?></h4>
+                    <?php if(Settings::where('key', 'NavbarIconStatus')->first()->value == 1): ?> <img src="<?php echo e(Settings::where('key', 'CompanyLogo')->first()->value); ?>" height="35"
+                        alt="logo" /> <?php else: ?> <h4 class="mb-0 v-center"><?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?></h4>
                     <?php endif; ?>
                 </a>
                 <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
@@ -53,6 +54,10 @@
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link"
                             href="<?php echo e(route('admin.settings')); ?>">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="market-navbar-small-header market-navbar-header nav-link"
+                            href="<?php echo e(route('admin.products')); ?>">Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link"
@@ -137,34 +142,6 @@
     <?php endif; ?>
     <div class="container">
         <div class="mb-3"></div>
-        <?php if($message = Session::get('success')): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success:</strong> <?php echo e($message); ?>
-
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-        <?php if($message = Session::get('error')): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error:</strong> <?php echo e($message); ?>
-
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-        <?php if($message = Session::get('warning')): ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Warning:</strong> <?php echo e($message); ?>
-
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-        <?php if($message = Session::get('info')): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Info:</strong> <?php echo e($message); ?>
-
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
         <?php echo $__env->yieldContent('content'); ?>
         <?php if (! empty(trim($__env->yieldContent('header-title')))): ?>
         </div>
@@ -174,8 +151,37 @@
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>
 <script>
     feather.replace()
-
 </script>
+<script>
+    <?php if(Session::get('success') or Session::get('error') or Session::get('warning') or Session::get('info')): ?>
+    window.onload=()=>{
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-start',
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: "x",
+        cancelButtonColor: "#dd6b55",
+        timer:4000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        <?php 
+        $message = Session::get('success') . "|success" or Session::get('error') . "|error" or Session::get('warning') . "|warning" or Session::get('info') . "|info";
+        $message = explode("|", $message);
+        ?>
+        Toast.fire({
+            icon: '<?php echo e($message[1]); ?>',
+            title: '<?php echo e($message[0]); ?>'
+        })
+    };
+    <?php endif; ?>
+</script>
+
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/imageupload.js"></script>

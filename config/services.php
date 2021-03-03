@@ -30,13 +30,20 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'discord' => [
-        'client_id' => "524914419541737473",
-        'client_secret' => "2PObapUDAiaigq0ROTfghyoVhqASrKJU",
-        'redirect' => "https://discord.com/api/oauth2/authorize?client_id=524914419541737473&redirect_uri=https%3A%2F%2Fdev.marketsoft.io%2Fdiscord%2Fconnect&response_type=code&scope=identify%20email%20connections",
+    'discord' => [    
+        'client_id' => env('DISCORD_CLIENT_ID'),  
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),  
+        'redirect' => env('DISCORD_REDIRECT_URI'),
+    ],
 
-        // optional
-        'allow_gif_avatars' => (bool)env('DISCORD_AVATAR_GIF', true),
-        'avatar_default_extension' => env('DISCORD_EXTENSION_DEFAULT', 'jpg'), // only pick from jpg, png, webp
+    'google' => [    
+        'client_id' => '1052492067172-32ral0b8mfor02k3f0lsnojaufhnbte9.apps.googleusercontent.com',  
+        'client_secret' => 'QicKlBAkCm7SBJWBgcgMd5A3',  
+        'redirect' => 'https://dev.marketsoft.io/google/callback' 
+    ],
+    'github' => [    
+        'client_id' => 'bbc6c1014f3d204dcd05',  
+        'client_secret' => '4ce8713e7eabd73924223c100ad7fcc320af106c',  
+        'redirect' => 'https://dev.marketsoft.io/github/callback' 
     ],
 ];

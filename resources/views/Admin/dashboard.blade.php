@@ -91,7 +91,7 @@
                                             <p>
                                                 <span>{{ $user->name }}</span>
                                                 <br>
-                                                <small>{{ Permission::getRole($user->role_id)->name }}</small>
+                                                <small>{{ $user->Role->name }}</small>
                                             </p>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
                                                     <p>
                                                         <span>{{ $user->name }}</span>
                                                         <br>
-                                                        <small>{{ Permission::getRole($user->role_id)->name }}</small>
+                                                        <small>{{ $user->Role->name }}</small>
                                                     </p>
                                                 </div>
                                             </div>
