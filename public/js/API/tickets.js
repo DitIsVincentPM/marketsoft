@@ -14,6 +14,7 @@ function refresh() {
         dataType: "json",
         success: function (result) {
             $('#table').html('');
+            $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
 
             $.each(result, function (key, item) {
                 if (item['status'] == 0) {
@@ -60,6 +61,7 @@ function some() {
         dataType: "json",
         success: function (result) {
             $('#table').html('');
+            $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
 
             $.each(result, function (key, item) {
                 if (item['status'] == 0) {
