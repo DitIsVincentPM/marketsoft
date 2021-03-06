@@ -11,6 +11,10 @@ use App\Models\InputCheck as InputCheck;
 use App\Models\GetExternals as GetExternals;
 use DB;
 use Illuminate\Http\Request;
+use Settings;
+use Config;
+use Artisan;
+use App\Models\Env;
 
 class SettingsController extends BaseController
 {
@@ -25,14 +29,14 @@ class SettingsController extends BaseController
             ['Settings', 'addon'],
             ['Settings', 'theme'],
             ['Settings', 'roles'],
-            ['Settings', 'legal']
+            ['Settings', 'legal'],
+            ['Settings', 'oauth2']
         ]);
 
         $addons = GetExternals::getaddons();
         $themes = GetExternals::getthemes();
         $icons = GetExternals::geticons();
         $version = GetExternals::getversionstring();
-        $settings = DB::table('settings')->first();
         $modules = DB::table('modules')->get();
         $permissions = DB::table('permissions')->get();
         $roles = DB::table('roles')->get();
@@ -41,7 +45,6 @@ class SettingsController extends BaseController
         $privacy_sections = DB::table('privacy_sections')->latest()->get();
 
         return view('Admin.settings', [
-            'settings' => $settings,
             'themes' => $themes,
             'addons' => $addons,
             'modules' => $modules,
@@ -115,9 +118,9 @@ class SettingsController extends BaseController
         $role = DB::table('roles')->latest()->first();
         $permissions = DB::table('permissions')->get();
 
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             $perm = $request->input($permission->key);
-            if($perm == true) {
+            if ($perm == true) {
                 DB::table('role_permissions')->insert([
                     'role_id' => $role->id,
                     'permission_id' => $permission->id,
@@ -150,9 +153,9 @@ class SettingsController extends BaseController
         $role = DB::table('roles')->latest()->first();
         $permissions = DB::table('permissions')->get();
 
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             $perm = $request->input($permission->key);
-            if($perm == true) {
+            if ($perm == true) {
                 DB::table('role_permissions')->insert([
                     'role_id' => $role->id,
                     'permission_id' => $permission->id,
@@ -176,12 +179,11 @@ class SettingsController extends BaseController
     {
         $setting = DB::table('settings')->first();
         
-        if(DB::table('settings')->where('key', 'TosStatus')->first()->value == 0)
-        {
+        if (DB::table('settings')->where('key', 'TosStatus')->first()->value == 0) {
             DB::table('settings')->where('key', 'TosStatus')->update([
                 'value' => 1,
             ]);
-        } elseif($setting->tos_status == 1) {
+        } elseif ($setting->tos_status == 1) {
             DB::table('settings')->where('key', 'TosStatus')->update([
                 'value' => 0,
             ]);
@@ -221,12 +223,11 @@ class SettingsController extends BaseController
     {
         $setting = DB::table('settings')->first();
         
-        if(DB::table('settings')->where('key', 'PrivacyStatus')->first()->value == 0)
-        {
+        if (DB::table('settings')->where('key', 'PrivacyStatus')->first()->value == 0) {
             DB::table('settings')->where('key', 'PrivacyStatus')->update([
                 'value' => 1,
             ]);
-        } elseif($setting->privacy_status == 1) {
+        } elseif ($setting->privacy_status == 1) {
             DB::table('settings')->where('key', 'PrivacyStatus')->update([
                 'value' => 0,
             ]);
@@ -260,5 +261,67 @@ class SettingsController extends BaseController
         ]);
 
         return redirect('/admin/settings#legal')->with('success', "You successfully updated a Privacy Policy section!");
+    }
+
+    public function OAuth2Status(Request $request)
+    {
+        if ($request->input('oauth2') == "google") {
+            if (Settings::key('GoogleStatus') == 1) {
+                DB::table('settings')->where('key', "GoogleStatus")->update([
+                    'value' => 0,
+                ]);
+            } else {
+                DB::table('settings')->where('key', "GoogleStatus")->update([
+                    'value' => 1,
+                ]);
+            }
+        } elseif ($request->input('oauth2') == "discord") {
+            if (Settings::key('DiscordStatus') == 1) {
+                DB::table('settings')->where('key', "DiscordStatus")->update([
+                    'value' => 0,
+                ]);
+            } else {
+                DB::table('settings')->where('key', "DiscordStatus")->update([
+                    'value' => 1,
+                ]);
+            }
+        } elseif ($request->input('oauth2') == "github") {
+            if (Settings::key('GithubStatus') == 1) {
+                DB::table('settings')->where('key', "GithubStatus")->update([
+                    'value' => 0,
+                ]);
+            } else {
+                DB::table('settings')->where('key', "GithubStatus")->update([
+                    'value' => 1,
+                ]);
+            }
+        }
+
+        return redirect('/admin/settings#oauth2')->with('success', "You successfully updated the status!");
+    }
+
+    public function OAuth2Update(Request $request)
+    {
+        if ($request->input('oauth2') == "google") {
+            $client_id = $request->input('GOOGLE_CLIENT_ID');
+            $client_secret = $request->input('GOOGLE_CLIENT_SECRET');
+
+            Env::set(['GOOGLE_CLIENT_ID', $client_id]);
+            Env::set(['GOOGLE_CLIENT_SECRET', $client_secret]);
+        } elseif ($request->input('oauth2') == "discord") {
+            $client_id = $request->input('DISCORD_CLIENT_ID');
+            $client_secret = $request->input('DISCORD_CLIENT_SECRET');
+
+            Env::set(['DISCORD_CLIENT_ID', $client_id]);
+            Env::set(['DISCORD_CLIENT_SECRET', $client_secret]);
+        } elseif ($request->input('oauth2') == "github") {
+            $client_id = $request->input('GITHUB_CLIENT_ID');
+            $client_secret = $request->input('GITHUB_CLIENT_SECRET');
+
+            Env::set(['GITHUB_CLIENT_ID', $client_id]);
+            Env::set(['GITHUB_CLIENT_SECRET', $client_secret]);
+        }
+
+        return redirect('/admin/settings#oauth2')->with('success', "You successfully updated the OAuth2 information!");
     }
 }

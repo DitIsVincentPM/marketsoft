@@ -24,7 +24,12 @@ class ProductsController
 
     public function Product(Request $request, $id)
     {
-        $product = DB::table('products')->where('id', $id)->first();
+        $product = Products::where('id', $id)->first();
+
+        if($product == NULL) {
+            return redirect()->route('index')->with('error', 'Oops! It seems that this product does not exist.');
+        }
+
         $user = DB::table('users')->where('id', $product->seller_id)->first();
 
         return view('Products.view', [

@@ -8,6 +8,9 @@ use DB;
 use Log;
 use Auth;
 use Rainwater\Active\Active as Active;
+use Settings;
+use App\Models\Env;
+use Products;
 
 class Controller extends BaseController
 {
@@ -136,21 +139,21 @@ class Controller extends BaseController
 
     public function products_sections()
     {
-        return json_encode(DB::table('product_sections')->get());
+        return json_encode(DB::table('product_sections')->orderBy('order')->get());
     }
 
     public function products_edit(Request $request)
     {
         if($request->get('id') == "create") {
-            DB::table('products')->insert([
+            Products::insert([
                 'name' => $request->get('name'),
                 'price' => $request->get('price'),
                 'description' => $request->get('description'),
                 'category' => $request->get('category'),
             ]);
-            $id = DB::table('products')->latest()->first()->id;    
+            $id = Products::latest()->first()->id;    
         } else {
-            DB::table('products')->where('id', $request->get('id'))->update([
+            Products::where('id', $request->get('id'))->update([
                 'name' => $request->get('name'),
                 'price' => $request->get('price'),
                 'description' => $request->get('description'),
@@ -169,6 +172,7 @@ class Controller extends BaseController
                     'name' => $array[$i]["name"],
                     'content' => $array[$i]["content"],
                     'type' => $array[$i]["type"],
+                    'order' => $i,
                 ]);
             } else {
                 DB::table('product_sections')->where('id', $array[$i]["id"])->update([
@@ -176,10 +180,98 @@ class Controller extends BaseController
                     'name' => $array[$i]["name"],
                     'content' => $array[$i]["content"],
                     'type' => $array[$i]["type"],
+                    'order' => $i,
                 ]);
             }
         }
 
-        return "Working!!!!!!";
+        return "Working";
+    }
+
+    // OAuth2 API
+    public function oauth2_status(Request $request) {
+        if ($request->get('oauth2') == "google") {
+            if (Settings::key('GoogleStatus') == 1) {
+                DB::table('settings')->where('key', "GoogleStatus")->update([
+                    'value' => 0,
+                ]);
+            } else {
+                DB::table('settings')->where('key', "GoogleStatus")->update([
+                    'value' => 1,
+                ]);
+            }
+        } elseif ($request->get('oauth2') == "discord") {
+            if (Settings::key('DiscordStatus') == 1) {
+                DB::table('settings')->where('key', "DiscordStatus")->update([
+                    'value' => 0,
+                ]);
+            } else {
+                DB::table('settings')->where('key', "DiscordStatus")->update([
+                    'value' => 1,
+                ]);
+            }
+        } elseif ($request->get('oauth2') == "github") {
+            if (Settings::key('GithubStatus') == 1) {
+                DB::table('settings')->where('key', "GithubStatus")->update([
+                    'value' => 0,
+                ]);
+            } else {
+                DB::table('settings')->where('key', "GithubStatus")->update([
+                    'value' => 1,
+                ]);
+            }
+        }
+
+        return "Working";
+    }
+
+    public function oauth2_refresh() {
+        $status = [];
+
+        $status[0]["status"] = Settings::key('GoogleStatus');
+        $status[0]["client_id"] = env('GOOGLE_CLIENT_ID');
+        $status[0]["client_secret"] = env('GOOGLE_CLIENT_SECRET');
+
+        $status[1]["status"] = Settings::key('DiscordStatus');
+        $status[1]["client_id"] = env('DISCORD_CLIENT_ID');
+        $status[1]["client_secret"] = env('DISCORD_CLIENT_SECRET');
+
+        $status[2]["status"] = Settings::key('GithubStatus');
+        $status[2]["client_id"] = env('GITHUB_CLIENT_ID');
+        $status[2]["client_secret"] = env('GITHUB_CLIENT_SECRET');
+
+        return $status;
+    }
+
+    public function oauth2_update(Request $request) {
+        if($request->get('oauth2') == "google") {
+            Env::set(['GOOGLE_CLIENT_ID', $request->get('clientid')]);
+            Env::set(['GOOGLE_CLIENT_SECRET', $request->get('clientsecret')]);
+        } elseif($request->get('oauth2') == "discord") {
+            Env::set(['DISCORD_CLIENT_ID', $request->get('clientid')]);
+            Env::set(['DISCORD_CLIENT_SECRET', $request->get('clientsecret')]);
+        } elseif($request->get('oauth2') == "github") {
+            Env::set(['GITHUB_CLIENT_ID', $request->get('clientid')]);
+            Env::set(['GITHUB_CLIENT_SECRET', $request->get('clientsecret')]);
+        }
+
+        return;
+    }
+
+    public function announcement_create(Request $request) {
+        DB::table('announcements')->insert([
+            'name' => $request->get('title'),
+            'description' => $request->get('description'),
+        ]);
+
+        return;
+    }
+
+    public function announcement_refresh() {
+        return json_encode(DB::table('announcements')->get());
+    }
+
+    public function announcement_modal() {
+        return json_encode(DB::table('announcements')->get());
     }
 }

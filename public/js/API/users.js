@@ -126,15 +126,13 @@ function user_edit(id) {
 
         dataType: "json",
         success: function (result) {
-            $('#alert').html(
-                '<div class="col-12">' +
-                '<div id="alert" class="mb-1 alert alert-success alert-dismissible text-center fade show mt-1" role="alert">' +
-                "You updated <strong>" + document.getElementById('name_edit').value + "</strong>'s settings!" +
-                '</div>' +
-                '</div>' +
-                '<br>');
+            alert(["success", "You updated " + document.getElementById('name_edit').value + "'s settings!"]);
             refresh();
-        }
+        },
+        error: function (error) {
+            alert(["error", "Something went wrong!"]);
+            refresh();
+        },
     });
 }
 

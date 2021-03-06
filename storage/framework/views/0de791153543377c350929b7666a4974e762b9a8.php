@@ -3,8 +3,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="<?php echo e(Settings::where('key', 'CompanyFavicon')->first()->value); ?>" type="image/png">
-    <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?></title>
+    <link rel="icon" href="<?php echo e(Settings::key('CompanyFavicon')); ?>" type="image/png">
+    <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e(Settings::key('CompanyName')); ?></title>
     <link href="/css/custom-dark.css" rel="stylesheet">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <link rel="stylesheet" href="/css/morris.css">
@@ -14,6 +14,9 @@
     <script src="/js/jquery.js"></script>
     <?php echo $__env->yieldContent('scripts'); ?>
     <script src="https://kit.fontawesome.com/59ac7ac104.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/themes/splide-skyblue.min.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="/css/alertdark.css">
 </head>
@@ -29,8 +32,8 @@
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
                     href="<?php echo e(route('index')); ?>">
-                    <?php if(Settings::where('key', 'NavbarIconStatus')->first()->value == 1): ?> <img src="<?php echo e(Settings::where('key', 'CompanyLogo')->first()->value); ?>" height="35"
-                        alt="logo" /> <?php else: ?> <h3 class="mb-0 v-center"><?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?></h3>
+                    <?php if(Settings::key('NavbarIconStatus') == 1): ?> <img src="<?php echo e(Settings::key('CompanyLogo')); ?>" height="35"
+                        alt="logo" /> <?php else: ?> <h3 class="mb-0 v-center"><?php echo e(Settings::key('CompanyName')); ?></h3>
                     <?php endif; ?>
                 </a>
                 <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
@@ -120,58 +123,11 @@
     </div>
 
     <footer class="mt-5 bg-dark text-center text-white">
-        <div class="container p-4">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Footer Content</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                        molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-                        voluptatem veniam, est atque cumque eum delectus sint!
-                    </p>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Links</h5>
-
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <a href="#!" class="text-dark">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 4</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase mb-0">Links</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!" class="text-dark">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!" class="text-dark">Link 4</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        
 
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             Copyright © 2020:
-            <a class="text-dark" href="<?php echo e(route('index')); ?>"><?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?></a>
+            <a class="text-dark" href="<?php echo e(route('index')); ?>"><?php echo e(Settings::key('CompanyName')); ?></a>
         </div>
     </footer>
 
@@ -249,38 +205,10 @@
     });
 </script>
 
-<script>
-    <?php if(Session::get('success') or Session::get('error') or Session::get('warning') or Session::get('info')): ?>
-    window.onload=()=>{
-        const Toast = Swal.mixin({
-        toast: true,
-        position: 'bottom-start',
-        showConfirmButton: false,
-        showCancelButton: true,
-        cancelButtonText: "x",
-        cancelButtonColor: "#dd6b55",
-        timer: 4000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-        })
+<?php echo $__env->make('Vendor.alerts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-        <?php 
-        $message = Session::get('success') . "|success" or Session::get('error') . "|error" or Session::get('warning') . "|warning" or Session::get('info') . "|info";
-        $message = explode("|", $message);
-        ?>
-        Toast.fire({
-            icon: '<?php echo e($message[1]); ?>',
-            title: '<?php echo e($message[0]); ?>'
-        })
-    };
-    <?php endif; ?>
-</script>
 <script>
     feather.replace();
-
 </script>
 
 </html>

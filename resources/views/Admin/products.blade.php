@@ -7,7 +7,7 @@
 @endsection
 
 @section('header-title')
-    Seller Requests
+    Products & Services
 @endsection
 
 @section('header-breadcrumb')
@@ -24,7 +24,7 @@
                 <form>
                     <div class="input-group">
                         <div class="form-outline">
-                            <input type="search" id="form1" class="admin-search-input form-control" />
+                            <input type="search" placeholder="Search..." id="form1" class="admin-search-input form-control" />
                         </div>
                         <button type="button" class="admin-search-button btn btn-primary">
                             <i style="width: 16px;" data-feather="search" class="mr-1"></i>
@@ -62,7 +62,9 @@
             </tr>
                 </tbody>
             </table>
+            <div class="card-footer" id="products-footer"></div>
         </div>
+
 
     <div class="modal fade" id="viewmore" tabindex="-1" aria-labelledby="viewmoreLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">

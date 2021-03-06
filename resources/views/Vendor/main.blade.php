@@ -3,8 +3,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ Settings::where('key', 'CompanyFavicon')->first()->value }}" type="image/png">
-    <title>@yield('title') - {{ Settings::where('key', 'CompanyName')->first()->value }}</title>
+    <link rel="icon" href="{{ Settings::key('CompanyFavicon') }}" type="image/png">
+    <title>@yield('title') - {{ Settings::key('CompanyName') }}</title>
     <link href="/css/custom-dark.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/css/morris.css">
@@ -14,6 +14,9 @@
     <script src="/js/jquery.js"></script>
     @yield('scripts')
     <script src="https://kit.fontawesome.com/59ac7ac104.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/themes/splide-skyblue.min.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="/css/alertdark.css">
 </head>
@@ -44,8 +47,8 @@
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
                     href="{{ route('index') }}">
-                    @if (Settings::where('key', 'NavbarIconStatus')->first()->value == 1) <img src="{{ Settings::where('key', 'CompanyLogo')->first()->value }}" height="35"
-                        alt="logo" /> @else <h3 class="mb-0 v-center">{{ Settings::where('key', 'CompanyName')->first()->value }}</h3>
+                    @if (Settings::key('NavbarIconStatus') == 1) <img src="{{ Settings::key('CompanyLogo') }}" height="35"
+                        alt="logo" /> @else <h3 class="mb-0 v-center">{{ Settings::key('CompanyName') }}</h3>
                     @endif
                 </a>
                 <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
@@ -135,7 +138,7 @@
     </div>
 
     <footer class="mt-5 bg-dark text-center text-white">
-        <div class="container p-4">
+        {{-- <div class="container p-4">
             <div class="row">
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                     <h5 class="text-uppercase">Footer Content</h5>
@@ -182,11 +185,11 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             Copyright © 2020:
-            <a class="text-dark" href="{{ route('index') }}">{{ Settings::where('key', 'CompanyName')->first()->value }}</a>
+            <a class="text-dark" href="{{ route('index') }}">{{ Settings::key('CompanyName') }}</a>
         </div>
     </footer>
 
@@ -264,38 +267,10 @@
     });
 </script>
 
-<script>
-    @if(Session::get('success') or Session::get('error') or Session::get('warning') or Session::get('info'))
-    window.onload=()=>{
-        const Toast = Swal.mixin({
-        toast: true,
-        position: 'bottom-start',
-        showConfirmButton: false,
-        showCancelButton: true,
-        cancelButtonText: "x",
-        cancelButtonColor: "#dd6b55",
-        timer: 4000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-        })
+@include('Vendor.alerts')
 
-        @php 
-        $message = Session::get('success') . "|success" or Session::get('error') . "|error" or Session::get('warning') . "|warning" or Session::get('info') . "|info";
-        $message = explode("|", $message);
-        @endphp
-        Toast.fire({
-            icon: '{{ $message[1] }}',
-            title: '{{ $message[0] }}'
-        })
-    };
-    @endif
-</script>
 <script>
     feather.replace();
-
 </script>
 
 </html>

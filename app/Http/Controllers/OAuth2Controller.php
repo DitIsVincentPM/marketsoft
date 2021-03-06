@@ -9,16 +9,25 @@ use Laravel\Socialite\Facades\Socialite;
 use Hash;
 use Auth;
 use App\Models\User;
+use Settings;
 
 class OAuth2Controller
 {
     public function DiscordRedirect()
     {
+        if(Settings::key('DiscordStatus') == 0) {
+            return redirect()->route('index')->with('error', "Discord OAuth2 is disabled on this website!");
+        }
+
         return Socialite::driver('discord')->redirect();
     }
 
     public function DiscordCallback()
     {
+        if(Settings::key('DiscordStatus') == 0) {
+            return redirect()->route('index')->with('error', "Discord OAuth2 is disabled on this website!");
+        }
+
         try {
             $user = Socialite::driver('discord')->stateless()->user();
         } catch (\GuzzleHttp\Exception\RequestException $e) {
@@ -59,6 +68,10 @@ class OAuth2Controller
     }
 
     public function DiscordRemove() {
+        if(Settings::key('DiscordStatus') == 0) {
+            return redirect()->route('index')->with('error', "Discord OAuth2 is disabled on this website!");
+        }
+
         DB::table('users')->where('id', Auth::user()->id)->update([
             'discord_id' => NULL,
         ]);
@@ -68,11 +81,19 @@ class OAuth2Controller
 
     public function GoogleRedirect()
     {
+        if(Settings::key('GoogleStatus') == 0) {
+            return redirect()->route('index')->with('error', "Google OAuth2 is disabled on this website!");
+        }
+
         return Socialite::driver('google')->redirect();
     }
 
     public function GoogleCallback()
     {
+        if(Settings::key('GoogleStatus') == 0) {
+            return redirect()->route('index')->with('error', "Google OAuth2 is disabled on this website!");
+        }
+
         try {
             $user = Socialite::driver('google')->stateless()->user();
         } catch (\GuzzleHttp\Exception\RequestException $e) {
@@ -113,6 +134,10 @@ class OAuth2Controller
     }
 
     public function GoogleRemove() {
+        if(Settings::key('GoogleStatus') == 0) {
+            return redirect()->route('index')->with('error', "Google OAuth2 is disabled on this website!");
+        }
+
         DB::table('users')->where('id', Auth::user()->id)->update([
             'google_id' => NULL,
         ]);
@@ -122,11 +147,19 @@ class OAuth2Controller
 
     public function GithubRedirect()
     {
+        if(Settings::key('GithubStatus') == 0) {
+            return redirect()->route('index')->with('error', "Github OAuth2 is disabled on this website!");
+        }
+
         return Socialite::driver('github')->redirect();
     }
 
     public function GithubCallback()
     {
+        if(Settings::key('GithubStatus') == 0) {
+            return redirect()->route('index')->with('error', "Github OAuth2 is disabled on this website!");
+        }
+
         try {
             $user = Socialite::driver('github')->stateless()->user();
         } catch (\GuzzleHttp\Exception\RequestException $e) {
@@ -167,6 +200,10 @@ class OAuth2Controller
     }
 
     public function GithubRemove() {
+        if(Settings::key('GithubStatus') == 0) {
+            return redirect()->route('index')->with('error', "Github OAuth2 is disabled on this website!");
+        }
+
         DB::table('users')->where('id', Auth::user()->id)->update([
             'github_id' => NULL,
         ]);

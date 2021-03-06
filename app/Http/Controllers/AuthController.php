@@ -9,6 +9,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Hash;
 use Auth;
 use App\Models\User;
+use Settings;
 
 class AuthController
 {

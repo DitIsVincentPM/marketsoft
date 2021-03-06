@@ -22,52 +22,58 @@ User Settings
 @section('content')
     <div class="row mt-5">
         <div class="col-12 col-lg-9">
-            <div class="row justify-content-center mb-5 mt-5">
-                <div class="col-12 col-lg-4">
-                    @if(Auth::user()->discord_id == NULL)
-                        <a href="{{ route('discord.redirect') }}">
+            <div class="row justify-content-center @if(Settings::key('GoogleStatus') != 0 or Settings::key('DiscordStatus') != 0 or Settings::key('GithubStatus') != 0) mb-5 @endif">
+                @if(Settings::key('DiscordStatus') == 1)
+                    <div class="col-12 col-lg-4">
+                        @if(Auth::user()->discord_id == NULL)
+                            <a href="{{ route('discord.redirect') }}">
+                                <button class="btn btn-discord justify-content-center w-100">
+                                    <i class="fab fa-discord" style="margin-right: 5px!important;"></i> Connect to Discord
+                                </button>
+                            </a>
+                        @else
+                        <a href="{{ route('discord.remove') }}">
                             <button class="btn btn-discord justify-content-center w-100">
-                                <i class="fab fa-discord" style="margin-right: 5px!important;"></i> Connect to Discord
+                                <i class="fab fa-discord" style="margin-right: 5px!important;"></i> Remove Discord
                             </button>
                         </a>
-                    @else
-                    <a href="{{ route('discord.remove') }}">
-                        <button class="btn btn-discord justify-content-center w-100">
-                            <i class="fab fa-discord" style="margin-right: 5px!important;"></i> Remove Discord
-                        </button>
-                    </a>
-                    @endif
-                </div>
-                <div class="col-12 col-lg-4">
-                    @if(Auth::user()->google_id == NULL)
-                        <a href="{{ route('google.redirect') }}">
-                            <button class="btn btn-google justify-content-center w-100">
-                                <i class="fab fa-google" style="margin-right: 5px!important;"></i> Connect to Google
-                            </button>
-                        </a>
-                    @else
-                        <a href="{{ route('google.remove') }}">
-                            <button class="btn btn-google justify-content-center w-100">
-                                <i class="fab fa-google" style="margin-right: 5px!important;"></i> Remove Google
-                            </button>
-                        </a>
-                    @endif
-                </div>
-                <div class="col-12 col-lg-4">
-                    @if(Auth::user()->github_id == NULL)
-                        <a href="{{ route('github.redirect') }}">
-                            <button class="btn btn-github justify-content-center w-100">
-                                <i class="fab fa-github" style="margin-right: 5px!important;"></i> Connect to GitHub
-                            </button>
-                        </a>
-                    @else
-                        <a href="{{ route('github.remove') }}">
-                            <button class="btn btn-github justify-content-center w-100">
-                                <i class="fab fa-github" style="margin-right: 5px!important;"></i> Remove GitHub
-                            </button>
-                        </a>
-                    @endif
-                </div>
+                        @endif
+                    </div>
+                @endif
+                @if(Settings::key('GoogleStatus') == 1)
+                    <div class="col-12 col-lg-4">
+                        @if(Auth::user()->google_id == NULL)
+                            <a href="{{ route('google.redirect') }}">
+                                <button class="btn btn-google justify-content-center w-100">
+                                    <i class="fab fa-google" style="margin-right: 5px!important;"></i> Connect to Google
+                                </button>
+                            </a>
+                        @else
+                            <a href="{{ route('google.remove') }}">
+                                <button class="btn btn-google justify-content-center w-100">
+                                    <i class="fab fa-google" style="margin-right: 5px!important;"></i> Remove Google
+                                </button>
+                            </a>
+                        @endif
+                    </div>
+                @endif
+                @if(Settings::key('GithubStatus') == 1)
+                    <div class="col-12 col-lg-4">
+                        @if(Auth::user()->github_id == NULL)
+                            <a href="{{ route('github.redirect') }}">
+                                <button class="btn btn-github justify-content-center w-100">
+                                    <i class="fab fa-github" style="margin-right: 5px!important;"></i> Connect to GitHub
+                                </button>
+                            </a>
+                        @else
+                            <a href="{{ route('github.remove') }}">
+                                <button class="btn btn-github justify-content-center w-100">
+                                    <i class="fab fa-github" style="margin-right: 5px!important;"></i> Remove GitHub
+                                </button>
+                            </a>
+                        @endif
+                    </div>
+                @endif
             </div>
             <form method="POST" action="{{ route('auth.settings.save') }}" enctype='multipart/form-data'>
             <div class="row">

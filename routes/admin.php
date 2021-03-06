@@ -82,4 +82,10 @@ Route::group(['middleware' => ['web', 'admin']], function () {
         Route::get('/', 'App\Http\Controllers\Admin\ProductsController@index')->name('admin.products');
         Route::get('/view/{id}', 'App\Http\Controllers\Admin\ProductsController@index')->name('admin.products.view');
     });
+
+    // OAuth2 
+    Route::group(['prefix' => 'oauth2'], function () {
+        Route::post('/status', 'App\Http\Controllers\Admin\SettingsController@OAuth2Status')->name('admin.oauth2.status');
+        Route::post('/update', 'App\Http\Controllers\Admin\SettingsController@OAuth2Update')->name('admin.oauth2.update');
+    });
 });

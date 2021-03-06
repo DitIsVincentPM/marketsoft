@@ -128,6 +128,8 @@ function categoryrefresh() {
                     '<i data-feather="edit-3"></i></button></td> </tr>'
                 );
             });
+
+            
             feather.replace();
         }
     });
@@ -199,6 +201,8 @@ function categoryupdate() {
         },
         dataType: "json",
         success: function (result) {
+            alert(["success", "You updated " + name + "'s settings!"]);
+            categoryrefresh();
         }
     });
 }

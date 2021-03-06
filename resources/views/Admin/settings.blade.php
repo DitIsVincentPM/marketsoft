@@ -18,14 +18,14 @@ Settings
 @endsection
 
 @section('content')
-<div class="pl-0 alert {{ $version[1] }}" role="alert">
-    {{ $version[0] }}
-</div>
 <div class="row mt-3">
     <div class="col-3">
         @include('Admin.Vendor.Settings.sidebar')
     </div>
     <div class="col-9">
+        <div class="pl-0 alert {{ $version[1] }}" role="alert">
+            {{ $version[0] }}
+        </div>
         {{-- General Settings --}}
         @if($check[0] == true)
             <div style="display: block;" id="tab-content" data-name="general">
@@ -72,6 +72,13 @@ Settings
         @if($check[6] == true)
             <div style="display: none;" id="tab-content" data-name="legal">
                 @include('Admin.Vendor.Settings.legal')
+            </div>
+        @endif
+
+        {{-- OAuth2 Settings --}}
+        @if($check[7] == true)
+            <div style="display: none;" id="tab-content" data-name="oauth2">
+                @include('Admin.Vendor.Settings.oauth2')
             </div>
         @endif
     </div>

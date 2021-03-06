@@ -18,15 +18,15 @@ Settings
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="pl-0 alert <?php echo e($version[1]); ?>" role="alert">
-    <?php echo e($version[0]); ?>
-
-</div>
 <div class="row mt-3">
     <div class="col-3">
         <?php echo $__env->make('Admin.Vendor.Settings.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
     <div class="col-9">
+        <div class="pl-0 alert <?php echo e($version[1]); ?>" role="alert">
+            <?php echo e($version[0]); ?>
+
+        </div>
         
         <?php if($check[0] == true): ?>
             <div style="display: block;" id="tab-content" data-name="general">
@@ -73,6 +73,13 @@ Settings
         <?php if($check[6] == true): ?>
             <div style="display: none;" id="tab-content" data-name="legal">
                 <?php echo $__env->make('Admin.Vendor.Settings.legal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            </div>
+        <?php endif; ?>
+
+        
+        <?php if($check[7] == true): ?>
+            <div style="display: none;" id="tab-content" data-name="oauth2">
+                <?php echo $__env->make('Admin.Vendor.Settings.oauth2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
         <?php endif; ?>
     </div>

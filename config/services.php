@@ -33,17 +33,17 @@ return [
     'discord' => [    
         'client_id' => env('DISCORD_CLIENT_ID'),  
         'client_secret' => env('DISCORD_CLIENT_SECRET'),  
-        'redirect' => env('DISCORD_REDIRECT_URI'),
+        'redirect' => 'https://dev.marketsoft.io/discord/callback',
     ],
 
     'google' => [    
-        'client_id' => '1052492067172-32ral0b8mfor02k3f0lsnojaufhnbte9.apps.googleusercontent.com',  
-        'client_secret' => 'QicKlBAkCm7SBJWBgcgMd5A3',  
+        'client_id' => env('GOOGLE_CLIENT_ID'),  
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),  
         'redirect' => 'https://dev.marketsoft.io/google/callback' 
     ],
     'github' => [    
-        'client_id' => 'bbc6c1014f3d204dcd05',  
-        'client_secret' => '4ce8713e7eabd73924223c100ad7fcc320af106c',  
+        'client_id' => env('GITHUB_CLIENT_ID'),  
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),  
         'redirect' => 'https://dev.marketsoft.io/github/callback' 
     ],
 ];

@@ -24,53 +24,48 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/bootstrap-wysihtml5.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="/css/alertdark.css">
+    <script src="https://kit.fontawesome.com/59ac7ac104.js" crossorigin="anonymous"></script>
     @yield('scripts')
 </head>
 
 <body class="antialiased">
+    <div class="alert alert-danger alert-server btn-sm mb-0 text-center" role="alert">
+        <strong>IMPORTANT</strong> You are running a beta version of MarketSoft this isn't inteded to be used for full scale production.
+    </div>
     <nav class="market-navbar navbar navbar-expand-lg btn-block">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
-                aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                 <i style="color: black;" data-feather="align-justify"></i>
             </button>
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="market-navbar-large-header market-navbar-header navbar-brand"
-                    href="{{ route('admin.index') }}">
-                    @if (Settings::where('key', 'NavbarIconStatus')->first()->value == 1) <img src="{{ Settings::where('key', 'CompanyLogo')->first()->value }}" height="35"
-                        alt="logo" /> @else <h4 class="mb-0 v-center">{{ Settings::where('key', 'CompanyName')->first()->value }}</h4>
+                <a class="market-navbar-large-header market-navbar-header navbar-brand" href="{{ route('admin.index') }}">
+                @if (Settings::key('NavbarIconStatus') == 1) <img src="{{ Settings::key('CompanyLogo') }}" height="35" alt="logo" /> @else <h4 class="mb-0 v-center">{{ Settings::key('CompanyName') }}</h4>
                     @endif
                 </a>
-                <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
-                    class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;" class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link market-navbar-link active"
-                            aria-current="page" href="{{ route('admin.index') }}">Dashboard</a>
+                        <a class="market-navbar-small-header market-navbar-header nav-link market-navbar-link active" aria-current="page" href="{{ route('admin.index') }}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="{{ route('admin.settings') }}">Settings</a>
+                        <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.settings') }}">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="{{ route('admin.products') }}">Products</a>
+                        <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.products') }}">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="{{ route('admin.users') }}">Users</a>
+                        <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.users') }}">Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="{{ route('admin.tickets') }}">Tickets</a>
+                        <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.tickets') }}">Tickets</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
-                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Information
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -81,9 +76,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
-                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Sellers
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -95,20 +88,14 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
-                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         @if (Auth::check()) {{ Auth::user()->name }} @else
                                 Account @endif
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             @if (Auth::check())
-                                <li><a class="dropdown-item" href="{{ route('auth.settings') }}"><i
-                                            style="width: 16px;" data-feather="user" class="mr-1"></i><span
-                                            class="nav-text">Account Settings</span></a></li>
-                                <li><a class="dropdown-item" href="{{ route('auth.register') }}"><i
-                                            style="width: 16px;" data-feather="sliders" class="mr-1"></i><span
-                                            class="nav-text">Seller Dashboard</span></a></li>
+                                <li><a class="dropdown-item" href="{{ route('auth.settings') }}"><i style="width: 16px;" data-feather="user" class="mr-1"></i><span class="nav-text">Account Settings</span></a></li>
+                                <li><a class="dropdown-item" href="{{ route('auth.register') }}"><i style="width: 16px;" data-feather="sliders" class="mr-1"></i><span class="nav-text">Seller Dashboard</span></a></li>
                             @else
                                 <li><a class="dropdown-item" href="{{ route('auth.login') }}">Login</a></li>
                                 <li><a class="dropdown-item" href="{{ route('auth.register') }}">Register</a></li>
@@ -116,8 +103,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="{{ route('index') }}">Exit Admin Side</a>
+                        <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('index') }}">Exit Admin Side</a>
                     </li>
                 </ul>
             </div>
@@ -151,36 +137,10 @@
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>
 <script>
     feather.replace()
-</script>
-<script>
-    @if(Session::get('success') or Session::get('error') or Session::get('warning') or Session::get('info'))
-    window.onload=()=>{
-        const Toast = Swal.mixin({
-        toast: true,
-        position: 'bottom-start',
-        showConfirmButton: false,
-        showCancelButton: true,
-        cancelButtonText: "x",
-        cancelButtonColor: "#dd6b55",
-        timer:4000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-        })
 
-        @php 
-        $message = Session::get('success') . "|success" or Session::get('error') . "|error" or Session::get('warning') . "|warning" or Session::get('info') . "|info";
-        $message = explode("|", $message);
-        @endphp
-        Toast.fire({
-            icon: '{{ $message[1] }}',
-            title: '{{ $message[0] }}'
-        })
-    };
-    @endif
 </script>
+
+@include('Vendor.alerts')
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>

@@ -35,3 +35,15 @@ Route::group(['prefix' => 'products'], function () {
     Route::post('/sections', 'App\Http\Controllers\Api\Controller@products_sections')->name('api.products.sections');
     Route::post('/edit', 'App\Http\Controllers\Api\Controller@products_edit')->name('api.products.edit');
 });
+
+Route::group(['prefix' => 'oauth2'], function () {
+    Route::post('/status', 'App\Http\Controllers\Api\Controller@oauth2_status')->name('api.oauth2.status');
+    Route::post('/refresh', 'App\Http\Controllers\Api\Controller@oauth2_refresh')->name('api.oauth2.refresh');
+    Route::post('/update', 'App\Http\Controllers\Api\Controller@oauth2_update')->name('api.oauth2.update');
+});
+
+Route::group(['prefix' => 'announcements'], function () {
+    Route::post('/create', 'App\Http\Controllers\Api\Controller@announcement_create')->name('api.announcement.create');
+    Route::post('/refresh', 'App\Http\Controllers\Api\Controller@announcement_refresh')->name('api.announcement.refresh');
+    Route::post('/edit', 'App\Http\Controllers\Api\Controller@announcement_modal')->name('api.announcement.edit');
+});
