@@ -70,7 +70,7 @@
                                 <p>{{ $section->content }}</p>
                             </div>
                         @elseif($section->type == 2)
-                            <div class="mt-4">
+                            <div class="mt-3">
                                 <div class="accordion">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
