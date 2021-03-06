@@ -118,7 +118,7 @@ function user_edit(id) {
             id: id,
             name: document.getElementById('name_edit').value,
             firstname: document.getElementById('firstname_edit').value,
-            lastname: document.getElementById('lastname_edit').value,
+           lastname: document.getElementById('lastname_edit').value,
             email: document.getElementById('email_edit').value,
             ban: document.getElementById('ban_edit').value,
             role: document.getElementById('role_edit').value,

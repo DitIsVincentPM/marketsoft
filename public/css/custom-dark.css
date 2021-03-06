@@ -4,6 +4,14 @@ body {
     overflow-x: hidden;
 }
 
+.animate-icon {
+    transition: 0.6s;
+}
+
+.animate-refresh-rotate {
+    transform: rotate(360deg);
+}
+
 .border-dotted {
     border: 5px dashed #2a2e3f !important;
     border-radius: 10px 10px 10px 10px;
@@ -330,7 +338,7 @@ body {
 }
 
 .admin-table-header {
-    background-color: rgba(0, 0, 0, .03);
+    background-color: rgba(0, 0, 0, .2);
 }
 
 .admin-table-footer {
@@ -537,7 +545,8 @@ p {
 }
 
 .card-footer {
-    background-color: #2e3145 !important;
+    background-color: rgba(0,0,0,0) !important;
+    border: 0px !important;
 }
 
 .market-text-primary {
