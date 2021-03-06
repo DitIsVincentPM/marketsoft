@@ -23,7 +23,7 @@
         <div class="col-10">
             <div class="input-group">
                 <div class="form-outline">
-                    <input type="search" placeholder="Search..." name="search" id="search" class="admin-search-input form-control" />
+                    <input type="search" placeholder="Search..." name="search" id="search" class="input-search admin-search-input form-control" />
                 </div>
                 <button onclick="some()" type="button" class="btn btn-primary">
                     <i style="width: 16px;" data-feather="search" class="mr-1"></i>
@@ -44,6 +44,7 @@
                     <th class="text-center admin-table" scope="col">Name</th>
                     <th class="text-center admin-table" scope="col">Email</th>
                     <th class="text-center admin-table" scope="col">Role</th>
+                    <th class="text-center admin-table" scope="col">Status</th>
                     <th class="padmin-table" scope="col"><span class="pull-right">More</span></th>
                 </tr>
             </thead>

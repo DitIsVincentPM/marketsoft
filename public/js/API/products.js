@@ -296,7 +296,7 @@ function refresh() {
         success: function (result) {
             $("#products_table").html('');
             $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
-
+            document.getElementById('refresh').classList.toggle('animate-refresh-rotate');
             if (result.length == 0) {
                 $("#products_table").html(
                     '<tr>' +

@@ -118,7 +118,7 @@ function user_edit(id) {
             id: id,
             name: document.getElementById('name_edit').value,
             firstname: document.getElementById('firstname_edit').value,
-           lastname: document.getElementById('lastname_edit').value,
+            lastname: document.getElementById('lastname_edit').value,
             email: document.getElementById('email_edit').value,
             ban: document.getElementById('ban_edit').value,
             role: document.getElementById('role_edit').value,
@@ -160,15 +160,23 @@ function refresh() {
                 success: function (roles) {
                     $('#table').html('');
                     $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
+                    document.getElementById('refresh').classList.toggle('animate-refresh-rotate');
 
                     $.each(result, function (key, item) {
                         $.each(roles, function (key, role) {
                             if (item['role_id'] == role['id']) {
+                                if(item["status"] == 1) {
+                                    var status = '<span class="label label-success btn-sm">ACTIVE</span>';
+                                } else {
+                                    var status = '<span class="label label-primary btn-sm">INACTIVE</span>';
+                                }
+
                                 $('#table').append(
                                     '<tr> <td class="text-center">' + item['id'] +
                                     '</td> <td class="text-center">' + item['name'] +
                                     '</td> <td class="text-center">' + item['email'] +
                                     '</td> <td class="text-center">' + role['name'] +
+                                    '</td> <td class="text-center">' + status +
                                     '</td> <td><div class="pull-right"><button class="btn btn-sm btn-primary" onclick="getuser(' + item['id'] + ')" data-bs-toggle="modal" data-bs-target="#viewmore">View More</button></div></td> </tr>'
                                 );
                             }

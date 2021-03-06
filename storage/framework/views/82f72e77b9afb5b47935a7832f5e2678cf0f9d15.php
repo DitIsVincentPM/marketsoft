@@ -37,7 +37,7 @@
                     <div class="col-10">
                         <div class="input-group">
                             <div class="form-outline">
-                                <input type="search" placeholder="Search..." id="search" class="admin-search-input form-control" />
+                                <input type="search" placeholder="Search..." id="search" class="input-search admin-search-input form-control" />
                             </div>
                             <button onclick="some()" type="button" class="btn btn-primary">
                                 <i style="width: 16px;" data-feather="search" class="mr-1"></i>

@@ -124,7 +124,7 @@ class Controller extends BaseController
     // Products API
     public function products()
     {
-        return json_encode(DB::table('products')->get());
+        return json_encode(Products::orderBy('id')->get());
     }
 
     public function products_categorys()

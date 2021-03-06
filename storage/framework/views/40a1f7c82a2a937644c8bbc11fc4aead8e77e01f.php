@@ -21,16 +21,14 @@
     <div id="alert"></div>
     <div class="row">
         <div class="col-10">
-            <form>
-                <div class="input-group">
-                    <div class="form-outline">
-                        <input type="search" placeholder="Search..." id="form1" class="admin-search-input form-control" />
-                    </div>
-                    <button type="button" class="admin-search-button btn btn-primary">
-                        <i style="width: 16px;" data-feather="search" class="mr-1"></i>
-                    </button>
+            <div class="input-group">
+                <div class="form-outline">
+                    <input type="search" placeholder="Search..." id="form1" class="input-search admin-search-input form-control" />
                 </div>
-            </form>
+                <button type="button" class="admin-search-button btn btn-primary">
+                    <i style="width: 16px;" data-feather="search" class="mr-1"></i>
+                </button>
+            </div>
         </div>
         <div class="col-2">
             <button onclick="create()" data-bs-toggle="modal" data-bs-target="#viewmore" class="right btn btn-primary w-100">Create</button>
@@ -38,6 +36,10 @@
     </div>
     <br>
     <div class="card shadow">
+        <div class="card-header">
+            Products Table
+            <span class="pull-right animate-icon" onclick="refresh()" id="refresh" data-feather="refresh-ccw"></span>
+        </div>
         <table class="table caption-top admin-table-footer">
             <thead>
                 <tr class="admin-table-header">
