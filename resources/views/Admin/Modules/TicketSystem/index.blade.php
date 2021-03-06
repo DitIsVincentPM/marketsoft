@@ -120,6 +120,7 @@
                         <tbody id="category-table">
                         </tbody>
                     </table>
+                    <div class="card-footer" id="c-footer"></div>
                 </div>
             </div>
         </div>

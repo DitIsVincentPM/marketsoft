@@ -121,6 +121,7 @@ function categoryrefresh() {
         dataType: "json",
         success: function (result) {
             $('#category-table').html('');
+            $("#c-footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
 
             $.each(result, function (key, item) {
                 $('#category-table').append(
