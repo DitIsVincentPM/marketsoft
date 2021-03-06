@@ -62,7 +62,7 @@
             </tr>
                 </tbody>
             </table>
-            <div class="card-footer" id="products-footer"></div>
+            <div class="card-footer" id="footer"></div>
         </div>
 
 

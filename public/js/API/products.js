@@ -295,7 +295,7 @@ function refresh() {
         },
         success: function (result) {
             $("#products_table").html('');
-            $("#products-footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
+            $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
 
             if (result.length == 0) {
                 $("#products_table").html(

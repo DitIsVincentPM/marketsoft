@@ -62,6 +62,7 @@ Users
             </tr>
         </tbody>
     </table>
+    <div class="card-footer" id="footer"></div>
 </div>
 
 <div class="modal fade" id="viewmore" tabindex="-1" aria-labelledby="viewmoreLabel" aria-hidden="true">

@@ -159,6 +159,8 @@ function refresh() {
                 dataType: "json",
                 success: function (roles) {
                     $('#table').html('');
+                    $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
+
                     $.each(result, function (key, item) {
                         $.each(roles, function (key, role) {
                             if (item['role_id'] == role['id']) {
