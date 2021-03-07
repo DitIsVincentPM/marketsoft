@@ -331,7 +331,7 @@ function refresh() {
                     '<td>' + item['name'] + '</td>' +
                     '<td>' + item['description'] + '</td>' +
                     '<td>' + item['price'] + '</td>' +
-                    '<td class="text-right"><button onclick="edit_product(' + item['id'] + ')" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewmore">View More</button></td>' +
+                    '<td class="text-right"><button onclick="edit_product(' + item['id'] + ')" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewmore">Quick View</button> <button class="btn btn-sm btn-primary">Edit</button></td>' +
                     '</tr>'
                 );
             });

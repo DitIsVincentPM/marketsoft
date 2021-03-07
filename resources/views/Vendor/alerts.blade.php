@@ -1,6 +1,6 @@
 <script>
     @if(Session::get('success') or Session::get('error') or Session::get('warning') or Session::get('info'))
-    window.onload=()=>{
+    window.onload = function () {
         const Toast = Swal.mixin({
         toast: true,
         position: 'bottom-start',
@@ -32,6 +32,7 @@
             @endif
         })
     };
+    refresh();
     @endif
 
     function alert(alert) {

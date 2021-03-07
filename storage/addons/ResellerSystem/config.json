@@ -3,7 +3,7 @@
     "version": "1.0",
     "description": "With the reseller addon you can give people access to sell things on your site!",
     "creator": "Vincent & Pulse",
-    "enabled": "false",
+    "enabled": "true",
     "instructions": [
         { "path":"/views/team/users.blade.php", "folder":"resources", "description":"This is the description test" },
         { "path":"/views/admin/settings.blade.php", "folder":"resources", "description":"This is the description test2" }

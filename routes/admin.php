@@ -80,7 +80,7 @@ Route::group(['middleware' => ['web', 'admin']], function () {
     // Products 
     Route::group(['prefix' => 'products'], function () {
         Route::get('/', 'App\Http\Controllers\Admin\ProductsController@index')->name('admin.products');
-        Route::get('/view/{id}', 'App\Http\Controllers\Admin\ProductsController@index')->name('admin.products.view');
+        Route::get('/view/{id}', 'App\Http\Controllers\Admin\ProductsController@view')->name('admin.products.view');
     });
 
     // OAuth2 

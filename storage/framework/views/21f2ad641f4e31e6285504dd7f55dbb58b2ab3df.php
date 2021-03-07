@@ -80,7 +80,7 @@
                                 <?php if(Permission::is_admin($user->role_id) == false): ?>
                                     <div class="col-lg-4 col-md-6 col-sm-6 justift-content-center text-center">
                                         <div class='justify-content-center text-center icon-container'>
-                                            <img class="admin-img" src="<?php echo e($user->profile_picture); ?>" width="100px" height="100px"/>
+                                            <img class="admin-img" alt="<?php echo e($user->name); ?>" src="<?php echo e($user->profile_picture); ?>" width="100px" height="100px"/>
                                             <div class='status-circle'>
                                                 <div class="demo-up">
                                                     <span class="server-status" type="up"></span>
@@ -124,7 +124,7 @@
                                         <?php if(Permission::is_admin($user->role_id) == true): ?>
                                             <div class="col-lg-4 col-md-6 col-sm-6 justift-content-center text-center">
                                                 <div class='justify-content-center text-center icon-container'>
-                                                    <img class="admin-img" src="<?php echo e($user->profile_picture); ?>" width="100px" height="100px"/>
+                                                    <img class="admin-img"  alt="<?php echo e($user->name); ?>" src="<?php echo e($user->profile_picture); ?>" width="100px" height="100px"/>
                                                     <div class='status-circle'>
                                                         <div class="demo-up">
                                                             <span class="server-status" type="up"></span>

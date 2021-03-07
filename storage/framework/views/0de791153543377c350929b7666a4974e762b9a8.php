@@ -2,6 +2,18 @@
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="description" content="A Market, Business, Hosting Company Software for a small price!">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Vincent Van Hoof, Pierce Gearhart">
+    <meta property="og:title" content="Site Title" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<?php echo e(route('index')); ?>" />
+    <meta property="og:image" content="<?php echo e(Settings::where('key', 'CompanyLogo')->first()->value); ?>" />
+    <meta property="og:description" content="Site description" />
+    <meta name="theme-color" content="#165ef7">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<?php echo e(Settings::key('CompanyFavicon')); ?>" type="image/png">
     <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e(Settings::key('CompanyName')); ?></title>

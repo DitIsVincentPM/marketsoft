@@ -61,7 +61,9 @@
                         <button class="btn btn-light">PURCHASE</button>
                     </div>
                     <div class="col-5">
-                        <button class="btn btn-light">ADD TO CART</button>
+                        <form method="POST" action="<?php echo e(route('products.view.add', $product->id)); ?>"><?php echo csrf_field(); ?>
+                            <button class="mt-4 btn btn-primary btn-block">Add to shoppingcart</button>
+                        </form>
                     </div>
                 </div>
                 <div data-name="SECTIONS" class="mt-3">

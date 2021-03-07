@@ -24,19 +24,18 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/bootstrap-wysihtml5.js"></script>
-
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link rel="stylesheet" href="/css/alertdark.css">
     <script src="https://kit.fontawesome.com/59ac7ac104.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/alertdark.css">
     <?php echo $__env->yieldContent('scripts'); ?>
 </head>
 
 <body class="antialiased">
-    <div class="alert alert-danger alert-server btn-sm mb-0 text-center" role="alert">
-        <strong>IMPORTANT</strong> You are running a beta version of MarketSoft this isn't inteded to be used for full scale production.
+    <div class="alert alert-danger alert-server btn-sm mb-0 text-center" style="border-radius: 0px!important;" role="alert">
+        <strong>IMPORTANT:</strong> You are running a beta version of MarketSoft. This isn't inteded to be used for full scale production.
     </div>
     <nav class="market-navbar navbar navbar-expand-lg btn-block">
         <div class="container-fluid">
@@ -80,7 +79,6 @@
                             Sellers
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="">Active Sellers</a></li>
                             <li><a class="dropdown-item" href="<?php echo e(route('admin.sellerrequests')); ?>">Seller
                                     Requests</a></li>
                         </ul>
@@ -133,20 +131,16 @@
         </div>
     <?php endif; ?>
 </body>
-
+<?php echo $__env->make('Vendor.alerts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>
 <script>
     feather.replace()
 
 </script>
-
-<?php echo $__env->make('Vendor.alerts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/imageupload.js"></script>
 <script src="/js/jquery-clockpicker.min.js"></script>
 <script src="/js/morris.min.js"></script>
-
 </html>
 <?php /**PATH /var/www/softwarelol/resources/views/Vendor/admin.blade.php ENDPATH**/ ?>

@@ -19,6 +19,6 @@ Banned User
 
 @section('content')
 <div class="alert alert-primary text-center" role="alert">
-  Oh no! Administration has banned your account! Reach out to us at our email if you have questions or concerns about your ban.
+  Oh no! Administration has banned your account! Reach out to us at {{ Settings::key('SupportMail') }} if you have questions or concerns about your ban.
 </div>
 @endsection

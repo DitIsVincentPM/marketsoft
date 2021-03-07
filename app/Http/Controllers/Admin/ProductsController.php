@@ -18,11 +18,20 @@ class ProductsController extends BaseController
     public function index()
     {
         $products = DB::table('products')->get();
-        $categorys = DB::table('product_categorys')->get();
 
         return view('Admin.products', [
             'products' => $products,
-            'categorys' => $categorys,
+        ]);
+    }
+
+    public function view(Request $request, $id)
+    {
+        $product = DB::table('products')->where('id', $id)->first();
+
+        if($product == null) return redirect()->route('admin.products')->with('error', "Oops! There isn't any product with that id.");
+
+        return view('Admin.Products.view', [
+            'product' => $product,
         ]);
     }
 }

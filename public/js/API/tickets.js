@@ -16,6 +16,35 @@ function refresh() {
             $('#table').html('');
             $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
 
+            if (result.length == 0) {
+                $("#table").html(
+                    '<tr>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td class="text-center">' +
+                    '<td></td>' +
+                    '<td class="text-right"></td>' +
+                    '</tr>' +
+                    '<tr class="table-info">' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td class="text-center">There a currently <strong>0 tickets</strong> found.</td>' +
+                    '<td></td>' +
+                    '<td class="text-right"></td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td class="text-center">' +
+                    '<td></td>' +
+                    '<td class="text-right"></td>' +
+                    '</tr>'
+                );
+                return;
+            }
+
+
             $.each(result, function (key, item) {
                 if (item['status'] == 0) {
                     status = "Waiting Reply";
