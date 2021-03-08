@@ -74,7 +74,10 @@
             </div>
         </div>
     </div>
-    <script src="/js/API/products.js"></script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('scripts'); ?>
+<script src="/js/API/products.js"></script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('Vendor.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Admin/products.blade.php ENDPATH**/ ?>

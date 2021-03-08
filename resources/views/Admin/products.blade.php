@@ -74,5 +74,8 @@
             </div>
         </div>
     </div>
-    <script src="/js/API/products.js"></script>
+@endsection
+
+@section('scripts')
+<script src="/js/API/products.js"></script>
 @endsection

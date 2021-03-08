@@ -14,7 +14,7 @@
     <ol class="justify-content-center market-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></li>
-        <li class="breadcrumb-item active"><a>{{ $product->name }}</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('products.view', $product->id) }}">{{ $product->name }}</a></li>
     </ol>
 @endsection
 
@@ -27,7 +27,7 @@
                         <ul class="splide__list">
                             @foreach ($product->Images as $image)
                                 <li class="splide__slide">
-                                    <img style="width: 50%;" src="{{ $image->image_url }}" alt="Profile">
+                                    <img style="width: 50%;" src="/images/products/{{ $image->image_url }}" alt="Profile">
                                 </li>
                             @endforeach
                         </ul>
@@ -38,7 +38,7 @@
                         <ul class="splide__list">
                             @foreach ($product->Images as $image)
                                 <li class="splide__slide">
-                                    <img style="width: 50%;" src="{{ $image->image_url }}" alt="Profile">
+                                    <img style="width: 50%;" src="/images/products/{{ $image->image_url }}" alt="Profile">
                                 </li>
                             @endforeach
                         </ul>

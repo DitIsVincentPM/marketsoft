@@ -20,9 +20,6 @@ class InfoController
 
     public function AnnounceView(Request $request, $id)
     {
-        $paypal_link = ShoppingCart::GeneratePaypalLink();
-        return $paypal_link;
-
         $announcement = DB::table('announcements')->where('id', $id)->first();
 
         DB::table('announcements')->where('id', $id)->update([
@@ -37,11 +34,13 @@ class InfoController
     public function Knowledgebase()
     {
         $category = DB::table('knowledgebase_categorys')->get();
-        $knowledgebase = DB::table('knowledgebase')->get();
+        $knowledgebases = DB::table('knowledgebase')->get();
+        $featured_articles = DB::table('knowledgebase')->where('is_featured', 1)->get();
 
         return view('Knowledgebase.index', [
-            'knowledgebases' => $knowledgebase,
+            'knowledgebases' => $knowledgebases,
             'categorys' => $category,
+            'featured_articles' => $featured_articles,
         ]);
     }
 

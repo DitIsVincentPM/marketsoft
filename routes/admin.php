@@ -16,6 +16,7 @@ Route::group(['middleware' => ['web', 'admin']], function () {
     // Admin System Settings
     Route::get('/settings', 'App\Http\Controllers\Admin\SettingsController@settings')->name('admin.settings');
     Route::post('/settings/save', 'App\Http\Controllers\Admin\SettingsController@settingssave')->name('admin.settings.save');
+    Route::post('/settings/modules/{id}/toggle', 'App\Http\Controllers\Admin\SettingsController@modules_toggle')->name('admin.modules.toggle');
 
     // Admin System Announcements
     Route::group(['prefix' => 'announcements'], function () {
@@ -81,6 +82,7 @@ Route::group(['middleware' => ['web', 'admin']], function () {
     Route::group(['prefix' => 'products'], function () {
         Route::get('/', 'App\Http\Controllers\Admin\ProductsController@index')->name('admin.products');
         Route::get('/view/{id}', 'App\Http\Controllers\Admin\ProductsController@view')->name('admin.products.view');
+        Route::post('/view/{id}/image', 'App\Http\Controllers\Admin\ProductsController@image')->name('admin.products.image');
     });
 
     // OAuth2 

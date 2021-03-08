@@ -7,11 +7,11 @@
     <meta name="description" content="A Market, Business, Hosting Company Software for a small price!">
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Vincent Van Hoof, Pierce Gearhart">
-    <meta property="og:title" content="Site Title" />
+    <meta property="og:title" content="{{trim(View::yieldContent('title'))}} - {{ Settings::key('CompanyName') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('index') }}" />
-    <meta property="og:image" content="{{ Settings::where('key', 'CompanyLogo')->first()->value }}" />
-    <meta property="og:description" content="Site description" />
+    <meta property="og:image" content="{{ Settings::where('key', 'CompanyFavicon')->first()->value }}" />
+    <meta property="og:description" content="Our revolutionary platform will help you find the best products." />
     <meta name="theme-color" content="#165ef7">
 
     <link rel="icon" href="{{ Settings::where('key', 'CompanyFavicon')->first()->value }}" type="image/png">
@@ -128,7 +128,13 @@
         <div class="mb-3"></div>
         @yield('content')
         @hasSection('header-title')
+    </div>
+    <footer class="mt-5 bg-dark text-center text-white">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            Copyright © 2020:
+            <a class="text-dark" href="{{ route('admin.index') }}">{{ Settings::key('CompanyName') }}</a>
         </div>
+    </footer>
     @endif
 </body>
 @include('Vendor.alerts')

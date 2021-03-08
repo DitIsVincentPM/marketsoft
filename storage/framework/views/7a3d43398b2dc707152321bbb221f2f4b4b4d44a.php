@@ -16,7 +16,7 @@
     <ol class="justify-content-center market-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><a href="<?php echo e(route('index')); ?>">Home</a></li>
         <li class="breadcrumb-item"><a href="<?php echo e(route('products.index')); ?>">Products</a></li>
-        <li class="breadcrumb-item active"><a><?php echo e($product->name); ?></a></li>
+        <li class="breadcrumb-item active"><a href="<?php echo e(route('products.view', $product->id)); ?>"><?php echo e($product->name); ?></a></li>
     </ol>
 <?php $__env->stopSection(); ?>
 
@@ -29,7 +29,7 @@
                         <ul class="splide__list">
                             <?php $__currentLoopData = $product->Images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li class="splide__slide">
-                                    <img style="width: 50%;" src="<?php echo e($image->image_url); ?>" alt="Profile">
+                                    <img style="width: 50%;" src="/images/products/<?php echo e($image->image_url); ?>" alt="Profile">
                                 </li>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
@@ -40,7 +40,7 @@
                         <ul class="splide__list">
                             <?php $__currentLoopData = $product->Images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li class="splide__slide">
-                                    <img style="width: 50%;" src="<?php echo e($image->image_url); ?>" alt="Profile">
+                                    <img style="width: 50%;" src="/images/products/<?php echo e($image->image_url); ?>" alt="Profile">
                                 </li>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>

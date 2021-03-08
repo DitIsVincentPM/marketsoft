@@ -15,24 +15,49 @@ Knowledgebase
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Knowledgebase</li>
 </ol>
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="input-group justify-content-center">
+            <div class="form-outline">
+                <input type="search" placeholder="Search..." id="search" class="input-search admin-search-input form-control" style="width: 700px!important;">
+            </div>
+            <button type="button" class="btn btn-light">
+                <i style="width: 16px;" data-feather="search" class="mr-1"></i>
+            </button>
+        </div>
+    </div>
+</div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="primary-section">
-    <?php $__currentLoopData = $categorys; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <div class="card shadow mb-3">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-11" style="width: 95%;">
-                    <h5 class="market-text-break announcement-title"><?php echo e($category->name); ?><br><small><?php echo e($category->description); ?></small></h5>
+    <div class="row">
+        <div class="col-6">
+            <h2>Featured Articles:</h2>
+            <?php $__currentLoopData = $featured_articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $featured_article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="row">
+                    <div class="col-11">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 style="color: #ccc!important;">
+                                            <i style="width: 20px;margin-right: 3px!important;margin-top: -3px!important;" data-feather="bookmark"></i>
+                                            <?php echo e(Shorten::string($featured_article->name, 50)); ?>
+
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-1" style="width: 5%;">
-                    <a style="position: absolute;top: 50%;transform: translateY(-50%);" class="pull-right market-text-primary" href="<?php echo e(route('knowledgebase.category', $category->id)); ?>" title="Read More"><i class="pull-right" data-feather="eye"></i></a>
-                </div>
-            </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
+        <div class="col-6">
+            <h2>Article Categories</h2>
         </div>
     </div>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('Vendor.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Knowledgebase/index.blade.php ENDPATH**/ ?>

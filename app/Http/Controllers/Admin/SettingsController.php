@@ -324,4 +324,21 @@ class SettingsController extends BaseController
 
         return redirect('/admin/settings#oauth2')->with('success', "You successfully updated the OAuth2 information!");
     }
+    
+    public function modules_toggle(Request $request, $id)
+    {
+        $module = DB::table('modules')->where('id', $id)->first();
+
+        if($module->status == "enabled") {
+            DB::table('modules')->where('id', $id)->update([
+                'status' => 'disabled',
+            ]);
+            return redirect('/admin/settings#modules')->with('success', "Module " . $module->name . " is disabled!");
+        } else {
+            DB::table('modules')->where('id', $id)->update([
+                'status' => 'enabled',
+            ]);
+            return redirect('/admin/settings#modules')->with('success', "Module " . $module->name . " is enabled!");
+        }
+    }
 }

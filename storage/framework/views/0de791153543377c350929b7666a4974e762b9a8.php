@@ -7,11 +7,11 @@
     <meta name="description" content="A Market, Business, Hosting Company Software for a small price!">
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Vincent Van Hoof, Pierce Gearhart">
-    <meta property="og:title" content="Site Title" />
+    <meta property="og:title" content="<?php echo e(trim(View::yieldContent('title'))); ?> - <?php echo e(Settings::key('CompanyName')); ?>" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="<?php echo e(route('index')); ?>" />
-    <meta property="og:image" content="<?php echo e(Settings::where('key', 'CompanyLogo')->first()->value); ?>" />
-    <meta property="og:description" content="Site description" />
+    <meta property="og:image" content="<?php echo e(Settings::where('key', 'CompanyFavicon')->first()->value); ?>" />
+    <meta property="og:description" content="Our revolutionary platform will help you find the best products." />
     <meta name="theme-color" content="#165ef7">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,60 +135,11 @@
     </div>
 
     <footer class="mt-5 bg-dark text-center text-white">
-        
-
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             Copyright © 2020:
             <a class="text-dark" href="<?php echo e(route('index')); ?>"><?php echo e(Settings::key('CompanyName')); ?></a>
         </div>
     </footer>
-
-    <div style="width: 400px; padding: 0% !important; padding-right: 1rem !important;"
-        class="accordion position-fixed bottom-0 end-0 p-3">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#shoppingcart" aria-expanded="false" aria-controls="shoppingcart">
-                    Shopping Cart
-                </button>
-            </h2>
-            <div id="shoppingcart" class="accordion-collapse collapse">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="text-center" scope="col">Quantity</th>
-                            <th scope="col">Item</th>
-                            <th scope="col">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            $total = 0;
-                        ?>
-                        <?php $__currentLoopData = ShoppingCart::GetShoppingCart(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php $__currentLoopData = Products::GetAll(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php if($item->product_id == $product->id): ?>
-                                    <tr>
-                                        <td class="text-center"><?php echo e($item->qty); ?></td>
-                                        <td><?php echo e($product->name); ?></td>
-                                        <td><?php echo e($product->price * $item->qty); ?></td>
-                                    </tr>
-                                    <?php
-                                        $total = $total + $product->price * $item->qty;
-                                    ?>
-                                <?php endif; ?>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <tr class="remove-line">
-                            <th scope="row"></th>
-                            <td>Total:</td>
-                            <td>$<?php echo e($total); ?></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 </body>
 
 <script src="/js/bootstrap.bundle.min.js"></script>

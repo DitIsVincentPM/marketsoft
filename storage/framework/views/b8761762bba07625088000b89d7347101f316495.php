@@ -7,11 +7,11 @@
     <meta name="description" content="A Market, Business, Hosting Company Software for a small price!">
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Vincent Van Hoof, Pierce Gearhart">
-    <meta property="og:title" content="Site Title" />
+    <meta property="og:title" content="<?php echo e(trim(View::yieldContent('title'))); ?> - <?php echo e(Settings::key('CompanyName')); ?>" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="<?php echo e(route('index')); ?>" />
-    <meta property="og:image" content="<?php echo e(Settings::where('key', 'CompanyLogo')->first()->value); ?>" />
-    <meta property="og:description" content="Site description" />
+    <meta property="og:image" content="<?php echo e(Settings::where('key', 'CompanyFavicon')->first()->value); ?>" />
+    <meta property="og:description" content="Our revolutionary platform will help you find the best products." />
     <meta name="theme-color" content="#165ef7">
 
     <link rel="icon" href="<?php echo e(Settings::where('key', 'CompanyFavicon')->first()->value); ?>" type="image/png">
@@ -128,7 +128,13 @@
         <div class="mb-3"></div>
         <?php echo $__env->yieldContent('content'); ?>
         <?php if (! empty(trim($__env->yieldContent('header-title')))): ?>
+    </div>
+    <footer class="mt-5 bg-dark text-center text-white">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            Copyright © 2020:
+            <a class="text-dark" href="<?php echo e(route('admin.index')); ?>"><?php echo e(Settings::key('CompanyName')); ?></a>
         </div>
+    </footer>
     <?php endif; ?>
 </body>
 <?php echo $__env->make('Vendor.alerts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
