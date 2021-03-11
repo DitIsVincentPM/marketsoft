@@ -23,16 +23,7 @@ class IndexController extends BaseController
             'announcements' => $announcements,
         ]);
     }
-
-    public function users()
-    {
-        $users = DB::table('users')->get();
-
-        return view('users', [
-            'users' => $users,
-        ]);
-    }
-
+    
     public function Banned()
     {
         if(!Auth::check()) {

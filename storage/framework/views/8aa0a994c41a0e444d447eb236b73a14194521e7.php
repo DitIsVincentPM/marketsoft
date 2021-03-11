@@ -25,7 +25,7 @@ Browse Members
         <div class="col-3">
             <div class="card mb-3">
                 <div class="card-body">
-                    <img class="team-users-profile profile-picture-users mb-2" src="<?php echo e($user->profile_picture); ?>">
+                    <img alt="<?php echo e($user->name); ?>" class="team-users-profile profile-picture-users mb-2" src="<?php echo e($user->profile_picture); ?>">
                     <h5 class="team-users-name text-center" data-toggle="tooltip" data-placement="bottom" title="Member">
                         <i style="width: 18px;" data-feather="user"></i> <?php echo e($user->name); ?>
 

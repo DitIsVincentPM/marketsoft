@@ -72,7 +72,7 @@ Ticket #{{ $tickets->id }}
                         <div class="pull-left mt-1">
                             Reply to the Ticket
                         </div>
-                        <form method="POST" action="{{ route('support.ticket.new.reply', $tickets->id) }}">
+                        <form method="POST" action="{{ route('ticket.new.reply', $tickets->id) }}">
                             @csrf
                             <div class="pull-right">
                                 <button type="submit" class="btn btn-primary btn-sm">Add Reply</button>

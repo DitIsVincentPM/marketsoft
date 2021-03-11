@@ -58,27 +58,12 @@
                         <a class="market-navbar-small-header market-navbar-header nav-link"
                             href="<?php echo e(route('products.index')); ?>">Online Store</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
-                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Information
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="<?php echo e(route('announcements.index')); ?>">Announcements</a>
-                            </li>
-                            <li><a class="dropdown-item" href="<?php echo e(route('knowledgebase.index')); ?>">Knowledgebase</a>
-                            </li>
-                        </ul>
-                    </li>
+                    <?php $__currentLoopData = Modules::get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $module): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="<?php echo e(route('users')); ?>">All Users</a>
+                            href="<?php echo e(route($module->Navbar_Route)); ?>"><?php echo e($module->Navbar_Name); ?></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="<?php echo e(route('support.ticket')); ?>">Support Tickets</a>
-                    </li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">

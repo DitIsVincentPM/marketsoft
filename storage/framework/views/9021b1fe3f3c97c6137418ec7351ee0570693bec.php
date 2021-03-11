@@ -25,7 +25,7 @@ Support Tickets
                 <div class="card shadow">
                     <div class="card-header">
                         <h4 class="pull-left mb-0 mt-1">Your Tickets</h4>
-                        <a href="<?php echo e(route('support.ticket.new')); ?>"><button class="pull-right btn btn-secondary btn-sm">Create New</button></a>
+                        <a href="<?php echo e(route('ticket.new')); ?>"><button class="pull-right btn btn-secondary btn-sm">Create New</button></a>
                     </div>
                     <div class="col-md-12 col-md-offset-2">
                         <div class="alert alert-primary text-center mt-3" role="alert">
@@ -41,7 +41,7 @@ Support Tickets
                 <div class="card shadow">
                     <div class="card-header">
                         <h4 class="pull-left mb-0 mt-1">Your Tickets</h4>
-                        <a href="<?php echo e(route('support.ticket.new')); ?>"><button class="pull-right btn btn-secondary btn-sm">Create New</button></a>
+                        <a href="<?php echo e(route('ticket.new')); ?>"><button class="pull-right btn btn-secondary btn-sm">Create New</button></a>
                     </div>
                     <table class="table mb-0 text-center">
                         <thead>
@@ -103,7 +103,7 @@ Support Tickets
                                 Closed
                                 </td>
                                 <?php endif; ?>
-                                <td><a href="<?php echo e(route('support.ticket.view', $ticket->id)); ?>"><i data-feather="eye"></i></a></td>
+                                <td><a href="<?php echo e(route('ticket.view', $ticket->id)); ?>"><i data-feather="eye"></i></a></td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>

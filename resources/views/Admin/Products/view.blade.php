@@ -161,8 +161,23 @@
                 </div>
             </div>
             <div style="display: none;" id="tab-content" data-name="modules">
-                <div class="card">
-                    <div class="card-body">
+                <div class="default-tab">
+                    <ul style="position: static !important;" class="nav nav-tabs" role="tablist">
+                        @foreach ($modules as $module)
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#{{ $module->name }}">{{ $module->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <br>
+                    <div class="tab-content">
+                        @foreach ($modules as $module)
+                            <div class="tab-pane fade" id="{{ $module->name }}">
+                                <div class="card">
+                                    <div class="card-body">
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

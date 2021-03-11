@@ -159,8 +159,23 @@
                 </div>
             </div>
             <div style="display: none;" id="tab-content" data-name="modules">
-                <div class="card">
-                    <div class="card-body">
+                <div class="default-tab">
+                    <ul style="position: static !important;" class="nav nav-tabs" role="tablist">
+                        <?php $__currentLoopData = $modules; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $module): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#<?php echo e($module->name); ?>"><?php echo e($module->name); ?></a>
+                            </li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </ul>
+                    <br>
+                    <div class="tab-content">
+                        <?php $__currentLoopData = $modules; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $module): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="tab-pane fade" id="<?php echo e($module->name); ?>">
+                                <div class="card">
+                                    <div class="card-body">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             </div>

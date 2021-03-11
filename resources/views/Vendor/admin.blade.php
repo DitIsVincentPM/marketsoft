@@ -60,9 +60,11 @@
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.users') }}">Users</a>
                     </li>
+                    @if(Modules::is_enabled('TicketSystem'))
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link" href="{{ route('admin.tickets') }}">Tickets</a>
                     </li>
+                    @endif
                     <li class="nav-item dropdown">
                         <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Information

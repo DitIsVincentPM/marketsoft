@@ -32,20 +32,6 @@ class KnowledgebaseController extends BaseController
         $description = $request->input('description');
         $category_id = $request->input('category');
 
-        $header = "From: support@marketsoft.io\r\n";
-        $header.= "MIME-Version: 1.0\r\n";
-        $header.= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-        $header.= "X-Priority: 1\r\n";
-        
-        $status = mail(Auth::user()->email, 'test', "test", $header);
-        
-        if($status)
-        {
-            dd('<p>Your mail has been sent!</p>');
-        } else {
-            dd('<p>Something went wrong. Please try again!</p>');
-        }
-
         $error = InputCheck::check([$name, $description]);
         if ($error != false) {
             return redirect()->route('admin.announcements')->with('error', $error);

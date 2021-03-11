@@ -27,11 +27,13 @@ class ProductsController extends BaseController
     public function view(Request $request, $id)
     {
         $product = Products::where('id', $id)->first();
+        $modules = DB::table('modules')->where('type', 2)->where('status', 'enabled')->get();
 
         if($product == null) return redirect()->route('admin.products')->with('error', "Oops! There isn't any product with that id.");
 
         return view('Admin.Products.view', [
             'product' => $product,
+            'modules' => $modules,
         ]);
     }
 

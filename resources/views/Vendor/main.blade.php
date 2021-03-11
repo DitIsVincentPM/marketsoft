@@ -50,7 +50,7 @@
             </div>
         </div>
     </div> --}}
-    <nav class="market-navbar navbar navbar-expand-lg btn-block">
+    <nav class="market-navbar navbar top-nav navbar-expand-lg btn-block">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
                 aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
             <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
                     href="{{ route('index') }}">
-                    @if (Settings::key('NavbarIconStatus') == 1) <img src="{{ Settings::key('CompanyLogo') }}" height="35"
+                    @if(Settings::key('NavbarIconStatus') == 1) <img src="{{ Settings::key('CompanyLogo') }}" height="35"
                         alt="logo" /> @else <h3 class="mb-0 v-center">{{ Settings::key('CompanyName') }}</h3>
                     @endif
                 </a>
@@ -73,27 +73,12 @@
                         <a class="market-navbar-small-header market-navbar-header nav-link"
                             href="{{ route('products.index') }}">Online Store</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
-                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Information
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ route('announcements.index') }}">Announcements</a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ route('knowledgebase.index') }}">Knowledgebase</a>
-                            </li>
-                        </ul>
-                    </li>
+                    @foreach(Modules::get() as $module)
                     <li class="nav-item">
                         <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="{{ route('users') }}">All Users</a>
+                            href="{{ route($module->Navbar_Route) }}">{{ $module->Navbar_Name }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="{{ route('support.ticket') }}">Support Tickets</a>
-                    </li>
+                    @endforeach
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">

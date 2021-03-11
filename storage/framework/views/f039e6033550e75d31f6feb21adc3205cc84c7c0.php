@@ -22,7 +22,7 @@ Submit a Ticket
 <div class="primary-section">
     <div class="row justify-content-center">
         <div class="col-10">
-            <form method="POST" action="<?php echo e(route('support.ticket.new.create')); ?>">
+            <form method="POST" action="<?php echo e(route('ticket.new.create')); ?>">
             <?php echo csrf_field(); ?>
             <div class="row">
                 <div class="col-6">

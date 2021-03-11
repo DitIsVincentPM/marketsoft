@@ -27,7 +27,7 @@ Knowledgebase
                     <h5 class="market-text-break announcement-title">{{ $knowledgebase->name }}<br><small>{!! $knowledgebase->description !!}</small></h5>
                 </div>
                 <div class="col-1" style="width: 5%;">
-                    <a style="position: absolute;top: 50%;transform: translateY(-50%);" class="pull-right market-text-primary" href="{{ route('knowledgebase.articel.view', $knowledgebase->id) }}" title="Read More"><i class="pull-right" data-feather="eye"></i></a>
+                    <a style="position: absolute;top: 50%;transform: translateY(-50%);" class="pull-right market-text-primary" href="{{ route('knowledgebase.article.view', $knowledgebase->id) }}" title="Read More"><i class="pull-right" data-feather="eye"></i></a>
                 </div>
             </div>
         </div>

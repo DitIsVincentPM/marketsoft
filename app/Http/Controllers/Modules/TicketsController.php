@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Team;
 use App\Models\InputCheck as InputCheck;
 use Auth;
 
-class SupportController
+class TicketsController
 {
     public function Tickets()
     {
@@ -45,7 +45,7 @@ class SupportController
         
         $error = InputCheck::check([$name, $email, $category, $priority, $message]);
         if($error != false) {
-            return redirect()->route('support.ticket.new')->with('error', $error);
+            return redirect()->route('ticket.new')->with('error', $error);
         }
 
         DB::table('tickets')->insert([
@@ -57,7 +57,7 @@ class SupportController
             'user_id' => $user_id,
         ]);
 
-        return redirect()->route('support.ticket')->with('success', "You have successfully created a new ticket!");
+        return redirect()->route('ticket.index')->with('success', "You have successfully created a new ticket!");
     }
 
     public function TicketView(Request $request, $id)
@@ -69,11 +69,11 @@ class SupportController
         $roles = DB::table('roles')->get();
 
         if($tickets == null) {
-            return redirect()->route('support.ticket')->with('error', "This ticket does not exist."); 
+            return redirect()->route('ticket.index')->with('error', "This ticket does not exist."); 
         }
 
         if($tickets->user_id != Auth::user()->id) {
-            return redirect()->route('support.ticket')->with('error', "This is not your ticket, you cannot view it!");
+            return redirect()->route('ticket.index')->with('error', "This is not your ticket, you cannot view it!");
         }
 
         return view('Modules.TicketSystem.view', [
@@ -92,12 +92,12 @@ class SupportController
         $tickets = DB::table('tickets')->where('id', $id)->first();
 
         if($tickets->status == 3) {
-            return redirect()->route('support.ticket.view', $id)->with('error', "This ticket is closed, you cannot reply!");
+            return redirect()->route('ticket.view', $id)->with('error', "This ticket is closed, you cannot reply!");
         }
 
         $error = InputCheck::check([$message]);
         if($error != false) {
-            return redirect()->route('support.ticket.view', $id)->with('error', $error);
+            return redirect()->route('ticket.view', $id)->with('error', $error);
         }
 
         DB::table('ticket_replies')->insert([
@@ -110,6 +110,6 @@ class SupportController
             'status' => 0,
         ]);
 
-        return redirect()->route('support.ticket.view', $id)->with('success', "You have successfully replied to ticket #$id!");
+        return redirect()->route('ticket.view', $id)->with('success', "You have successfully replied to ticket #$id!");
     }
 }
