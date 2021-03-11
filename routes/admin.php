@@ -17,6 +17,7 @@ Route::group(['middleware' => ['web', 'admin']], function () {
     Route::get('/settings', 'App\Http\Controllers\Admin\SettingsController@settings')->name('admin.settings');
     Route::post('/settings/save', 'App\Http\Controllers\Admin\SettingsController@settingssave')->name('admin.settings.save');
     Route::post('/settings/modules/{id}/toggle', 'App\Http\Controllers\Admin\SettingsController@modules_toggle')->name('admin.modules.toggle');
+    Route::post('/settings/modules/upload', 'App\Http\Controllers\Admin\SettingsController@modules_upload')->name('admin.modules.upload');
 
     // Admin System Announcements
     Route::group(['prefix' => 'announcements'], function () {

@@ -47,20 +47,17 @@
             </div>
             <div class="col-sm-12 col-md-5">
                 <h1 class="mt-sm-5 text-uppercase">Iphone lol</h1>
-                <h4 class="text-secondary" style="color: #91959d !important;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-                    molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                    numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-                    optio,</h4>
+                <h4 class="text-secondary" style="color: #91959d !important;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo praesentium est porro unde architecto ipsum ad dolor voluptas a delectus. Illum sequi eos consectetur expedita. Aperiam ut saepe incidunt quisquam.</h4>
                 <div class="row mt-2">
-                    <div class="col-3">
+                    <div class="col-4">
                         <h1>${{ $product->price }}</h1>
                     </div>
                     <div class="col-3">
-                        <button class="btn btn-light">PURCHASE</button>
+                        <button class="btn btn-warning">PURCHASE</button>
                     </div>
                     <div class="col-5">
                         <form method="POST" action="{{ route('products.view.add', $product->id) }}">@csrf
-                            <button class="mt-4 btn btn-primary btn-block">Add to shoppingcart</button>
+                            <button class="btn btn-primary btn-block"><i class="fas fa-shopping-cart"></i></button>
                         </form>
                     </div>
                 </div>

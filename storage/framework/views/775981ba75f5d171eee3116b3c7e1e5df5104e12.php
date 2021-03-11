@@ -1,3 +1,27 @@
+<form action="<?php echo e(route('admin.modules.upload')); ?>" method="POST" enctype="multipart/form-data">
+    <?php echo csrf_field(); ?>
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="col-sm-offset-2 col-sm-12"><br>
+                <label for="exampleInputEmail1" class="form-label">Module Test</label>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" value="Module Test" class="form-control" readonly>
+                        <div class="input-group-btn">
+                            <span class="fileUpload btn btn-primary">
+                                <span type="button" class="upl" id="upload">Upload</span>
+                                <input id="image" type="file" name="module" class="upload up" id="up" onchange="readURL(this);" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-text">This will be your logo that will be used in the navbar.</div>
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+
 <div class="card mb-3">
     <div class="card-header">
         Module Settings

@@ -402,6 +402,30 @@ body {
     width: 1.5rem
 }
 
+.nav-tabs-item .active {
+    border-color: #3f435a !important;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #3f435a!important;
+}
+
+.nav-tabs-item {
+    background-color: #323649!important;
+}
+
+.nav-tabs-link {
+    color: white !important;
+}
+
+.nav-tabs-link:focus {
+    border-color: #3f435a !important;
+}
+
+.nav-tabs-link:hover {
+    border-color: #3f435a !important;
+}
+
 .admin-nav-link {
     text-decoration: none;
     color: gray

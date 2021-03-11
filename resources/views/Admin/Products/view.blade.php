@@ -164,16 +164,31 @@
                 <div class="default-tab">
                     <ul style="position: static !important;" class="nav nav-tabs" role="tablist">
                         @foreach ($modules as $module)
-                            <li class="nav-item"><a class="nav-link" type="button" role="tab" aria-controls="{{ $module->name }}" aria-selected="false" data-toggle="tab" href="#{{ $module->name }}">{{ $module->name }}</a>
-                            </li>
+                            <li class="@if ($loop->first) active @endif nav-item nav-tabs-item"><a class="nav-link nav-tabs-link" type="button" role="tab" aria-controls="{{ $module->name }}" @if ($loop->first) aria-selected="true" @else aria-selected="false" @endif data-toggle="tab" href="#{{ $module->name }}">{{ $module->name }}</a></li>
                         @endforeach
                     </ul>
-                    <br>
                     <div class="tab-content">
                         @foreach ($modules as $module)
-                            <div class="tab-pane fade" role="tabpanel" id="{{ $module->name }}" >
+                            <div class="tab-pane @if ($loop->first) active @endif" role="tabpanel" id="{{ $module->name }}">
                                 <div class="card">
                                     <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 mb-3">
+                                                <label class="form-label">Server Name</label>
+                                                <input type="text" class="form-control" name="description" value="{{ $product->description }}">
+                                                <div class="form-text">Put the product description here.</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label">Disk Amount (MB)</label>
+                                                <input type="text" class="form-control" name="description" value="{{ $product->description }}">
+                                                <div class="form-text">Here you can put the amout of disk the server of the user shoud be revieving</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label">Ram Amount (MB)</label>
+                                                <input type="text" class="form-control" name="description" value="{{ $product->description }}">
+                                                <div class="form-text">Here you can put the amout of ram the server of the user shoud be revieving</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -201,10 +216,11 @@
 
     </script>
     <script type="text/javascript">
-        $(document).ready(function ($) {
+        $(document).ready(function($) {
             $(".tabs").tabs();
         });
-    </script> 
+
+    </script>
     <script src="/js/custom-tabs.js"></script>
     <script>
 

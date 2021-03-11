@@ -56,7 +56,7 @@
                 aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                 <i style="color: black;" data-feather="align-justify"></i>
             </button>
-            <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
+            <div class="container collapse navbar-collapse" id="navbarsExample07">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
                     href="{{ route('index') }}">
                     @if(Settings::key('NavbarIconStatus') == 1) <img src="{{ Settings::key('CompanyLogo') }}" height="35"

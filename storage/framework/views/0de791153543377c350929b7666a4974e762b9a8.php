@@ -35,13 +35,13 @@
 
 <body class="antialiased">
     
-    <nav class="market-navbar navbar navbar-expand-lg btn-block">
+    <nav class="market-navbar navbar top-nav navbar-expand-lg btn-block">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
                 aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                 <i style="color: black;" data-feather="align-justify"></i>
             </button>
-            <div class="container collapse navbar-collapse" id="navbarTogglerDemo01">
+            <div class="container collapse navbar-collapse" id="navbarsExample07">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"
                     href="<?php echo e(route('index')); ?>">
                     <?php if(Settings::key('NavbarIconStatus') == 1): ?> <img src="<?php echo e(Settings::key('CompanyLogo')); ?>" height="35"

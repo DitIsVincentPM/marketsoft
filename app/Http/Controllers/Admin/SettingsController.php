@@ -15,6 +15,9 @@ use Settings;
 use Config;
 use Artisan;
 use App\Models\Env;
+use ZanySoft\Zip\Zip;
+use File;
+use Storage;
 
 class SettingsController extends BaseController
 {
@@ -340,5 +343,70 @@ class SettingsController extends BaseController
             ]);
             return redirect('/admin/settings#modules')->with('success', "Module " . $module->name . " is enabled!");
         }
+    }
+
+    public function modules_upload(Request $request)
+    {
+
+        // Get file
+        $module_files = $request->file('module');
+        $original_name = $module_files->getClientOriginalName();
+        $no_extension_name = str_replace("." . $module_files->getClientOriginalExtension(), "", $original_name);
+
+        // Essentials
+        $id = rand();
+        $path = storage_path('/modules/temp/' . $id);
+
+        // Make Temp Directory
+        File::makeDirectory($path);
+
+        // Move Zip to Temp Module Directory
+        $module_files->move($path, "module.zip");
+
+        // Extract Files To Temp Folder
+        $zip = Zip::open($path . "/" . "module.zip");
+        $zip->extract($path);
+
+        // Remove zip
+        File::delete($path . "/" . "module.zip");
+
+        // If in extra folder get out of folder
+        if(File::exists($path . "/" . $no_extension_name)) {
+            File::copyDirectory($path . "/" . $no_extension_name, $path);
+            File::deleteDirectory($path . "/" . $no_extension_name);
+        }
+
+        // Get files and directories
+        $files = File::allFiles($path);
+        $directories = File::directories($path);
+
+        // Create Json
+        $list = [];
+        for($i=0;$i < count($directories); $i++) {
+            $directory_name = str_replace("/var/www/softwarelol/storage//modules/temp/" . $id . "/", "", $directories[$i]);
+            $list["directories"][$i]["name"] = $directory_name;
+        }
+        for($i=0;$i < count($files); $i++) {
+            $list["files"][$i]["name"] = $files[$i]->getFilename();
+            $list["files"][$i]["extension"] = $files[$i]->getExtension();
+        }
+
+        // Log File
+        
+
+        // Allowed Folders: Routes, Public, Resources, App
+        for($i=0;$i < count($list); $i++) {
+            if($list["directories"][$i]["name"] == "routes") {
+
+            } elseif($list["directories"][$i]["name"] == "public") {
+                
+            } elseif($list["directories"][$i]["name"] == "resources") {
+
+            } elseif($list["directories"][$i]["name"] == "app") {
+
+            }
+        }
+
+        return;
     }
 }

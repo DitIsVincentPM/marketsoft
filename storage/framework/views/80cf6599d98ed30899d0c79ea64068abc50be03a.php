@@ -162,16 +162,31 @@
                 <div class="default-tab">
                     <ul style="position: static !important;" class="nav nav-tabs" role="tablist">
                         <?php $__currentLoopData = $modules; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $module): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#<?php echo e($module->name); ?>"><?php echo e($module->name); ?></a>
-                            </li>
+                            <li class="<?php if($loop->first): ?> active <?php endif; ?> nav-item nav-tabs-item"><a class="nav-link nav-tabs-link" type="button" role="tab" aria-controls="<?php echo e($module->name); ?>" <?php if($loop->first): ?> aria-selected="true" <?php else: ?> aria-selected="false" <?php endif; ?> data-toggle="tab" href="#<?php echo e($module->name); ?>"><?php echo e($module->name); ?></a></li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
-                    <br>
                     <div class="tab-content">
                         <?php $__currentLoopData = $modules; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $module): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="tab-pane fade" id="<?php echo e($module->name); ?>">
+                            <div class="tab-pane <?php if($loop->first): ?> active <?php endif; ?>" role="tabpanel" id="<?php echo e($module->name); ?>">
                                 <div class="card">
                                     <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 mb-3">
+                                                <label class="form-label">Server Name</label>
+                                                <input type="text" class="form-control" name="description" value="<?php echo e($product->description); ?>">
+                                                <div class="form-text">Put the product description here.</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label">Disk Amount (MB)</label>
+                                                <input type="text" class="form-control" name="description" value="<?php echo e($product->description); ?>">
+                                                <div class="form-text">Here you can put the amout of disk the server of the user shoud be revieving</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label">Ram Amount (MB)</label>
+                                                <input type="text" class="form-control" name="description" value="<?php echo e($product->description); ?>">
+                                                <div class="form-text">Here you can put the amout of ram the server of the user shoud be revieving</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -196,6 +211,12 @@
             "id": "<?php echo e($product->id); ?>",
             "name": "<?php echo e($product->name); ?>",
         };
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function($) {
+            $(".tabs").tabs();
+        });
 
     </script>
     <script src="/js/custom-tabs.js"></script>

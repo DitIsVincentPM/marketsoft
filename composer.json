@@ -21,7 +21,8 @@
         "socialiteproviders/github": "^4.1",
         "socialiteproviders/google": "^4.1",
         "srmklive/paypal": "~1.0",
-        "twbs/bootstrap": "^4.6"
+        "twbs/bootstrap": "^4.6",
+        "zanysoft/laravel-zip": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
