@@ -164,14 +164,14 @@
                 <div class="default-tab">
                     <ul style="position: static !important;" class="nav nav-tabs" role="tablist">
                         @foreach ($modules as $module)
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#{{ $module->name }}">{{ $module->name }}</a>
+                            <li class="nav-item"><a class="nav-link" type="button" role="tab" aria-controls="{{ $module->name }}" aria-selected="false" data-toggle="tab" href="#{{ $module->name }}">{{ $module->name }}</a>
                             </li>
                         @endforeach
                     </ul>
                     <br>
                     <div class="tab-content">
                         @foreach ($modules as $module)
-                            <div class="tab-pane fade" id="{{ $module->name }}">
+                            <div class="tab-pane fade" role="tabpanel" id="{{ $module->name }}" >
                                 <div class="card">
                                     <div class="card-body">
                                     </div>
@@ -200,6 +200,11 @@
         };
 
     </script>
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            $(".tabs").tabs();
+        });
+    </script> 
     <script src="/js/custom-tabs.js"></script>
     <script>
 
