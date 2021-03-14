@@ -11,18 +11,13 @@ Settings
 @endsection
 
 @section('header-breadcrumb')
-<ol class="justify-content-center market-breadcrumb breadcrumb">
+<ol class="pull-right market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Admin</a></li>
     <li class="breadcrumb-item active" aria-current="page">Settings</li>
 </ol>
 @endsection
 
 @section('content')
-<div class="row mt-3">
-    <div class="col-3">
-        @include('Admin.Vendor.Settings.sidebar')
-    </div>
-    <div class="col-9">
         <div class="pl-0 alert {{ $version[1] }}" role="alert">
             {{ $version[0] }}
         </div>
@@ -47,20 +42,6 @@ Settings
             </div>
         @endif
 
-        {{-- Addon Settings --}}
-        @if($check[3] == true)
-            <div style="display: none;" id="tab-content" data-name="addons">
-                @include('Admin.Vendor.Settings.addons')
-            </div>
-        @endif
-
-        {{-- Theme Settings --}}
-        @if($check[4] == true)
-            <div style="display: none;" id="tab-content" data-name="themes">
-                @include('Admin.Vendor.Settings.themes')
-            </div>
-        @endif
-
         {{-- Roles Settings --}}
         @if($check[5] == true)
             <div style="display: none;" id="tab-content" data-name="roles">
@@ -81,8 +62,6 @@ Settings
                 @include('Admin.Vendor.Settings.oauth2')
             </div>
         @endif
-    </div>
-</div>
 <script>
     $('#icons').change(function() {
         opt = $(this).val();
@@ -122,7 +101,4 @@ Settings
     @endif
     @endforeach
 </script>
-
-<script src="/js/custom-tabs.js"></script>
-
 @endsection

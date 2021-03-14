@@ -18,6 +18,7 @@ use App\Models\Env;
 use ZanySoft\Zip\Zip;
 use File;
 use Storage;
+use \GuzzleHttp\Client;
 
 class SettingsController extends BaseController
 {
@@ -40,7 +41,10 @@ class SettingsController extends BaseController
         $themes = GetExternals::getthemes();
         $icons = GetExternals::geticons();
         $version = GetExternals::getversionstring();
-        $modules = DB::table('modules')->get();
+
+        $json = file_get_contents('http://marketsoft.io/modules/config.json', "\xEF\xBB\xBF");
+        $json = json_decode($json, true);
+
         $permissions = DB::table('permissions')->get();
         $roles = DB::table('roles')->get();
         $role_perms = DB::table('role_permissions')->get();
@@ -50,7 +54,7 @@ class SettingsController extends BaseController
         return view('Admin.settings', [
             'themes' => $themes,
             'addons' => $addons,
-            'modules' => $modules,
+            'modules' => $json,
             'version' => $version,
             'check' => $check,
             'permissions' => $permissions,
@@ -332,7 +336,7 @@ class SettingsController extends BaseController
     {
         $module = DB::table('modules')->where('id', $id)->first();
 
-        if($module->status == "enabled") {
+        if ($module->status == "enabled") {
             DB::table('modules')->where('id', $id)->update([
                 'status' => 'disabled',
             ]);
@@ -347,21 +351,35 @@ class SettingsController extends BaseController
 
     public function modules_upload(Request $request)
     {
-
-        // Get file
-        $module_files = $request->file('module');
-        $original_name = $module_files->getClientOriginalName();
-        $no_extension_name = str_replace("." . $module_files->getClientOriginalExtension(), "", $original_name);
-
         // Essentials
         $id = rand();
-        $path = storage_path('/modules/temp/' . $id);
+        $path = storage_path('modules/temp/' . $id);
+        $path_module = storage_path('modules/' . $id);
 
         // Make Temp Directory
         File::makeDirectory($path);
 
-        // Move Zip to Temp Module Directory
-        $module_files->move($path, "module.zip");
+        // Get and Move Zip to Temp Module Directory
+        /* $module_files->move($path, "module.zip"); */
+        try {
+            $url = 'http://marketsoft.io/modules/Example.zip';
+            $guzzle = new Client();
+            $response = $guzzle->get($url);
+            File::put($path . "/module.zip", $response->getBody());
+
+            $module_files = File::files($path);
+        } catch (\Exception $e) {
+            File::deleteDirectory($path);
+            return redirect('/admin/settings#modules')->with('error', "The url is not vailed. API Call cannceld.");
+        }
+
+        if ($module_files[0]->getExtension() != "zip") {
+            return redirect('/admin/settings#modules')->with('error', "This file type isn't supported yet.");
+        }
+
+        // Get file
+        $original_name = $module_files[0]->getFilename();
+        $no_extension_name = str_replace("." . $module_files[0]->getExtension(), "", $original_name);
 
         // Extract Files To Temp Folder
         $zip = Zip::open($path . "/" . "module.zip");
@@ -371,42 +389,147 @@ class SettingsController extends BaseController
         File::delete($path . "/" . "module.zip");
 
         // If in extra folder get out of folder
-        if(File::exists($path . "/" . $no_extension_name)) {
+        if (File::exists($path . "/" . $no_extension_name)) {
             File::copyDirectory($path . "/" . $no_extension_name, $path);
             File::deleteDirectory($path . "/" . $no_extension_name);
         }
+
+        // Generate Json with config data
+        try {
+            $content = File::get($path . "/config.json");
+        } catch (\Exception $e) {
+            File::deleteDirectory($path);
+            return redirect('/admin/settings#modules')->with('error', "No module config found.");
+        }
+        $content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
+        $data = json_decode($content, true);
+
+        // Create Logs File
+        File::makeDirectory($path_module);
+        File::put($path_module . "/logs.txt", "|- This is the logs file for #" . $data["name"] . " -| \r\n\r\n");
 
         // Get files and directories
         $files = File::allFiles($path);
         $directories = File::directories($path);
 
+        File::append($path_module . "/logs.txt", "|- All files that are uploaded -| \r\n");
+
         // Create Json
         $list = [];
-        for($i=0;$i < count($directories); $i++) {
-            $directory_name = str_replace("/var/www/softwarelol/storage//modules/temp/" . $id . "/", "", $directories[$i]);
+        for ($i=0;$i < count($directories); $i++) {
+            $directory_name = str_replace(storage_path('modules/temp/' . $id . "/"), "", $directories[$i]);
             $list["directories"][$i]["name"] = $directory_name;
+            $list["directories"][$i]["path"] = $directories[$i];
+            File::append($path_module . "/logs.txt", "- DIR: " . $directory_name . " | " . $directories[$i] . "\r\n");
         }
-        for($i=0;$i < count($files); $i++) {
+        for ($i=0;$i < count($files); $i++) {
             $list["files"][$i]["name"] = $files[$i]->getFilename();
             $list["files"][$i]["extension"] = $files[$i]->getExtension();
+            $list["files"][$i]["path"] = $files[$i]->getPath();
+            File::append($path_module . "/logs.txt", "- FIL: " . $files[$i]->getFilename() . "." . $files[$i]->getExtension() . " | " . $files[$i]->getPath() . "\r\n");
         }
 
-        // Log File
-        
+        /* Allowed Folders: 
+            Routes, 
+            Public, 
+            Resources, 
+            App
+        */
+        for ($i=0;$i < count($list["directories"]); $i++) {
+            if ($list["directories"][$i]["name"] == "routes" or $list["directories"][$i]["name"] == "resources" or $list["directories"][$i]["name"] == "public" or $list["directories"][$i]["name"] == "app") {
+                /* File::copyDirectory($path . "/" . "routes", base_path('routes')); */
+                $files = File::allFiles($path . "/" . $list["directories"][$i]["name"]);
+                for ($i=0; $i < count($files); $i++) {
+                    if (File::exists(base_path($list["directories"][$i]["name"] . '/' . $files[$i]->getFilename()))) {
+                        $generated_file = [];
 
-        // Allowed Folders: Routes, Public, Resources, App
-        for($i=0;$i < count($list); $i++) {
-            if($list["directories"][$i]["name"] == "routes") {
+                        $current_file_contents = File::get(base_path($list["directories"][$i]["name"] .'/' . $files[$i]->getFilename()));
+                        $new_file_contents = File::get($files[$i]->getPath() . "/" . $files[$i]->getFilename());
+                        $current_file_json = explode("\n", $current_file_contents);
+                        $new_file_json = explode("\r\n", $new_file_contents);
 
-            } elseif($list["directories"][$i]["name"] == "public") {
-                
-            } elseif($list["directories"][$i]["name"] == "resources") {
+                        for ($y = 0; $y < count($new_file_json); $y++) {
+                            if (array_key_exists($y, $current_file_json)) {
+                                if ($current_file_json[$y] == $new_file_json[$y]) {
+                                    array_push($generated_file, $current_file_json[$y]);
+                                } else {
+                                    array_push($generated_file, $new_file_json[$y]);
+                                }
+                            } else {
+                                array_push($generated_file, $new_file_json[$y]);
+                            }
+                        }
 
-            } elseif($list["directories"][$i]["name"] == "app") {
-
+                        File::put(base_path($list["directories"][$i]["name"] .'/' . $files[$i]->getFilename()), "");
+                        for ($x = 0; $x < count($generated_file); $x++) {
+                            File::append(base_path($list["directories"][$i]["name"] .'/' . $files[$i]->getFilename()), $generated_file[$x] . "\r\n");
+                        }
+                    } else {
+                    }
+                }
             }
         }
 
-        return;
+        // Determin Type
+        if ($data["type"] == "normal") {
+            $type = 1;
+        } elseif ($data["type"] == "product") {
+            $type = 2;
+        }
+
+        // Add module to database
+        DB::table('modules')->insert([
+            'name' => $data["name"],
+            'Navbar_Name' => $data["navbar"]["name"],
+            'Navbar_Route' => $data["navbar"]["route"],
+            'description' => $data["description"],
+            'type' => $type,
+            'module_id' => $id,
+        ]);
+
+        File::deleteDirectory($path);
+
+        return redirect('/admin/settings#modules')->with('success', "You downloaded module " . $data["name"] . " !");
+    }
+
+    public function wordSimilarity($s1, $s2)
+    {
+        $wordsof = function ($s) {
+            $a=[];
+            foreach (explode(" ", $s)as $w) {
+                if ($w) {
+                    $a[$w]=1;
+                }
+            }
+            return $a;
+        };
+    
+        $w1 = $wordsof($s1);
+        if (!$w1) {
+            return 0;
+        }
+        $w2 = $wordsof($s2);
+        if (!$w2) {
+            return 0;
+        }
+    
+        $allWords = "";
+        $allWords.= join("", array_keys($w1));
+        $allWords.= join("", array_keys($w2));
+        $totalLen = max(strlen($allWords), 1);
+        $charDiff = 0;
+    
+        foreach ($w1 as $word=>$x) {
+            if (!isset($w2[$word])) {
+                $charDiff+=strlen($word);
+            }
+        }
+        foreach ($w2 as $word=>$x) {
+            if (!isset($w1[$word])) {
+                $charDiff+=strlen($word);
+            }
+        }
+    
+        return 1-($charDiff/$totalLen);
     }
 }

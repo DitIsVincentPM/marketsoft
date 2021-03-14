@@ -11,18 +11,13 @@ Settings
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('header-breadcrumb'); ?>
-<ol class="justify-content-center market-breadcrumb breadcrumb">
+<ol class="pull-right market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Admin</a></li>
     <li class="breadcrumb-item active" aria-current="page">Settings</li>
 </ol>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="row mt-3">
-    <div class="col-3">
-        <?php echo $__env->make('Admin.Vendor.Settings.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    </div>
-    <div class="col-9">
         <div class="pl-0 alert <?php echo e($version[1]); ?>" role="alert">
             <?php echo e($version[0]); ?>
 
@@ -49,20 +44,6 @@ Settings
         <?php endif; ?>
 
         
-        <?php if($check[3] == true): ?>
-            <div style="display: none;" id="tab-content" data-name="addons">
-                <?php echo $__env->make('Admin.Vendor.Settings.addons', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </div>
-        <?php endif; ?>
-
-        
-        <?php if($check[4] == true): ?>
-            <div style="display: none;" id="tab-content" data-name="themes">
-                <?php echo $__env->make('Admin.Vendor.Settings.themes', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </div>
-        <?php endif; ?>
-
-        
         <?php if($check[5] == true): ?>
             <div style="display: none;" id="tab-content" data-name="roles">
                 <?php echo $__env->make('Admin.Vendor.Settings.roles', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -82,8 +63,6 @@ Settings
                 <?php echo $__env->make('Admin.Vendor.Settings.oauth2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
         <?php endif; ?>
-    </div>
-</div>
 <script>
     $('#icons').change(function() {
         opt = $(this).val();
@@ -123,9 +102,6 @@ Settings
     <?php endif; ?>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </script>
-
-<script src="/js/custom-tabs.js"></script>
-
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('Vendor.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/softwarelol/resources/views/Admin/settings.blade.php ENDPATH**/ ?>

@@ -17,20 +17,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{{ Settings::key('CompanyFavicon') }}" type="image/png">
     <title>@yield('title') - {{ Settings::key('CompanyName') }}</title>
-    <link href="/css/custom-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/themes/default/css/adminlte.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="/css/morris.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <script src="/js/jquery.js"></script>
-    @yield('scripts')
-    <script src="https://kit.fontawesome.com/59ac7ac104.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/themes/splide-skyblue.min.css">
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link rel="stylesheet" href="/css/alertdark.css">
+    <script src="/vendor/jquery/jquery.js"></script>
+    <script src="/vendor/jquery-ui/jquery-ui.js"></script>
+    <script src="/themes/default/js/adminlte.min.js"></script>
+    <script src="/vendor/chart.js/Chart.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/themes/default/css/adminlte.min.css">
 </head>
 
 <body class="antialiased">
@@ -52,9 +46,9 @@
     </div> --}}
     <nav class="market-navbar navbar top-nav navbar-expand-lg btn-block">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
+            <button class="navbar-toggler pull-right text-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
                 aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
-                <i style="color: black;" data-feather="align-justify"></i>
+                <i class="pull-right text-right" style="color: #ccc!important;" data-feather="align-justify"></i>
             </button>
             <div class="container collapse navbar-collapse" id="navbarsExample07">
                 <a class="market-navbar-large-header market-navbar-header navbar-brand"

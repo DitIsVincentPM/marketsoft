@@ -11,7 +11,7 @@
 @endsection
 
 @section('header-breadcrumb')
-    <ol class="justify-content-center market-breadcrumb breadcrumb">
+    <ol class="pull-right market-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
         <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('products.view', $product->id) }}">{{ $product->name }}</a></li>

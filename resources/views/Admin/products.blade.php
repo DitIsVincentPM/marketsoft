@@ -11,7 +11,7 @@
 @endsection
 
 @section('header-breadcrumb')
-    <ol class="justify-content-center market-breadcrumb breadcrumb">
+    <ol class="pull-right market-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><a href="#">Admin</a></li>
         <li class="breadcrumb-item active" aria-current="page">Products</li>
     </ol>

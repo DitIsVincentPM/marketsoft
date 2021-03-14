@@ -12,7 +12,7 @@ User Settings
 @endsection
 
 @section('header-breadcrumb')
-<ol class="justify-content-center market-breadcrumb breadcrumb">
+<ol class="pull-right market-breadcrumb breadcrumb">
     <li class="custom-breadcrumb breadcrumb-item"><a href="#">Home</a></li>
     <li class="custom-breadcrumb breadcrumb-item"><a>Account</a></li>
     <li class="custom-breadcrumb breadcrumb-item active" aria-current="page">Settings</li>

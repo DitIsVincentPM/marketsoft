@@ -17,11 +17,7 @@ class Modules
             $json = json_decode($module->controllers, true);
             for ($i = 0; $i < count($json); $i++) {
                 if (class_basename(Route::current()->controller) == $json[$i]) {
-                    if ($module->status == "enabled") {
                         return $next($request);
-                    } elseif ($module->status == "disabled") {
-                        return redirect()->back()->with('error', "The module your trying to access is not enabled!");
-                    }
                 }
             }
         }

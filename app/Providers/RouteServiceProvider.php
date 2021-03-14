@@ -38,19 +38,19 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware('web', 'isbanned', 'modules')->prefix('/')
+            Route::middleware('web', 'isbanned')->prefix('/')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/base.php'));
 
-            Route::middleware('web', 'isbanned', 'modules')->prefix('/')
+            Route::middleware('web', 'isbanned')->prefix('/')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/auth.php'));
 
-            Route::middleware('web', 'isbanned', 'modules')->prefix('/')
+            Route::middleware('web', 'isbanned')->prefix('/')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/modules.php'));
 
-            Route::middleware('admin', 'web', 'isbanned', 'modules')->prefix('/admin')
+            Route::middleware('admin', 'web', 'isbanned')->prefix('/admin')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admin.php'));
                 

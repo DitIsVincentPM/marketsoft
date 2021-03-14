@@ -1,9 +1,22 @@
-   <?php $__env->startSection('title'); ?> Admin <?php $__env->stopSection(); ?> <?php $__env->startSection('header-title'); ?> Announcements <?php $__env->stopSection(); ?> <?php $__env->startSection('header-breadcrumb'); ?>
-  <ol class="justify-content-center market-breadcrumb breadcrumb">
+  
+ 
+
+<?php $__env->startSection('title'); ?> 
+Admin 
+<?php $__env->stopSection(); ?> 
+
+<?php $__env->startSection('header-title'); ?> 
+Announcements 
+<?php $__env->stopSection(); ?> 
+
+<?php $__env->startSection('header-breadcrumb'); ?>
+<ol class="pull-right market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Admin</a></li>
     <li class="breadcrumb-item active" aria-current="page">Announcements</li>
 </ol>
-<?php $__env->stopSection(); ?> <?php $__env->startSection('content'); ?>
+<?php $__env->stopSection(); ?> 
+
+<?php $__env->startSection('content'); ?>
 <div id="alert"></div>
 <div class="row">
     <div class="col-10">

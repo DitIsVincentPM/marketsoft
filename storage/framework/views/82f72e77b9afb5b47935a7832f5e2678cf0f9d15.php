@@ -18,111 +18,95 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <div class="row mt-3">
-        <div class="col-3">
-            <div class="list-group">
-                <a onclick="change('ticket')" id="tab-button" data-name="ticket" class="list-group-item list-group-item-action active" aria-current="true">
-                    <i style="width: 16px;" data-feather="circle" class="mr-1"></i>
-                    <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Tickets</span>
-                </a>
-                <a onclick="change('category')" id="tab-button" data-name="category" class="list-group-item list-group-item-action">
-                    <i style="width: 16px;" data-feather="folder" class="mr-1"></i>
-                    <span style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Categorys</span>
-                </a>
+    <div id="tab-content" data-name="ticket" style="display: block;">
+        <div class="row">
+            <div class="col-10">
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input type="search" placeholder="Search..." id="search" class="input-search admin-search-input form-control" />
+                    </div>
+                    <button onclick="some()" type="button" class="btn btn-primary">
+                        <i style="width: 16px;" data-feather="search" class="mr-1"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-2">
+                <button onclick="refresh()" style="font-size: 18px !important;" class="btn-lg btn btn-primary w-100">Reload</button>
             </div>
         </div>
-        <div class="col-9">
-            <div id="tab-content" data-name="ticket" style="display: block;">
-                <div class="row">
-                    <div class="col-10">
-                        <div class="input-group">
-                            <div class="form-outline">
-                                <input type="search" placeholder="Search..." id="search" class="input-search admin-search-input form-control" />
-                            </div>
-                            <button onclick="some()" type="button" class="btn btn-primary">
-                                <i style="width: 16px;" data-feather="search" class="mr-1"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <button onclick="refresh()" style="font-size: 18px !important;" class="btn-lg btn btn-primary w-100">Reload</button>
-                    </div>
-                </div>
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="pull-left">
-                            <h3 class="mb-0 mt-2">Tickets</h3>
-                        </div>
-                    </div>
-                    <table class="table mb-0 text-center">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Priority</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th><span class="pull-right">View</span></th>
-                            </tr>
-                        </thead>
-                        <tbody id="table">
-                            <tr style="height: 200px;">
-                                <th></th>
-                                <th></th>
-                                <th>
-                                    <div style="margin: 0; position: absolute; top: 55%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" class="d-flex justify-content-center">
-                                        <div class="spinner-border" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="card-footer" id="footer"></div>
+        <div class="card mt-3">
+            <div class="card-header">
+                <div class="pull-left">
+                    <h3 class="mb-0 mt-2">Tickets</h3>
                 </div>
             </div>
+            <table class="table mb-0 text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th><span class="pull-right">View</span></th>
+                    </tr>
+                </thead>
+                <tbody id="table">
+                    <tr style="height: 200px;">
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <div style="margin: 0; position: absolute; top: 55%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" class="d-flex justify-content-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="card-footer" id="footer"></div>
+        </div>
+    </div>
 
-            <div id="tab-content" data-name="category" style="display: none;">
-                <div class="row">
-                    <div class="col-10">
-                        <div class="input-group">
-                            <div class="form-outline">
-                                <input type="search" placeholder="Search..." id="category-search" class="admin-search-input form-control" />
-                            </div>
-                            <button onclick="categorysome()" type="button" class="btn btn-primary">
-                                <i style="width: 16px;" data-feather="search" class="mr-1"></i>
-                            </button>
-                        </div>
+    <div id="tab-content" data-name="category" style="display: none;">
+        <div class="row">
+            <div class="col-10">
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input type="search" placeholder="Search..." id="category-search" class="admin-search-input form-control" />
                     </div>
-                    <div class="col-2">
-                        <button onclick="categoryrefresh()" style="font-size: 18px !important;" class="btn-lg btn btn-primary w-100">Reload</button>
-                    </div>
-                </div>
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <div class="pull-left">
-                            <h3 class="mb-0 mt-1">Ticket Categories</h3>
-                        </div>
-                    </div>
-                    <table class="table mb-0 text-center">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>More</th>
-                            </tr>
-                        </thead>
-                        <tbody id="category-table">
-                        </tbody>
-                    </table>
-                    <div class="card-footer" id="c-footer"></div>
+                    <button onclick="categorysome()" type="button" class="btn btn-primary">
+                        <i style="width: 16px;" data-feather="search" class="mr-1"></i>
+                    </button>
                 </div>
             </div>
+            <div class="col-2">
+                <button onclick="categoryrefresh()" style="font-size: 18px !important;" class="btn-lg btn btn-primary w-100">Reload</button>
+            </div>
+        </div>
+        <div class="card mt-3">
+            <div class="card-header">
+                <div class="pull-left">
+                    <h3 class="mb-0 mt-1">Ticket Categories</h3>
+                </div>
+            </div>
+            <table class="table mb-0 text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>More</th>
+                    </tr>
+                </thead>
+                <tbody id="category-table">
+                </tbody>
+            </table>
+            <div class="card-footer" id="c-footer"></div>
         </div>
     </div>
 

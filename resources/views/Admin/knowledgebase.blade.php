@@ -11,107 +11,83 @@
 @endsection
 
 @section('header-breadcrumb')
-    <ol class="justify-content-center market-breadcrumb breadcrumb">
+    <ol class="pull-right market-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><a href="#">Admin</a></li>
         <li class="breadcrumb-item"><a href="#">Knowledgebase</a></li>
     </ol>
 @endsection
 
 @section('content')
-    <div class="row mt-3">
-        <div class="col-3">
-            <div class="list-group">
-                <a onclick="change('article')" id="tab-button" data-name="article"
-                    class="list-group-item list-group-item-action active" aria-current="true">
-                    <i style="width: 16px;" data-feather="circle" class="mr-1"></i>
-                    <span
-                        style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Articles</span>
-                </a>
-                <a onclick="change('category')" id="tab-button" data-name="category"
-                    class="list-group-item list-group-item-action">
-                    <i style="width: 16px;" data-feather="folder" class="mr-1"></i>
-                    <span
-                        style="margin-left: 2%; position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">Categorys</span>
-                </a>
+    <div id="tab-content" data-name="categories" style="display: none;">
+        <h4 class="mt-1 mb-0 pull-left">Categories</h4>
+        <button class="btn btn-primary pull-right" data-bs-toggle="modal" data-bs-target="#creatcategory">Create
+            New</button>
+        <div class="card shadow">
+            <div class="card-body pb-0">
+                @foreach ($categorys as $category)
+                    <div class="row mb-2 mt-4">
+                        <div class="col-1 text-center">
+                            <p class="market-text-break announcement-title">{{ $category->id }}</p>
+                        </div>
+                        <div class="col-7">
+                            <h5 class="market-text-break announcement-title">{{ $category->name }}</h5>
+                        </div>
+                        <div class="col-2">
+                            <p class="market-text-break announcement-date">
+                                {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $category->created_at)->format('m/d/Y') }}
+                            </p>
+                        </div>
+                        <div class="col-2 text-center">
+                            <form method="POST" action="{{ route('admin.knowledgebase.category.delete', $category->id) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-sm pull-right text-danger" title="Delete">
+                                    <i data-feather="trash"></i>
+                                </button>
+                            </form>
+                            <button class="btn btn-sm pull-right text-success" data-bs-toggle="modal" data-bs-target="#editcategory-{{ $category->id }}">
+                                <i data-feather="edit-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
-        <div class="col-9">
-            <div id="tab-content" data-name="category" style="display: none;">
-                <h4 class="mt-1 mb-0 pull-left">Categorys</h4>
-                <button class="btn btn-primary pull-right" data-bs-toggle="modal" data-bs-target="#creatcategory">Create
-                    New</button>
-                <div class="card shadow">
-                    <div class="card-body pb-0">
-                        @foreach ($categorys as $category)
-                            <div class="row mb-2 mt-4">
-                                <div class="col-1 text-center">
-                                    <p class="market-text-break announcement-title">{{ $category->id }}</p>
-                                </div>
-                                <div class="col-7">
-                                    <h5 class="market-text-break announcement-title">{{ $category->name }}</h5>
-                                </div>
-                                <div class="col-2">
-                                    <p class="market-text-break announcement-date">
-                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $category->created_at)->format('m/d/Y') }}
-                                    </p>
-                                </div>
-                                <div class="col-2 text-center">
-                                    <form method="POST"
-                                        action="{{ route('admin.knowledgebase.category.delete', $category->id) }}">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm pull-right text-danger" title="Delete">
-                                            <i data-feather="trash"></i>
-                                        </button>
-                                    </form>
-                                    <button class="btn btn-sm pull-right text-success" data-bs-toggle="modal"
-                                        data-bs-target="#editcategory-{{ $category->id }}">
-                                        <i data-feather="edit-3"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        @endforeach
+    </div>
+    <div id="tab-content" data-name="article" style="display: block;">
+        <h4 class="mt-1 mb-0">Articles</h4>
+        <button class="btn btn-primary pull-right" data-bs-toggle="modal" data-bs-target="#createarticle">Create
+            New</button>
+        <div class="card shadow">
+            <div class="card-body pb-0">
+                @foreach ($knowledgebases as $knowledgebase)
+                    <div class="row  mb-2 mt-4">
+                        <div class="col-1 text-center">
+                            <p class="market-text-break announcement-title">{{ $knowledgebase->id }}</p>
+                        </div>
+                        <div class="col-3">
+                            <h5 class="market-text-break announcement-title">{{ $knowledgebase->name }}</h5>
+                        </div>
+                        <div class="col-4 market-text-break">
+                            <p class="announcement-description">{!! $knowledgebase->description !!}</p>
+                        </div>
+                        <div class="col-2">
+                            <p class="market-text-break announcement-date">
+                                {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $knowledgebase->created_at)->format('m/d/Y') }}
+                            </p>
+                        </div>
+                        <div class="col-2 text-center">
+                            <form method="POST" action="{{ route('admin.knowledgebase.delete', $knowledgebase->id) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-sm pull-right text-danger" title="Delete">
+                                    <i data-feather="trash"></i>
+                                </button>
+                            </form>
+                            <button class="btn btn-sm pull-right text-success" data-bs-toggle="modal" data-bs-target="#editknowledgebase-{{ $knowledgebase->id }}">
+                                <i data-feather="edit-3"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div id="tab-content" data-name="article" style="display: block;">
-                <h4 class="mt-1 mb-0">Articles</h4>
-                <button class="btn btn-primary pull-right" data-bs-toggle="modal" data-bs-target="#createarticle">Create
-                    New</button>
-                <div class="card shadow">
-                    <div class="card-body pb-0">
-                        @foreach ($knowledgebases as $knowledgebase)
-                            <div class="row  mb-2 mt-4">
-                                <div class="col-1 text-center">
-                                    <p class="market-text-break announcement-title">{{ $knowledgebase->id }}</p>
-                                </div>
-                                <div class="col-3">
-                                    <h5 class="market-text-break announcement-title">{{ $knowledgebase->name }}</h5>
-                                </div>
-                                <div class="col-4 market-text-break">
-                                    <p class="announcement-description">{!! $knowledgebase->description !!}</p>
-                                </div>
-                                <div class="col-2">
-                                    <p class="market-text-break announcement-date">
-                                        {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $knowledgebase->created_at)->format('m/d/Y') }}
-                                    </p>
-                                </div>
-                                <div class="col-2 text-center">
-                                    <form method="POST"
-                                        action="{{ route('admin.knowledgebase.delete', $knowledgebase->id) }}">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm pull-right text-danger" title="Delete">
-                                            <i data-feather="trash"></i>
-                                        </button>
-                                    </form>
-                                    <button class="btn btn-sm pull-right text-success" data-bs-toggle="modal"
-                                        data-bs-target="#editknowledgebase-{{ $knowledgebase->id }}">
-                                        <i data-feather="edit-3"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -155,8 +131,7 @@
 
     {{-- Edit Announcement Modal --}}
     @foreach ($knowledgebases as $knowledgebase)
-        <div class="modal fade" id="editknowledgebase-{{ $knowledgebase->id }}" tabindex="-1"
-            aria-labelledby="editknowledgebaseLabel" aria-hidden="true">
+        <div class="modal fade" id="editknowledgebase-{{ $knowledgebase->id }}" tabindex="-1" aria-labelledby="editknowledgebaseLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -173,8 +148,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Articles Description</label>
-                                <textarea name="description"
-                                    class="summernote">{{ $knowledgebase->description }}</textarea>
+                                <textarea name="description" class="summernote">{{ $knowledgebase->description }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Articles Category</label>
@@ -227,8 +201,7 @@
 
     {{-- Edit Category Modal --}}
     @foreach ($categorys as $category)
-        <div class="modal fade" id="editcategory-{{ $category->id }}" tabindex="-1"
-            aria-labelledby="editknowledgebaseLabel" aria-hidden="true">
+        <div class="modal fade" id="editcategory-{{ $category->id }}" tabindex="-1" aria-labelledby="editknowledgebaseLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">

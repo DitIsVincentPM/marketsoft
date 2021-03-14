@@ -5,6 +5,8 @@ Route::group(['middleware' => ['web', 'admin']], function () {
     // Admin Dashboard
     Route::get('/', 'App\Http\Controllers\Admin\IndexController@index')->name('admin.index');
 
+    Route::get('/encrypted', 'App\Http\Controllers\Admin\TestController@index')->name('admin.encrypted');
+
     // Admin Users Management
     Route::get('/users', 'App\Http\Controllers\Admin\UsersController@index')->name('admin.users');
     Route::post('/users/update', 'App\Http\Controllers\Admin\UsersController@UserUpdate')->name('admin.users.update');

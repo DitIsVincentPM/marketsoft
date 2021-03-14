@@ -3,7 +3,7 @@
     window.onload = function () {
         const Toast = Swal.mixin({
         toast: true,
-        position: 'bottom-start',
+        position: 'bottom-end',
         showConfirmButton: false,
         showCancelButton: true,
         cancelButtonText: "x",
@@ -38,7 +38,7 @@
     function alert(alert) {
         const Toast = Swal.mixin({
         toast: true,
-        position: 'bottom-start',
+        position: 'bottom-end',
         showConfirmButton: false,
         showCancelButton: true,
         cancelButtonText: "x",

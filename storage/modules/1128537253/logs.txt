@@ -1,0 +1,6 @@
+|- This is the logs file for #Example -| 
+
+|- All files that are uploaded -| 
+- DIR: routes | /var/www/softwarelol/storage/modules/temp/1128537253/routes
+- FIL: config.json.json | /var/www/softwarelol/storage/modules/temp/1128537253
+- FIL: test.php.php | /var/www/softwarelol/storage/modules/temp/1128537253/routes

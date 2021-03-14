@@ -1,10 +1,23 @@
 {{-- Market Software --}} {{-- Copyright (c) 2021 Market Software
-<support@marketsoftware.com> --}} @extends('Vendor.admin') @section('title') Admin @endsection @section('header-title') Announcements @endsection @section('header-breadcrumb')
-  <ol class="justify-content-center market-breadcrumb breadcrumb">
+<support@marketsoftware.com> --}} 
+@extends('Vendor.admin') 
+
+@section('title') 
+Admin 
+@endsection 
+
+@section('header-title') 
+Announcements 
+@endsection 
+
+@section('header-breadcrumb')
+<ol class="pull-right market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Admin</a></li>
     <li class="breadcrumb-item active" aria-current="page">Announcements</li>
 </ol>
-@endsection @section('content')
+@endsection 
+
+@section('content')
 <div id="alert"></div>
 <div class="row">
     <div class="col-10">
