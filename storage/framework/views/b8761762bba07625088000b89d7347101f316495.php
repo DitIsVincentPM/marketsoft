@@ -38,28 +38,24 @@
         <strong>IMPORTANT:</strong> You are running a beta version of MarketSoft. This isn't inteded to be used for full scale production.
     </div>
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
 
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <?php if(Route::currentRouteName() == 'admin.users'): ?>
+            <div style="width: 15rem;" class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" id="search" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
+                    <button onclick="some()" class="btn btn-navbar" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
             </div>
-        </form>
+        <?php endif; ?>
 
-        <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-            <!-- Messages Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-comments"></i>
@@ -67,9 +63,8 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
                         <div class="media">
-                            <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                            <img src="<?php echo e(Auth::user()->profile_picture); ?>" alt="User Avatar" class="img-size-100 mr-3 img-circle">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
                                     Brad Diesel
@@ -79,45 +74,11 @@
                                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                             </div>
                         </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    John Pierce
-                                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">I got your message bro</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Nora Silvester
-                                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">The subject goes here</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                 </div>
             </li>
-            <!-- Notifications Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
@@ -141,34 +102,29 @@
                         <span class="float-right text-muted text-sm">2 days</span>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    <a href="" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                    <i class="fas fa-expand-arrows-alt"></i>
+                <a class="nav-link" href="<?php echo e(route('index')); ?>">
+                    <i class="fas fa-globe"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                    <i class="fas fa-th-large"></i>
+                <a id="logout" class="nav-link" href="<?php echo e(route('auth.logout')); ?>">
+                    <i class="fas fa-sign-out-alt"></i>
                 </a>
             </li>
         </ul>
     </nav>
-    <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
-        <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
             <img src="<?php echo e(Settings::where('key', 'CompanyFavicon')->first()->value); ?>" alt="o" class="brand-image img-circle" style="opacity: .8">
             <span class="brand-text font-weight-light"><?php echo e(Settings::key('CompanyName')); ?></span>
         </a>
 
-        <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="<?php echo e(Auth::user()->profile_picture); ?>" class="img-circle elevation-2" alt="User Image">
@@ -178,7 +134,6 @@
                 </div>
             </div>
 
-            <!-- SidebarSearch Form -->
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
                     <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
@@ -190,11 +145,8 @@
                 </div>
             </div>
 
-            <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                   with font-awesome or any other icon font library -->
                     <li class="nav-item">
                         <a href="<?php echo e(route('admin.index')); ?>" class="nav-link <?php echo e(Str::startsWith(Route::currentRouteName(), 'admin.index') ? 'active' : ''); ?>">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -322,27 +274,22 @@
                     </li>
                 </ul>
             </nav>
-            <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar -->
     </aside>
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1 class="m-0 text-center-verticle"><?php echo $__env->yieldContent('header-title'); ?></h1>
-                    </div><!-- /.col -->
+                    </div>
                     <div class="col-sm-6" style="float: right;">
                         <?php echo $__env->yieldContent('header-breadcrumb'); ?>
                     </div>
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
+                </div>
+            </div>
         </div>
-        <!-- /.content-header -->
 
-        <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
                 <?php echo $__env->yieldContent('content'); ?>
@@ -360,10 +307,29 @@
 <?php echo $__env->make('Vendor.alerts', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>
 <script>
+    $('#logout').on('click', function(event) {
+        event.preventDefault();
+
+        var that = this;
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You are about to logout of your account",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, logout!'
+            }).then((result) => {
+            if (result.isConfirmed) {      
+                location.href = '<?php echo e(route('auth.logout')); ?>'
+            }
+        })
+    });
+</script>
+<script>
     feather.replace()
 
 </script>
-<script src="/vendor/imageupload/imageupload.js"></script>
 <script src="/vendor/customtabs/custom-tabs.js"></script>
 
 </html>

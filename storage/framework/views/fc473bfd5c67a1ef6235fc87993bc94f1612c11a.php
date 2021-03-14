@@ -3,11 +3,13 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('header-title'); ?>
-    WELCOME TO <span class="nav-market">Market</span><span class="nav-soft">Soft</span><br>
-    <p class="header-home-text">Our revolutionary platform will<br>help you find the best products.</p>
-    <button
-        style="width: 200px; border: 0; background: linear-gradient(149deg, #0683ff 0%, #0d44ff 100%) !important; box-shadow: -1px 0px 22px -10px rgba(0,0,0,0.2);"
-        class="btn btn-sm btn-primary">VIEW PRODUCTS</button>
+    Home
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('header-breadcrumb'); ?>
+<ol style="float: right;" class="market-breadcrumb breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+</ol>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -17,7 +19,7 @@
             <h1><strong>WHAT IS <span class="text-uppercase nav-market">Market</span><span
                         class="text-uppercase nav-soft">Soft</span></strong></h1>
             <div class="col-xl-10 col-lg-10 col-mb-10 col-sm-12">
-                <span style="color: white;">
+                <span>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,
                     pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus.
                     Donec scelerisque sollicitudin enim eu venenatis. Duis tincidunt laoreet ex,
@@ -33,7 +35,7 @@
             </p>
         </div>
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mobile-remove">
-            <img src="/icons/frontpage.svg" class="img-fluid" alt="...">
+            <img src="/themes/default/icons/frontpage.svg" class="img-fluid" alt="...">
         </div>
     </div>
 <?php $__env->stopSection(); ?>

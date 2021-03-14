@@ -13,6 +13,7 @@ use App\Models\Charts as Charts;
 use Rainwater\Active\Active as Active;
 use DB;
 use App\Models\User;
+use App\Models\Database\Products;
 
 class IndexController extends BaseController
 {
@@ -21,6 +22,7 @@ class IndexController extends BaseController
     public function index()
     {
         $users = User::get();
+        $products = Products::latest()->paginate(3);
 
         $chart_users = Charts::generate('users');
         $chart_sales = Charts::generate('ca_ownedProducts');
@@ -39,6 +41,7 @@ class IndexController extends BaseController
             'active_users' => $active_users,
             'admins_online' => $active_admins,
             'roles' => $roles,
+            'products' => $products,
             'role_permissions' => $role_permissions,
             'newusers' => $chart_users,
             'sales' => $chart_sales,

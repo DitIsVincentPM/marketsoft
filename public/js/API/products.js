@@ -18,8 +18,8 @@ function edit_product(id) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
-        success: function (result) {
-            $.each(result, function (key, item) {
+        success: function(result) {
+            $.each(result, function(key, item) {
                 if (item['id'] == id) {
                     $('#product_model').html(
                         '<div class="modal-header">' +
@@ -30,7 +30,7 @@ function edit_product(id) {
                         '<div class="row">' +
                         ' <div class="col-8">' +
                         '<div class="input-group mb-3">' +
-                        '<div style="height: 55px;" class="input-group-append">' +
+                        '<div class="input-group-append">' +
                         '<span class="input-group-text">Name:</span>' +
                         '</div>' +
                         '<input type="text" id="name" class="form-control" value="' + item['name'] + '">' +
@@ -38,29 +38,31 @@ function edit_product(id) {
                         '</div>' +
                         '<div class="col-4">' +
                         '<div class="input-group mb-3">' +
-                        '<div style="height: 55px;" class="input-group-append">' +
+                        '<div class="input-group-append">' +
                         '<span class="input-group-text" id="basic-addon2">Price:</span>' +
                         '</div>' +
                         '<input type="text" id="price" class="form-control" value="' + item['price'] + '">' +
                         '</div>' +
                         '</div>' +
                         '<div class="col-12">' +
-                        '<div style="height: 55px;" class="input-group mb-3">' +
+                        '<div class="input-group mb-3">' +
                         '<div class="input-group-append">' +
                         '<span class="input-group-text">Description (Short):</span>' +
                         '</div>' +
                         '<input type="text" id="description" class="form-control" value="' + item['description'] + '">' +
                         '</div>' +
                         '</div>' +
+                        '<div class="col-12">' +
                         '<div class="input-group mb-3">' +
                         '<div class="input-group-append">' +
                         '<span class="input-group-text">Category:</span>' +
                         '</div>' +
-                        '<select class="form-select" id="category" name="category">' +
+                        '<select class="custom-select" id="category" name="category">' +
                         '</select>' +
                         '</div>' +
+                        '</div>' +
                         '<hr>' +
-                        '<div class="card">' +
+                        '<div class="card w-100">' +
                         '<div class="card-header">' +
                         '<div class="row">' +
                         ' <div class="col-8 mt-1">' +
@@ -96,10 +98,10 @@ function edit_product(id) {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         dataType: "json",
-                        success: function (result) {
+                        success: function(result) {
                             $("#category").html('');
 
-                            $.each(result, function (key, category) {
+                            $.each(result, function(key, category) {
                                 if (item['category'] == category['id']) {
                                     $("#category").append('<option selected value="' + category['id'] + '">' + category['name'] + "</option>");
                                 } else {
@@ -127,10 +129,10 @@ function edit_product(id) {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 dataType: "json",
-                success: function (result) {
+                success: function(result) {
                     $('#sortable').html('');
 
-                    $.each(result, function (key, section) {
+                    $.each(result, function(key, section) {
                         if (section['product_id'] == id) {
                             var text;
                             var accordion;
@@ -205,7 +207,7 @@ function create() {
         '<div class="row">' +
         ' <div class="col-8">' +
         '<div class="input-group mb-3">' +
-        '<div style="height: 55px;" class="input-group-append">' +
+        '<div class="input-group-append">' +
         '<span class="input-group-text">Name:</span>' +
         '</div>' +
         '<input type="text" id="name" class="form-control" placeholder="John doe">' +
@@ -213,14 +215,14 @@ function create() {
         '</div>' +
         '<div class="col-4">' +
         '<div class="input-group mb-3">' +
-        '<div style="height: 55px;" class="input-group-append">' +
+        '<div class="input-group-append">' +
         '<span class="input-group-text">Price:</span>' +
         '</div>' +
         '<input type="text" id="price" class="form-control" placeholder="19.99">' +
         '</div>' +
         '</div>' +
         '<div class="col-12">' +
-        '<div style="height: 55px;" class="input-group mb-3">' +
+        '<div class="input-group mb-3">' +
         '<div class="input-group-append">' +
         '<span class="input-group-text">Description (Short):</span>' +
         '</div>' +
@@ -231,11 +233,11 @@ function create() {
         '<div class="input-group-append">' +
         '<span class="input-group-text">Category:</span>' +
         '</div>' +
-        '<select class="form-select" id="category" name="category">' +
+        '<select class="custom-select" id="category" name="category">' +
         '</select>' +
         '</div>' +
         '<hr>' +
-        '<div class="card">' +
+        '<div class="card w-100">' +
         '<div class="card-header">' +
         '<div class="row">' +
         ' <div class="col-8 mt-1">' +
@@ -271,10 +273,10 @@ function create() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
-        success: function (result) {
+        success: function(result) {
             $("#category").html('');
 
-            $.each(result, function (key, category) {
+            $.each(result, function(key, category) {
                 $("#category").append('<option value="' + category['id'] + '">' + category['name'] + "</option>");
             });
         }
@@ -282,6 +284,12 @@ function create() {
 }
 
 function refresh() {
+    $('#loader').append(
+        '<div class="overlay">' +
+        '<i class="fas fa-2x fa-sync-alt fa-spin"></i>' +
+        '</div>'
+    );
+
     $.ajax({
         type: "POST",
         url: "/api/products",
@@ -290,13 +298,15 @@ function refresh() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
-        error: function (error) {
+        error: function(error) {
             refresh();
         },
-        success: function (result) {
+        success: function(result) {
             $("#products_table").html('');
-            $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
+            $("#footer").html('<p class="mb-0">Showing ' + result.length + ' of ' + result.length + ' Results</p>');
             document.getElementById('refresh').classList.toggle('animate-refresh-rotate');
+            $('.overlay').remove();
+
             if (result.length == 0) {
                 $("#products_table").html(
                     '<tr>' +
@@ -324,13 +334,13 @@ function refresh() {
                 return;
             }
 
-            $.each(result, function (key, item) {
+            $.each(result, function(key, item) {
                 $("#products_table").append(
                     '<tr>' +
                     '<td>' + item['id'] + '</td>' +
                     '<td>' + item['name'] + '</td>' +
                     '<td>' + item['description'] + '</td>' +
-                    '<td>' + item['price'] + '</td>' +
+                    '<td><span class="badge badge-primary btn-sm">$' + item['price'] + '</span></td>' +
                     '<td class="text-right"><button onclick="edit_product(' + item['id'] + ')" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewmore">Quick Edit</button> <a href="/admin/products/view/' + item['id'] + '"><button class="btn btn-sm btn-primary">View</button></a></td>' +
                     '</tr>'
                 );
@@ -339,12 +349,12 @@ function refresh() {
     });
 }
 
-window.onload = function () {
+window.onload = function() {
     refresh();
 }
 
 
-$(function () {
+$(function() {
     $("#sortable").sortable({
         opacity: 0.6,
         cursor: 'move',
@@ -462,11 +472,11 @@ function save(id) {
             category: document.getElementById('category').value,
             sections: sections,
         },
-        error: function (error) {
+        error: function(error) {
             alert(["error", "Something went wrong!"]);
             refresh();
         },
-        success: function () {
+        success: function() {
             alert(["success", "You updated " + document.getElementById('name').value + "'s settings!"]);
 
             refresh();

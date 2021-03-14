@@ -18,29 +18,19 @@
 @endsection
 
 @section('content')
-    <div id="alert"></div>
-    <div class="row">
-        <div class="col-10">
-            <div class="input-group">
-                <div class="form-outline">
-                    <input type="search" placeholder="Search..." id="form1" class="input-search admin-search-input form-control" />
-                </div>
-                <button type="button" class="admin-search-button btn btn-primary">
-                    <i style="width: 16px;" data-feather="search" class="mr-1"></i>
+    <div class="card shadow" id="loader">
+        <div class="card-header">
+            Products Table
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool animate-icon" onclick="create()" data-bs-toggle="modal" data-bs-target="#viewmore">
+                    <i class="far fa-plus-square"></i>
+                </button>
+                <button type="button" class="btn btn-tool animate-icon" onclick="refresh()" id="refresh">
+                    <i class="fas fa-sync-alt"></i>
                 </button>
             </div>
         </div>
-        <div class="col-2">
-            <button onclick="create()" data-bs-toggle="modal" data-bs-target="#viewmore" class="right btn btn-primary w-100">Create</button>
-        </div>
-    </div>
-    <br>
-    <div class="card shadow">
-        <div class="card-header">
-            Products Table
-            <span class="pull-right animate-icon" onclick="refresh()" id="refresh" data-feather="refresh-ccw"></span>
-        </div>
-        <table class="table caption-top admin-table-footer">
+        <table class="mb-0 table caption-top admin-table-footer">
             <thead>
                 <tr class="admin-table-header">
                     <th class="admin-table" scope="col">#</th>
@@ -51,17 +41,7 @@
                 </tr>
             </thead>
             <tbody id="products_table">
-                <tr style="height: 200px;">
-                    <th></th>
-                    <th>
-                        <div style="margin: 0; position: absolute; top: 55%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);" class="d-flex justify-content-center">
-                            <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                    </th>
-                    <th></th>
-                </tr>
+                
             </tbody>
         </table>
         <div class="card-footer" id="footer"></div>
@@ -77,5 +57,5 @@
 @endsection
 
 @section('scripts')
-<script src="/js/API/products.js"></script>
+    <script src="/js/API/products.js"></script>
 @endsection

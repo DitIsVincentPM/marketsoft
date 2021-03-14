@@ -18,7 +18,7 @@ Settings
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-        <div class="pl-0 alert <?php echo e($version[1]); ?>" role="alert">
+        <div class="alert <?php echo e($version[1]); ?>" role="alert">
             <?php echo e($version[0]); ?>
 
         </div>

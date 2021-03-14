@@ -11,7 +11,7 @@
 @endsection
 
 @section('header-breadcrumb')
-    <ol class="justify-content-center market-breadcrumb breadcrumb">
+    <ol class="pull-right market-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><a href="#">Admin</a></li>
         <li class="breadcrumb-item"><a href="#">Products</a></li>
         <li class="breadcrumb-item active" aria-current="page">View</li>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-mb-3 col-sm-6">
-            <div style="background-color: #3f435a !important;" class="cursor-pointer btn-sm text-center list-group-item list-group-item-action">
+            <div style="background-color: #ffff !important;" class="cursor-pointer btn-sm text-center list-group-item list-group-item-action">
                 <span class="text-center">Settings</span>
             </div>
             <a id="tab-button" data-name="general" onClick="change('general')" class="cursor-pointer list-group-item list-group-item-action active">

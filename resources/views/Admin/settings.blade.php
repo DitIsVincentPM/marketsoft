@@ -18,7 +18,7 @@ Settings
 @endsection
 
 @section('content')
-        <div class="pl-0 alert {{ $version[1] }}" role="alert">
+        <div class="alert {{ $version[1] }}" role="alert">
             {{ $version[0] }}
         </div>
         {{-- General Settings --}}

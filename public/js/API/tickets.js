@@ -14,7 +14,7 @@ function refresh() {
         dataType: "json",
         success: function (result) {
             $('#table').html('');
-            $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
+            $("#footer").html('<p class="mb-0">Showing ' + result.length + ' of ' + result.length + ' Results</p>');
 
             if (result.length == 0) {
                 $("#table").html(

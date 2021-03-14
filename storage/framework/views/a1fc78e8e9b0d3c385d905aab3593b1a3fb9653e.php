@@ -13,15 +13,12 @@
                     <div class="form-text">Putt the name here the name that will show everywhere as you company name.</div>
                 </div>
                 <div class="col-sm-offset-2 col-sm-12"><br>
-                    <label for="exampleInputEmail1" class="form-label">Company Logo</label>
+                    <label class="form-label">Company Logo</label>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" value="<?php echo e(Settings::key('CompanyLogo')); ?>" class="form-control" readonly>
-                            <div class="input-group-btn">
-                                <span class="fileUpload btn btn-primary">
-                                    <span type="button" class="upl" id="upload">Upload</span>
-                                    <input id="image" type="file" name="companylogo" class="upload up" accept='image/*' id="up" onchange="readURL(this);" />
-                                </span>
+                            <div class="custom-file">
+                                <input type="file" name="companylogo" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile"><?php echo e(Settings::key('CompanyLogo')); ?></label>
                             </div>
                         </div>
                     </div>
@@ -43,12 +40,9 @@
                     <label class="form-label">Company Favicon</label>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" value="<?php echo e(Settings::key('CompanyFavicon')); ?>" class="form-control" readonly>
-                            <div class="input-group-btn">
-                                <span class="fileUpload btn btn-primary">
-                                    <span type="button" class="upl" id="upload">Upload</span>
-                                    <input id="image" type="file" name="faviconlogo" class="upload up" accept='image/*' id="up" onchange="readURL(this);" />
-                                </span>
+                            <div class="custom-file">
+                                <input type="file" name="faviconlogo" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile"><?php echo e(Settings::key('CompanyFavicon')); ?></label>
                             </div>
                         </div>
                     </div>

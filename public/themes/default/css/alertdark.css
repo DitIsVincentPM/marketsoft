@@ -9,7 +9,7 @@
     width: auto!important;
     padding: 0.625em!important;
     overflow-y: hidden!important;
-    background: #2e3145!important;
+    background: #19191a!important;
     box-shadow: none!important;
 }
 
@@ -98,7 +98,7 @@
 }
 
 .swal2-popup.swal2-toast .swal2-styled:focus {
-    box-shadow: 0 0 0 1px #272b3a, 0 0 0 3px rgba(138, 176, 213, 0.5);
+    box-shadow: 0 0 0 1px #19191a, 0 0 0 3px rgba(138, 176, 213, 0.5);
 }
 
 .swal2-popup.swal2-toast .swal2-success {
@@ -334,7 +334,7 @@
     padding: 1.25em;
     border: none;
     border-radius: 5px;
-    background: #272b3a;
+    background: #19191a;
     font-family: inherit;
     font-size: 1rem;
 }
@@ -446,7 +446,7 @@
 
 .swal2-styled:focus {
     outline: none;
-    box-shadow: 0 0 0 1px #272b3a, 0 0 0 3px rgba(138, 176, 213, 0.5);
+    box-shadow: 0 0 0 1px #19191a, 0 0 0 3px rgba(138, 176, 213, 0.5);
 }
 
 .swal2-styled::-moz-focus-inner {
@@ -592,7 +592,7 @@
 
 .swal2-range {
     margin: 1em auto;
-    background: #272b3a;
+    background: #19191a;
 }
 
 .swal2-range input {
@@ -646,7 +646,7 @@
 .swal2-checkbox {
     align-items: center;
     justify-content: center;
-    background: #272b3a;
+    background: #19191a;
     color: #e1e1e1;
 }
 

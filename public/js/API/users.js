@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     refresh();
 });
 
@@ -20,7 +20,7 @@ function getuser(id) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
-        success: function (result) {
+        success: function(result) {
             $.ajax({
                 type: "POST",
                 url: "/api/roles",
@@ -29,7 +29,7 @@ function getuser(id) {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 dataType: "json",
-                success: function (roles) {
+                success: function(roles) {
                     if (result['is_banned'] == 1) {
                         var ban_yes = "selected";
                         var ban_no = "";
@@ -72,7 +72,7 @@ function getuser(id) {
                         '<div class="input-group-append">' +
                         '<span class="input-group-text" id="basic-addon2">Banned?</span>' +
                         '</div>' +
-                        '<select id="ban_edit" class="form-select">' +
+                        '<select id="ban_edit" class="custom-select">' +
                         '<option ' + ban_no + ' value="0">No</option>' +
                         '<option ' + ban_yes + ' value="1">Yes</option>' +
                         '</select>' +
@@ -81,8 +81,7 @@ function getuser(id) {
                         '<div class="input-group-append">' +
                         '<span class="input-group-text" id="basic-addon2">Role:</span>' +
                         '</div>' +
-                        '<select id="role_edit" class="form-select">' +
-
+                        '<select id="role_edit" class="custom-select">' +
                         '</select>' +
                         '</div>' +
                         '</div>' +
@@ -92,7 +91,9 @@ function getuser(id) {
                         '</div>'
                     );
 
-                    $.each(roles, function (key, role) {
+                    $('.select2').select2()
+
+                    $.each(roles, function(key, role) {
                         if (result['role_id'] == role['id']) {
                             $("#role_edit").append('<option selected value="' + role['id'] + '">' + role['name'] + "</option>");
                         } else {
@@ -125,11 +126,11 @@ function user_edit(id) {
         },
 
         dataType: "json",
-        success: function (result) {
+        success: function(result) {
             alert(["success", "You updated " + document.getElementById('name_edit').value + "'s settings!"]);
             refresh();
         },
-        error: function (error) {
+        error: function(error) {
             alert(["error", "Something went wrong!"]);
             refresh();
         },
@@ -137,6 +138,12 @@ function user_edit(id) {
 }
 
 function refresh() {
+    $('#loader').append(
+        '<div class="overlay">' +
+        '<i class="fas fa-2x fa-sync-alt fa-spin"></i>' +
+        '</div>'
+    );
+
     $.ajax({
         type: "POST",
         url: "/api/user/all",
@@ -148,7 +155,7 @@ function refresh() {
             query: document.getElementById('search').value
         },
         dataType: "json",
-        success: function (result) {
+        success: function(result) {
             $.ajax({
                 type: "POST",
                 url: "/api/roles",
@@ -157,18 +164,19 @@ function refresh() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 dataType: "json",
-                success: function (roles) {
+                success: function(roles) {
                     $('#table').html('');
-                    $("#footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
+                    $("#footer").html('<p class="mb-0">Showing ' + result.length + ' of ' + result.length + ' Results</p>');
                     document.getElementById('refresh').classList.toggle('animate-refresh-rotate');
+                    $('.overlay').remove();
 
-                    $.each(result, function (key, item) {
-                        $.each(roles, function (key, role) {
+                    $.each(result, function(key, item) {
+                        $.each(roles, function(key, role) {
                             if (item['role_id'] == role['id']) {
-                                if(item["status"] == 1) {
-                                    var status = '<span class="label label-success btn-sm">ACTIVE</span>';
+                                if (item["status"] == 1) {
+                                    var status = '<span class="badge badge-success btn-sm">ACTIVE</span>';
                                 } else {
-                                    var status = '<span class="label label-primary btn-sm">INACTIVE</span>';
+                                    var status = '<span class="badge badge-secondary btn-sm">INACTIVE</span>';
                                 }
 
                                 $('#table').append(
@@ -188,12 +196,11 @@ function refresh() {
     });
 }
 
-window.onload = function () {
+window.onload = function() {
     var search = document.getElementById("search");
-    search.addEventListener("keydown", function (e) {
+    search.addEventListener("keydown", function(e) {
         if (e.keyCode === 13) {
             refresh();
         }
     });
 }
-

@@ -7,7 +7,7 @@
     <meta name="description" content="A Market, Business, Hosting Company Software for a small price!">
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Vincent Van Hoof, Pierce Gearhart">
-    <meta property="og:title" content="{{trim(View::yieldContent('title'))}} - {{ Settings::key('CompanyName') }}" />
+    <meta property="og:title" content="{{ trim(View::yieldContent('title')) }} - {{ Settings::key('CompanyName') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('index') }}" />
     <meta property="og:image" content="{{ Settings::where('key', 'CompanyFavicon')->first()->value }}" />
@@ -21,119 +21,150 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="/vendor/jquery/jquery.js"></script>
     <script src="/vendor/jquery-ui/jquery-ui.js"></script>
-    <script src="/themes/default/js/adminlte.min.js"></script>
-    <script src="/vendor/chart.js/Chart.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/themes/default/css/adminlte.min.css">
+    <script src="/vendor/chart.js/Chart.min.js"></script>
+    <link rel="stylesheet" href="/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/themes/default/css/custom.css">
+    <link rel="stylesheet" href="/themes/default/css/alertdark.css">
+    <script src="/themes/default/js/adminlte.min.js"></script>
+    <script src="/vendor/sweetalert2/sweetalert2.min.js"></script>
+    <script src="/vendor/select2/js/select2.full.min.js"></script>
+    <link rel="stylesheet" href="/vendor/select2/css/select2.min.css">
+    <script src="/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @yield('scripts')
 </head>
 
 <body class="antialiased">
-    {{-- <div class="sub-header">
-        <div class="container">
-            <div>
-                <span>
-                    <strong
-                        class="text-gray-bold">{{ Shorten::string(Announcements::GetLatest()->name, 25) }}:</strong>
-                    <span class="text-gray">{{ Shorten::string(Announcements::GetLatest()->description, 56) }}</span>
-                    @if (Auth::check())
-                        <span class="text-gray-bold pull-right">
-                            <strong>WELCOME, <span class="text-uppercase">{{ Auth::user()->name }}</span></strong>
-                        </span>
-                    @endif
-                </span>
-            </div>
-        </div>
-    </div> --}}
-    <nav class="market-navbar navbar top-nav navbar-expand-lg btn-block">
-        <div class="container-fluid">
-            <button class="navbar-toggler pull-right text-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
-                aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="pull-right text-right" style="color: #ccc!important;" data-feather="align-justify"></i>
-            </button>
-            <div class="container collapse navbar-collapse" id="navbarsExample07">
-                <a class="market-navbar-large-header market-navbar-header navbar-brand"
-                    href="{{ route('index') }}">
-                    @if(Settings::key('NavbarIconStatus') == 1) <img src="{{ Settings::key('CompanyLogo') }}" height="35"
-                        alt="logo" /> @else <h3 class="mb-0 v-center">{{ Settings::key('CompanyName') }}</h3>
-                    @endif
+    <div class="wrapper">
+
+        <nav style="width: 100% !important;" class="navbar navbar-expand-md navbar-light navbar-white">
+            <div class="container">
+                <a href="../../index3.html" class="navbar-brand">
+                    <span class="brand-text font-weight-light">{{ Settings::key('CompanyName') }}</span>
                 </a>
-                <ul style="margin-left: auto !important; margin-right: auto !important; justify-content: center !important;"
-                    class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link market-navbar-link active"
-                            aria-current="page" href="{{ route('index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="{{ route('products.index') }}">Online Store</a>
-                    </li>
-                    @foreach(Modules::get() as $module)
-                    <li class="nav-item">
-                        <a class="market-navbar-small-header market-navbar-header nav-link"
-                            href="{{ route($module->Navbar_Route) }}">{{ $module->Navbar_Name }}</a>
-                    </li>
-                    @endforeach
-                </ul>
-                <ul class="navbar-nav">
+
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="index3.html" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contact</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Dropdown</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                <li><a href="#" class="dropdown-item">Some action </a></li>
+                                <li><a href="#" class="dropdown-item">Some other action</a></li>
+
+                                <li class="dropdown-divider"></li>
+
+                                <li class="dropdown-submenu dropdown-hover">
+                                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
+                                    <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                                        <li>
+                                            <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
+                                        </li>
+                                        <li class="dropdown-submenu">
+                                            <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
+                                            <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
+                                                <li><a href="#" class="dropdown-item">3rd level</a></li>
+                                                <li><a href="#" class="dropdown-item">3rd level</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#" class="dropdown-item">level 2</a></li>
+                                        <li><a href="#" class="dropdown-item">level 2</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                     <li class="nav-item dropdown">
-                        <a class="market-navbar-small-header market-navbar-header nav-link dropdown-toggle market-navbar-link"
-                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        @if (Auth::check()) {{ Auth::user()->name }} @else
-                                Account @endif
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="fas fa-comments"></i>
+                            <span class="badge badge-danger navbar-badge">3</span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            @if(Auth::check())
-                                <li><a class="dropdown-item" href="{{ route('auth.settings') }}"><i
-                                            style="width: 15px;margin-right: 5px!important;" data-feather="user"></i><span
-                                            class="nav-text">Account Settings</span></a></li>
-                                @if(Permission::is_admin(Auth::user()->role_id))
-                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}"><i
-                                                style="width: 16px;margin-right: 5px!important;" data-feather="sliders"></i><span
-                                                class="nav-text">Administration</span></a></li>
-                                @endif
-                                <li><a id="logout" class="dropdown-item" href="{{ route('auth.logout') }}"><i
-                                            style="width: 16px;margin-right: 5px!important;" data-feather="log-out"></i><span
-                                            class="nav-text">Account Logout</span></a></li>
-                            @else
-                                <li><a class="dropdown-item" href="{{ route('auth.login') }}">Login</a></li>
-                                <li><a class="dropdown-item" href="{{ route('auth.register') }}">Register</a></li>
-                            @endif
-                        </ul>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-bell"></i>
+                            <span class="badge badge-warning navbar-badge">15</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <span class="dropdown-header">15 Notifications</span>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-envelope mr-2"></i> 4 new messages
+                                <span class="float-right text-muted text-sm">3 mins</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-users mr-2"></i> 8 friend requests
+                                <span class="float-right text-muted text-sm">12 hours</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-file mr-2"></i> 3 new reports
+                                <span class="float-right text-muted text-sm">2 days</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                            <i class="fas fa-th-large"></i>
+                        </a>
                     </li>
                 </ul>
             </div>
-        </div>
-    </nav>
-    <div class="header">
-        @if ($__env->yieldContent('header-title'))
-            <div style="z-index: 500;" class="row">
-                <div class="col-1">
-                </div>
-                <div style="margin-top: 10rem;" class="col-10 col-max-mobile header-breadcrumb">
-                    <h1 class="color-white" style="text-transform:uppercase; text-align: center;">@yield('header-title')
-                    </h1>
-                    <div class="color-white">
-                        @yield('header-breadcrumb')
+        </nav>
+        <div class="content-wrapper ml-0">
+            <div class="content-header">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0"> @yield('header-title')</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            @yield('header-breadcrumb')
+                        </div>
                     </div>
                 </div>
-                <div class="col-1">
+            </div>
+            <div class="content">
+                <div class="container">
+                    @yield('content')
                 </div>
             </div>
-        @endif
-    </div>
-
-    <div class="container">
-        @yield('content')
-
-    </div>
-
-    <footer class="mt-5 bg-dark text-center text-white">
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            Copyright © 2020:
-            <a class="text-dark" href="{{ route('index') }}">{{ Settings::key('CompanyName') }}</a>
         </div>
-    </footer>
+        <aside class="control-sidebar control-sidebar-dark">
+            <div class="p-3">
+                <h5>Title</h5>
+                <p>Sidebar content</p>
+            </div>
+        </aside>
+
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-inline">
+                Anything you want
+            </div>
+            <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        </footer>
+    </div>
 </body>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
@@ -154,18 +185,20 @@
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, logout!'
-            }).then((result) => {
-            if (result.isConfirmed) {      
+        }).then((result) => {
+            if (result.isConfirmed) {
                 location.href = '{{ route('auth.logout') }}'
             }
         })
     });
+
 </script>
 
 @include('Vendor.alerts')
 
 <script>
     feather.replace();
+
 </script>
 
 </html>

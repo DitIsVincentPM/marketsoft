@@ -13,7 +13,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('header-breadcrumb'); ?>
-    <ol class="justify-content-center market-breadcrumb breadcrumb">
+    <ol class="pull-right market-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><a href="<?php echo e(route('index')); ?>">Home</a></li>
         <li class="breadcrumb-item"><a href="<?php echo e(route('products.index')); ?>">Products</a></li>
         <li class="breadcrumb-item active"><a href="<?php echo e(route('products.view', $product->id)); ?>"><?php echo e($product->name); ?></a></li>

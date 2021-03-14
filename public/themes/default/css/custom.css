@@ -31,7 +31,14 @@ a {
 }
 
 [class*=sidebar-dark-] {
-    background-color: #323232!important;
+    background-color: #19191a!important;
+}
+
+[class*=sidebar-dark] .btn-sidebar,
+[class*=sidebar-dark] .form-control-sidebar {
+    background-color: #2c2c2e!important;
+    border: 1px solid #3a3a3d!important;
+    color: #fff!important;
 }
 
 .demos {
@@ -67,7 +74,6 @@ a {
 
 .icon-container {
     flex: 0 0 auto;
-    width: 50%;
     position: relative;
     display: block;
     margin-left: auto;
@@ -85,8 +91,8 @@ a {
     height: 15px;
     border-radius: 50%;
     background-color: #2ecc71;
-    bottom: .5rem;
-    right: .5rem;
+    bottom: -0rem;
+    right: -0rem;
     position: absolute
 }
 
@@ -178,4 +184,20 @@ a {
     margin-left: auto!important;
     margin-right: auto!important;
     display: block!important;
+}
+
+.select2-container .select2-selection--single {
+    height: auto!important;
+}
+
+.animate-icon {
+    transition: .6s
+}
+
+.animate-refresh-rotate {
+    transform: rotate(360deg);
+}
+
+.modal-footer {
+    padding-bottom: 0px!important;
 }
