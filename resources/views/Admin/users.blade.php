@@ -22,6 +22,9 @@
         <div class="card-header">
             Users Table
             <div class="card-tools">
+                <button type="button" class="btn btn-tool animate-icon" onclick="createusermodal()" data-bs-toggle="modal" data-bs-target="#createuser">
+                    <i class="far fa-plus-square"></i>
+                </button>
                 <button type="button" class="btn btn-tool animate-icon" onclick="refresh()" id="refresh">
                     <i class="fas fa-sync-alt"></i>
                 </button>
@@ -50,6 +53,14 @@
     <div class="modal fade" id="viewmore" tabindex="-1" aria-labelledby="viewmoreLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content" id="content">
+            </div>
+        </div>
+    </div>
+
+    <!-- Create User -->
+    <div class="modal fade" id="createuser" tabindex="-1" aria-labelledby="createuserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" id="createmodal">
             </div>
         </div>
     </div>

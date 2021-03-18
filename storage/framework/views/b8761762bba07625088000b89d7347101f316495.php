@@ -17,19 +17,7 @@
     <link rel="icon" href="<?php echo e(Settings::where('key', 'CompanyFavicon')->first()->value); ?>" type="image/png">
     <title><?php echo $__env->yieldContent('title'); ?> - <?php echo e(Settings::where('key', 'CompanyName')->first()->value); ?></title>
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-    <script src="/vendor/jquery/jquery.js"></script>
-    <script src="/vendor/jquery-ui/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/themes/default/css/adminlte.min.css">
-    <script src="/vendor/chart.js/Chart.min.js"></script>
-    <link rel="stylesheet" href="/vendor/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/themes/default/css/custom.css">
-    <link rel="stylesheet" href="/themes/default/css/alertdark.css">
-    <script src="/themes/default/js/adminlte.min.js"></script>
-    <script src="/vendor/sweetalert2/sweetalert2.min.js"></script>
-    <script src="/vendor/select2/js/select2.full.min.js"></script>
-    <link rel="stylesheet" href="/vendor/select2/css/select2.min.css">
-    <script src="/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <?php echo $__env->make('Vendor.dependencies', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php echo $__env->yieldContent('scripts'); ?>
 </head>
 
@@ -44,7 +32,7 @@
             </li>
         </ul>
 
-        <?php if(Route::currentRouteName() == 'admin.users'): ?>
+        <?php if(Route::currentRouteName() == 'admin.users' or Route::currentRouteName() == 'admin.tickets' or Route::currentRouteName() == 'admin.knowledgebase'): ?>
             <div style="width: 15rem;" class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" id="search" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">

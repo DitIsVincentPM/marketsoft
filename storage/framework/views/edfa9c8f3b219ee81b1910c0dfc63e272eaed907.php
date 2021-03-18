@@ -14,7 +14,7 @@ Knowledgebase
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('header-breadcrumb'); ?>
-<ol class="justify-content-center market-breadcrumb breadcrumb">
+<ol class="pull-right market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item">Knowledgebase</li>
     <li class="breadcrumb-item">#<?php echo e($knowledgebase->id); ?></li>

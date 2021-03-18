@@ -19,76 +19,58 @@
 
 @section('content')
     <div id="tab-content" data-name="categories" style="display: none;">
-        <h4 class="mt-1 mb-0 pull-left">Categories</h4>
-        <button class="btn btn-primary pull-right" data-bs-toggle="modal" data-bs-target="#creatcategory">Create
-            New</button>
-        <div class="card shadow">
-            <div class="card-body pb-0">
-                @foreach ($categorys as $category)
-                    <div class="row mb-2 mt-4">
-                        <div class="col-1 text-center">
-                            <p class="market-text-break announcement-title">{{ $category->id }}</p>
-                        </div>
-                        <div class="col-7">
-                            <h5 class="market-text-break announcement-title">{{ $category->name }}</h5>
-                        </div>
-                        <div class="col-2">
-                            <p class="market-text-break announcement-date">
-                                {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $category->created_at)->format('m/d/Y') }}
-                            </p>
-                        </div>
-                        <div class="col-2 text-center">
-                            <form method="POST" action="{{ route('admin.knowledgebase.category.delete', $category->id) }}">
-                                @csrf
-                                <button type="submit" class="btn btn-sm pull-right text-danger" title="Delete">
-                                    <i data-feather="trash"></i>
-                                </button>
-                            </form>
-                            <button class="btn btn-sm pull-right text-success" data-bs-toggle="modal" data-bs-target="#editcategory-{{ $category->id }}">
-                                <i data-feather="edit-3"></i>
-                            </button>
-                        </div>
-                    </div>
-                @endforeach
+        <div class="card shadow" id="loader2">
+            <div class="card-header">
+                Announcements Categories
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool animate-icon" data-bs-toggle="modal" data-bs-target="#creatcategory">
+                        <i class="far fa-plus-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool animate-icon" onclick="refresh()" id="refresh">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
             </div>
+            <table class="table mb-0 text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>More</th>
+                    </tr>
+                </thead>
+                <tbody id="category-table">
+                </tbody>
+            </table>
+            <div class="card-footer" id="c-footer"></div>
         </div>
     </div>
-    <div id="tab-content" data-name="article" style="display: block;">
-        <h4 class="mt-1 mb-0">Articles</h4>
-        <button class="btn btn-primary pull-right" data-bs-toggle="modal" data-bs-target="#createarticle">Create
-            New</button>
-        <div class="card shadow">
-            <div class="card-body pb-0">
-                @foreach ($knowledgebases as $knowledgebase)
-                    <div class="row  mb-2 mt-4">
-                        <div class="col-1 text-center">
-                            <p class="market-text-break announcement-title">{{ $knowledgebase->id }}</p>
-                        </div>
-                        <div class="col-3">
-                            <h5 class="market-text-break announcement-title">{{ $knowledgebase->name }}</h5>
-                        </div>
-                        <div class="col-4 market-text-break">
-                            <p class="announcement-description">{!! $knowledgebase->description !!}</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="market-text-break announcement-date">
-                                {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $knowledgebase->created_at)->format('m/d/Y') }}
-                            </p>
-                        </div>
-                        <div class="col-2 text-center">
-                            <form method="POST" action="{{ route('admin.knowledgebase.delete', $knowledgebase->id) }}">
-                                @csrf
-                                <button type="submit" class="btn btn-sm pull-right text-danger" title="Delete">
-                                    <i data-feather="trash"></i>
-                                </button>
-                            </form>
-                            <button class="btn btn-sm pull-right text-success" data-bs-toggle="modal" data-bs-target="#editknowledgebase-{{ $knowledgebase->id }}">
-                                <i data-feather="edit-3"></i>
-                            </button>
-                        </div>
-                    </div>
-                @endforeach
+    <div id="tab-content" data-name="article" style="display: none;">
+        <div class="card shadow" id="loader">
+            <div class="card-header">
+                Knowledgebase Articles
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool animate-icon" data-bs-toggle="modal" data-bs-target="#createarticle">
+                        <i class="far fa-plus-square"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool animate-icon" onclick="refresh()" id="refresh">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
             </div>
+            <table class="table mb-0 text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody id="table">
+                </tbody>
+            </table>
+            <div class="card-footer" id="footer"></div>
         </div>
     </div>
 
@@ -98,22 +80,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createarticleLabel">Create New Article</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('admin.knowledgebase.new') }}">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Article Title</label>
-                            <input name="name" type="text" class="form-control">
+                            <input name="name" type="text" class="form-control" id="ac-title">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Article Description</label>
-                            <textarea name="description" class="summernote"></textarea>
+                            <textarea name="description" class="form-control" id="ac-description"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Articles Category</label>
-                            <select class="form-select" name="category">
+                            <select id="ac-category" class="form-control" name="category">
                                 @foreach ($categorys as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
@@ -122,53 +102,44 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary pull-right">Create</button>
-                    </form>
+                    <button type="submit" onclick="articlecreate()" data-bs-dismiss="modal" class="btn btn-primary pull-right">Create</button>
                 </div>
             </div>
         </div>
     </div>
 
     {{-- Edit Announcement Modal --}}
-    @foreach ($knowledgebases as $knowledgebase)
-        <div class="modal fade" id="editknowledgebase-{{ $knowledgebase->id }}" tabindex="-1" aria-labelledby="editknowledgebaseLabel" aria-hidden="true">
+        <div class="modal fade" id="editarticle" tabindex="-1" aria-labelledby="editknowledgebaseLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editknowledgebaseLabel">Edit Article for #{{ $knowledgebase->id }}
+                        <h5 class="modal-title" id="editknowledgebaseLabel">Edit Article for #<span id="a-id"></span>
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ route('admin.knowledgebase.update', $knowledgebase->id) }}">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Articles Title</label>
-                                <input name="name" type="text" class="form-control" value="{{ $knowledgebase->name }}">
+                                <input id="a-name" name="name" type="text" class="form-control" value="">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Articles Description</label>
-                                <textarea name="description" class="summernote">{{ $knowledgebase->description }}</textarea>
+                                <textarea name="description" class="form-control" id="a-description"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Articles Category</label>
-                                <select class="form-select" name="category">
-                                    @foreach ($categorys as $category)
-                                        <option @if ($category->id == $knowledgebase->category_id) selected @endif value="{{ $category->id }}">
-                                            {{ $category->name }}</option>
-                                    @endforeach
+                                <select id="a-category" class="form-control">
                                 </select>
                             </div>
                     </div>
+                    <input hidden id="a-ids" value=""/>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary pull-right">Edit</button>
-                        </form>
+                        <button type="submit" onclick="articleupdate()" data-bs-dismiss="modal" class="btn btn-primary pull-right">Edit</button>
                     </div>
                 </div>
             </div>
         </div>
-    @endforeach
 
     {{-- Create New Category Modal --}}
     <div class="modal fade" id="creatcategory" tabindex="-1" aria-labelledby="createcategoryLabel" aria-hidden="true">
@@ -176,23 +147,22 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createarticleLabel">Create New Category</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form method="POST" action="{{ route('admin.knowledgebase.category.new') }}">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Category Title</label>
-                            <input name="name" type="text" class="form-control">
+                            <input name="name" id="ca_name" type="text" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Category Description</label>
-                            <textarea name="description" class="summernote"></textarea>
+                            <textarea name="description" id="ca_description" class="form-control"></textarea>
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary pull-right">Create</button>
+                    <button type="submit" onclick="categorycreate()" data-bs-dismiss="modal" class="btn btn-primary pull-right">Create</button>
                     </form>
                 </div>
             </div>
@@ -200,35 +170,30 @@
     </div>
 
     {{-- Edit Category Modal --}}
-    @foreach ($categorys as $category)
-        <div class="modal fade" id="editcategory-{{ $category->id }}" tabindex="-1" aria-labelledby="editknowledgebaseLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editknowledgebaseLabel">Edit Category for #{{ $category->id }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST" action="{{ route('admin.knowledgebase.category.update', $category->id) }}">
-                            @csrf
-                            <div class="mb-3">
-                                <label class="form-label">Category Title</label>
-                                <input name="name" type="text" class="form-control" value="{{ $category->name }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Category Description</label>
-                                <textarea name="description" class="summernote">{{ $category->description }}</textarea>
-                            </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary pull-right">Edit</button>
-                        </form>
-                    </div>
+    <div class="modal fade" id="editcategory" tabindex="-1" aria-labelledby="editknowledgebaseLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editknowledgebaseLabel">Edit Category for #<span id="category_id"></span></span></h5>
+                </div>
+                <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Category Title</label>
+                            <input name="name" type="text" id="category_name" class="form-control" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Category Description</label>
+                            <textarea name="description" id="category_description" class="form-control"></textarea>
+                        </div>
+                </div>
+                <input hidden id="categorys_id" value=""/>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" onclick="categoryupdate()" data-bs-dismiss="modal" class="btn btn-primary pull-right">Edit</button>
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
 
 @endsection
 
@@ -294,5 +259,5 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/custom-tabs.js"></script>
+    <script src="/js/API/knowledgebase.js"></script>
 @endsection

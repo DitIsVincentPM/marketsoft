@@ -2,22 +2,29 @@
     Home
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('header-title'); ?>
-    Home
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('header-breadcrumb'); ?>
-<ol style="float: right;" class="market-breadcrumb breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-</ol>
+<?php $__env->startSection('home'); ?>
+    <div class="content-header" style="background-color: rgba(89, 89, 89, 0.6) !important;color: white;padding-top: 80px;padding-bottom: 80px;">
+        <h1 class="text-center">Welcome to MarketSoft!<br><span><small>Searching for Example #1, Example #2, Example #3. Search for it in the bar below.</small></span></h1><br>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="input-group">
+                    <input type="search" class="form-control" placeholder="Type your product name here">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
     <div class="primary-section row">
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 mobile-text-center">
             <p class="text-left" style="top: -50%; transform: translateY(50%);">
-            <h1><strong>WHAT IS <span class="text-uppercase nav-market">Market</span><span
-                        class="text-uppercase nav-soft">Soft</span></strong></h1>
+            <h1><strong>WHAT IS <span class="text-uppercase nav-market">Market</span><span class="text-uppercase nav-soft">Soft</span></strong></h1>
             <div class="col-xl-10 col-lg-10 col-mb-10 col-sm-12">
                 <span>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,

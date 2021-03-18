@@ -11,6 +11,7 @@ use Rainwater\Active\Active as Active;
 use Settings;
 use App\Models\Env;
 use Products;
+use Hash;
 
 class Controller extends BaseController
 {
@@ -41,6 +42,23 @@ class Controller extends BaseController
         ]);
 
         return true;
+    }
+
+    public function userscreate(Request $request) {
+        $password = $request->get('password1');
+        $password = Hash::make($password);
+
+        DB::table('users')->insert([
+            'firstname' => $request->get('firstname'),
+            'lastname' => $request->get('lastname'),
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'role_id' => $request->get('role'),
+            'password' => $password,
+            'is_banned' => 0,
+        ]);
+
+        return;
     }
 
 
@@ -273,5 +291,85 @@ class Controller extends BaseController
 
     public function announcement_modal() {
         return json_encode(DB::table('announcements')->get());
+    }
+
+    public function knowledgebasecategories(Request $request)
+    {
+        $id = $request->get('query');
+        return json_encode(DB::table('knowledgebase_categorys')->orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get());
+    }
+
+    public function knowledgebase(Request $request)
+    {
+        $id = $request->get('query');
+        return json_encode(DB::table('knowledgebase')->orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get());
+    }
+
+    public function knowledgebaseget(Request $request)
+    {
+        return json_encode(DB::table('knowledgebase')->where('id', $request->get('id'))->first());
+    }
+    
+    public function knowledgebasecategoryget(Request $request)
+    {
+        return json_encode(DB::table('knowledgebase_categorys')->where('id', $request->get('id'))->first());
+    }
+
+    public function knowledgebasecategoryupdate(Request $request)
+    {
+        $id = $request->get('id');
+        $name = $request->get('name');
+        $description = $request->get('description');
+
+        DB::table('knowledgebase_categorys')->where('id', $id)->update([
+            'name' => $name,
+            'description' => $description,
+        ]);
+
+        return true;
+    }
+
+    public function knowledgebasearticleupdate(Request $request)
+    {
+        $id = $request->get('id');
+        $name = $request->get('name');
+        $description = $request->get('description');
+        $category = $request->get('category');
+
+        DB::table('knowledgebase')->where('id', $id)->update([
+            'name' => $name,
+            'description' => $description,
+            'category_id' => $category,
+        ]);
+
+        return true;
+    }
+
+    public function knowledgebasearticlecreate(Request $request)
+    {
+        $name = $request->get('name');
+        $description = $request->get('description');
+        $category = $request->get('category');
+
+        DB::table('knowledgebase')->insert([
+            'name' => $name,
+            'description' => $description,
+            'category_id' => $category,
+        ]);
+
+        return true;
+    }
+
+    public function knowledgebasecategorycreate(Request $request)
+    {
+        $name = $request->get('name');
+        $description = $request->get('description');
+
+        DB::table('knowledgebase_categorys')->insert([
+            'name' => $name,
+            'description' => $description,
+        ]);
+
+        return true;
     }
 }

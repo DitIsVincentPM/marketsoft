@@ -137,6 +137,113 @@ function user_edit(id) {
     });
 }
 
+function createusermodal() {
+    $.ajax({
+        type: "POST",
+        url: "/api/roles",
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(roles) {
+            $('#createmodal').html(
+                '<div class="modal-header">' +
+                '<h5 class="modal-title" id="createuserLabel">Create User</h5>' +
+                '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                '</div>' +
+                '<div class="modal-body">' +
+                '<div class="row">' +
+                '<div class="col-6">' +
+                '<div class="mb-3">' +
+                '<label class="form-label">Firstname:</label>' +
+                '<input type="text" class="form-control" id="firstname">' +
+                '</div>' +
+                '</div>' +
+                '<div class="col-6">' +
+                '<div class="mb-3">' +
+                '<label class="form-label">Lastname:</label>' +
+                '<input type="text" class="form-control" id="lastname">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col-6">' +
+                '<div class="mb-3">' +
+                '<label class="form-label">Username:</label>' +
+                '<input type="text" class="form-control" id="name">' +
+                '</div>' +
+                '</div>' +
+                '<div class="col-6">' +
+                '<div class="mb-3">' +
+                '<label class="form-label">Role:</label>' +
+                '<select id="roles" class="custom-select">' +
+                '</select>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col-12">' +
+                '<div class="mb-3">' +
+                '<label class="form-label">Email Address:</label>' +
+                '<input type="email" class="form-control" id="email">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col-6">' +
+                '<div class="mb-3">' +
+                '<label class="form-label">Password:</label>' +
+                '<input type="password" class="form-control" id="password1">' +
+                '</div>' +
+                '</div>' +
+                '<div class="col-6">' +
+                '<div class="mb-3">' +
+                '<label class="form-label">Confirm Password:</label>' +
+                '<input type="password" class="form-control" id="password2">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="modal-footer">' +
+                '<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>' +
+                '<button onclick="createuser()" type="submit" class="btn btn-success">Save changes</button>' +
+                '</div>'
+            );
+
+            $.each(roles, function(key, role) {
+                $("#roles").append('<option value="' + role['id'] + '">' + role['name'] + "</option>");
+            });
+        }
+    });
+}
+
+function createuser() {
+    $.ajax({
+        type: "POST",
+        url: "/api/user/create",
+        data: {
+            firstname: document.getElementById('firstname').value,
+            lastname: document.getElementById('lastname').value,
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            role: document.getElementById('roles').value,
+            password1: document.getElementById('password1').value,
+            password2: document.getElementById('password2').value,
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        error: function(error) {
+            alert(['error', "Oops, something went wrong! Please try again."]);
+        },
+        success: function(result) {
+            alert(['success', "You have successfully created a new user!"]);
+            refresh();
+        }
+    });
+}
+
 function refresh() {
     $('#loader').append(
         '<div class="overlay">' +

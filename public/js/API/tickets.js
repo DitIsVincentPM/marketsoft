@@ -1,9 +1,21 @@
 $(document).ready(function () {
     refresh();
-    categoryrefresh();
 });
 
+
 function refresh() {
+    $('#loader').append(
+        '<div class="overlay">' +
+        '<i class="fas fa-2x fa-sync-alt fa-spin"></i>' +
+        '</div>'
+    );
+
+    $('#loader2').append(
+        '<div class="overlay">' +
+        '<i class="fas fa-2x fa-sync-alt fa-spin"></i>' +
+        '</div>'
+    );
+
     $.ajax({
         type: "POST",
         url: "/api/ticket",
@@ -73,6 +85,32 @@ function refresh() {
                 );
             });
         }
+    }); 
+
+    $.ajax({
+        type: "POST",
+        url: "/api/ticket/categorys",
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function (result) {
+            $('#category-table').html('');
+            $("#c-footer").html('<p class="mb-0">Showing ' + result.length + ' of ' + result.length + ' Results</p>');
+
+            $.each(result, function (key, item) {
+                $('#category-table').append(
+                    '<tr> <td class="text-center">' + item['id'] +
+                    '</td> <td class="text-center">' + item['name'] + '</td> <td class="text-center">' + item["description"] +
+                    '<td><button onclick="categoryget(' + item['id'] + ')" class="btn btn-sm pull-right text-success" data-bs-toggle="modal" data-bs-target="#editcategory">' +
+                    '<i data-feather="edit-3"></i></button></td> </tr>'
+                );
+            });
+
+            $('.overlay').remove();
+            feather.replace();
+        }
     });
 }
 
@@ -121,53 +159,7 @@ function some() {
             });
         }
     });
-}
 
-window.onload = function () {
-    var search = document.getElementById("search");
-    search.addEventListener("keydown", function (e) {
-        if (e.keyCode === 13) {
-            some();
-        }
-    });
-
-    var search = document.getElementById("category-search");
-    search.addEventListener("keydown", function (e) {
-        if (e.keyCode === 13) {
-            categorysome();
-        }
-    });
-}
-
-function categoryrefresh() {
-    $.ajax({
-        type: "POST",
-        url: "/api/ticket/categorys",
-        dataType: 'json',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        dataType: "json",
-        success: function (result) {
-            $('#category-table').html('');
-            $("#c-footer").html('<p>Showing ' + result.length + ' of ' + result.length + ' Results</p>');
-
-            $.each(result, function (key, item) {
-                $('#category-table').append(
-                    '<tr> <td class="text-center">' + item['id'] +
-                    '</td> <td class="text-center">' + item['name'] + '</td> <td class="text-center">' + item["description"] +
-                    '<td><button onclick="categoryget(' + item['id'] + ')" class="btn btn-sm pull-right text-success" data-bs-toggle="modal" data-bs-target="#editcategory">' +
-                    '<i data-feather="edit-3"></i></button></td> </tr>'
-                );
-            });
-
-            
-            feather.replace();
-        }
-    });
-}
-
-function categorysome() {
     $.ajax({
         type: "POST",
         url: "/api/ticket/categorys/search",
@@ -176,7 +168,7 @@ function categorysome() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            query: document.getElementById('category-search').value,
+            query: document.getElementById('search').value,
         },
         dataType: "json",
         success: function (result) {
@@ -191,6 +183,15 @@ function categorysome() {
                 );
             });
             feather.replace();
+        }
+    });
+}
+
+window.onload = function () {
+    var search = document.getElementById("search");
+    search.addEventListener("keydown", function (e) {
+        if (e.keyCode === 13) {
+            some();
         }
     });
 }
@@ -234,7 +235,7 @@ function categoryupdate() {
         dataType: "json",
         success: function (result) {
             alert(["success", "You updated " + name + "'s settings!"]);
-            categoryrefresh();
+            refresh();
         }
     });
 }
