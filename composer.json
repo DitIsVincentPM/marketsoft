@@ -9,13 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-<<<<<<< HEAD
-        "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5"
-=======
         "consoletvs/charts": "6.*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -30,7 +23,6 @@
         "srmklive/paypal": "~1.0",
         "twbs/bootstrap": "^4.6",
         "zanysoft/laravel-zip": "^1.0"
->>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
     },
     "require-dev": {
         "facade/ignition": "^2.5",

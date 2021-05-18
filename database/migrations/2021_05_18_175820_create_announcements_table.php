@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKnowledgebaseTable extends Migration
+class CreateAnnouncementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateKnowledgebaseTable extends Migration
      */
     public function up()
     {
-        Schema::create('knowledgebase', function (Blueprint $table) {
+        Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->string('views');
-            $table->timestamp('created_at')->nullable();
+            $table->text('name');
+            $table->text('description');
+            $table->intger('views');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateKnowledgebaseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('knowledgebase');
+        Schema::dropIfExists('announcements');
     }
 }

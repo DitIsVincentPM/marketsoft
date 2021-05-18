@@ -1,24 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-=======
 use Illuminate\Support\Facades\Route;
 
 // Active Users
@@ -90,4 +71,3 @@ Route::group(['prefix' => 'knowledgebase'], function () {
     Route::post('/categories', 'App\Http\Controllers\Api\Controller@knowledgebasecategories')->name('api.knowledgebase.categorys');
     Route::post('/categories/search', 'App\Http\Controllers\Api\Controller@ticketcategoriessearch')->name('api.tickets.knowledgebase.search');
 });
->>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1

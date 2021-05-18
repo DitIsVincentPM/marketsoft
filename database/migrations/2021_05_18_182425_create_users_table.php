@@ -18,12 +18,17 @@ class CreateUsersTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('profile_picture')->default('/images/profile_pictures/default.jpg');
+            $table->string('email');
+            $table->timestamp('email_verified_at');
+            $table->string('profile_picture');
             $table->string('password');
-            $table->float('is_admin')->default(0);
-            $table->rememberToken();
+            $table->string('remember_token');
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->integer('is_banned');
+            $table->integer('status');
+            $table->string('discord_id');
+            $table->string('github_id');
+            $table->string('google_id');
             $table->timestamps();
         });
     }

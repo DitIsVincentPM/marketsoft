@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContactRequestsTable extends Migration
+class CreateProductCategorysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateContactRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contact_requests', function (Blueprint $table) {
+        Schema::create('product_categorys', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('email');
-            $table->string('description');
-            $table->timestamp('created_at')->nullable();
+            $table->string('name');
         });
     }
 
@@ -29,6 +26,6 @@ class CreateContactRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact_requests');
+        Schema::dropIfExists('product_categorys');
     }
 }
