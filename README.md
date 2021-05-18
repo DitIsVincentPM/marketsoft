@@ -2,6 +2,7 @@ The project isn't fully made yet so don't use this for production purposes we ar
 
 ## Installation
 > At this moment there is no installation made for the software currently there is been worked on.
+> Also if you try to install this the database migrations aren't made yet
 
 ## Contributing
 > Thank you for considering contributing to MarketSoft. If you want to contribute you just need to make your changes and make a pull request and then we will check if everything is right and we will add it!
