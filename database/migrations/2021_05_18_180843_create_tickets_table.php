@@ -17,9 +17,9 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->integer('priority');
+            $table->integer('priority')->default(0);
             $table->string('message');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->foreign('category')->references('id')->on('ticket_categories');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

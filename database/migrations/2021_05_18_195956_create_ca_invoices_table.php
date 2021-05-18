@@ -17,7 +17,7 @@ class CreateCaInvoicesTable extends Migration
             $table->id();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('paypal_id');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

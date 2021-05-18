@@ -19,7 +19,7 @@ class CreatePaymentGateawaysTable extends Migration
             $table->text('description');
             $table->string('image');
             $table->string('style');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

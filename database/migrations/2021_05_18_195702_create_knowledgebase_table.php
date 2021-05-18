@@ -17,9 +17,9 @@ class CreateKnowledgebaseTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->integer('views');
+            $table->integer('views')->default(0);
             $table->foreign('category_id')->references('id')->on('knowledgebase_categorys');
-            $table->integer('is_featured');
+            $table->integer('is_featured')->default(0);
             $table->timestamps();
         });
     }

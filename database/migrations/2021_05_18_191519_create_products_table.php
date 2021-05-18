@@ -21,9 +21,9 @@ class CreateProductsTable extends Migration
             $table->foreign('category')->references('id')->on('product_categorys');
             $table->integer('price');
             $table->integer('type');
-            $table->integer('purchases');
-            $table->integer('downloads');
-            $table->integer('views');
+            $table->integer('purchases')->default(0);
+            $table->integer('downloads')->default(0);
+            $table->integer('views');->default(0);
             $table->integer('status');
             $table->foreign('seller_id')->references('id')->on('users');
             $table->timestamps();

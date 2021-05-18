@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('remember_token');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->integer('is_banned');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->string('discord_id');
             $table->string('github_id');
             $table->string('google_id');

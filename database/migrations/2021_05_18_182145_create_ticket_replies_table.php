@@ -18,7 +18,7 @@ class CreateTicketRepliesTable extends Migration
             $table->string('message');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('ticket_id')->references('id')->on('tickets');
-            $table->integer('is_whipser');
+            $table->integer('is_whipser')->default(0);
             $table->timestamps();
         });
     }

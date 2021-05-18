@@ -17,7 +17,7 @@ class CreateCaOwnedProductsTable extends Migration
             $table->id();
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
