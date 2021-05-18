@@ -1,0 +1,179 @@
+/* Important Classes */
+
+body {
+    background-color: #161e2e !important;
+}
+
+
+/* Navigation Control */
+
+.nav-link {
+    text-decoration: none;
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    padding-right: 15px !important;
+}
+
+.nav-link:hover {
+    color: #ccc !important;
+}
+
+.dropdown-item {
+    color: #ccc !important;
+    font-weight: 600 !important;
+}
+
+.dropdown-item:hover {
+    color: #fff !important;
+    background-color: #28334a !important;
+}
+
+.dropdown-menu {
+    background-color: #212b40 !important;
+}
+
+
+/* Snartphone Responsiveness */
+
+.mobileShow {
+    display: none;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .mobileShow {
+        display: inline;
+    }
+}
+
+.mobileHide {
+    display: inline;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .mobileHide {
+        display: none;
+    }
+}
+
+
+/* Custom Buttons */
+
+.btn-main {
+    background-color: #146ef4 !important;
+    border-color: #146ef4 !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    font-size: 16px !important;
+}
+
+.btn-main:hover {
+    color: #ccc !important;
+    background-color: #0d5fd9 !important;
+    border-color: #0d5fd9 !important;
+}
+
+.btn-main-transparent {
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    margin-right: 10px !important;
+}
+
+.btn-main-transparent:hover {
+    color: #ccc !important;
+}
+
+
+/* Page Content Sections */
+
+.primary-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.secondary-section {
+    background-color: #146ef4 !important;
+}
+
+
+/* Text Colors */
+
+.text-main {
+    color: #146ef4 !important;
+}
+
+
+/* Page Headers */
+
+.register-header {
+    color: #ccc !important;
+    font-weight: 700 !important;
+}
+
+.home-header h1 {
+    text-align: center;
+    font-size: 45px !important;
+    color: #ccc;
+    font-weight: 700;
+}
+
+.home-header h1 span {
+    color: #146ef4 !important;
+}
+
+
+/* Form Control */
+
+.form-control {
+    background-color: #212b40 !important;
+    border-color: #212b40 !important;
+    color: #ccc !important;
+    font-weight: 550 !important;
+}
+
+.form-select {
+    background-color: #212b40 !important;
+    border-color: #212b40 !important;
+    color: #ccc !important;
+    font-weight: 550 !important;
+}
+
+.form-label {
+    color: #ccc !important;
+    font-weight: 550 !important;
+}
+
+.form-check-label {
+    color: #ccc !important;
+    font-weight: 550 !important;
+}
+
+
+/* Cards */
+
+.card {
+    background-color: #212b40 !important;
+}
+
+
+/* Pricing */
+
+.price-title {
+    color: #ccc;
+    font-weight: 650;
+    font-size: 1.8rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.price-month {
+    color: #fff !important;
+    font-weight: 700 !important;
+    font-size: 2.4rem;
+}
+
+.price-feature {
+    color: #ccc !important;
+    font-size: 1.2rem;
+}

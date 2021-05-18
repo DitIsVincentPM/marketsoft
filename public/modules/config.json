@@ -1,0 +1,29 @@
+{
+	"modules": [
+		{
+			"name":"Example",
+			"description":"This is an example module.",
+			"link":"http://marketsoft.io/modules/Example.zip"
+		},
+		{
+			"name":"Example2",
+			"description":"This is an example module.",
+			"link":"http://marketsoft.io/modules/Example.zip"
+		},
+		{
+			"name":"Example3",
+			"description":"This is an example module.",
+			"link":"http://marketsoft.io/modules/Example.zip"
+		},
+		{
+			"name":"Example4",
+			"description":"This is an example module.",
+			"link":"http://marketsoft.io/modules/Example.zip"
+		},
+		{
+			"name":"Example5",
+			"description":"This is an example module.",
+			"link":"http://marketsoft.io/modules/Example.zip"
+		}
+	]
+}
