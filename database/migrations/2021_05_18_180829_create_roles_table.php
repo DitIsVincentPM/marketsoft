@@ -21,6 +21,24 @@ class CreateRolesTable extends Migration
             $table->string('color');
             $table->timestamps();
         });
+
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Member',
+                'description' => 'The default role for all users.',
+                'icon' => 'cube',
+                'color' => '#010101',
+            )
+        );
+
+        DB::table('roles')->insert(
+            array(
+                'name' => 'Admin',
+                'description' => 'The default admin role for all users.',
+                'icon' => 'cube',
+                'color' => '#771200',
+            )
+        );
     }
 
     /**

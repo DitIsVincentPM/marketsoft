@@ -20,6 +20,70 @@ class CreatePermissionsTable extends Migration
             $table->text('desc');
             $table->timestamps();
         });
+
+        DB::table('permissions')->insert(
+            array(
+                'group' => 'Settings',
+                'key' => 'general',
+                'desc' => '0',
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'group' => 'Settings',
+                'key' => 'mail',
+                'desc' => '0',
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'group' => 'Settings',
+                'key' => 'modules',
+                'desc' => '0',
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'group' => 'Settings',
+                'key' => 'addon',
+                'desc' => '0',
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'group' => 'Settings',
+                'key' => 'theme',
+                'desc' => '0',
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'group' => 'Settings',
+                'key' => 'roles',
+                'desc' => '0',
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'group' => 'Admin',
+                'key' => 'View',
+                'desc' => '0',
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'group' => 'Settings',
+                'key' => 'legal',
+                'desc' => '0',
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'group' => 'Settings',
+                'key' => 'oauth2',
+                'desc' => '0',
+            )
+        );
     }
 
     /**
