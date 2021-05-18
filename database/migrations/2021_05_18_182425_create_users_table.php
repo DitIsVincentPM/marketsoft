@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at');
             $table->string('profile_picture');
             $table->string('password');
-            $table->string('remember_token');
+            $table->string('remember_token')->nullable()
             $table->foreign('role_id')->references('id')->on('roles');
             $table->integer('is_banned');
             $table->integer('status')->default(1);
