@@ -139,6 +139,10 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+<<<<<<< HEAD
+=======
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -189,7 +193,18 @@ return [
     */
 
     'aliases' => [
+<<<<<<< HEAD
 
+=======
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
+        'Settings' => App\Models\Database\Settings::class,
+        'Modules' => App\Models\Modules::class,
+        'Announcements' => App\Models\Announcements::class,
+        'Permission' => App\Models\PermissionCheck::class,
+        'Shorten' => App\Models\Shorten::class,
+        'ShoppingCart' => App\Models\ShoppingCart::class,
+        'Products' => App\Models\Products::class,
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

@@ -14,6 +14,11 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
+<<<<<<< HEAD
+=======
+        $response = $this->get('/');
+
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
         $response->assertStatus(200);
     }
 }

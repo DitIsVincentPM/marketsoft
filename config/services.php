@@ -30,4 +30,23 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+<<<<<<< HEAD
+=======
+    'discord' => [    
+        'client_id' => env('DISCORD_CLIENT_ID'),  
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),  
+        'redirect' => 'https://dev.marketsoft.io/discord/callback',
+    ],
+
+    'google' => [    
+        'client_id' => env('GOOGLE_CLIENT_ID'),  
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),  
+        'redirect' => 'https://dev.marketsoft.io/google/callback' 
+    ],
+    'github' => [    
+        'client_id' => env('GITHUB_CLIENT_ID'),  
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),  
+        'redirect' => 'https://dev.marketsoft.io/github/callback' 
+    ],
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
 ];

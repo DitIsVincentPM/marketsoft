@@ -38,6 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+<<<<<<< HEAD
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
@@ -46,6 +47,27 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+=======
+            Route::middleware('web', 'isbanned')->prefix('/')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/base.php'));
+
+            Route::middleware('web', 'isbanned')->prefix('/')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/auth.php'));
+
+            Route::middleware('web', 'isbanned')->prefix('/')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/modules.php'));
+
+            Route::middleware('admin', 'web', 'isbanned')->prefix('/admin')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/admin.php'));
+                
+            Route::middleware('web')->prefix('/api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/api.php'));
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
         });
     }
 
@@ -56,8 +78,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting()
     {
+<<<<<<< HEAD
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
+=======
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
     }
 }

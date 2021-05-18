@@ -3,6 +3,10 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+<<<<<<< HEAD
+=======
+use \App\Http\Middleware\AuthenticateAdmin;
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
 
 class Kernel extends HttpKernel
 {
@@ -18,6 +22,10 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+<<<<<<< HEAD
+=======
+        \Illuminate\Session\Middleware\StartSession::class,
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
@@ -32,6 +40,7 @@ class Kernel extends HttpKernel
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+<<<<<<< HEAD
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
@@ -39,6 +48,15 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
+=======
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+        'admin' => [
+            AuthenticateAdmin::class,
+        ],
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
         'api' => [
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -54,6 +72,12 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+<<<<<<< HEAD
+=======
+        'admin' => \App\Http\Middleware\AuthenticateAdmin::class,
+        'isbanned' => \App\Http\Middleware\IsBanned::class,
+        'modules' => \App\Http\Middleware\Modules::class,
+>>>>>>> 15ae9d615294e6b7453c1599909432246ab139a1
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
