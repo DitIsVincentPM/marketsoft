@@ -20,15 +20,15 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->timestamp('email_verified_at');
-            $table->string('profile_picture');
+            $table->string('profile_picture')->nullable();
             $table->string('password');
-            $table->string('remember_token')->nullable()
-            $table->foreign('role_id')->references('id')->on('roles');
-            $table->integer('is_banned');
+            $table->string('remember_token')->nullable();
+            $table->foreignId('role_id')->constrained('roles')->nullable();
+            $table->integer('is_banned')->default(0);
             $table->integer('status')->default(1);
-            $table->string('discord_id');
-            $table->string('github_id');
-            $table->string('google_id');
+            $table->string('discord_id')->nullable();
+            $table->string('github_id')->nullable();
+            $table->string('google_id')->nullable();
             $table->timestamps();
         });
     }

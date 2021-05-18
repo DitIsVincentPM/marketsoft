@@ -15,10 +15,10 @@ class CreateProductSectionsTable extends Migration
     {
         Schema::create('product_sections', function (Blueprint $table) {
             $table->id();
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreignId('product_id')->constrained('products');
             $table->string('name');
             $table->text('content');
-            $table->string('type');
+            $table->string('type')->default(0);
             $table->integer('order');
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ class CreateCaInvoicesTable extends Migration
     {
         Schema::create('ca_invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('paypal_id');
             $table->integer('status')->default(0);
             $table->timestamps();

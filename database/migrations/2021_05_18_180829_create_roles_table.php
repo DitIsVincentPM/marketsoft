@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketsCategoriesTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateTicketsCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tickets_categories', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->text('description')->nullable();
+            $table->string('icon');
+            $table->string('color');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateTicketsCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets_categories');
+        Schema::dropIfExists('roles');
     }
 }

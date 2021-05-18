@@ -17,7 +17,7 @@ class CreateAnnouncementsTable extends Migration
             $table->id();
             $table->text('name');
             $table->text('description');
-            $table->intger('views')->default(0);
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }

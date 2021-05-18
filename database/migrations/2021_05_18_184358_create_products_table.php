@@ -18,14 +18,14 @@ class CreateProductsTable extends Migration
             $table->string('logo');
             $table->string('name');
             $table->text('description');
-            $table->foreign('category')->references('id')->on('product_categorys');
+            $table->foreignId('category')->constrained('product_categorys');
             $table->integer('price');
             $table->integer('type');
             $table->integer('purchases')->default(0);
             $table->integer('downloads')->default(0);
-            $table->integer('views');->default(0);
+            $table->integer('views')->default(0);
             $table->integer('status');
-            $table->foreign('seller_id')->references('id')->on('users');
+            $table->foreignId('seller_id')->constrained('users');
             $table->timestamps();
         });
     }

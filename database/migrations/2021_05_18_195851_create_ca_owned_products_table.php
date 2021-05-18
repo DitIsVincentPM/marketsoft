@@ -15,8 +15,8 @@ class CreateCaOwnedProductsTable extends Migration
     {
         Schema::create('ca_ownedProducts', function (Blueprint $table) {
             $table->id();
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('user_id')->constrained('users');
             $table->integer('status')->default(0);
             $table->timestamps();
         });
