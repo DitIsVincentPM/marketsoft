@@ -41,7 +41,14 @@ class InstallationController extends BaseController
         DB::table('settings')->where('key', 'CompanyName')->update([
             'value' => $request->input('companyname'),
         ]);
-        Auth::loginUsingId(1, true);
+        $credentials = array(
+            'email'     => $request->input('email'),
+            'password'  => $password
+        );
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+        }
         return redirect()->route('index');
     }
 }
