@@ -139,6 +139,7 @@ server {
 
 Restart Nginx 
 ```
+rm -rf /etc/nginx/sites-enabled/default & rm -rf /etc/nginx/sites-available/default 
 sudo ln -s /etc/nginx/sites-available/marketsoft.conf /etc/nginx/sites-enabled/marketsoft.conf
 service nginx restart
 ```
@@ -221,6 +222,7 @@ certbot certonly --nginx -d example.com
 
 Restart Nginx 
 ```
+rm -rf /etc/nginx/sites-enabled/default & rm -rf /etc/nginx/sites-available/default 
 sudo ln -s /etc/nginx/sites-available/marketsoft.conf /etc/nginx/sites-enabled/marketsoft.conf
 service nginx restart
 ```
