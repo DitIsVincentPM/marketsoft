@@ -104,7 +104,7 @@ Then put the code below in the file you just created and change the DOMAIN to yo
 ```
 server {
     listen 80;
-    server_name <domain>;
+    server_name DOMAIN;
 
     root /var/www/MarketSoft/public;
     index index.html index.htm index.php;
