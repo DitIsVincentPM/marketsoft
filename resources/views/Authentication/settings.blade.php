@@ -102,29 +102,17 @@ User Settings
                 <button onClick="window.location.href=window.location.href" type="submit" class="btn btn-primary w-100">Submit</button>
             </div>
         </div>
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-3 text-center">
             <div class="box">
                 <div class="box-body">
-                    <img class="account-settings-users-profile profile-picture" src="{{ Auth::user()->profile_picture }}">
+                    <img style="height: 250px" class="account-settings-users-profile profile-picture" src="{{ Auth::user()->profile_picture }}">
                 </div>
             </div>
             @csrf
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-offset-2 col-sm-12"><br>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" style="height: 40px!important;" class="market-form-input form-control" readonly>
-                                <div class="input-group-btn">
-                                    <span class="fileUpload btn btn-primary">
-                                        <span class="upl" id="upload">Upload</span>
-                                        <input type="file" name="picture" class="upload up" accept='image/*' id="up" onchange="readURL(this);" />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <br>
+            <div class="custom-file">
+                <input name="picture" type="file" class="custom-file-input" id="customFile">
+                <label style="text-align: left !important;" class="custom-file-label" for="customFile">Choose File</label>
             </div>
         </div>
     </div>

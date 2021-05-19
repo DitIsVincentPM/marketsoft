@@ -26,6 +26,8 @@ class InstallationController extends BaseController
         if(Settings::key('Installed') == 1) {
             return redirect()->route('index');
         }
+        
+
         $password = Hash::make($request->input('password'));
         DB::table('users')->insert([
             'firstname' => $request->input('firstname'),
@@ -41,14 +43,28 @@ class InstallationController extends BaseController
         DB::table('settings')->where('key', 'CompanyName')->update([
             'value' => $request->input('companyname'),
         ]);
+
+        
         $credentials = array(
             'email'     => $request->input('email'),
-            'password'  => $password
+            'password'  => $request->input('password')
         );
-
+        
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
         }
+
+        $image = $request->file('profile');
+        if (isset($image)) {
+            $new_name = Auth::user()->id . '.' . $image->getClientOriginalExtension();
+
+            $image->move(public_path('images/profile_pictures'), $new_name);
+        }
+
+        DB::table('users')->where('id', '=', Auth::user()->id)->update([
+            'profile_picture' => '/images/profile_pictures/' . $new_name,
+        ]);
+
         return redirect()->route('index');
     }
 }

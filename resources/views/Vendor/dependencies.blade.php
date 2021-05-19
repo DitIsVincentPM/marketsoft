@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/themes/default/css/adminlte.min.css">
 <script src="/vendor/jquery/jquery.js"></script>
+<script src="/js/bs-custom-file-input.min.js"></script>
 <script src="/vendor/jquery-ui/jquery-ui.js"></script>
 <link rel="stylesheet" href="/themes/default/css/adminlte.min.css">
 <script src="/vendor/chart.js/Chart.min.js"></script>

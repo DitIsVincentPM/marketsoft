@@ -8,7 +8,6 @@ Route::group(['prefix' => 'settings'], function () {
 
 // Frotend Login
 Route::group(['prefix' => 'login'], function () {
-    Route::get('/', 'App\Http\Controllers\AuthController@Login')->name('login');
     Route::get('/', 'App\Http\Controllers\AuthController@Login')->name('auth.login');
     Route::post('/', 'App\Http\Controllers\AuthController@loginuser')->name('auth.login.new');
 });
