@@ -49,7 +49,6 @@ class CreateSettingsTable extends Migration
                 'key' => 'GoogleStatus',
             )
         );
-<<<<<<< HEAD
         DB::table('settings')->insert(
             array(
                 'value' => 'Nothing',
@@ -62,11 +61,13 @@ class CreateSettingsTable extends Migration
                 'key' => 'SupportMail',
             )
         );
+        DB::table('settings')->insert(
+            array(
+                'value' => 'Installed',
+                'key' => '0',
+            )
+        );
     }
-=======
-    }
-
->>>>>>> c8d33c0b61c122a246ada53730a08f0b631e470a
     /**
      * Reverse the migrations.
      *
