@@ -229,6 +229,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="/admin/settings#product" id="tab-button" data-name="product" onclick="change('product')" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Product Settings</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/admin/settings#mail" id="tab-button" data-name="mail" onclick="change('mail')" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Mail Settings</p>
@@ -276,6 +282,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
 
         <div class="content">
@@ -314,6 +321,7 @@
         })
     });
 </script>
+
 <script>
     feather.replace()
 

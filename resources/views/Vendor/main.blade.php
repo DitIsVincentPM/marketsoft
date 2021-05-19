@@ -131,7 +131,7 @@
                             @endforeach
                             @endforeach
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See shoppingcart.</a>
+                            <a href="{{ route('shoppingcart.index') }}" class="dropdown-item dropdown-footer">See shoppingcart.</a>
                         </div>
                     </li>
                     @if (Auth::check())

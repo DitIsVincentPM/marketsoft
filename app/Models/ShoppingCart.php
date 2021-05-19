@@ -7,11 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use PayPal;
 use Request;
 use Shorten;
+use Auth;
+use Settings;
 
 class ShoppingCart extends Model
 {
     public static function GetShoppingCart() {
         $shoppingcart_items = DB::table('shoppingcart')->where('ip', Request::ip())->get();
+        return $shoppingcart_items;
+    }
+
+    public static function CountCart() {
+        $shoppingcart_items = DB::table('shoppingcart')->where('ip', Request::ip())->count();
         return $shoppingcart_items;
     }
 
@@ -84,23 +91,30 @@ class ShoppingCart extends Model
                     $data['items'][$index]["name"] = Shorten::string($product->name, 40);
                     $data['items'][$index]["price"] = $product->price;
                     $data['items'][$index]["desc"] = Shorten::string($product->description, 40);
-                    $data['items'][$index]["qty"] = 1;
+                    $data['items'][$index]["qty"] = $item->qty;
                 }
             }
             $index++;
         }
 
-        $data['invoice_description'] = "Invoice #$invoice_id";
-        $data['return_url'] = url('/');
-        $data['cancel_url'] = url('/');
-        $data['invoice_id'] = $invoice_id;
-
         $total = 0;
         foreach ($data['items'] as $item) $total += $item['price'] * $item['qty'];
         $data['total'] = $total;
 
+        $data['brand_name'] = Settings::key('CompanyName');
+        $data['invoice_description'] = Settings::key('CompanyName');
+        $data['return_url'] = url('/shoppingcart/callback');
+        $data['cancel_url'] = url('/shoppingcart/status?status=canceld');
+        $data['invoice_id'] = $invoice_id;
+
+        DB::table('ca_invoices')->insert([
+            'id' => $invoice_id,
+            'user_id' => Auth::user()->id,
+            'status' => 0,
+        ]);
+
         $response = $provider->setExpressCheckout($data);
 
-        return redirect($response['paypal_link']);
+        return $response['paypal_link'];
     }
 }

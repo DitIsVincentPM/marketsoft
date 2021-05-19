@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use DB;
 use Auth;
+use App\Events\RealTimeMessage as Message;
 
 class IndexController extends BaseController
 {
@@ -17,6 +18,8 @@ class IndexController extends BaseController
     {
         $products = DB::table('products')->latest()->paginate(4);
         $announcements = DB::table('announcements')->latest()->paginate(2);
+
+        event(new Message('Hello World'));
 
         return view('index', [
             'products' => $products,

@@ -79,6 +79,7 @@ class AuthController
             'name' => $name,
             'email' => $email,
             'password' => $password,
+            'role_id' => 1,
         ]);
 
         return redirect()->route('auth.register')->with('success', "You have successfully registered your account!");

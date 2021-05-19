@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+<?php 
+
+Broadcast::channel('events', function ($user) {
+    return true;
+});
+=======
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
@@ -16,3 +23,4 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+>>>>>>> c8d33c0b61c122a246ada53730a08f0b631e470a

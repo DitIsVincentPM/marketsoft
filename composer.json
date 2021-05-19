@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "beyondcode/laravel-websockets": "^1.11",
         "consoletvs/charts": "6.*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -17,6 +18,7 @@
         "laravel/framework": "^8.12",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
+        "pusher/pusher-php-server": "^5.0",
         "socialiteproviders/discord": "^4.1",
         "socialiteproviders/github": "^4.1",
         "socialiteproviders/google": "^4.1",

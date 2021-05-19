@@ -50,6 +50,7 @@ class SettingsController extends BaseController
         $role_perms = DB::table('role_permissions')->get();
         $tos_sections = DB::table('tos_sections')->latest()->get();
         $privacy_sections = DB::table('privacy_sections')->latest()->get();
+        $payment_gateways = DB::table('payment_gateaways')->get();
 
         return view('Admin.settings', [
             'themes' => $themes,
@@ -58,6 +59,7 @@ class SettingsController extends BaseController
             'version' => $version,
             'check' => $check,
             'permissions' => $permissions,
+            'payment_gateways' => $payment_gateways,
             'icons' => $icons,
             'roles' => $roles,
             'role_perms' => $role_perms,
@@ -103,6 +105,22 @@ class SettingsController extends BaseController
         return redirect('/admin/settings#general')->with('success', "You successful updated the settings!");
     }
 
+    public function updataproductsettings(Request $request)
+    {
+        DB::table('settings')->where('key', 'ProductNotice')->update([
+            'value' => $request->input('notice'),
+        ]);
+
+        $prod = DB::table('payment_gateaways')->get();
+        foreach($prod as $item) {
+            DB::table('payment_gateaways')->where('id', $item->id)->update([
+                'status' => $request->input('ga-' . $item->id),
+            ]);
+        }
+
+        return redirect('/admin/settings#product')->with('success', "You successful updated the product settings!");
+    }
+    
     public function CreateRole(Request $request)
     {
         $name = $request->input('name');

@@ -20,7 +20,7 @@
 <?php $__env->startSection('content'); ?>
     <div class="primary-section">
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-sm-12 col-md-12 col-lg-3">
                 <div class="card mb-3">
                     <div class="card-body">
                         <label for="customRange1" class="form-label mb-0">Price Range:</label>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-sm-12 col-md-12 col-lg-9">
                 <div class="row mb-4">
                     <div class="col-12">
                         <input type="text" class="form-control" placeholder="Search...">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <div class="col-6">
+                        <div class="col-sm-12 col-md-12 col-lg-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">

@@ -3,73 +3,79 @@
 
 
 <?php $__env->startSection('title'); ?>
-Admin
+    Admin
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('header-title'); ?>
-Settings
+    Settings
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('header-breadcrumb'); ?>
-<ol class="pull-right market-breadcrumb breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Admin</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Settings</li>
-</ol>
+    <ol class="pull-right market-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Settings</li>
+    </ol>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-        <div class="alert <?php echo e($version[1]); ?>" role="alert">
-            <?php echo e($version[0]); ?>
+    <div class="alert <?php echo e($version[1]); ?>" role="alert">
+        <?php echo e($version[0]); ?>
 
+    </div>
+    
+    <?php if($check[0] == true): ?>
+        <div style="display: block;" id="tab-content" data-name="general">
+            <?php echo $__env->make('Admin.Vendor.Settings.general', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
-        
-        <?php if($check[0] == true): ?>
-            <div style="display: block;" id="tab-content" data-name="general">
-                <?php echo $__env->make('Admin.Vendor.Settings.general', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </div>
-        <?php endif; ?>
+    <?php endif; ?>
 
-        
-        <?php if($check[1] == true): ?>
-            <div style="display: none;" id="tab-content" data-name="mail">
-                <?php echo $__env->make('Admin.Vendor.Settings.mail', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </div>
-        <?php endif; ?>
+    
+    <div style="display: block;" id="tab-content" data-name="product">
+        <?php echo $__env->make('Admin.Vendor.Settings.product', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    </div>
 
-        
-        <?php if($check[2] == true): ?>
-            <div style="display: none;" id="tab-content" data-name="modules">
-                <?php echo $__env->make('Admin.Vendor.Settings.modules', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </div>
-        <?php endif; ?>
+    
+    <?php if($check[1] == true): ?>
+        <div style="display: none;" id="tab-content" data-name="mail">
+            <?php echo $__env->make('Admin.Vendor.Settings.mail', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        </div>
+    <?php endif; ?>
 
-        
-        <?php if($check[5] == true): ?>
-            <div style="display: none;" id="tab-content" data-name="roles">
-                <?php echo $__env->make('Admin.Vendor.Settings.roles', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </div>
-        <?php endif; ?>
+    
+    <?php if($check[2] == true): ?>
+        <div style="display: none;" id="tab-content" data-name="modules">
+            <?php echo $__env->make('Admin.Vendor.Settings.modules', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        </div>
+    <?php endif; ?>
 
-        
-        <?php if($check[6] == true): ?>
-            <div style="display: none;" id="tab-content" data-name="legal">
-                <?php echo $__env->make('Admin.Vendor.Settings.legal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </div>
-        <?php endif; ?>
+    
+    <?php if($check[5] == true): ?>
+        <div style="display: none;" id="tab-content" data-name="roles">
+            <?php echo $__env->make('Admin.Vendor.Settings.roles', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        </div>
+    <?php endif; ?>
 
-        
-        <?php if($check[7] == true): ?>
-            <div style="display: none;" id="tab-content" data-name="oauth2">
-                <?php echo $__env->make('Admin.Vendor.Settings.oauth2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </div>
-        <?php endif; ?>
-<script>
-    $('#icons').change(function() {
-        opt = $(this).val();
-        $('#msgbox').attr("data-feather", opt);
-        feather.replace();
-    })
-</script>
+    
+    <?php if($check[6] == true): ?>
+        <div style="display: none;" id="tab-content" data-name="legal">
+            <?php echo $__env->make('Admin.Vendor.Settings.legal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        </div>
+    <?php endif; ?>
+
+    
+    <?php if($check[7] == true): ?>
+        <div style="display: none;" id="tab-content" data-name="oauth2">
+            <?php echo $__env->make('Admin.Vendor.Settings.oauth2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        </div>
+    <?php endif; ?>
+    <script>
+        $('#icons').change(function() {
+            opt = $(this).val();
+            $('#msgbox').attr("data-feather", opt);
+            feather.replace();
+        })
+
+    </script>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('scripts'); ?>

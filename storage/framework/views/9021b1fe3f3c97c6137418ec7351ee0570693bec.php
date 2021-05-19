@@ -12,7 +12,7 @@ Support Tickets
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('header-breadcrumb'); ?>
-<ol class="justify-content-center market-breadcrumb breadcrumb">
+<ol class="pull-right market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Support Tickets</li>
 </ol>

@@ -26,11 +26,20 @@ class ProductsController
     {
         $product = Products::where('id', $id)->first();
 
-        if($product == NULL) {
+        if ($product == null) {
             return redirect()->route('index')->with('error', 'Oops! It seems that this product does not exist.');
         }
 
         $user = DB::table('users')->where('id', $product->seller_id)->first();
+
+        // Cookie Check
+        $cookie = 'product-' . $id;
+        if (!$request->session()->has($cookie)) {
+            DB::table('products')->where('id', $id)->update([
+                'views' => $product->views + 1,
+            ]);
+            $request->session()->put($cookie, '1');
+        }
 
         return view('Products.view', [
             'product' => $product,
@@ -53,5 +62,4 @@ class ProductsController
 
         return redirect()->back()->with('success', "$product->name is added from your shoppingcart.");
     }
-
 }

@@ -78,18 +78,8 @@
                     <span class="info-box-text">Open Tickets</span>
                     <span class="info-box-number"><?php echo e(DB::table('tickets')->where('status', '!=', 3)->count()); ?></span>
                     <div class="progress">
-                        <div class="progress-bar bg-info" style="width: <?php echo e((DB::table('tickets')->where('status', '!=', 3)->count() /
-    DB::table('tickets')->count()) *
-    100); ?>%"></div>
+                        <div class="progress-bar bg-info" <?php if(DB::table('tickets')->where('status', '!=', 3)->count() != 0): ?>style="width: <?php echo e((DB::table('tickets')->where('status', '!=', 3)->count() /DB::table('tickets')->count()) * 100); ?>%"<?php endif; ?>></div>
                     </div>
-                    <span class="progress-description">
-                        <?php echo e(round(
-    (DB::table('tickets')->where('status', '!=', 3)->count() /
-        DB::table('tickets')->count()) *
-        100,
-    0,
-)); ?>% of the total tickets
-                    </span>
                 </div>
             </div>
         </div>

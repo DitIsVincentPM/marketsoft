@@ -132,7 +132,7 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See shoppingcart.</a>
+                            <a href="<?php echo e(route('shoppingcart.index')); ?>" class="dropdown-item dropdown-footer">See shoppingcart.</a>
                         </div>
                     </li>
                     <?php if(Auth::check()): ?>
