@@ -45,7 +45,8 @@ cd /var/www/MarketSoft
 Here we download all the filles.
 ```
 curl -Lo marketsoft.tar.gz https://github.com/DitIsVincentPM/marketsoft/archive/refs/tags/0.7.9.tar.gz
-tar -xzvf marketsoft.tar.gz -C /var/www/MarketSoft
+tar -xzvf marketsoft.tar.gz
+mv marketsoft-0.7.9 ..
 chmod -R 755 storage/* bootstrap/cache/
 ```
 
@@ -56,7 +57,6 @@ Now we are gonna configure the Composer
 cp .env.example .env
 composer install --no-dev --optimize-autoloader
 php artisan key:generate
-php artisan p:environment:setup
 ```
 
 # Step 5 
@@ -74,9 +74,10 @@ GRANT ALL PRIVILEGES ON MarketSoft.* TO 'marketsoft'@'127.0.0.1' WITH GRANT OPTI
 FLUSH PRIVILEGES;
 ``` 
 
+Open the .env file and fill in the information
+
 Setup database for MarketSoft
 ```
-php artisan p:environment:database
 php artisan migrate --seed --force
 ```
 
