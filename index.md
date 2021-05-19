@@ -90,7 +90,8 @@ apt install nginx
 Okay now we will begin to setup a config.
 ```
 cd /etc/nginx/sites-available
-mkdir marketsoft.conf
+apt install nano
+nano marketsoft.conf
 ```
 
 Then put the code below in the file you just created and change the DOMAIN to your domain.
