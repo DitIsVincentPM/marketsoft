@@ -57,6 +57,7 @@ chmod -R 755 storage/* bootstrap/cache/
 
 Now we are gonna configure the Composer
 ```
+cd /var/www/MarketSoft 
 cp .env.example .env
 composer install --no-dev --optimize-autoloader
 php artisan key:generate
