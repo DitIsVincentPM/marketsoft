@@ -4,6 +4,9 @@ Please, Follow all the steps below this will
 tell you how to install the full software.
 `Note: Please do not use MarketSoft for production purposes it's still in development.`
 
+# Supported Os
+Ubuntu 18.04-20.04
+
 ## Step 1
 
 This will install the add-apt-repository command and update apt.
