@@ -49,17 +49,10 @@ class PermissionCheck extends Model
 
     public static function is_admin($roleid)
     {
-        $role_permissions = DB::table('role_permissions')->get();
-        $roles = DB::table('roles')->get();
+        $role_permissions = DB::table('role_permissions')->where('role_id', $roleid)->where('permission_id', 7)->get();
 
-        foreach ($roles as $role) {
-            if ($roleid == $role->id) {
-                foreach ($role_permissions as $perm) {
-                    if ($role->id == $perm->role_id && $perm->permission_id == 10) {
-                        return true;
-                    }
-                }
-            }
+        if ($role_permissions != null) {
+            return true;
         }
 
         return false;
