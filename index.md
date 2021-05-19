@@ -45,8 +45,7 @@ cd /var/www/MarketSoft
 Here we download all the filles.
 ```
 curl -Lo marketsoft.tar.gz https://github.com/DitIsVincentPM/marketsoft/archive/refs/tags/0.7.9.tar.gz
-tar -xzvf marketsoft.tar.gz
-mv marketsoft-0.7.9 ..
+tar -xzvf marketsoft.tar.gz & cd marketsoft-0.7.9 && mv * /var/www/MarketSoft && cd ** && rm -rf marketsoft-0.7.9 && rm -rf marketsoft.tar.gz
 chmod -R 755 storage/* bootstrap/cache/
 ```
 
