@@ -27,7 +27,9 @@ apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm
 # Step 2
 
 Now we are gonna install composer. Composer is the system laravel uses for packages.
-```curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer```
+```
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+```
 
 # Step 3
 
