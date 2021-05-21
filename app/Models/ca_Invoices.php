@@ -5,9 +5,9 @@ namespace App\Models;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Announcements extends Model
+class ca_Invoices extends Model
 {
-    protected $table = 'announcements';
+    protected $table = 'ca_invoices';
     protected $primaryKey = 'id';
     public $incrementing = true;
 }

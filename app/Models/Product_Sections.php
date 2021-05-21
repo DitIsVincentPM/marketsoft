@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models\Database;
+namespace App\Models;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Database\Product_Categorys;
 

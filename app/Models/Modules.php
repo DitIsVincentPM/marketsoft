@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\File;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 class Modules extends Model
 {
-    public static function get()
-    {
-        $modules = DB::table('modules')->where('type', '1')->get();
-    
-        return $modules;
-    }
-
+    protected $table = 'modules';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
 }

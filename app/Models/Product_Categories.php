@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Models\Database;
+namespace App\Models;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Product_Categorys extends Model
+class Product_Categories extends Model
 {
     protected $table = 'product_categorys';
     protected $primaryKey = 'id';

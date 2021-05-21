@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Announcements extends Model
+class Product_Images extends Model
 {
-    protected $table = 'announcements';
+    protected $table = 'product_images';
     protected $primaryKey = 'id';
     public $incrementing = true;
 }

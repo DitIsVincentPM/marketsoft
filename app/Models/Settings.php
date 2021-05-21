@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Models\Database;
+namespace App\Models;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Roles extends Model
+class Settings extends Model
 {
-    protected $table = 'roles';
+    protected $table = 'settings';
     protected $primaryKey = 'id';
     public $incrementing = true;
 }

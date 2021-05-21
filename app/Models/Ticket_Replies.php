@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Models\Database;
+namespace App\Models;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Product_Images extends Model
+class Ticket_Replies extends Model
 {
-    protected $table = 'product_images';
+    protected $table = 'ticket_replies';
     protected $primaryKey = 'id';
     public $incrementing = true;
 }

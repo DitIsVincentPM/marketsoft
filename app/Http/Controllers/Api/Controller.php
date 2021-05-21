@@ -4,13 +4,23 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use DB;
-use Log;
-use Auth;
 use Rainwater\Active\Active as Active;
-use Settings;
-use App\Models\Env;
-use Products;
+use App\Helpers\Env;
+use App\Models\Users;
+use App\Models\Tickets;
+use App\Models\Ticket_Categories;
+use App\Models\Ticket_Replies;
+use App\Models\Roles;
+use App\Models\Role_Permissions;
+use App\Models\Products;
+use App\Models\Product_Images;
+use App\Models\Product_Sections;
+use App\Models\Product_Categories;
+use App\Models\Announcements;
+use App\Models\Settings;
+use App\Models\Knowledgebase;
+use App\Models\Knowledgebase_Categories;
+use App\Helpers\Settings as SettignsHelper;
 use Hash;
 
 class Controller extends BaseController
@@ -20,19 +30,19 @@ class Controller extends BaseController
     public function user(Request $request)
     {
         $id = $request->get('id');
-        return json_encode(DB::table('users')->where('id', $id)->first());
+        return json_encode(Users::where('id', $id)->first());
     }
 
     public function users(Request $request)
     {
         $id = $request->get('query');
-        return json_encode(DB::table('users')->orWhere('id', 'like', "%{$id}%")->orWhere('name', 'like', "%{$id}%")->orWhere('firstname', 'like', "%{$id}%")->orWhere('lastname', 'like', "%{$id}%")->orWhere('email', 'like', "%{$id}%")->get());
+        return json_encode(Users::orWhere('id', 'like', "%{$id}%")->orWhere('name', 'like', "%{$id}%")->orWhere('firstname', 'like', "%{$id}%")->orWhere('lastname', 'like', "%{$id}%")->orWhere('email', 'like', "%{$id}%")->get());
     }
 
     public function usersedit(Request $request)
     {
         $id = $request->get('id');
-        DB::table('users')->where('id', $id)->update([
+        Users::where('id', $id)->update([
             'firstname' => $request->get('firstname'),
             'lastname' => $request->get('lastname'),
             'name' => $request->get('name'),
@@ -48,7 +58,7 @@ class Controller extends BaseController
         $password = $request->get('password1');
         $password = Hash::make($password);
 
-        DB::table('users')->insert([
+        Users::insert([
             'firstname' => $request->get('firstname'),
             'lastname' => $request->get('lastname'),
             'name' => $request->get('name'),
@@ -66,29 +76,29 @@ class Controller extends BaseController
     public function ticketcomments(Request $request)
     {
         $id = $request->get('id');
-        return json_encode(DB::table('ticket_replies')->where('ticket_id', $id)->latest()->get());
+        return json_encode(Ticket_Replies::where('ticket_id', $id)->latest()->get());
     }
 
     public function tickets(Request $request)
     {
-        return json_encode(DB::table('tickets')->get());
+        return json_encode(Tickets::get());
     }
 
     public function ticketssearch(Request $request)
     {
         $id = $request->get('query');
-        return json_encode(DB::table('tickets')->orWhere('name', 'like', "%{$id}%")->orWhere('email', 'like', "%{$id}%")->get());
+        return json_encode(Tickets::orWhere('name', 'like', "%{$id}%")->orWhere('email', 'like', "%{$id}%")->get());
     }
 
     public function ticketcategorys(Request $request)
     {
-        return json_encode(DB::table('ticket_categories')->get());
+        return json_encode(Ticket_Categories::get());
     }
 
     public function ticketcategoryssearch(Request $request)
     {
         $id = $request->get('query');
-        return json_encode(DB::table('ticket_categories')->orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get());
+        return json_encode(Ticket_Categories::orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get());
     }
 
     public function ticketcategorycreate(Request $request)
@@ -96,7 +106,7 @@ class Controller extends BaseController
         $name = $request->get('name');
         $description = $request->get('description');
 
-        DB::table('ticket_categories')->insert([
+        Ticket_Categories::insert([
             'name' => $name,
             'description' => $description,
         ]);
@@ -104,7 +114,7 @@ class Controller extends BaseController
 
     public function ticketcategoryget(Request $request)
     {
-        return json_encode(DB::table('ticket_categories')->where('id', $request->get('id'))->first());
+        return json_encode(Ticket_Categories::where('id', $request->get('id'))->first());
     }
 
     public function ticketcategoryupdate(Request $request)
@@ -113,7 +123,7 @@ class Controller extends BaseController
         $name = $request->get('name');
         $description = $request->get('description');
 
-        DB::table('ticket_categories')->where('id', $id)->update([
+        Ticket_Categories::where('id', $id)->update([
             'name' => $name,
             'description' => $description,
         ]);
@@ -124,11 +134,11 @@ class Controller extends BaseController
     // Roles API
     public function roles(Request $request)
     {
-        return json_encode(DB::table('roles')->get());
+        return json_encode(Roles::get());
     }
     public function role(Request $request)
     {
-        return json_encode(DB::table('roles')->where('id', $request->get('id'))->first());
+        return json_encode(Roles::where('id', $request->get('id'))->first());
     }
 
     public function activeusers(Request $request)
@@ -147,17 +157,17 @@ class Controller extends BaseController
 
     public function products_categorys()
     {
-        return json_encode(DB::table('product_categorys')->get());
+        return json_encode(Product_Categories::get());
     }
 
     public function products_images()
     {
-        return json_encode(DB::table('product_images')->get());
+        return json_encode(Product_Images::get());
     }
 
     public function products_sections()
     {
-        return json_encode(DB::table('product_sections')->orderBy('order')->get());
+        return json_encode(Product_Sections::orderBy('order')->get());
     }
 
     public function products_edit(Request $request)
@@ -183,9 +193,9 @@ class Controller extends BaseController
         for ($i = 0; $i < count($request->get('sections')); $i++) {
             $array = $request->get('sections');
             if ($array[$i]["name"] == "del") {
-                DB::table('product_sections')->where('id', $array[$i]["id"])->delete();
+                Product_Sections::where('id', $array[$i]["id"])->delete();
             } elseif($array[$i]["id"] == "null"){
-                DB::table('product_sections')->insert([
+                Product_Sections::insert([
                     'product_id' => $id,
                     'name' => $array[$i]["name"],
                     'content' => $array[$i]["content"],
@@ -193,7 +203,7 @@ class Controller extends BaseController
                     'order' => $i,
                 ]);
             } else {
-                DB::table('product_sections')->where('id', $array[$i]["id"])->update([
+                Product_Sections::where('id', $array[$i]["id"])->update([
                     'product_id' => $id,
                     'name' => $array[$i]["name"],
                     'content' => $array[$i]["content"],
@@ -209,32 +219,32 @@ class Controller extends BaseController
     // OAuth2 API
     public function oauth2_status(Request $request) {
         if ($request->get('oauth2') == "google") {
-            if (Settings::key('GoogleStatus') == 1) {
-                DB::table('settings')->where('key', "GoogleStatus")->update([
+            if (SettignsHelper::key('GoogleStatus') == 1) {
+                Settings::where('key', "GoogleStatus")->update([
                     'value' => 0,
                 ]);
             } else {
-                DB::table('settings')->where('key', "GoogleStatus")->update([
+                Settings::where('key', "GoogleStatus")->update([
                     'value' => 1,
                 ]);
             }
         } elseif ($request->get('oauth2') == "discord") {
-            if (Settings::key('DiscordStatus') == 1) {
-                DB::table('settings')->where('key', "DiscordStatus")->update([
+            if (SettignsHelper::key('DiscordStatus') == 1) {
+                Settings::where('key', "DiscordStatus")->update([
                     'value' => 0,
                 ]);
             } else {
-                DB::table('settings')->where('key', "DiscordStatus")->update([
+                Settings::where('key', "DiscordStatus")->update([
                     'value' => 1,
                 ]);
             }
         } elseif ($request->get('oauth2') == "github") {
-            if (Settings::key('GithubStatus') == 1) {
-                DB::table('settings')->where('key', "GithubStatus")->update([
+            if (SettignsHelper::key('GithubStatus') == 1) {
+                Settings::where('key', "GithubStatus")->update([
                     'value' => 0,
                 ]);
             } else {
-                DB::table('settings')->where('key', "GithubStatus")->update([
+                Settings::where('key', "GithubStatus")->update([
                     'value' => 1,
                 ]);
             }
@@ -246,15 +256,15 @@ class Controller extends BaseController
     public function oauth2_refresh() {
         $status = [];
 
-        $status[0]["status"] = Settings::key('GoogleStatus');
+        $status[0]["status"] = SettignsHelper::key('GoogleStatus');
         $status[0]["client_id"] = env('GOOGLE_CLIENT_ID');
         $status[0]["client_secret"] = env('GOOGLE_CLIENT_SECRET');
 
-        $status[1]["status"] = Settings::key('DiscordStatus');
+        $status[1]["status"] = SettignsHelper::key('DiscordStatus');
         $status[1]["client_id"] = env('DISCORD_CLIENT_ID');
         $status[1]["client_secret"] = env('DISCORD_CLIENT_SECRET');
 
-        $status[2]["status"] = Settings::key('GithubStatus');
+        $status[2]["status"] = SettignsHelper::key('GithubStatus');
         $status[2]["client_id"] = env('GITHUB_CLIENT_ID');
         $status[2]["client_secret"] = env('GITHUB_CLIENT_SECRET');
 
@@ -277,7 +287,7 @@ class Controller extends BaseController
     }
 
     public function announcement_create(Request $request) {
-        DB::table('announcements')->insert([
+        Announcements::insert([
             'name' => $request->get('title'),
             'description' => $request->get('description'),
         ]);
@@ -286,33 +296,33 @@ class Controller extends BaseController
     }
 
     public function announcement_refresh() {
-        return json_encode(DB::table('announcements')->get());
+        return json_encode(Announcements::get());
     }
 
     public function announcement_modal() {
-        return json_encode(DB::table('announcements')->get());
+        return json_encode(Announcements::get());
     }
 
     public function knowledgebasecategories(Request $request)
     {
         $id = $request->get('query');
-        return json_encode(DB::table('knowledgebase_categorys')->orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get());
+        return json_encode(Knowledgebase_Categories::orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get());
     }
 
     public function knowledgebase(Request $request)
     {
         $id = $request->get('query');
-        return json_encode(DB::table('knowledgebase')->orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get());
+        return json_encode(Knowledgebase::orWhere('name', 'like', "%{$id}%")->orWhere('description', 'like', "%{$id}%")->get());
     }
 
     public function knowledgebaseget(Request $request)
     {
-        return json_encode(DB::table('knowledgebase')->where('id', $request->get('id'))->first());
+        return json_encode(Knowledgebase::where('id', $request->get('id'))->first());
     }
     
     public function knowledgebasecategoryget(Request $request)
     {
-        return json_encode(DB::table('knowledgebase_categorys')->where('id', $request->get('id'))->first());
+        return json_encode(Knowledgebase_Categories::where('id', $request->get('id'))->first());
     }
 
     public function knowledgebasecategoryupdate(Request $request)
@@ -321,7 +331,7 @@ class Controller extends BaseController
         $name = $request->get('name');
         $description = $request->get('description');
 
-        DB::table('knowledgebase_categorys')->where('id', $id)->update([
+        Knowledgebase_Categories::where('id', $id)->update([
             'name' => $name,
             'description' => $description,
         ]);
@@ -336,7 +346,7 @@ class Controller extends BaseController
         $description = $request->get('description');
         $category = $request->get('category');
 
-        DB::table('knowledgebase')->where('id', $id)->update([
+        Knowledgebase::where('id', $id)->update([
             'name' => $name,
             'description' => $description,
             'category_id' => $category,
@@ -351,7 +361,7 @@ class Controller extends BaseController
         $description = $request->get('description');
         $category = $request->get('category');
 
-        DB::table('knowledgebase')->insert([
+        Knowledgebase::insert([
             'name' => $name,
             'description' => $description,
             'category_id' => $category,
@@ -365,7 +375,7 @@ class Controller extends BaseController
         $name = $request->get('name');
         $description = $request->get('description');
 
-        DB::table('knowledgebase_categorys')->insert([
+        Knowledgebase_Categories::insert([
             'name' => $name,
             'description' => $description,
         ]);

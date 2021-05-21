@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Helpers;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
-use DB;
 
-class Env extends Model
+class Env
 {
     public static function set($value)
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Database;
+namespace App\Models;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Knowledgebase_Categorys extends Model
+class Knowledgebase_Categories extends Model
 {
     protected $table = 'knowledgebase_categorys';
     protected $primaryKey = 'id';

@@ -7,8 +7,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Models\InputCheck as InputCheck;
-use DB;
+use App\Models\Knowledgebase;
+use App\Models\Knowledgebase_Categories;
 use Mail;
 use Auth;
 
@@ -17,8 +17,8 @@ class KnowledgebaseController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index()
     {
-        $knowledgebase = DB::table('knowledgebase')->get();
-        $categorys = DB::table('knowledgebase_categorys')->get();
+        $knowledgebase = Knowledgebase::get();
+        $categorys = Knowledgebase_Categories::get();
 
         return view('Admin.knowledgebase', [
             'knowledgebases' => $knowledgebase,
@@ -32,12 +32,7 @@ class KnowledgebaseController extends BaseController
         $description = $request->input('description');
         $category_id = $request->input('category');
 
-        $error = InputCheck::check([$name, $description]);
-        if ($error != false) {
-            return redirect()->route('admin.announcements')->with('error', $error);
-        }
-
-        DB::table('knowledgebase')->insert([
+        Knowledgebase::insert([
             'name' => $name,
             'description' => $description,
             'category_id' => $category_id,
@@ -48,7 +43,7 @@ class KnowledgebaseController extends BaseController
 
     public function delete(Request $request, $id)
     {
-        DB::table('knowledgebase')->where('id', $id)->delete();
+        Knowledgebase::where('id', $id)->delete();
 
         return redirect()->route('admin.knowledgebase')->with('success', "You have successfully deleted the knowledgebase article #$id!");
     }
@@ -59,12 +54,7 @@ class KnowledgebaseController extends BaseController
         $description = $request->input('description');
         $category_id = $request->input('category');
 
-        $error = InputCheck::check([$name, $description]);
-        if ($error != false) {
-            return redirect()->route('admin.knowledgebase')->with('error', $error);
-        }
-
-        DB::table('knowledgebase')->where('id', $id)->update([
+        Knowledgebase::where('id', $id)->update([
             'name' => $name,
             'description' => $description,
             'category_id' => $category_id,
@@ -78,12 +68,7 @@ class KnowledgebaseController extends BaseController
         $name = $request->input('name');
         $description = $request->input('description');
 
-        $error = InputCheck::check([$name, $description]);
-        if ($error != false) {
-            return redirect()->route('admin.announcements')->with('error', $error);
-        }
-
-        DB::table('knowledgebase_categorys')->insert([
+        Knowledgebase_Categories::insert([
             'name' => $name,
             'description' => $description,
         ]);
@@ -93,7 +78,7 @@ class KnowledgebaseController extends BaseController
 
     public function categorydelete(Request $request, $id)
     {
-        DB::table('knowledgebase_categorys')->where('id', $id)->delete();
+        Knowledgebase_Categories::where('id', $id)->delete();
 
         return redirect()->route('admin.knowledgebase')->with('success', "You have successfully deleted the category #$id!");
     }
@@ -103,12 +88,7 @@ class KnowledgebaseController extends BaseController
         $name = $request->input('name');
         $description = $request->input('description');
 
-        $error = InputCheck::check([$name, $description]);
-        if ($error != false) {
-            return redirect()->route('admin.knowledgebase')->with('error', $error);
-        }
-
-        DB::table('knowledgebase_categorys')->where('id', $id)->update([
+        Knowledgebase_Categories::where('id', $id)->update([
             'name' => $name,
             'description' => $description,
         ]);

@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\InputCheck as InputCheck;
 use Laravel\Socialite\Facades\Socialite;
+use App\Models\Users;
 use Hash;
 use Auth;
-use App\Models\User;
 use Settings;
 
 class AuthController
@@ -26,11 +26,6 @@ class AuthController
     {
         $email = $request->input('email');
         $password = $request->input('password');
-
-        $error = InputCheck::check([$password, $email]);
-        if ($error != false) {
-            return redirect()->route('auth.login')->with('error', $error);
-        }
 
         $credentials = array(
             'email'     => $email,
@@ -73,7 +68,7 @@ class AuthController
         $password = $request->input('password');
         $password = Hash::make($password);
 
-        DB::table('users')->insert([
+        Users::insert([
             'firstname' => $firstname,
             'lastname' => $lastname,
             'name' => $name,
@@ -100,56 +95,22 @@ class AuthController
         $username = $request->input('username');
         $image = $request->file('picture');
 
-        $error = InputCheck::check([$firstname, $lastname, $username]);
-        if ($error != false) {
-            return redirect()->route('auth.settings')->with('error', $error);
-        }
-
         if (isset($image)) {
             $new_name = Auth::user()->id . '.' . $image->getClientOriginalExtension();
 
             $image->move(public_path('images/profile_pictures'), $new_name);
 
-            DB::table('users')->where('id', '=', Auth::user()->id)->update([
+            Users::where('id', '=', Auth::user()->id)->update([
                 'profile_picture' => '/images/profile_pictures/' . $new_name,
             ]);
         }
 
-        DB::table('users')->where('id', '=', Auth::user()->id)->update([
+        Users::where('id', '=', Auth::user()->id)->update([
             'firstname' => $request->input('firstname'),
             'lastname' => $lastname,
             'name' => $username,
         ]);
 
         return redirect()->route('auth.settings')->with('success', "You updated your account settings!");
-    }
-
-    public function Seller()
-    {
-        return view('Authentication.seller');
-    }
-
-    public function newseller(Request $request)
-    {
-        $name = $request->input('name');
-        $company = $request->input('company');
-        $email = $request->input('email');
-        $age = $request->input('age');
-        $selling = $request->input('selling');
-
-        $error = InputCheck::check([$name, $company, $email, $age, $selling]);
-        if ($error != false) {
-            return redirect()->route('auth.seller')->with('error', $error);
-        }
-
-        DB::table('seller_requests')->insert([
-            'name' => $name,
-            'company' => $company,
-            'email' => $email,
-            'age' => $age,
-            'selling' => $selling,
-        ]);
-
-        return redirect()->route('auth.seller')->with('success', "You're seller request is submit!");
     }
 }

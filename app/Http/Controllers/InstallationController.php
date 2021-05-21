@@ -6,11 +6,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use DB;
+use Illuminate\Http\Request;
+use App\Models\Settings;
+use App\Models\Users;
 use Auth;
 use Hash;
-use Illuminate\Http\Request;
-use App\Models\Database\Settings;
 
 class InstallationController extends BaseController
 {
@@ -29,7 +29,7 @@ class InstallationController extends BaseController
         
 
         $password = Hash::make($request->input('password'));
-        DB::table('users')->insert([
+        Users::insert([
             'firstname' => $request->input('firstname'),
             'lastname' => $request->input('lastname'),
             'name' => $request->input('name'),
@@ -37,10 +37,10 @@ class InstallationController extends BaseController
             'role_id' => 2,
             'password' => $password,
         ]);
-        DB::table('settings')->where('key', 'Installed')->update([
+        Settings::where('key', 'Installed')->update([
             'value' => 1,
         ]);
-        DB::table('settings')->where('key', 'CompanyName')->update([
+        Settings::table('settings')->where('key', 'CompanyName')->update([
             'value' => $request->input('companyname'),
         ]);
 
@@ -61,7 +61,7 @@ class InstallationController extends BaseController
             $image->move(public_path('images/profile_pictures'), $new_name);
         }
 
-        DB::table('users')->where('id', '=', Auth::user()->id)->update([
+        Users::where('id', '=', Auth::user()->id)->update([
             'profile_picture' => '/images/profile_pictures/' . $new_name,
         ]);
 

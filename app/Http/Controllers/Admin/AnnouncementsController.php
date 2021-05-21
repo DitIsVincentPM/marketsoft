@@ -7,15 +7,15 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Models\InputCheck as InputCheck;
-use DB;
+use App\Helpers\InputCheck;
+use App\Models\Announcements;
 
 class AnnouncementsController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index()
     {
-        $announcements = DB::table('announcements')->get();
+        $announcements = Announcements::get();
 
         return view('Admin.announcements', [
             'announcements' => $announcements,
@@ -27,12 +27,7 @@ class AnnouncementsController extends BaseController
         $name = $request->input('name');
         $description = $request->input('description');
         
-        $error = InputCheck::check([$name, $description]);
-        if($error != false) {
-            return redirect()->route('admin.announcements')->with('error', $error);
-        }
-
-        DB::table('announcements')->insert([
+        Announcements::insert([
             'name' => $name,
             'description' => $description,
         ]);
@@ -42,7 +37,7 @@ class AnnouncementsController extends BaseController
 
     public function delete(Request $request, $id)
     {
-        DB::table('announcements')->where('id', $id)->delete();
+        Announcements::where('id', $id)->delete();
 
         return redirect()->route('admin.announcements')->with('success', "You have successfully deleted the announcement #$id!");
     }
@@ -52,12 +47,7 @@ class AnnouncementsController extends BaseController
         $name = $request->input('name');
         $description = $request->input('description');
 
-        $error = InputCheck::check([$name, $description]);
-        if($error != false) {
-            return redirect()->route('admin.announcements')->with('error', $error);
-        }
-
-        DB::table('announcements')->where('id', $id)->update([
+        Announcements::where('id', $id)->update([
             'name' => $name,
             'description' => $description,
         ]);

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Helpers;
 
-use Illuminate\Database\Eloquent\Model;
 use DB;
 use Auth;
 
-class PermissionCheck extends Model
+class PermissionCheck
 {
     public static function check(array $input)
     {

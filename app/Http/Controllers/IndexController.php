@@ -6,9 +6,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use App\Events\RealTimeMessage as Message;
+use App\Models\Products;
+use App\Models\Announcements;
 use DB;
 use Auth;
-use App\Events\RealTimeMessage as Message;
 
 class IndexController extends BaseController
 {
@@ -16,10 +18,8 @@ class IndexController extends BaseController
 
     public function Index()
     {
-        $products = DB::table('products')->latest()->paginate(4);
-        $announcements = DB::table('announcements')->latest()->paginate(2);
-
-        event(new Message('Hello World'));
+        $products = Products::latest()->paginate(4);
+        $announcements = Announcements::latest()->paginate(2);
 
         return view('index', [
             'products' => $products,

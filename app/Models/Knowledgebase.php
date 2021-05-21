@@ -5,9 +5,9 @@ namespace App\Models;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Announcements extends Model
+class Knowledgebase extends Model
 {
-    protected $table = 'announcements';
+    protected $table = 'knowledgebase';
     protected $primaryKey = 'id';
     public $incrementing = true;
 }

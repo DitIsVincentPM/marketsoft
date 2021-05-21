@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Auth;
-use App\Models\Database\Settings;
+use Settings;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 

@@ -11,7 +11,7 @@
         content="{{ trim(View::yieldContent('title')) }} - {{ Settings::key('CompanyName') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('index') }}" />
-    <meta property="og:image" content="{{ Settings::where('key', 'CompanyFavicon')->first()->value }}" />
+    <meta property="og:image" content="{{ Settings::key('CompanyFavicon') }}" />
     <meta property="og:description" content="Our revolutionary platform will help you find the best products." />
     <meta name="theme-color" content="#165ef7">
 

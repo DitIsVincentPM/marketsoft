@@ -25,7 +25,7 @@
                         <button class="pull-right md-0 mt-0 btn-sm btn btn-success">Install</button>
                     </div>
                     <div class="card-body">
-                        {{ Shorten::string($modules["modules"][$i]["description"], 60) }}
+                        {{ Str::limit($modules["modules"][$i]["description"], 60) }}
                     </div>
                 </div>
             </form>

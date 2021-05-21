@@ -6,19 +6,23 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use App\Models\PermissionCheck as Permission;
-use App\Models\InputCheck as InputCheck;
-use App\Models\GetExternals as GetExternals;
-use DB;
 use Illuminate\Http\Request;
+use App\Helpers\Env;
+use ZanySoft\Zip\Zip;
+use \GuzzleHttp\Client;
+use App\Helpers\PermissionCheck as Permission;
+use App\Helpers\InputCheck;
+use App\Helpers\GetExternals;
+use App\Models\Modules;
+use App\Models\Roles;
+use App\Models\Role_Permissions;
+use App\Models\Permissions;
+use DB;
 use Settings;
 use Config;
 use Artisan;
-use App\Models\Env;
-use ZanySoft\Zip\Zip;
 use File;
 use Storage;
-use \GuzzleHttp\Client;
 
 class SettingsController extends BaseController
 {

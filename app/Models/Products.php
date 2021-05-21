@@ -2,41 +2,27 @@
 
 namespace App\Models;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Database\Product_Categorys;
 
 class Products extends Model
 {
-    public static function GetAll()
+    protected $table = 'products';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+
+    public function Category()
     {
-        $DB = DB::table('products')->get();
-        return $DB;
+        return $this->belongsTo(Product_Categorys::class, 'category');
     }
 
-    public static function Get($productid)
+    public function Sections()
     {
-        $DB = DB::table('products')->where('id', $productid)->first();
-        return $DB;
+        return $this->hasMany(Product_Sections::class, 'product_id')->orderBy('order');
     }
 
-    public static function convertTo($string)
-    {   
-        if($string[0] == "status") {
-            if ($string[1] == 1) {
-                return "Active";
-            } elseif ($string[1] == 2) {
-                return "Hidden";
-            }
-        } elseif($string[0] == "type") {
-            if ($string[1] == 1) {
-                return "Digital";
-            } elseif ($string[1] == 2) {
-                return "Physical";
-            } elseif ($string[1] == 3) {
-                return "Online Service";
-            }
-        }
-
-        return "Not found";
+    public function Images()
+    {
+        return $this->hasMany(Product_Images::class, 'product_id');
     }
 }

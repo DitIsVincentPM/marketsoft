@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ShoppingCart;
+use App\Helpers\ShoppingCart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Hash;
 use Auth;
-use App\Models\Database\Products;
+use App\Models\Products;
 use PayPal;
 use Carbon\Carbon;
 

@@ -7,13 +7,15 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Models\InputCheck as InputCheck;
-use App\Models\GetExternals as GetExternals;
-use App\Models\Charts as Charts;
-use Rainwater\Active\Active as Active;
-use DB;
+use Rainwater\Active\Active;
+use App\Helpers\GetExternals;
+use App\Helpers\Charts;
 use App\Models\User;
-use App\Models\Database\Products;
+use App\Models\Settings;
+use App\Models\Products;
+use App\Models\Roles;
+use App\Models\Role_Permissions;
+use App\Models\Users;
 
 class IndexController extends BaseController
 {
@@ -21,7 +23,7 @@ class IndexController extends BaseController
 
     public function index()
     {
-        $users = User::get();
+        $users = Users::get();
         $products = Products::latest()->paginate(3);
 
         $chart_users = Charts::generate('users');
@@ -32,8 +34,8 @@ class IndexController extends BaseController
         $active_admins = Active::users(3)->get();
         $active_users = Active::users(3)->paginate(3);
 
-        $roles = DB::table('roles')->get();
-        $role_permissions = DB::table('role_permissions')->get();
+        $roles = Roles::get();
+        $role_permissions = Role_Permissions::get();
         $users_online = count($active_users) + count(Active::guests(3)->get());
 
         return view('Admin.dashboard', [
@@ -52,7 +54,7 @@ class IndexController extends BaseController
 
     public function settings()
     {
-        $settings = DB::table('settings')->first();
+        $settings = Settings::first();
 
         return view('Admin.settings', [
             'settings' => $settings,
@@ -62,10 +64,6 @@ class IndexController extends BaseController
     public function settingssave(Request $request)
     {
         if ($request->input('type') == "general") {
-            $error = InputCheck::check([$request->input('companyname'), $request->input('navbaricon')]);
-            if ($error != false) {
-                return redirect()->route('admin.settings')->with('error', $error);
-            }
 
             $file = $request->file('companylogo');
             $favicon = $request->file('faviconlogo');
@@ -73,7 +71,7 @@ class IndexController extends BaseController
             if (isset($file)) {
                 $new_name = "logo" . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('images/companylogo'), $new_name);
-                DB::table('settings')->update([
+                Settings::update([
                     'CompanyLogo' => '/images/companylogo/' . $new_name,
                 ]);
             }
@@ -81,12 +79,12 @@ class IndexController extends BaseController
             if (isset($favicon)) {
                 $namefavicon = "favicon" . '.' . $favicon->getClientOriginalExtension();
                 $favicon->move(public_path('images/companyfavicon'), $namefavicon);
-                DB::table('settings')->update([
+                Settings::update([
                     'CompanyFavicon' => '/images/companyfavicon/' . $namefavicon,
                 ]);
             }
 
-            DB::table('settings')->update([
+            Settings::update([
                 'CompanyName' => $request->input('companyname'),
                 'NavbarIcon' => $request->input('navbaricon'),
             ]);
@@ -101,8 +99,8 @@ class IndexController extends BaseController
 
     public function products()
     {
-        $users = DB::table('users')->get();
-        $products = DB::table('products')->get();
+        $users = Users::get();
+        $products = Products::get();
 
         return view('Admin.products', [
             'users' => $users,

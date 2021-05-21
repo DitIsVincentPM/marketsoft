@@ -10,12 +10,12 @@
     <meta property="og:title" content="{{ trim(View::yieldContent('title')) }} - {{ Settings::key('CompanyName') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('index') }}" />
-    <meta property="og:image" content="{{ Settings::where('key', 'CompanyFavicon')->first()->value }}" />
+    <meta property="og:image" content="{{ Settings::key('CompanyFavicon') }}" />
     <meta property="og:description" content="Our revolutionary platform will help you find the best products." />
     <meta name="theme-color" content="#165ef7">
 
-    <link rel="icon" href="{{ Settings::where('key', 'CompanyFavicon')->first()->value }}" type="image/png">
-    <title>@yield('title') - {{ Settings::where('key', 'CompanyName')->first()->value }}</title>
+    <link rel="icon" href="{{ Settings::key('CompanyFavicon') }}" type="image/png">
+    <title>@yield('title') - {{ Settings::key('CompanyName') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('Vendor.dependencies')
     @yield('scripts')
@@ -108,7 +108,7 @@
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
         <a href="index3.html" class="brand-link">
-            <img src="{{ Settings::where('key', 'CompanyFavicon')->first()->value }}" alt="o" class="brand-image img-circle" style="opacity: .8">
+            <img src="{{ Settings::key('CompanyFavicon') }}" alt="o" class="brand-image img-circle" style="opacity: .8">
             <span class="brand-text font-weight-light">{{ Settings::key('CompanyName') }}</span>
         </a>
 

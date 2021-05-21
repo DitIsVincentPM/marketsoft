@@ -191,12 +191,12 @@ return [
 
     'aliases' => [
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
-        'Settings' => App\Models\Database\Settings::class,
+        'Settings' => App\Helpers\Settings::class,
         'Modules' => App\Models\Modules::class,
         'Announcements' => App\Models\Announcements::class,
-        'Permission' => App\Models\PermissionCheck::class,
+        'Permission' => App\Helpers\PermissionCheck::class,
         'Shorten' => App\Models\Shorten::class,
-        'ShoppingCart' => App\Models\ShoppingCart::class,
+        'ShoppingCart' => App\Helpers\ShoppingCart::class,
         'Products' => App\Models\Products::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,

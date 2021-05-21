@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Helpers;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Mail;
 
-class GetExternals extends Model
+class GetExternals
 {
     public static function getthemes()
     {

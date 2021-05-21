@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Hash;
 use Auth;
-use App\Models\Database\Products;
+use App\Models\Products;
 
 class ProductsController
 {

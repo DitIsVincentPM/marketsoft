@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\Database;
+namespace App\Models;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Knowledgebase extends Model
+class ca_ownedProducts extends Model
 {
-    protected $table = 'knowledgebase';
+    protected $table = 'ca_ownedProducts';
     protected $primaryKey = 'id';
     public $incrementing = true;
 }
