@@ -37,7 +37,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav navbar-mobile">
                         <li class="nav-item">
                             <a href="{{ route('index') }}" class="nav-link">Home</a>
                         </li>
@@ -121,7 +121,7 @@
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0"> @yield('header-title')</h1>
+                                <h1 class="m-0 header-title"> @yield('header-title')</h1>
                             </div>
                             <div class="col-sm-6">
                                 @yield('header-breadcrumb')
