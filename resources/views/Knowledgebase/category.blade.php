@@ -7,7 +7,7 @@ Knowledgebase
 @endsection
 
 @section('header-title')
-Knowledgebase
+Knowledgebase - {{ $category->name }}
 @endsection
 
 @section('header-breadcrumb')
@@ -19,19 +19,20 @@ Knowledgebase
 
 @section('content')
 <div class="primary-section">
-    @foreach($knowledgebases as $knowledgebase)
-    <div class="card shadow mb-3">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-11" style="width: 95%;">
-                    <h5 class="market-text-break announcement-title">{{ $knowledgebase->name }}<br><small>{!! $knowledgebase->description !!}</small></h5>
-                </div>
-                <div class="col-1" style="width: 5%;">
-                    <a style="position: absolute;top: 50%;transform: translateY(-50%);" class="pull-right market-text-primary" href="{{ route('knowledgebase.article.view', $knowledgebase->id) }}" title="Read More"><i class="pull-right" data-feather="eye"></i></a>
+    @foreach ($articles as $article)
+        <div class="card shadow mb-3"  onClick="location='{{ route('knowledgebase.article.view', $article->id) }}'">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-11" style="width: 95%;">
+                        <h5 class="market-text-break announcement-title">{{ $article->name }}</h5>
+                    </div>
+                    <div class="col-1" style="width: 5%;">
+                            <i data-feather="eye"></i> 
+                            <span class="pt-2">{{ $article->views }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @endforeach
 </div>
 @endsection

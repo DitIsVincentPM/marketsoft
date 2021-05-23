@@ -7,7 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Models\Settings;
+use App\Helpers\Settings;
 use App\Models\Users;
 use Auth;
 use Hash;
@@ -37,9 +37,11 @@ class InstallationController extends BaseController
             'role_id' => 2,
             'password' => $password,
         ]);
+        
         Settings::where('key', 'Installed')->update([
             'value' => 1,
         ]);
+
         Settings::table('settings')->where('key', 'CompanyName')->update([
             'value' => $request->input('companyname'),
         ]);

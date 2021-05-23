@@ -4,7 +4,7 @@
 Route::get('/', 'App\Http\Controllers\IndexController@Index')->name('index');
 
 // Online Store
-Route::get('/products', 'App\Http\Controllers\ProductsController@Home')->name('products.index');
+Route::get('/products/{category?}', 'App\Http\Controllers\ProductsController@Home')->name('products.index');
 Route::get('/product/{id}', 'App\Http\Controllers\ProductsController@Product')->name('products.view');
 Route::post('/product/{id}/add', 'App\Http\Controllers\ProductsController@AddProduct')->name('products.view.add');
 Route::post('/product/{id}/remove', 'App\Http\Controllers\ProductsController@RemoveProduct')->name('products.view.remove');

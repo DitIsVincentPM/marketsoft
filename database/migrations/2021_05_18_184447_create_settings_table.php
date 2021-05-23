@@ -16,7 +16,7 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('key');
-            $table->string('value');
+            $table->string('value')->nullable();
         });
 
         DB::table('settings')->insert(
@@ -51,7 +51,7 @@ class CreateSettingsTable extends Migration
         );
         DB::table('settings')->insert(
             array(
-                'value' => 'Nothing',
+                'value' => null,
                 'key' => 'ProductNotice',
             )
         );
@@ -64,6 +64,18 @@ class CreateSettingsTable extends Migration
         DB::table('settings')->insert(
             array(
                 'value' => 'Installed',
+                'key' => '0',
+            )
+        );
+        DB::table('settings')->insert(
+            array(
+                'value' => 'TosStatus',
+                'key' => '0',
+            )
+        );
+        DB::table('settings')->insert(
+            array(
+                'value' => 'PrivacyStatus',
                 'key' => '0',
             )
         );

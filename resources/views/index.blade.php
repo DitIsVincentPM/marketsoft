@@ -1,54 +1,60 @@
 {{-- Market Software --}}
 {{-- Copyright (c) 2021 Market Software <support@marketsoftware.com> --}}
 
-    @extends('Vendor.main')
+@extends('Vendor.main')
 
-    @section('title')
-        Home
-    @endsection
-    
-    @section('home')
-        <div class="content-header" style="background-color: rgba(89, 89, 89, 0.6) !important;color: white;padding-top: 80px;padding-bottom: 80px;">
-            <h1 class="text-center">Welcome to MarketSoft!<br><span><small>Searching for Example #1, Example #2, Example #3. Search for it in the bar below.</small></span></h1><br>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <div class="input-group">
-                        <input type="search" class="form-control" placeholder="Type your product name here">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fa fa-search"></i>
-                            </button>
+@section('title')
+    Home
+@endsection
+
+@section('home')
+    <div class="content-header p-5">
+        <div class="container">
+            <h1 class="text-left">Welcome to MarketSoft!<br><span><small>Find the best products for the cheapest
+                        pricing.</small></span></h1><br>
+            <button class="btn btn-outline-primary btn-outline-default">Overview</button>
+        </div>
+    </div>
+@endsection
+
+@section('content')
+    <h3 class="text-center text-muted text-uppercase text-bold pt-4">OUR LATEST PRODUCTS</h3>
+    <div class="d-flex justify-content-center mt-3">
+        <div class="col-xl-10 col-md-12 row">
+            @forelse($products as $product)
+                <div class="col-md-4 mb-5">
+                    <div class="card">
+                        @if ($product->logo != null)
+                            <img class="rounded-lg card-img-top" src="{{ $product->logo }}" alt="Card image cap">
+                        @endif
+                        <div class="card-body p-3" style="margin-bottom: -1.5rem;">
+                            <h1 class="text-bold text-uppercase text-center mb-3" style="font-size: 20px;">
+                                {{ $product->name }}
+                                @if ($product->logo == null)
+                                    <span class="title-product"></span>
+                                @endif
+                            </h1>
+                            <p>{!! $product->description !!}</p>
+                        </div>
+                        <h4 class="rotate-skew-9 ml-2">${{ $product->price }}</h4>
+                        <div class="card-footer product-footer rotate-skew-9">
+                            <form method="POST" action="{{ route('products.view.add', $product->id) }}">
+                                @csrf
+                                <button class="btn btn-outline-primary product-button">Add to cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    @endsection
-    
-    @section('content')
-        <div class="primary-section row">
-            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 mobile-text-center">
-                <p class="text-left" style="top: -50%; transform: translateY(50%);">
-                <h1><strong>WHAT IS <span class="text-uppercase nav-market">Market</span><span class="text-uppercase nav-soft">Soft</span></strong></h1>
-                <div class="col-xl-10 col-lg-10 col-mb-10 col-sm-12">
-                    <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,
-                        pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus.
-                        Donec scelerisque sollicitudin enim eu venenatis. Duis tincidunt laoreet ex,
-                        in pretium orci vestibulum eget. Class aptent taciti sociosqu ad
-                        per conubia nostra, per inceptos himenaeos. Duis pharetra luctus lacus ut
-                        vestibulum. Maecenas ipsum lacus, lacinia quis posuere
-                        Integer eu nibh at nisi ullamcorper sagittis id vel leo.
-                        faucibus libero, at maximus nisl suscipit posuere. Morbi nec enim nunc.
-                    </span>
+            @empty
+                <div class="col-md-12">
+                    <div class="text-center card">
+                        <div class="card-body">
+                            <img src="/themes/default/icons/nothing_found.svg" height="250" />
+                            <h4 class="text-bold text-muted mt-3">There are no Products or Services found.</h4>
+                        </div>
+                    </div>
                 </div>
-                <a href="#" style="color: #1f8bfd; font-size: 15px; text-decoration: none;" class="text-uppercase">FIND OUT
-                    MORE</a>
-                </p>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 mobile-remove">
-                <img src="/themes/default/icons/frontpage.svg" class="img-fluid" alt="...">
-            </div>
+            @endforelse
         </div>
-    @endsection
-    
+    </div>
+@endsection

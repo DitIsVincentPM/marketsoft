@@ -26,6 +26,15 @@ class ProductsController extends BaseController
         ]);
     }
 
+    public function create()
+    {
+        $categories = Product_Categories::get();
+
+        return view('Admin.Products.create', [
+            'categories' => $categories,
+        ]);
+    }
+
     public function view(Request $request, $id)
     {
         $product = Products::where('id', $id)->first();

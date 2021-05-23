@@ -5,34 +5,31 @@ namespace App\Http\Controllers\Modules;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Team;
-use App\Models\ShoppingCart;
-use App\Models\Database\Knowledgebase_Categorys;
+use App\Helpers\ShoppingCart;
+use App\Models\Knowledgebase_Categories;
 
 class KnowledgebaseController
 {
 
     public function Knowledgebase()
     {
-        $categories = Knowledgebase_Categorys::get();
-        $knowledgebases = DB::table('knowledgebase')->get();
-        $featured_articles = DB::table('knowledgebase')->where('is_featured', 1)->get();
-        
+        $categories = Knowledgebase_Categories::get();
+        $articles = DB::table('knowledgebase')->orderBy('views', 'desc')->paginate(5);        
 
         return view('Knowledgebase.index', [
-            'knowledgebases' => $knowledgebases,
+            'articles' => $articles,
             'categories' => $categories,
-            'featured_articles' => $featured_articles,
         ]);
     }
 
     public function KnowledgebaseCategory(Request $request, $id)
     {
-        $category = DB::table('knowledgebase_categorys')->get();
-        $knowledgebase = DB::table('knowledgebase')->where('category_id', $id)->get();
+        $category = DB::table('knowledgebase_categorys')->where('id', $id)->first();
+        $articles = DB::table('knowledgebase')->orderBy('views', 'desc')->where('category_id', $id)->get();
 
         return view('Knowledgebase.category', [
-            'knowledgebases' => $knowledgebase,
-            'categorys' => $category,
+            'articles' => $articles,
+            'category' => $category,
         ]);
     }
 

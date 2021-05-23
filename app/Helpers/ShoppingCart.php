@@ -5,9 +5,9 @@ namespace App\Helpers;
 use DB;
 use PayPal;
 use Request;
-use Shorten;
 use Auth;
 use Settings;
+use Str;
 
 class ShoppingCart
 {
@@ -89,9 +89,9 @@ class ShoppingCart
         foreach ($shoppingcart_items as $item) {
             foreach ($products as $product) {
                 if ($product->id == $item->product_id) {
-                    $data['items'][$index]["name"] = Shorten::string($product->name, 40);
+                    $data['items'][$index]["name"] = Str::limit($product->name, 40);
                     $data['items'][$index]["price"] = $product->price;
-                    $data['items'][$index]["desc"] = Shorten::string($product->description, 40);
+                    $data['items'][$index]["desc"] = Str::limit($product->description, 40);
                     $data['items'][$index]["qty"] = $item->qty;
                 }
             }
@@ -113,6 +113,7 @@ class ShoppingCart
         DB::table('ca_invoices')->insert([
             'id' => $invoice_id,
             'user_id' => Auth::user()->id,
+            'paypal_id' => null,
             'status' => 0,
         ]);
 

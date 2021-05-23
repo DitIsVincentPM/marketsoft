@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ShoppingCart;
+use App\Helpers\ShoppingCart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Hash;
 use Auth;
 use App\Models\Products;
+use App\Models\Product_Categories;
 
 class ProductsController
 {
-    public function Home()
+    public function Home(Request $request, $category = null)
     {
-        $products = Products::get();
+        if($category == null) {
+            $products = Products::get();
+        } else {
+            $categories = Product_Categories::where('name', $category)->first();
+            if($categories == null) {
+                $products = Products::get();
+            } else {
+                $products = Products::where('category', '=', $categories->id)->get();
+            }
+        }
+        $categories = Product_Categories::get();
         $users = DB::table('users')->get();
 
         return view('Products.index', [
             'products' => $products,
             'users' => $users,
+            'categories' => $categories,
         ]);
     }
 

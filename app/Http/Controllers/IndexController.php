@@ -18,7 +18,7 @@ class IndexController extends BaseController
 
     public function Index()
     {
-        $products = Products::latest()->paginate(4);
+        $products = Products::latest()->paginate(3);
         $announcements = Announcements::latest()->paginate(2);
 
         return view('index', [

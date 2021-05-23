@@ -178,8 +178,11 @@ class Controller extends BaseController
                 'price' => $request->get('price'),
                 'description' => $request->get('description'),
                 'category' => $request->get('category'),
+                'logo' => null,
+                'type' => 0,
+                'status' => 1,
+                'seller_id' => $request->user()->id,
             ]);
-            $id = Products::latest()->first()->id;    
         } else {
             Products::where('id', $request->get('id'))->update([
                 'name' => $request->get('name'),
@@ -187,30 +190,6 @@ class Controller extends BaseController
                 'description' => $request->get('description'),
                 'category' => $request->get('category'),
             ]);
-            $id = $request->get('id');    
-        }
-
-        for ($i = 0; $i < count($request->get('sections')); $i++) {
-            $array = $request->get('sections');
-            if ($array[$i]["name"] == "del") {
-                Product_Sections::where('id', $array[$i]["id"])->delete();
-            } elseif($array[$i]["id"] == "null"){
-                Product_Sections::insert([
-                    'product_id' => $id,
-                    'name' => $array[$i]["name"],
-                    'content' => $array[$i]["content"],
-                    'type' => $array[$i]["type"],
-                    'order' => $i,
-                ]);
-            } else {
-                Product_Sections::where('id', $array[$i]["id"])->update([
-                    'product_id' => $id,
-                    'name' => $array[$i]["name"],
-                    'content' => $array[$i]["content"],
-                    'type' => $array[$i]["type"],
-                    'order' => $i,
-                ]);
-            }
         }
 
         return "Working";

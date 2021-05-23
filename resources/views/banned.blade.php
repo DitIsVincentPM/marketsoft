@@ -3,22 +3,19 @@
 @extends('Vendor.main')
 
 @section('title')
-Banned
-@endsection
-
-@section('header-title')
-Banned User
-@endsection
-
-@section('header-breadcrumb')
-<ol class="justify-content-center market-breadcrumb breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Banned</a></li>
-</ol>
+    Banned
 @endsection
 
 @section('content')
-<div class="alert alert-primary text-center" role="alert">
-  Oh no! Administration has banned your account! Reach out to us at {{ Settings::key('SupportMail') }} if you have questions or concerns about your ban.
-</div>
+    <div class="card card-body mt-5 p-5 container text-center">
+        <div >
+            <img src="/themes/default/icons/reminder.svg" height="300" class="float-left" />
+            <div class="float-right p-5">
+                <h1>Oh no!</h1>
+                <p>It seems like you have been banned by an administrator</p>
+                <p>In case you think this ban isn't rightfully granted to you<br>contact the support team at:
+                    {{ Settings::key('SupportMail') }}</p>
+            </div>
+        </div>
+    </div>
 @endsection

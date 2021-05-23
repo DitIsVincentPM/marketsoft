@@ -7,8 +7,7 @@
     <meta name="description" content="A Market, Business, Hosting Company Software for a small price!">
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Vincent Van Hoof, Pierce Gearhart">
-    <meta property="og:title"
-        content="{{ trim(View::yieldContent('title')) }} - {{ Settings::key('CompanyName') }}" />
+    <meta property="og:title" content="{{ trim(View::yieldContent('title')) }} - {{ Settings::key('CompanyName') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('index') }}" />
     <meta property="og:image" content="{{ Settings::key('CompanyFavicon') }}" />
@@ -25,13 +24,12 @@
 
 <body class="antialiased">
     <div class="wrapper">
-
-        <nav style="width: 100% !important;" class="navbar navbar-expand-md navbar-light navbar-white">
+        <nav style="width: 100% !important; background-color: transparent !important; position: absolute !important;"
+            class="navbar navbar-expand-md navbar-dark navbar-black">
             <div class="container">
-                <a href="" class="navbar-brand">
+                <a href="{{ route('index') }}" class="navbar-brand">
                     <span class="brand-text font-weight-light">{{ Settings::key('CompanyName') }}</span>
                 </a>
-
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
                     data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -46,38 +44,11 @@
                         <li class="nav-item">
                             <a href="{{ route('products.index') }}" class="nav-link">Store</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" class="nav-link dropdown-toggle">Dropdown</a>
-                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a href="#" class="dropdown-item">Some action </a></li>
-                                <li><a href="#" class="dropdown-item">Some other action</a></li>
-
-                                <li class="dropdown-divider"></li>
-
-                                <li class="dropdown-submenu dropdown-hover">
-                                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false"
-                                        class="dropdown-item dropdown-toggle">Hover for action</a>
-                                    <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                                        <li>
-                                            <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
-                                        </li>
-                                        <li class="dropdown-submenu">
-                                            <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false"
-                                                class="dropdown-item dropdown-toggle">level 2</a>
-                                            <ul aria-labelledby="dropdownSubMenu3"
-                                                class="dropdown-menu border-0 shadow">
-                                                <li><a href="#" class="dropdown-item">3rd level</a></li>
-                                                <li><a href="#" class="dropdown-item">3rd level</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#" class="dropdown-item">level 2</a></li>
-                                        <li><a href="#" class="dropdown-item">level 2</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                        <li class="nav-item">
+                            <a href="{{ route('knowledgebase.index') }}" class="nav-link">Knowledgebase</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a href="{{ route('announcements.index') }}" class="nav-link">Announcements</a>
                         </li>
                     </ul>
 
@@ -86,20 +57,10 @@
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="fas fa-comments"></i>
-                            <span hidden class="badge badge-danger navbar-badge">0</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
                             <i class="far fa-bell"></i>
                             <span hidden class="badge badge-warning navbar-badge">0</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-right">
                             <span class="dropdown-header">0 Notifications</span>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item">
@@ -116,49 +77,32 @@
                                 $total = $total + $item->qty;
                             }
                         @endphp
-                        <a class="nav-link" data-toggle="dropdown" href="#">
+                        <a class="nav-link" href="{{ route('shoppingcart.index') }}">
                             <i class="fas fa-shopping-basket"></i>
                             <span class="badge badge-danger navbar-badge">{{ $total }}</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            @foreach (ShoppingCart::GetShoppingCart() as $item)
-                                @foreach (Products::GetAll() as $product)
-                                    @if ($item->product_id == $product->id)
-                                        <a href="{{ route('products.view', $product->id) }}" class="dropdown-item">
-                                            <div class="media">
-                                                <img src="/images/products/{{ $product->logo }}" alt="User Avatar"
-                                                    class="img-size-50 mr-3 img-circle">
-                                                <div class="media-body">
-                                                    <h3 class="dropdown-item-title">
-                                                        {{ $product->name }}
-                                                    </h3>
-                                                    <p class="text-sm">{{ $product->description }}</p>
-                                                    <p class="text-sm text-muted"><i class="fas fa-archive mr-1"></i>
-                                                        Quantity: {{ $item->qty }}</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @endif
-                                @endforeach
-                            @endforeach
-                            <div class="dropdown-divider"></div>
-                            <a href="{{ route('shoppingcart.index') }}" class="dropdown-item dropdown-footer">See
-                                shoppingcart.</a>
-                        </div>
                     </li>
                     @if (Auth::check())
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('auth.settings') }}" role="button">
-                                <i class="fas fa-user-cog"></i>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" data-toggle="dropdown" href="#">
+                                <i class="fa fa-user"></i>
+                                <span hidden class="badge badge-warning navbar-badge">0</span>
                             </a>
-                        </li>
-                        @if (Permission::is_admin(Auth::user()->role_id))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.index') }}" role="button">
-                                    <i class="fas fa-cogs"></i>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="{{ route('auth.settings') }}" class="dropdown-item">
+                                    <i class="fas fa-user-cog mr-2"></i> Account Settings
                                 </a>
-                            </li>
-                        @endif
+                                <a href="{{ route('auth.logout') }}" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                </a>
+                                @if (Permission::is_admin(Auth::user()->role_id))
+                                <div class="dropdown-divider"></div>
+                                <a href="{{ route('admin.index') }}" class="dropdown-item">
+                                    <i class="fas fa-cogs mr-2"></i> Admin Side
+                                </a>
+                                @endif
+                            </div>
+                        </li>
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('auth.login') }}" role="button">
@@ -170,18 +114,21 @@
             </div>
         </nav>
         <div class="content-wrapper ml-0">
-            @yield('home')
-            <div class="content-header">
-                <div class="container">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0"> @yield('header-title')</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            @yield('header-breadcrumb')
+            <div class="content-header header-breadcrumb">
+                @hasSection('home')
+                    @yield('home')
+                @else
+                    <div class="container">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0"> @yield('header-title')</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                @yield('header-breadcrumb')
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
             <div class="content">
                 <div class="container">
@@ -200,14 +147,11 @@
             <div class="float-right d-none d-sm-inline">
                 Anything you want
             </div>
-            <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-            reserved.
+            <strong>Copyright &copy; 2021 MarketSoft</strong> All rightsreserved.
         </footer>
     </div>
 </body>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/imageupload.js"></script>
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>

@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Modules;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Team;
-use App\Models\ShoppingCart;
-use App\Models\Database\Knowledgebase_Categorys;
+use App\Helpers\ShoppingCart;
 
 class AnnouncementController
 {

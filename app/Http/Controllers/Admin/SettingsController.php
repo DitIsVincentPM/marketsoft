@@ -74,11 +74,6 @@ class SettingsController extends BaseController
 
     public function settingssave(Request $request)
     {
-        $error = InputCheck::check([$request->input('companyname'), $request->input('navbaricon')]);
-        if ($error != false) {
-            return redirect('/admin/settings#general')->with('error', $error);
-        }
-
         $file = $request->file('companylogo');
         $favicon = $request->file('faviconlogo');
 
@@ -132,11 +127,6 @@ class SettingsController extends BaseController
         $icon = $request->input('icon');
         $color = $request->input('color');
 
-        $error = InputCheck::check([$name, $description, $icon, $color]);
-        if ($error != false) {
-            return redirect('/admin/settings#roles')->with('error', $error);
-        }
-
         DB::table('roles')->insert([
             'name' => $name,
             'description' => $description,
@@ -166,11 +156,6 @@ class SettingsController extends BaseController
         $description = $request->input('description');
         $icon = $request->input('icon');
         $color = $request->input('color');
-
-        $error = InputCheck::check([$name, $description, $icon, $color]);
-        if ($error != false) {
-            return redirect('/admin/settings#roles')->with('error', $error);
-        }
 
         DB::table('roles')->where('id', $id)->update([
             'name' => $name,

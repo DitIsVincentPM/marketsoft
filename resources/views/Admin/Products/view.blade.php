@@ -55,14 +55,6 @@
                 <i style="width: 16px;" data-feather="settings" class="mr-1"></i>
                 <span class="tab-button">General</span>
             </a>
-            <a id="tab-button" data-name="sections" onClick="change('sections')" class="cursor-pointer list-group-item list-group-item-action">
-                <i style="width: 16px;" data-feather="sliders" class="mr-1"></i>
-                <span class="tab-button">Sections</span>
-            </a>
-            <a id="tab-button" data-name="images" onClick="change('images')" class="cursor-pointer list-group-item list-group-item-action">
-                <i style="width: 16px;" data-feather="image" class="mr-1"></i>
-                <span class="tab-button">Images</span>
-            </a>
             <a id="tab-button" data-name="modules" onClick="change('modules')" class="cursor-pointer list-group-item list-group-item-action">
                 <i style="width: 16px;" data-feather="box" class="mr-1"></i>
                 <span class="tab-button">Modules</span>
@@ -100,64 +92,6 @@
                     <div class="card-header">
                         <button class="btn btn-primary btn-sm pull-right">Submit</button>
                     </div>
-                </div>
-            </div>
-            <div style="display: none;" id="tab-content" data-name="sections">
-                <div class="card mb-2">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-8 mt-1">
-                                Sections
-                            </div>
-                            <div class="text-right col-4">
-                                <button onclick="create_section()" class="btn btn-sm btn-primary">Create</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <ul id="sortable">
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div style="display: none;" id="tab-content" data-name="images">
-                <form action="{{ route('admin.products.image', $product->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="card mb-0">
-                        <div class="card-body">
-                            <div class="col-sm-12">
-                                <label class="form-label">Image Upload</label>
-                                <div class="form-group mb-0">
-                                    <div class="input-group">
-                                        <input style="height: 40px!important;" type="text" value="Nothing yet." class="form-control" readonly>
-                                        <div class="input-group-btn">
-                                            <span class="fileUpload btn btn-primary">
-                                                <span type="button" class="upl" id="upload">Upload</span>
-                                                <input id="image" type="file" name="image" class="upload up" accept='image/*' id="up" onchange="readURL(this);" />
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-text">Here you can upload images to showcase on the product page.</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-header">
-                            <button type="submit" class="btn btn-primary btn-sm pull-right">Submit</button>
-                        </div>
-                    </div>
-                </form>
-                <div class="row">
-                    @foreach ($product->Images as $image)
-                        <div class="col-lg-4 col-md-12 col-sm-12 mt-5">
-                            <form action="" method="POST">
-                                <img alt="Image #{{ $image->id }} is not working" style="width: 100%; height: 100%; border-top-right-radius: 25px; border-top-left-radius: 25px;" src="/images/products/{{ $image->image_url }}"></img>
-                                <div class="card-header" style="height: 48px;">
-                                    <p class="mt-1 pull-left">Image #{{ $image->id }}</p>
-                                    <button class="btn btn-sm btn-danger pull-right">Remove</button>
-                                </div>
-                            </form>
-                        </div>
-                    @endforeach
                 </div>
             </div>
             <div style="display: none;" id="tab-content" data-name="modules">

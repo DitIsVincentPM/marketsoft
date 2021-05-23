@@ -22,7 +22,8 @@
         <div class="card-header">
             Products Table
             <div class="card-tools">
-                <button type="button" class="btn btn-tool animate-icon" onclick="create()" data-bs-toggle="modal" data-bs-target="#viewmore">
+                <button type="button" class="btn btn-tool animate-icon" onclick="create()" data-bs-toggle="modal"
+                    data-bs-target="#viewmore">
                     <i class="far fa-plus-square"></i>
                 </button>
                 <button type="button" class="btn btn-tool animate-icon" onclick="refresh()" id="refresh">
@@ -41,7 +42,7 @@
                 </tr>
             </thead>
             <tbody id="products_table">
-                
+
             </tbody>
         </table>
         <div class="card-footer" id="footer"></div>

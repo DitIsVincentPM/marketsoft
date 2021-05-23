@@ -10,6 +10,7 @@ use Auth;
 use App\Models\Products;
 use PayPal;
 use Carbon\Carbon;
+use App\Models\Payment_Gateways;
 
 class ShoppingCartController
 {
@@ -17,10 +18,12 @@ class ShoppingCartController
     {
         $products = Products::get();
         $items = ShoppingCart::GetShoppingCart();
+        $payment_gateaways = Payment_Gateways::get();
 
         return view('Products.shoppingcart', [
             'products' => $products,
             'items' => $items,
+            'payment_gateaways' => $payment_gateaways,
         ]);
     }
 

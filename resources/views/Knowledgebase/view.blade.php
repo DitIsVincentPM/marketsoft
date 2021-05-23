@@ -30,7 +30,6 @@ Knowledgebase
                 </div>
             </div>
             <div class="card-footer br-0">
-                <div class="pull-left">Created On: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $knowledgebase->created_at)->format('m/d/Y') }}</div>
                 <div class="pull-right">Total Views: {{ $knowledgebase->views }}</div>
             </div>
         </div>

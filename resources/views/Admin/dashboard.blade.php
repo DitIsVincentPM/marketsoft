@@ -104,14 +104,16 @@
                     <ul class="products-list product-list-in-card pl-2 pr-2">
                         @foreach ($products as $product)
                             <li class="item">
+                                @if($product->logo != null)
                                 <div class="product-img">
-                                    <img src="/images/products/{{ $product->Images[0]->image_url }}" alt="Product Image" class="img-size-50">
+                                    <img src="/images/products/{{ $product->logo }}" alt="Product Image" class="img-size-50">
                                 </div>
+                                @endif
                                 <div class="product-info">
                                     <a href="javascript:void(0)" class="product-title">{{ $product->name }}
                                         <span class="badge badge-warning float-right">${{ $product->price }}</span></a>
                                     <span class="product-description">
-                                        {{ Shorten::string($product->description, 50) }}
+                                        {{ Str::limit($product->description, 50) }}
                                     </span>
                                 </div>
                             </li>

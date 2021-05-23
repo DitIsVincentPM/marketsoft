@@ -1,10 +1,10 @@
 var append = 0;
 
-window.onload = function () {
+window.onload = function() {
     refresh_sections();
 }
 
-$(function () {
+$(function() {
     $("#sortable").sortable({
         opacity: 0.6,
         cursor: 'move',
@@ -15,11 +15,11 @@ $(function () {
 
 function create_section() {
     $("#sortable").append(
-        '<li id="section_' + append + '"><div style="box-shadow: 0px 0px 19px -8px rgba(0,0,0,0.3);" class="card mt-2 mb-2 p-1">' +
-        '<div class="card-body" style="background-color: #2e3145 !important;">' +
+        '<li style="list-style: none;" id="section_' + append + '"><div class="card mt-2 mb-2 p-1">' +
+        '<div class="card-body">' +
         '<span class="pull-left" style="cursor: all-scroll;" id="handle" data-feather="more-vertical"></span>' +
-        '<h5 style="margin-left: 32%; width: 400px; " class="v-center text-left" id="title-' + append + '">New Section</h5>' +
-        '<div class="row right v-center">' +
+        '<h5  class="v-center text-left float-left" id="title-' + append + '">New Section</h5>' +
+        '<div class="row right v-center float-right">' +
         '<div class="col-12">' +
         '<button id="edit-button-' + append + '" onclick="edit_section(' + append + ')" class="ml-2 btn btn-sm btn-primary">Edit</button> ' +
         '<button onclick="remove(' + append + ')" class="btn btn-sm btn-danger">Remove</button>' +
@@ -28,7 +28,7 @@ function create_section() {
         '</div>' +
         '</div>' +
         '<div style="display: none;" id="edit-' + append + '">' +
-        '<div style="background-color: #2e3145 !important;" class="card-body">' +
+        '<div class="card-body">' +
         '<div class="row">' +
         '<div class="col-md-8">' +
         '<label class="text-center form-label">Title</label>' +
@@ -115,11 +115,11 @@ function save(id) {
             id: id,
             sections: sections,
         },
-        error: function (error) {
+        error: function(error) {
             alert(["error", "Something went wrong!"]);
             refresh();
         },
-        success: function () {
+        success: function() {
             alert(["success", "You updated " + config.name + "'s settings!"]);
             refresh_sections();
         },
@@ -143,10 +143,10 @@ function refresh_sections() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         dataType: "json",
-        success: function (result) {
+        success: function(result) {
             $('#sortable').html('');
 
-            $.each(result, function (key, section) {
+            $.each(result, function(key, section) {
                 if (section['product_id'] == config.id) {
                     var text;
                     var accordion;

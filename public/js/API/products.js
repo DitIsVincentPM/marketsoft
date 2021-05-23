@@ -1,5 +1,78 @@
 var append = 0;
 
+
+function create() {
+    $('#product_model').html(
+        '<div class="modal-header">' +
+        '<h4 class="modal-title" id="viewmoreLabel">Create Product</h4>' +
+        '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+        '</div>' +
+        '<div class="modal-body">' +
+        '<div class="row">' +
+        ' <div class="col-8">' +
+        '<div class="input-group mb-3">' +
+        '<div class="input-group-append">' +
+        '<span class="input-group-text">Name:</span>' +
+        '</div>' +
+        '<input type="text" id="name" class="form-control" placeholder="John doe">' +
+        '</div>' +
+        '</div>' +
+        '<div class="col-4">' +
+        '<div class="input-group mb-3">' +
+        '<div class="input-group-append">' +
+        '<span class="input-group-text">Price:</span>' +
+        '</div>' +
+        '<input type="text" id="price" class="form-control" placeholder="19.99">' +
+        '</div>' +
+        '</div>' +
+        '<div class="col-12">' +
+        '<div class="input-group mb-3">' +
+        '<div class="input-group-append">' +
+        '<span class="input-group-text">Description (Short):</span>' +
+        '</div>' +
+        '<input type="text" id="description" class="form-control" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur.">' +
+        '</div>' +
+        '</div>' +
+        '<div class="input-group mb-3">' +
+        '<div class="input-group-append">' +
+        '<span class="input-group-text">Category:</span>' +
+        '</div>' +
+        '<select class="custom-select" id="category" name="category">' +
+        '</select>' +
+        '</div>' +
+        '<hr>' +
+        '</div>' +
+        '<div class="modal-footer">' +
+        '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>' +
+        '<button onclick="save(' + "'create'" + ')" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>' +
+        '</div>' +
+        '</div>   '
+    );
+
+    $("#category").html(
+        '<option>' +
+        '<span class="sr-only">Loading...</span>' +
+        '</option>'
+    );
+
+    $.ajax({
+        type: "POST",
+        url: "/api/products/categorys",
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(result) {
+            $("#category").html('');
+
+            $.each(result, function(key, category) {
+                $("#category").append('<option value="' + category['id'] + '">' + category['name'] + "</option>");
+            });
+        }
+    });
+}
+
 function edit_product(id) {
 
     $('#product_model').html(
@@ -62,20 +135,6 @@ function edit_product(id) {
                         '</div>' +
                         '</div>' +
                         '<hr>' +
-                        '<div class="card w-100">' +
-                        '<div class="card-header">' +
-                        '<div class="row">' +
-                        ' <div class="col-8 mt-1">' +
-                        'Sections' +
-                        '</div>' +
-                        '<div class="text-right col-4">' +
-                        '<button onclick="create_section()" class="btn btn-sm btn-primary">Create</button>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '<ul id="sortable">' +
-                        '</ul>' +
-                        '</div>' +
                         '</div>' +
                         '<div class="modal-footer">' +
                         '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>' +
@@ -197,91 +256,6 @@ function edit_product(id) {
     });
 }
 
-function create() {
-    $('#product_model').html(
-        '<div class="modal-header">' +
-        '<h4 class="modal-title" id="viewmoreLabel">Create Product</h4>' +
-        '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-        '</div>' +
-        '<div class="modal-body">' +
-        '<div class="row">' +
-        ' <div class="col-8">' +
-        '<div class="input-group mb-3">' +
-        '<div class="input-group-append">' +
-        '<span class="input-group-text">Name:</span>' +
-        '</div>' +
-        '<input type="text" id="name" class="form-control" placeholder="John doe">' +
-        '</div>' +
-        '</div>' +
-        '<div class="col-4">' +
-        '<div class="input-group mb-3">' +
-        '<div class="input-group-append">' +
-        '<span class="input-group-text">Price:</span>' +
-        '</div>' +
-        '<input type="text" id="price" class="form-control" placeholder="19.99">' +
-        '</div>' +
-        '</div>' +
-        '<div class="col-12">' +
-        '<div class="input-group mb-3">' +
-        '<div class="input-group-append">' +
-        '<span class="input-group-text">Description (Short):</span>' +
-        '</div>' +
-        '<input type="text" id="description" class="form-control" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur.">' +
-        '</div>' +
-        '</div>' +
-        '<div class="input-group mb-3">' +
-        '<div class="input-group-append">' +
-        '<span class="input-group-text">Category:</span>' +
-        '</div>' +
-        '<select class="custom-select" id="category" name="category">' +
-        '</select>' +
-        '</div>' +
-        '<hr>' +
-        '<div class="card w-100">' +
-        '<div class="card-header">' +
-        '<div class="row">' +
-        ' <div class="col-8 mt-1">' +
-        'Sections' +
-        '</div>' +
-        '<div class="text-right col-4">' +
-        '<button onclick="create_section()" class="btn btn-sm btn-primary">Create</button>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '<ul id="sortable">' +
-        '</ul>' +
-        '</div>' +
-        '</div>' +
-        '<div class="modal-footer">' +
-        '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>' +
-        '<button onclick="save(' + "'create'" + ')" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>' +
-        '</div>' +
-        '</div>   '
-    );
-
-    $("#category").html(
-        '<option>' +
-        '<span class="sr-only">Loading...</span>' +
-        '</option>'
-    );
-
-    $.ajax({
-        type: "POST",
-        url: "/api/products/categorys",
-        dataType: 'json',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        dataType: "json",
-        success: function(result) {
-            $("#category").html('');
-
-            $.each(result, function(key, category) {
-                $("#category").append('<option value="' + category['id'] + '">' + category['name'] + "</option>");
-            });
-        }
-    });
-}
 
 function refresh() {
     $('#loader').append(
@@ -335,11 +309,13 @@ function refresh() {
             }
 
             $.each(result, function(key, item) {
+                short = item['description'].substring(0, 24) + "...";
+
                 $("#products_table").append(
                     '<tr>' +
                     '<td>' + item['id'] + '</td>' +
                     '<td>' + item['name'] + '</td>' +
-                    '<td>' + item['description'] + '</td>' +
+                    '<td>' + short + '</td>' +
                     '<td><span class="badge badge-primary btn-sm">$' + item['price'] + '</span></td>' +
                     '<td class="text-right"><button onclick="edit_product(' + item['id'] + ')" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewmore">Quick Edit</button> <a href="/admin/products/view/' + item['id'] + '"><button class="btn btn-sm btn-primary">View</button></a></td>' +
                     '</tr>'

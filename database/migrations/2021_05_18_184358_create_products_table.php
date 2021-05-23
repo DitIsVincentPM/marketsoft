@@ -15,11 +15,11 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->string('name');
             $table->text('description');
             $table->foreignId('category')->constrained('product_categorys');
-            $table->integer('price');
+            $table->float('price');
             $table->integer('type');
             $table->integer('purchases')->default(0);
             $table->integer('downloads')->default(0);
