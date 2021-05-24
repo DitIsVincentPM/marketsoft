@@ -60,7 +60,23 @@
                             <tr>
                                 <td>{{ $ticket->id }}</td>
                                 <td>{{ $ticket->name }}</td>
-                                <td>{{ $ticket->status }}</td>
+                                @if($ticket->status == 0)
+                                <td class="text-warning"> 
+                                    Waiting Reply
+                                </td>
+                                @elseif($ticket->status == 1)
+                                <td class="text-info">
+                                    Replied
+                                </td>
+                                @elseif($ticket->status == 2)
+                                <td class="text-success">
+                                Complete
+                                </td>
+                                @elseif($ticket->status == 3)
+                                <td class="text-danger">
+                                Closed
+                                </td>
+                                @endif
                             </tr>
                         @empty
                         @endforelse
@@ -86,7 +102,13 @@
                             <tr>
                                 <td>{{ $product->id }}</td>
                                 <td>{{ $product->product->name }}</td>
-                                <td>{{ $product->status }}</td>
+                                @if($product->status == 0)
+                                <td class="text-success">Active</td>
+                                @elseif($product->status == 1) 
+                                <td class="text-warning">Suspended</td>
+                                @elseif($product->status == 2) 
+                                <td class="text-default">Inactive</td>
+                                @endif
                             </tr>
                         @empty
                         @endforelse

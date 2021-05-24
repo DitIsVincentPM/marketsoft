@@ -35,11 +35,12 @@
                                                     <div>
                                                         <h5 class="pull-left"><span
                                                                 style="font-weight: bolder;">{{ $item->qty }}x <span
-                                                                    style="font-weight: normal;">{{ $product->name }}</span></span>
+                                                                    style="font-weight: normal;">{{ $product->name }}<small
+                                                                        class="ml-2 text-uppercase">(Montly)</small></span></span>
                                                         </h5>
                                                     </div>
                                                 </div>
-                                                <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex justify-content-between align-items-center row">
                                                     <div>
                                                         <form method="POST"
                                                             action="{{ route('products.view.remove', $product->id) }}">
@@ -63,7 +64,8 @@
                                 <div class="text-center card">
                                     <div class="card-body">
                                         <img src="/themes/default/icons/nothing_found.svg" height="250" />
-                                        <h4 class="text-bold text-muted mt-3">Oh, It seems like you don't have anything in here.</h4>
+                                        <h4 class="text-bold text-muted mt-3">Oh, It seems like you don't have anything in
+                                            here.</h4>
                                     </div>
                                 </div>
                             </div>

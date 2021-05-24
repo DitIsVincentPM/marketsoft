@@ -8,6 +8,7 @@ use Request;
 use Auth;
 use Settings;
 use Str;
+use App\Models\ca_ownedProducts;
 
 class ShoppingCart
 {
@@ -93,6 +94,12 @@ class ShoppingCart
                     $data['items'][$index]["price"] = $product->price;
                     $data['items'][$index]["desc"] = Str::limit($product->description, 40);
                     $data['items'][$index]["qty"] = $item->qty;
+
+                    ca_ownedProducts::insert([
+                        'product_id' => $product->id,
+                        'user_id' => $request->user()->id,
+                        'status' => 2,
+                    ]);
                 }
             }
             $index++;

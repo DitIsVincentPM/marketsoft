@@ -40,7 +40,8 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Paypal Id</th>
-                            <th style="width: 40px">Status</th>
+                            <th>Status</th>
+                            <th style="width: 40px"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,6 +49,13 @@
                             <tr>
                                 <td>{{ $service->id }}.</td>
                                 <td>{{ $service->product->name }}</td>
+                                @if($service->status == 0)
+                                <td class="text-success">Active</td>
+                                @elseif($service->status == 1) 
+                                <td class="text-warning">Suspended</td>
+                                @elseif($service->status == 2) 
+                                <td class="text-default">Inactive</td>
+                                @endif
                                 <td><span class="badge bg-primary">View</span></td>
                             </tr>
                         @endforeach
