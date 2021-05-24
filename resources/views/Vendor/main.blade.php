@@ -7,7 +7,8 @@
     <meta name="description" content="A Market, Business, Hosting Company Software for a small price!">
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Vincent Van Hoof, Pierce Gearhart">
-    <meta property="og:title" content="{{ trim(View::yieldContent('title')) }} - {{ Settings::key('CompanyName') }}" />
+    <meta property="og:title"
+        content="{{ trim(View::yieldContent('title')) }} - {{ Settings::key('CompanyName') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('index') }}" />
     <meta property="og:image" content="{{ Settings::key('CompanyFavicon') }}" />
@@ -24,8 +25,7 @@
 
 <body class="antialiased">
     <div class="wrapper">
-        <nav style="width: 100% !important; background-color: transparent !important; position: absolute !important;"
-            class="navbar navbar-expand-md navbar-dark navbar-black">
+        <nav class="navbar navbar-expand-md nav-transparant">
             <div class="container">
                 <a href="{{ route('index') }}" class="navbar-brand">
                     <span class="brand-text font-weight-light">{{ Settings::key('CompanyName') }}</span>
@@ -46,7 +46,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('knowledgebase.index') }}" class="nav-link">Knowledgebase</a>
-                        </li>                        
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('announcements.index') }}" class="nav-link">Announcements</a>
                         </li>
@@ -89,6 +89,9 @@
                                 <span hidden class="badge badge-warning navbar-badge">0</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
+                                <a href="{{ route('clientarea.index') }}" class="dropdown-item">
+                                    <i class="fas fa-cube mr-2"></i> Client Area
+                                </a>
                                 <a href="{{ route('auth.settings') }}" class="dropdown-item">
                                     <i class="fas fa-user-cog mr-2"></i> Account Settings
                                 </a>
@@ -96,10 +99,10 @@
                                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                                 </a>
                                 @if (Permission::is_admin(Auth::user()->role_id))
-                                <div class="dropdown-divider"></div>
-                                <a href="{{ route('admin.index') }}" class="dropdown-item">
-                                    <i class="fas fa-cogs mr-2"></i> Admin Side
-                                </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="{{ route('admin.index') }}" class="dropdown-item">
+                                        <i class="fas fa-cogs mr-2"></i> Admin Side
+                                    </a>
                                 @endif
                             </div>
                         </li>
@@ -114,7 +117,7 @@
             </div>
         </nav>
         <div class="content-wrapper ml-0">
-            <div class="content-header header-breadcrumb">
+            <div class="content-header header-breadcrumb @hasSection('smallbar') mb-0 @endif">
                 @hasSection('home')
                     @yield('home')
                 @else
@@ -130,6 +133,15 @@
                     </div>
                 @endif
             </div>
+            @hasSection('smallbar')
+            <nav class="w-100 navbar navbar-expand-md second-color p-1 mb-5">
+                <div class="container">
+                    <ul class="navbar-nav navbar-mobile">
+                    @yield('smallbar')
+                    </ul>
+                </div>
+            </nav>
+            @endif
             <div class="content">
                 <div class="container">
                     @yield('content')

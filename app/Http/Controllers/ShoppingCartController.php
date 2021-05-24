@@ -61,10 +61,13 @@ class ShoppingCartController
         $data["invoice_description"] = $response["DESC"];
         $data["invoice_id"] = $response["INVNUM"];
 
-        dd($json = $provider->doExpressCheckoutPayment($data, $token, $PayerID));        
+        $json = $provider->doExpressCheckoutPayment($data, $token, $PayerID);        
         if($json["PAYMENTINFO_0_PAYMENTSTATUS"] == "Completed") {
             DB::table('ca_invoices')->where('id', $response["INVNUM"])->update([
                 'status' => 2,
+                'paypal_id' => $json["PAYMENTINFO_0_TRANSACTIONID"],
+                'token' => $token,
+                'payer_id' => $PayerID,
             ]);
 
             DB::table('shoppingcart')->where('ip', $request->ip())->delete();
@@ -73,12 +76,16 @@ class ShoppingCartController
         } else if($json["PAYMENTINFO_0_PAYMENTSTATUS"] == "Pending") {
             DB::table('ca_invoices')->where('id', $response["INVNUM"])->update([
                 'status' => 0,
+                'token' => $token,
+                'payer_id' => $PayerID,
             ]);
     
             return redirect('/shoppingcart/status?status=processing');
         } else if($json['PAYMENTINFO_0_PAYMENTSTATUS'] == 'fail' or $json['PAYMENTINFO_0_PAYMENTSTATUS'] == 'failed') {
             DB::table('ca_invoices')->where('id', $response["INVNUM"])->update([
                 'status' => 4,
+                'token' => $token,
+                'payer_id' => $PayerID,
             ]);
     
             return redirect('/shoppingcart/status?status=canceld');

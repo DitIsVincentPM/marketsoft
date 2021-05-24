@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Modules;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Team;
-use App\Models\InputCheck as InputCheck;
 use Auth;
 
 class TicketsController
@@ -42,11 +41,6 @@ class TicketsController
         $priority = $request->input('priority');
         $message = $request->input('message');
         $user_id = Auth::user()->id;
-        
-        $error = InputCheck::check([$name, $email, $category, $priority, $message]);
-        if($error != false) {
-            return redirect()->route('ticket.new')->with('error', $error);
-        }
 
         DB::table('tickets')->insert([
             'name' => $name,
@@ -93,11 +87,6 @@ class TicketsController
 
         if($tickets->status == 3) {
             return redirect()->route('ticket.view', $id)->with('error', "This ticket is closed, you cannot reply!");
-        }
-
-        $error = InputCheck::check([$message]);
-        if($error != false) {
-            return redirect()->route('ticket.view', $id)->with('error', $error);
         }
 
         DB::table('ticket_replies')->insert([

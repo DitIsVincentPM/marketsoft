@@ -323,3 +323,27 @@ a {
         z-index: 200000;
     }
 }
+
+.second-color {
+    color: white;
+    background-color: #2e5ae8;
+}
+
+.second-color {
+    color: white;
+    background-color: #3763f5;
+}
+
+.nav-transparant {
+    width: 100% !important;
+    background-color: transparent !important;
+    position: absolute !important;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.nav-link {
+    color: white !important;
+}

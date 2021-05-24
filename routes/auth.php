@@ -23,8 +23,9 @@ Route::group(['prefix' => 'register'], function () {
     Route::post('/newuser', 'App\Http\Controllers\AuthController@newuser')->name('auth.register.new');
 });
 
-// Frontend Seller
-Route::group(['prefix' => 'seller'], function () {
-    Route::get('/', 'App\Http\Controllers\AuthController@Seller')->name('auth.seller');
-    Route::post('/newseller', 'App\Http\Controllers\AuthController@newseller')->name('auth.seller.new');
+// Client Area
+Route::group(['prefix' => 'clientarea'], function () {
+    Route::get('/', 'App\Http\Controllers\ClientAreaController@index')->name('clientarea.index');
+    Route::get('/invoices', 'App\Http\Controllers\ClientAreaController@invoices')->name('clientarea.invoices');
+    Route::get('/services', 'App\Http\Controllers\ClientAreaController@services')->name('clientarea.services');
 });
