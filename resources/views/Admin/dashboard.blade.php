@@ -25,7 +25,7 @@
         </div>
     @endif
     <div class="row">
-        <div class="col-12 mt-3">
+        <div class="col-12">
             <div class="card" id="loader">
                 <div id="active_users" class="card-body">
                     <p class="mb-0">Loading...</p>
@@ -38,12 +38,6 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Total Sales</span>
                     <span class="info-box-number">{{ DB::table('ca_ownedProducts')->count() }}</span>
-                    <div class="progress">
-                        <div class="progress-bar bg-info" style="width: 70%"></div>
-                    </div>
-                    <span class="progress-description">
-                        70% Increase in 30 Days
-                    </span>
                 </div>
             </div>
             <div class="info-box">
@@ -51,12 +45,6 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Total Users</span>
                     <span class="info-box-number">{{ DB::table('users')->count() }}</span>
-                    <div class="progress">
-                        <div class="progress-bar bg-info" style="width: 70%"></div>
-                    </div>
-                    <span class="progress-description">
-                        70% Increase in 30 Days
-                    </span>
                 </div>
             </div>
             <div class="info-box">
@@ -64,12 +52,6 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Monthly Revenue</span>
                     <span class="info-box-number">$0</span>
-                    <div class="progress">
-                        <div class="progress-bar bg-info" style="width: 70%"></div>
-                    </div>
-                    <span class="progress-description">
-                        70% Increase in 30 Days
-                    </span>
                 </div>
             </div>
             <div class="info-box">
@@ -77,9 +59,6 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Open Tickets</span>
                     <span class="info-box-number">{{ DB::table('tickets')->where('status', '!=', 3)->count() }}</span>
-                    <div class="progress">
-                        <div class="progress-bar bg-info" @if(DB::table('tickets')->where('status', '!=', 3)->count() != 0)style="width: {{ (DB::table('tickets')->where('status', '!=', 3)->count() /DB::table('tickets')->count()) * 100 }}%"@endif></div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -106,7 +85,7 @@
                             <li class="item">
                                 @if($product->logo != null)
                                 <div class="product-img">
-                                    <img src="/images/products/{{ $product->logo }}" alt="Product Image" class="img-size-50">
+                                    <img src="{{ $product->logo }}" alt="Product Image" class="img-size-50">
                                 </div>
                                 @endif
                                 <div class="product-info">

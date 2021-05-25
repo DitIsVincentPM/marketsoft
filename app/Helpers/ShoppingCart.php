@@ -9,6 +9,7 @@ use Auth;
 use Settings;
 use Str;
 use App\Models\ca_ownedProducts;
+use Carbon\Carbon;
 
 class ShoppingCart
 {
@@ -74,15 +75,19 @@ class ShoppingCart
         return "$prod->name is removed from your shopping cart.";
     }
 
-    public static function GeneratePaypalLink()
+    public static function GeneratePaypalLink($request)
     {
         $provider = PayPal::setProvider('express_checkout');
 
         $shoppingcart_items = DB::table('shoppingcart')->where('ip', Request::ip())->get();
         $products = DB::table('products')->get();
 
-        $invoices = DB::table('ca_invoices')->get();
-        $invoice_id = count($invoices) + 1;
+        $invoices = DB::table('ca_invoices')->latest()->first();
+        if ($invoices == null) {
+            $invoice_id = 1;
+        } else {
+            $invoice_id = $invoices->id + 1;
+        }
 
         $data['items'] = [];
         $index = 0;
@@ -95,11 +100,14 @@ class ShoppingCart
                     $data['items'][$index]["desc"] = Str::limit($product->description, 40);
                     $data['items'][$index]["qty"] = $item->qty;
 
-                    ca_ownedProducts::insert([
+                    for ($i = 0; $i < $data['items'][$index]["qty"]; $i++) {
+                        ca_ownedProducts::insert([
                         'product_id' => $product->id,
+                        'invoice_id' => $invoice_id,
                         'user_id' => $request->user()->id,
                         'status' => 2,
                     ]);
+                    }
                 }
             }
             $index++;
@@ -121,6 +129,8 @@ class ShoppingCart
             'id' => $invoice_id,
             'user_id' => Auth::user()->id,
             'paypal_id' => null,
+            'products' => json_encode($data, true),
+            'created_at' => Carbon::now(),
             'status' => 0,
         ]);
 

@@ -17,6 +17,30 @@
     </ol>
 @endsection
 
+@section('smallbar')
+<li class="nav-item">
+    <a onClick="change('general')" class="nav-link">General</a>
+</li>
+<li class="nav-item">
+    <a onClick="change('product')" class="nav-link">Products</a>
+</li>
+<li class="nav-item">
+    <a onClick="change('mail')" class="nav-link">Mail</a>
+</li>
+<li class="nav-item">
+    <a onClick="change('modules')" class="nav-link">Module</a>
+</li>
+<li class="nav-item">
+    <a onClick="change('roles')" class="nav-link">Roles</a>
+</li>
+<li class="nav-item">
+    <a onClick="change('legal')" class="nav-link">Legal</a>
+</li>
+<li class="nav-item">
+    <a onClick="change('oauth2')" class="nav-link">OAuth2</a>
+</li>
+@endsection
+
 @section('content')
     <div class="alert {{ $version[1] }}" role="alert">
         {{ $version[0] }}

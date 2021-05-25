@@ -347,3 +347,35 @@ a {
 .nav-link {
     color: white !important;
 }
+
+.icon-card {
+    border-radius: 75%;
+    margin: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-right: 15px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.icon-card-primary {
+    color: #3763f5;
+    background-color: rgba(55, 99, 245, 0.5);
+}
+
+.icon-card-success {
+    color: #28a745;
+    background-color: rgba(40, 167, 69, 0.5);
+}
+
+.icon-card-warning {
+    color: #ffc107;
+    background-color: rgba(255, 193, 7, 0.5);
+}
+
+.icon-card-danger {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.5);
+}

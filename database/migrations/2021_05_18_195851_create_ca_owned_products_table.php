@@ -17,6 +17,7 @@ class CreateCaOwnedProductsTable extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('invoice_id')->constrained('ca_invoices');
             $table->integer('status')->default(0);
             $table->timestamps();
         });

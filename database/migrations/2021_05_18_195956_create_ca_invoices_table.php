@@ -19,7 +19,7 @@ class CreateCaInvoicesTable extends Migration
             $table->string('paypal_id')->nullable();
             $table->string('token')->nullable();
             $table->string('payer_id')->nullable();
-            $table->text('products')->nullable();
+            $table->json('products')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

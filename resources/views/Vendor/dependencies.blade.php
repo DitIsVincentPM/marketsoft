@@ -17,3 +17,4 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.21/dist/css/themes/splide-skyblue.min.css">
 <link rel="stylesheet" href="/css/ion.rangeSlider.min.css"/>
 <script src="/js/ion.rangeSlider.min.js"></script> 
+<script src="/js/custom-tabs.js"></script> 

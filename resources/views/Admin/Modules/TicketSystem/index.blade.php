@@ -17,6 +17,15 @@
     </ol>
 @endsection
 
+@section('smallbar')
+<li class="nav-item">
+    <a onClick="change('ticket')" class="nav-link">Tickets</a>
+</li>
+<li class="nav-item">
+    <a onClick="change('category')" class="nav-link">Categories</a>
+</li>
+@endsection
+
 @section('content')
     <div id="tab-content" data-name="ticket" style="display: block;">
         <div class="card shadow" id="loader">

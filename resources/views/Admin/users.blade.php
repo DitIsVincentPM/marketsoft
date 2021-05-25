@@ -18,11 +18,26 @@
 @endsection
 
 @section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="input-group">
+                <div class="form-outline">
+                    <input type="search" placeholder="Search..." name="search" id="search"
+                        class="admin-search-input form-control" />
+                </div>
+                <button type="button" class="btn btn-primary">
+                    <i style="width: 16px;" data-feather="search" class="mr-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br>
     <div class="card shadow" id="loader">
         <div class="card-header">
             Users Table
             <div class="card-tools">
-                <button type="button" class="btn btn-tool animate-icon" onclick="createusermodal()" data-bs-toggle="modal" data-bs-target="#createuser">
+                <button type="button" class="btn btn-tool animate-icon" onclick="createusermodal()" data-bs-toggle="modal"
+                    data-bs-target="#createuser">
                     <i class="far fa-plus-square"></i>
                 </button>
                 <button type="button" class="btn btn-tool animate-icon" onclick="refresh()" id="refresh">
@@ -73,5 +88,6 @@
             //Initialize Select2 Elements
             $('.select2').select2()
         });
+
     </script>
 @endsection

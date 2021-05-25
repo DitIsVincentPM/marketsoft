@@ -27,5 +27,6 @@ Route::group(['prefix' => 'register'], function () {
 Route::group(['prefix' => 'clientarea'], function () {
     Route::get('/', 'App\Http\Controllers\ClientAreaController@index')->name('clientarea.index');
     Route::get('/invoices', 'App\Http\Controllers\ClientAreaController@invoices')->name('clientarea.invoices');
+    Route::get('/invoice/{id}', 'App\Http\Controllers\ClientAreaController@invoice')->name('clientarea.invoice');
     Route::get('/services', 'App\Http\Controllers\ClientAreaController@services')->name('clientarea.services');
 });

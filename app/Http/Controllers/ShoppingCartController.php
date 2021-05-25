@@ -11,6 +11,8 @@ use App\Models\Products;
 use PayPal;
 use Carbon\Carbon;
 use App\Models\Payment_Gateways;
+use App\Models\ca_ownedProducts;
+use App\Models\ca_Invoices;
 
 class ShoppingCartController
 {
@@ -34,13 +36,13 @@ class ShoppingCartController
         ]);
     }
 
-    public function Checkout()
+    public function Checkout(Request $request)
     {
         if(!Auth::check()) {
             return redirect()->route('shoppingcart')->with('error', "The needed information isn't sent trough");
         }
 
-        return redirect(ShoppingCart::GeneratePaypalLink());
+        return redirect(ShoppingCart::GeneratePaypalLink($request));
     }
 
     public function Callback(Request $request){
@@ -63,11 +65,15 @@ class ShoppingCartController
 
         $json = $provider->doExpressCheckoutPayment($data, $token, $PayerID);        
         if($json["PAYMENTINFO_0_PAYMENTSTATUS"] == "Completed") {
-            DB::table('ca_invoices')->where('id', $response["INVNUM"])->update([
+            ca_Invoices::where('id', $response["INVNUM"])->update([
                 'status' => 2,
                 'paypal_id' => $json["PAYMENTINFO_0_TRANSACTIONID"],
                 'token' => $token,
                 'payer_id' => $PayerID,
+            ]);
+
+            ca_ownedProducts::where('invoice_id', $response["INVNUM"])->update([
+                'status' => '0',
             ]);
 
             DB::table('shoppingcart')->where('ip', $request->ip())->delete();

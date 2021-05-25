@@ -40,7 +40,8 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Paypal Id</th>
-                            <th style="width: 40px">Status</th>
+                            <th>Status</th>
+                            <th style="width: 40px"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,7 +49,18 @@
                             <tr>
                                 <td>{{ $invoice->id }}.</td>
                                 <td>{{ $invoice->paypal_id }}</td>
-                                <td><span class="badge bg-primary">View</span></td>
+                                @if($invoice->status == 0)
+                                <td class="text-warning">Payment Pending</td>
+                                @elseif($invoice->status == 1)
+                                <td class="text-danger">Overdue</td>
+                                @elseif($invoice->status == 2)
+                                <td class="text-success">Payment Completed</td>
+                                @elseif($invoice->status == 3)
+                                <td class="text-default">Refunded</td>
+                                @elseif($invoice->status == 4)
+                                <td class="text-danger">Payment Failed</td>
+                                @endif
+                                <td><a class="badge bg-primary" href="{{ route('clientarea.invoice', $invoice->id) }}">View</a></td>
                             </tr>
                         @endforeach
                     </tbody>
