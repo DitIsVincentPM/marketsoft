@@ -79,6 +79,18 @@ class CreateSettingsTable extends Migration
                 'key' => 'PrivacyStatus',
             )
         );
+        DB::table('settings')->insert(
+            array(
+                'value' => '',
+                'key' => 'CompanyLogo',
+            )
+        );
+        DB::table('settings')->insert(
+            array(
+                'value' => '0',
+                'key' => 'NavbarIconStatus',
+            )
+        );
     }
     /**
      * Reverse the migrations.

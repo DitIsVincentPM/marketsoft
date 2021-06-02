@@ -150,7 +150,7 @@
             @hasSection('smallbar')
             <nav class="w-100 navbar navbar-expand-md second-color p-1 mb-5">
                 <div class="container">
-                    <ul class="navbar-nav navbar-mobile">
+                    <ul class="navbar-nav">
                     @yield('smallbar')
                     </ul>
                 </div>
@@ -162,17 +162,8 @@
                 </div>
             </div>
         </div>
-        <aside class="control-sidebar control-sidebar-dark">
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
 
         <footer class="main-footer">
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
             <strong>Copyright &copy; 2021 MarketSoft</strong> All rightsreserved.
         </footer>
     </div>

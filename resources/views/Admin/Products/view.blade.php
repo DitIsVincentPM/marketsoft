@@ -19,47 +19,60 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-4 col-md-12 col-sm-12">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
             <div class="card">
-                <div class="card-body">
-                    <h4><strong>TOTAL SALES</strong></h4>
-                    <p>0</p>
-                    <span class="right v-center icon-admin" data-feather="shopping-bag"></span>
+                <div class="card-body" style="height: 150px;">
+                    <div class="icon-card icon-card-primary">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h1 style="font-size: 55px; position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);">
+                        0 <span class="text-muted text-uppercase"
+                            style="font-size: 25px;">SALES</span></h1>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-sm-12">
+        <div class="col-md-4">
             <div class="card">
-                <div class="card-body">
-                    <h4><strong>TOTAL VIEWS</strong></h4>
-                    <p>0</p>
-                    <span class="right v-center icon-admin" data-feather="users"></span>
+                <div class="card-body" style="height: 150px;">
+                    <div class="icon-card icon-card-warning">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h1 style="font-size: 55px; position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);">
+                        {{ $product->views }} <span class="text-muted text-uppercase"
+                            style="font-size: 25px;">VIEWS</span></h1>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-sm-12">
+        <div class="col-md-4">
             <div class="card">
-                <div class="card-body">
-                    <h4><strong>TOTAL EARNINGS</strong></h4>
-                    <p>$0</p>
-                    <span class="right v-center icon-admin" data-feather="credit-card"></span>
+                <div class="card-body" style="height: 150px;">
+                    <div class="icon-card icon-card-danger">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h1 style="font-size: 55px; position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);">
+                        0 <span class="text-muted text-uppercase"
+                            style="font-size: 25px;">EARNINGS</span></h1>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-mb-3 col-sm-6">
-            <div style="background-color: #ffff !important;" class="cursor-pointer btn-sm text-center list-group-item list-group-item-action">
+            <div style="background-color: #ffff !important;"
+                class="cursor-pointer btn-sm text-center list-group-item list-group-item-action">
                 <span class="text-center">Settings</span>
             </div>
-            <a id="tab-button" data-name="general" onClick="change('general')" class="cursor-pointer list-group-item list-group-item-action active">
+            <a id="tab-button" data-name="general" onClick="change('general')"
+                class="cursor-pointer list-group-item list-group-item-action active">
                 <i style="width: 16px;" data-feather="settings" class="mr-1"></i>
                 <span class="tab-button">General</span>
             </a>
-            <a id="tab-button" data-name="modules" onClick="change('modules')" class="cursor-pointer list-group-item list-group-item-action">
+            <a id="tab-button" data-name="modules" onClick="change('modules')"
+                class="cursor-pointer list-group-item list-group-item-action">
                 <i style="width: 16px;" data-feather="box" class="mr-1"></i>
                 <span class="tab-button">Modules</span>
             </a>
-            <a id="tab-button" data-name="transaction" onClick="change('transaction')" class="cursor-pointer list-group-item list-group-item-action">
+            <a id="tab-button" data-name="transaction" onClick="change('transaction')"
+                class="cursor-pointer list-group-item list-group-item-action">
                 <i style="width: 16px;" data-feather="credit-card" class="mr-1"></i>
                 <span class="tab-button">Transactions</span>
             </a>
@@ -84,7 +97,8 @@
                             </div>
                             <div class="col-12 mt-3">
                                 <label class="form-label">Product Description</label>
-                                <textarea type="text" class="form-control" name="description">{{ $product->description }}</textarea>
+                                <textarea type="text" class="form-control"
+                                    name="description">{{ $product->description }}</textarea>
                                 <div class="form-text">Put the product description here.</div>
                             </div>
                         </div>
@@ -98,7 +112,10 @@
                 <div class="default-tab">
                     <ul style="position: static !important;" class="nav nav-tabs" role="tablist">
                         @foreach ($modules as $module)
-                            <li class="@if ($loop->first) active @endif nav-item nav-tabs-item"><a class="nav-link nav-tabs-link" type="button" role="tab" aria-controls="{{ $module->name }}" @if ($loop->first) aria-selected="true" @else aria-selected="false" @endif data-toggle="tab" href="#{{ $module->name }}">{{ $module->name }}</a></li>
+                            <li class="@if ($loop->first) active @endif
+                                nav-item nav-tabs-item"><a class="nav-link nav-tabs-link" type="button" role="tab"
+                                    aria-controls="{{ $module->name }}" @if ($loop->first) aria-selected="true" @else aria-selected="false" @endif data-toggle="tab"
+                                    href="#{{ $module->name }}">{{ $module->name }}</a></li>
                         @endforeach
                     </ul>
                     <div class="tab-content">
@@ -109,18 +126,23 @@
                                         <div class="row">
                                             <div class="col-12 mb-3">
                                                 <label class="form-label">Server Name</label>
-                                                <input type="text" class="form-control" name="description" value="{{ $product->description }}">
+                                                <input type="text" class="form-control" name="description"
+                                                    value="{{ $product->description }}">
                                                 <div class="form-text">Put the product description here.</div>
                                             </div>
                                             <div class="col-6">
                                                 <label class="form-label">Disk Amount (MB)</label>
-                                                <input type="text" class="form-control" name="description" value="{{ $product->description }}">
-                                                <div class="form-text">Here you can put the amout of disk the server of the user shoud be revieving</div>
+                                                <input type="text" class="form-control" name="description"
+                                                    value="{{ $product->description }}">
+                                                <div class="form-text">Here you can put the amout of disk the server of the
+                                                    user shoud be revieving</div>
                                             </div>
                                             <div class="col-6">
                                                 <label class="form-label">Ram Amount (MB)</label>
-                                                <input type="text" class="form-control" name="description" value="{{ $product->description }}">
-                                                <div class="form-text">Here you can put the amout of ram the server of the user shoud be revieving</div>
+                                                <input type="text" class="form-control" name="description"
+                                                    value="{{ $product->description }}">
+                                                <div class="form-text">Here you can put the amout of ram the server of the
+                                                    user shoud be revieving</div>
                                             </div>
                                         </div>
                                     </div>

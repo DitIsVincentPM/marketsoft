@@ -17,6 +17,7 @@ class CreateShoppingcartTable extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->string('ip');
+            $table->string('qty');
             $table->timestamps();
         });
     }
