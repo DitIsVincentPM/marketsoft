@@ -63,7 +63,7 @@ class ShoppingCartController
         $data["invoice_description"] = $response["DESC"];
         $data["invoice_id"] = $response["INVNUM"];
 
-        $json = $provider->doExpressCheckoutPayment($data, $token, $PayerID);        
+        $json = $provider->doExpressCheckoutPayment($data, $token, $PayerID);
         if($json["PAYMENTINFO_0_PAYMENTSTATUS"] == "Completed") {
             ca_Invoices::where('id', $response["INVNUM"])->update([
                 'status' => 2,
@@ -76,8 +76,16 @@ class ShoppingCartController
                 'status' => '0',
             ]);
 
+            $products = ca_ownedProducts::where('invoice_id', $response["INVNUM"])->get();
+
+            foreach($products as $p) {
+                DB::table('products')->where('id', $p->product->id)->update([
+                    'purchases' => $p->product->purchases + 1,
+                ]);
+            }
+
             DB::table('shoppingcart')->where('ip', $request->ip())->delete();
-    
+
             return redirect('/shoppingcart/status?status=success');
         } else if($json["PAYMENTINFO_0_PAYMENTSTATUS"] == "Pending") {
             DB::table('ca_invoices')->where('id', $response["INVNUM"])->update([
@@ -85,7 +93,7 @@ class ShoppingCartController
                 'token' => $token,
                 'payer_id' => $PayerID,
             ]);
-    
+
             return redirect('/shoppingcart/status?status=processing');
         } else if($json['PAYMENTINFO_0_PAYMENTSTATUS'] == 'fail' or $json['PAYMENTINFO_0_PAYMENTSTATUS'] == 'failed') {
             DB::table('ca_invoices')->where('id', $response["INVNUM"])->update([
@@ -93,10 +101,10 @@ class ShoppingCartController
                 'token' => $token,
                 'payer_id' => $PayerID,
             ]);
-    
+
             return redirect('/shoppingcart/status?status=canceld');
         }
-    
+
         return redirect()->route('index')->with('error', "Sorry, An error was encounterd.");
     }
 

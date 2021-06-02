@@ -20,39 +20,26 @@
 
 @section('content')
     <div class="row d-flex justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body" style="height: 150px;">
                     <div class="icon-card icon-card-primary">
-                        <i class="fas fa-ticket-alt"></i>
+                        <i class="fas fa-wallet"></i>
                     </div>
-                    <h1 style="font-size: 55px; position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);">
-                        0 <span class="text-muted text-uppercase"
+                    <h1 style="font-size: 45px; position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);">
+                        {{ $product->purchases }}<span class="ml-2 text-muted text-uppercase"
                             style="font-size: 25px;">SALES</span></h1>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body" style="height: 150px;">
-                    <div class="icon-card icon-card-warning">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <h1 style="font-size: 55px; position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);">
-                        {{ $product->views }} <span class="text-muted text-uppercase"
-                            style="font-size: 25px;">VIEWS</span></h1>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body" style="height: 150px;">
                     <div class="icon-card icon-card-danger">
                         <i class="fas fa-cube"></i>
                     </div>
-                    <h1 style="font-size: 55px; position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);">
-                        0 <span class="text-muted text-uppercase"
-                            style="font-size: 25px;">EARNINGS</span></h1>
+                    <h1 style="font-size: 45px; position: absolute;top: 50%;left:50%;transform: translate(-50%, -50%);">
+                        {{ $product->purchases * $product->price }}<span class="ml-2 text-muted text-uppercase" style="font-size: 25px;">EARNINGS</span></h1>
                 </div>
             </div>
         </div>

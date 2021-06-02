@@ -92,6 +92,15 @@ class ShoppingCart
         $data['items'] = [];
         $index = 0;
 
+        DB::table('ca_invoices')->insert([
+            'id' => $invoice_id,
+            'user_id' => Auth::user()->id,
+            'paypal_id' => null,
+            'products' => json_encode($data, true),
+            'created_at' => Carbon::now(),
+            'status' => 0,
+        ]);
+
         foreach ($shoppingcart_items as $item) {
             foreach ($products as $product) {
                 if ($product->id == $item->product_id) {
@@ -125,13 +134,8 @@ class ShoppingCart
         $data['cancel_url'] = url('/shoppingcart/status?status=canceld');
         $data['invoice_id'] = $invoice_id;
 
-        DB::table('ca_invoices')->insert([
-            'id' => $invoice_id,
-            'user_id' => Auth::user()->id,
-            'paypal_id' => null,
+        DB::table('ca_invoices')->latest()->update([
             'products' => json_encode($data, true),
-            'created_at' => Carbon::now(),
-            'status' => 0,
         ]);
 
         $response = $provider->setExpressCheckout($data);
