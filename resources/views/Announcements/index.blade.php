@@ -25,7 +25,7 @@ Announcements
             @if(count($announcements) == 0)
                 <div class="alert alert-primary text-center" role="alert">
                     There are currently no announcements to display
-                    @if(Auth::user()->is_admin)
+                    @if(Auth::check() && Permission::is_admin(Auth::user()->id))
                     <a class="ml-1" href="{{ route('admin.announcements') }}">(Get Started)</a>
                     @endif
                 </div>

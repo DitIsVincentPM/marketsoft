@@ -58,7 +58,7 @@ class GetExternals
 
     public static function getversion()
     {
-        $file_contents = file_get_contents('https://marketsoft.io/config/version.json');
+        $file_contents = file_get_contents('http://marketsoft.io/config/version.json');
         $json_content = json_decode($file_contents, true);
 
         return $json_content["version"];
@@ -66,7 +66,7 @@ class GetExternals
 
     public static function getversionstring()
     {
-        $file_contents = file_get_contents('https://marketsoft.io/config/version.json');
+        $file_contents = file_get_contents('http://marketsoft.io/config/version.json');
         $json_content = json_decode($file_contents, true);
         $version = env('APP_VERSION');
 
@@ -92,7 +92,7 @@ class GetExternals
             $type = "alert-info";
             $string = "Your using version v" . $version . " of MarketSoft.";
         }
-        
+
         return [$string, $type];
     }
 }

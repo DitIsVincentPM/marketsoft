@@ -84,7 +84,7 @@ class SettingsController extends BaseController
                 'value' => '/images/companylogo/' . $new_name,
             ]);
         }
-        
+
         if (isset($favicon)) {
             $namefavicon = "favicon" . '.' . $favicon->getClientOriginalExtension();
             $favicon->move(public_path('images/companyfavicon'), $namefavicon);
@@ -119,7 +119,7 @@ class SettingsController extends BaseController
 
         return redirect('/admin/settings#product')->with('success', "You successful updated the product settings!");
     }
-    
+
     public function CreateRole(Request $request)
     {
         $name = $request->input('name');
@@ -133,7 +133,7 @@ class SettingsController extends BaseController
             'icon' => $icon,
             'color' => $color,
         ]);
-        
+
         $role = DB::table('roles')->latest()->first();
         $permissions = DB::table('permissions')->get();
 
@@ -163,8 +163,8 @@ class SettingsController extends BaseController
             'icon' => $icon,
             'color' => $color,
         ]);
-        
-        $role = DB::table('roles')->latest()->first();
+
+        $role = DB::table('roles')->where('id', $id)->first();
         $permissions = DB::table('permissions')->get();
 
         foreach ($permissions as $permission) {
@@ -192,7 +192,7 @@ class SettingsController extends BaseController
     public function tosstatus(Request $request)
     {
         $setting = DB::table('settings')->first();
-        
+
         if (DB::table('settings')->where('key', 'TosStatus')->first()->value == 0) {
             DB::table('settings')->where('key', 'TosStatus')->update([
                 'value' => 1,
@@ -236,7 +236,7 @@ class SettingsController extends BaseController
     public function privacystatus(Request $request)
     {
         $setting = DB::table('settings')->first();
-        
+
         if (DB::table('settings')->where('key', 'PrivacyStatus')->first()->value == 0) {
             DB::table('settings')->where('key', 'PrivacyStatus')->update([
                 'value' => 1,
@@ -338,7 +338,7 @@ class SettingsController extends BaseController
 
         return redirect('/admin/settings#oauth2')->with('success', "You successfully updated the OAuth2 information!");
     }
-    
+
     public function modules_toggle(Request $request, $id)
     {
         $module = DB::table('modules')->where('id', $id)->first();
@@ -436,10 +436,10 @@ class SettingsController extends BaseController
             File::append($path_module . "/logs.txt", "- FIL: " . $files[$i]->getFilename() . "." . $files[$i]->getExtension() . " | " . $files[$i]->getPath() . "\r\n");
         }
 
-        /* Allowed Folders: 
-            Routes, 
-            Public, 
-            Resources, 
+        /* Allowed Folders:
+            Routes,
+            Public,
+            Resources,
             App
         */
         for ($i=0;$i < count($list["directories"]); $i++) {
@@ -510,7 +510,7 @@ class SettingsController extends BaseController
             }
             return $a;
         };
-    
+
         $w1 = $wordsof($s1);
         if (!$w1) {
             return 0;
@@ -519,13 +519,13 @@ class SettingsController extends BaseController
         if (!$w2) {
             return 0;
         }
-    
+
         $allWords = "";
         $allWords.= join("", array_keys($w1));
         $allWords.= join("", array_keys($w2));
         $totalLen = max(strlen($allWords), 1);
         $charDiff = 0;
-    
+
         foreach ($w1 as $word=>$x) {
             if (!isset($w2[$word])) {
                 $charDiff+=strlen($word);
@@ -536,7 +536,7 @@ class SettingsController extends BaseController
                 $charDiff+=strlen($word);
             }
         }
-    
+
         return 1-($charDiff/$totalLen);
     }
 }

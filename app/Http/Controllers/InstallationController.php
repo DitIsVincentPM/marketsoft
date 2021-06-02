@@ -11,6 +11,7 @@ use App\Helpers\Settings;
 use App\Models\Users;
 use Auth;
 use Hash;
+use DB;
 
 class InstallationController extends BaseController
 {
@@ -19,6 +20,7 @@ class InstallationController extends BaseController
         if(Settings::key('Installed') == 1) {
             return redirect()->route('index');
         }
+
         return view('installation.index');
     }
 
@@ -26,7 +28,7 @@ class InstallationController extends BaseController
         if(Settings::key('Installed') == 1) {
             return redirect()->route('index');
         }
-        
+
 
         $password = Hash::make($request->input('password'));
         Users::insert([
@@ -37,21 +39,21 @@ class InstallationController extends BaseController
             'role_id' => 2,
             'password' => $password,
         ]);
-        
-        Settings::where('key', 'Installed')->update([
+
+        DB::table('settings')->where('key', 'Installed')->update([
             'value' => 1,
         ]);
 
-        Settings::table('settings')->where('key', 'CompanyName')->update([
+        DB::table('settings')->where('key', 'CompanyName')->update([
             'value' => $request->input('companyname'),
         ]);
 
-        
+
         $credentials = array(
             'email'     => $request->input('email'),
             'password'  => $request->input('password')
         );
-        
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
         }

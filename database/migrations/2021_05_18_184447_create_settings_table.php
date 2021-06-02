@@ -63,20 +63,20 @@ class CreateSettingsTable extends Migration
         );
         DB::table('settings')->insert(
             array(
-                'value' => 'Installed',
-                'key' => '0',
+                'value' => '0',
+                'key' => 'Installed',
             )
         );
         DB::table('settings')->insert(
             array(
-                'value' => 'TosStatus',
-                'key' => '0',
+                'value' => '0',
+                'key' => 'TosStatus',
             )
         );
         DB::table('settings')->insert(
             array(
-                'value' => 'PrivacyStatus',
-                'key' => '0',
+                'value' => '0',
+                'key' => 'PrivacyStatus',
             )
         );
     }

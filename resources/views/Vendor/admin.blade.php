@@ -182,6 +182,7 @@
 <script src="/js/bootstrap.min.js"></script>
 <script src="/vendor/feather-icons/dist/feather.min.js"></script>
 <script>
+      feather.replace()
     $('#logout').on('click', function(event) {
         event.preventDefault();
 

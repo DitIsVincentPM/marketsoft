@@ -19,6 +19,12 @@ class CreateRolePermissionsTable extends Migration
             $table->foreignId('permission_id')->constrained('permissions');
             $table->timestamps();
         });
+        DB::table('role_permissions')->insert(
+            array(
+                'role_id' => '2',
+                'permission_id' => '7',
+            )
+        );
     }
 
     /**
