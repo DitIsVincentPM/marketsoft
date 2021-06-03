@@ -20,15 +20,18 @@
 @endsection
 
 @section('smallbar')
-    <li class="nav-item">
-        <a href="{{ route('clientarea.index') }}" class="nav-link text-white">Home</a>
-    </li>
-    <li class="nav-item">
-        <a href="{{ route('clientarea.invoices') }}" class="nav-link text-white">Invoices</a>
-    </li>
-    <li class="nav-item">
-        <a href="{{ route('clientarea.services') }}" class="nav-link text-white">Services</a>
-    </li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.index') }}" class="nav-link text-white">Home</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.invoices') }}" class="nav-link text-white">Invoices</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.services') }}" class="nav-link text-white">Services</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.tickets') }}" class="nav-link text-white">Tickets</a>
+</li>
 @endsection
 
 @section('content')
@@ -51,9 +54,9 @@
                                 <td>{{ $service->product->name }}</td>
                                 @if($service->status == 0)
                                 <td class="text-success">Active</td>
-                                @elseif($service->status == 1) 
+                                @elseif($service->status == 1)
                                 <td class="text-warning">Suspended</td>
-                                @elseif($service->status == 2) 
+                                @elseif($service->status == 2)
                                 <td class="text-default">Inactive</td>
                                 @endif
                                 <td><span class="badge bg-primary">View</span></td>

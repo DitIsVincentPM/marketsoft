@@ -3,13 +3,6 @@
 // Contact Us
 Route::get('/contact', 'App\Http\Controllers\SupportController@Contact')->name('support.contact');
 
-// Submit a Ticket
-Route::get('/tickets', 'App\Http\Controllers\Modules\TicketsController@Tickets')->name('ticket.index');
-Route::get('/tickets/new', 'App\Http\Controllers\Modules\TicketsController@NewTicket')->name('ticket.new');
-Route::post('/tickets/new/create', 'App\Http\Controllers\Modules\TicketsController@Create')->name('ticket.new.create');
-Route::post('/tickets/{id}/reply', 'App\Http\Controllers\Modules\TicketsController@TicketReplyCreate')->name('ticket.new.reply');
-Route::get('/tickets/{id}', 'App\Http\Controllers\Modules\TicketsController@TicketView')->name('ticket.view');
-
 // Announcements
 Route::get('/announcements', 'App\Http\Controllers\Modules\AnnouncementController@Announcements')->name('announcements.index');
 Route::get('/announcements/{id}', 'App\Http\Controllers\Modules\AnnouncementController@AnnounceView')->name('announcements.view');

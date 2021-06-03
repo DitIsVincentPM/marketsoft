@@ -14,8 +14,24 @@ Support Tickets
 @section('header-breadcrumb')
 <ol class="pull-right market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Support Tickets</li>
+    <li class="breadcrumb-item"><a href="{{ route('clientarea.index') }}">Client Area</a></li>
+    <li class="breadcrumb-item">Support Tickets</li>
 </ol>
+@endsection
+
+@section('smallbar')
+<li class="nav-item">
+    <a href="{{ route('clientarea.index') }}" class="nav-link text-white">Home</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.invoices') }}" class="nav-link text-white">Invoices</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.services') }}" class="nav-link text-white">Services</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.tickets') }}" class="nav-link text-white">Tickets</a>
+</li>
 @endsection
 
 @section('content')
@@ -25,7 +41,7 @@ Support Tickets
                 <div class="card shadow">
                     <div class="card-header">
                         <h4 class="pull-left mb-0 mt-1">Your Tickets</h4>
-                        <a href="{{ route('ticket.new') }}"><button class="pull-right btn btn-secondary btn-sm">Create New</button></a>
+                        <a href="{{ route('clientarea.ticket.new') }}"><button class="pull-right btn btn-secondary btn-sm">Create New</button></a>
                     </div>
                     <div class="col-md-12 col-md-offset-2">
                         <div class="alert alert-primary text-center mt-3" role="alert">
@@ -41,7 +57,7 @@ Support Tickets
                 <div class="card shadow">
                     <div class="card-header">
                         <h4 class="pull-left mb-0 mt-1">Your Tickets</h4>
-                        <a href="{{ route('ticket.new') }}"><button class="pull-right btn btn-secondary btn-sm">Create New</button></a>
+                        <a href="{{ route('clientarea.ticket.new') }}"><button class="pull-right btn btn-secondary btn-sm">Create New</button></a>
                     </div>
                     <table class="table mb-0 text-center">
                         <thead>
@@ -86,7 +102,7 @@ Support Tickets
                                 </td>
                                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ticket->created_at)->format('m/d/Y') }}</td>
                                 @if($ticket->status == 0)
-                                <td class="text-warning"> 
+                                <td class="text-warning">
                                     Waiting Reply
                                 </td>
                                 @elseif($ticket->status == 1)
@@ -102,7 +118,7 @@ Support Tickets
                                 Closed
                                 </td>
                                 @endif
-                                <td><a href="{{ route('ticket.view', $ticket->id) }}"><i data-feather="eye"></i></a></td>
+                                <td><a href="{{ route('clientarea.ticket.view', $ticket->id) }}"><i data-feather="eye"></i></a></td>
                             </tr>
                         @endforeach
                         </tbody>

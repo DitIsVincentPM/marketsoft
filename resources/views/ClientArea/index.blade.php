@@ -19,15 +19,18 @@
 @endsection
 
 @section('smallbar')
-    <li class="nav-item">
-        <a href="{{ route('clientarea.index') }}" class="nav-link text-white">Home</a>
-    </li>
-    <li class="nav-item">
-        <a href="{{ route('clientarea.invoices') }}" class="nav-link text-white">Invoices</a>
-    </li>
-    <li class="nav-item">
-        <a href="{{ route('clientarea.services') }}" class="nav-link text-white">Services</a>
-    </li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.index') }}" class="nav-link text-white">Home</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.invoices') }}" class="nav-link text-white">Invoices</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.services') }}" class="nav-link text-white">Services</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.tickets') }}" class="nav-link text-white">Tickets</a>
+</li>
 @endsection
 
 @section('content')

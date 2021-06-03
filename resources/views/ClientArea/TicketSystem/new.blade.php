@@ -14,15 +14,31 @@ Submit a Ticket
 @section('header-breadcrumb')
 <ol class="pull-right market-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Submit a Ticket</li>
+    <li class="breadcrumb-item"><a href="{{ route('clientarea.index') }}">Client Area</a></li>
+    <li class="breadcrumb-item" aria-current="page">Submit a Ticket</li>
 </ol>
+@endsection
+
+@section('smallbar')
+<li class="nav-item">
+    <a href="{{ route('clientarea.index') }}" class="nav-link text-white">Home</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.invoices') }}" class="nav-link text-white">Invoices</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.services') }}" class="nav-link text-white">Services</a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('clientarea.tickets') }}" class="nav-link text-white">Tickets</a>
+</li>
 @endsection
 
 @section('content')
 <div class="primary-section">
     <div class="row justify-content-center">
         <div class="col-10">
-            <form method="POST" action="{{ route('ticket.new.create') }}">
+            <form method="POST" action="{{ route('clientarea.ticket.new.create') }}">
             @csrf
             <div class="row">
                 <div class="col-6">
