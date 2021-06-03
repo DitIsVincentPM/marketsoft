@@ -58,7 +58,7 @@ window.onload = function () {
                                                         'Sent By: ' + user["firstname"] + " " + user["lastname"] +
                                                         '</div>' +
                                                         '<div class="col-6 text-right">' +
-                                                        'Sent: ' + item["created_at"].split(" ")[0].replace("-", "/").replace("-", "/")  +
+                                                        'Sent: ' + item["created_at"].split("T")[0]  +
                                                         '</div>' +
                                                         '</div>' +
                                                         '</div>' +

@@ -298,7 +298,7 @@ class Controller extends BaseController
     {
         return json_encode(Knowledgebase::where('id', $request->get('id'))->first());
     }
-    
+
     public function knowledgebasecategoryget(Request $request)
     {
         return json_encode(Knowledgebase_Categories::where('id', $request->get('id'))->first());

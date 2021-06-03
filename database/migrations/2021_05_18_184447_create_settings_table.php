@@ -17,6 +17,7 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->string('key');
             $table->string('value')->nullable();
+            $table->timestamps();
         });
 
         DB::table('settings')->insert(
