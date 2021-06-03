@@ -76,22 +76,6 @@ Tickets
                         </h5>
                     </div>
                 </div>
-                <div class="card shadow">
-                    <div class="card-header">
-                        <div class="pull-left mt-1">
-                            Send a Admin Whisper
-                        </div>
-                        <form method="POST" action="{{ route('admin.tickets.whisper', $tickets->id) }}">
-                            @csrf
-                            <div class="pull-right">
-                                <button type="submit" class="btn btn-primary btn-sm">Send Whisper</button>
-                            </div>
-                    </div>
-                    <div class="card-body" style="1.00rem">
-                        <textarea rows="5" style="border-radius: 5px;" placeholder="Hello! I purchased an item on the website today and haven't recieved it in my account purchases for download. Can I recieve some assistance?" class="ticket-reply-textbox form-control" name="message"></textarea>
-                    </div>
-                    </form>
-                </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
                 <div class="card shadow">
