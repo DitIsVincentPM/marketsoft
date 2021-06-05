@@ -163,31 +163,18 @@
                     "October", "November", "December"
                 ],
                 datasets: [{
-                    data: [{{ $newusers[0] }}, {{ $newusers[1] }}, {{ $newusers[2] }},
-                        {{ $newusers[3] }}, {{ $newusers[4] }}, {{ $newusers[5] }},
-                        {{ $newusers[6] }}, {{ $newusers[7] }}, {{ $newusers[8] }},
-                        {{ $newusers[9] }}, {{ $newusers[10] }}, {{ $newusers[11] }}
-                    ],
-                    label: "New Users",
-                    fill: true,
-                    backgroundColor: 'rgba(62, 149, 205, 0.7)',
-                    pointRadius: 0,
-                    borderWidth: 1,
-                    pointHitRadius: 20,
-                    borderColor: 'rgba(0, 0, 0, 0.2)',
-                }, {
                     data: [{{ $sales[0] }}, {{ $sales[1] }}, {{ $sales[2] }},
                         {{ $sales[3] }}, {{ $sales[4] }}, {{ $sales[5] }},
                         {{ $sales[6] }}, {{ $sales[7] }}, {{ $sales[8] }},
                         {{ $sales[9] }}, {{ $sales[10] }}, {{ $sales[11] }}
                     ],
-                    label: "Sales",
+                    label: "Revenue",
                     fill: true,
-                    backgroundColor: 'rgba(36, 123, 255, 0.7)',
+                    backgroundColor: 'rgba(36, 123, 255, 0.6)',
                     pointRadius: 0,
                     pointHitRadius: 20,
-                    borderWidth: 1,
-                    borderColor: 'rgba(0, 0, 0, 0.2)',
+                    borderWidth: 3,
+                    borderColor: 'rgba(0, 0, 0, 0.1)',
                 }]
             },
             options: {

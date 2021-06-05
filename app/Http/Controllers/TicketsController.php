@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Team;
 use Auth;
 use Carbon\Carbon;
+use App\Helpers\WebSockets;
+use Doctrine\Inflector\Rules\Word;
 
 class TicketsController
 {
@@ -26,7 +28,7 @@ class TicketsController
         $categories = DB::table('ticket_categories')->latest()->get();
 
         if (!Auth::check()) {
-            return redirect()->route('auth.login')->with('error',"You need to be logged in to create a ticket!");
+            return redirect()->route('auth.login')->with('error', "You need to be logged in to create a ticket!");
         }
 
         return view('ClientArea.TicketSystem.new', [
@@ -65,11 +67,11 @@ class TicketsController
         $categories = DB::table('ticket_categories')->latest()->get();
         $roles = DB::table('roles')->get();
 
-        if($tickets == null) {
+        if ($tickets == null) {
             return redirect()->route('clientarea.tickets')->with('error', "This ticket does not exist.");
         }
 
-        if($tickets->user_id != Auth::user()->id) {
+        if ($tickets->user_id != Auth::user()->id) {
             return redirect()->route('clientarea.tickets')->with('error', "This is not your ticket, you cannot view it!");
         }
 
@@ -82,13 +84,13 @@ class TicketsController
         ]);
     }
 
-    public function TicketReplyCreate (Request $request, $id)
+    public function TicketReplyCreate(Request $request, $id)
     {
         $message = $request->input('message');
         $user_id = Auth::user()->id;
         $tickets = DB::table('tickets')->where('id', $id)->first();
 
-        if($tickets->status == 3) {
+        if ($tickets->status == 3) {
             return redirect()->route('clientarea.ticket.view', $id)->with('error', "This ticket is closed, you cannot reply!");
         }
 

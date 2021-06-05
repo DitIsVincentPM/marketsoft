@@ -149,8 +149,5 @@ Ticket #{{ $tickets->id }}
     </div>
 </div>
 <input id="ticket_id" value="{{ $tickets->id }}" hidden></input>
-@endsection
-
-@section('scripts')
 <script src="/js/API/ticket.js"></script>
 @endsection

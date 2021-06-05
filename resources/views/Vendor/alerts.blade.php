@@ -32,7 +32,6 @@
             @endif
         })
     };
-    refresh();
     @endif
 
     function alert(alert) {

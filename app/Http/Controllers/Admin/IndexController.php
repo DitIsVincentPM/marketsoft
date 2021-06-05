@@ -26,8 +26,7 @@ class IndexController extends BaseController
         $users = Users::get();
         $products = Products::latest()->paginate(3);
 
-        $chart_users = Charts::generate('users');
-        $chart_sales = Charts::generate('ca_ownedProducts');
+        $chart_sales = Charts::generate_invoices();
 
         $version = GetExternals::getversionstring();
 
@@ -45,7 +44,6 @@ class IndexController extends BaseController
             'roles' => $roles,
             'products' => $products,
             'role_permissions' => $role_permissions,
-            'newusers' => $chart_users,
             'sales' => $chart_sales,
             'users_online' => $users_online,
             'version' => $version,
